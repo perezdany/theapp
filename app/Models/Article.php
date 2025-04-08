@@ -15,4 +15,10 @@ class Article extends Model
         'id_typearticle',
         'id_user',
     ];
+
+    public function cotations()
+    {
+        return $this->belongsToMany(Cotation::class);
+
+    }
 }

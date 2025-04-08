@@ -16,7 +16,7 @@
                 <b><i class="fa fa-plus"></i>Entreprise</b></button> <br>
                 <a href="customers" style="color:blue"><u>Rétablir<i class="fa fa-retweet" aria-hidden="true"></i></u></a> &emsp;&emsp; <label>Filtrer par:</label>
                 <div class="row">
-                    Date d'évènement:
+                    Date de création:
                     <div class="col-xs-2">
                         <select class="" id="compare" wire:model.live.debounce.250ms="compare">
                             <option value="">Choisir</option>

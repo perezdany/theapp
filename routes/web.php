@@ -20,6 +20,18 @@ use App\Http\Controllers\DepenseController;
 
 use App\Http\Controllers\CustomerController;
 
+use App\Http\Controllers\CotationController;
+
+use App\Http\Controllers\FactureController;
+
+use App\Http\Controllers\PaiementController;
+
+use App\Http\Controllers\FonctionController;
+
+use App\Http\Controllers\InterlocuteurController;
+
+use App\Http\Controllers\ProjetController;
+
 
 Route::middleware(['guest'])->group(function(){
 
@@ -157,4 +169,125 @@ Route::middleware(['auth'])->group(function(){
             //SUPPRIMER LE CLIENT
             Route::post('deletecustomer', [CustomerController::class, 'TryDelete']);
 
-});
+            //LES DEVIS
+            Route::get('devis', function () {
+                return view('admins/devis');
+            });
+
+
+            Route::get('add_devis', function () {
+                return view('forms/add_devis');
+            });
+
+            //AJOUTER UN DEVIS
+            Route::post('add_devis', [CotationController::class, 'AddDevis']);
+
+            //ALLER AU FORMULAIRE DE MODIFICATION DES LIGNES
+            //Route::post('edit_lines', [CotationController::class, 'GoFormLines']);
+
+            //MODIFIER LES LIGNES DU DEVIS
+            Route::post('edit_lines', [CotationController::class, 'EditLines']);
+
+            //ALLER AU FORMULAIRE DE MODIFI DE LA COTATION
+            Route::post('editcotation', [CotationController::class, 'GoEdit']);
+
+            //MODIFIER LE DEVIS
+            Route::post('edit_devis', [CotationController::class, 'EditDevis']);
+
+            //SUPPRIMER LE DEVIS
+            Route::post('deletedevis', [CotationController::class, 'TryDelete']);
+            
+            //VOIR LES DETAILS DU DEVIS
+            Route::post('see_devis', [CotationController::class, 'GoDetails']);
+
+            //ACTIVER LA TAXE AVEC L'ID DU DEVIS
+            Route::post('manage_taxe', [CotationController::class, 'EnableTaxe']);
+
+             //ACTIVER LA TAXE AVEC L'ID DU DEVIS
+            Route::post('manage_taxes', [CotationController::class, 'EnableTVA']);
+            
+            //AJOUTER UN SERVICE 
+            Route::post('addaservice', [CotationController::class, 'AddaService']);
+
+            //AJOUTER UN ARTICLE
+            Route::post('addanarticle', [CotationController::class, 'addanarticle']);
+
+            //IMPRIMER LE DEVIS
+            Route::post('print_devis', [CotationController::class, 'PrintDevis']);
+
+            //VALIDER LE DEVIS ET GENERER UNE FACTURE
+            Route::post('gocreateinvoice', [FactureController::class, 'CreateInvoice']);
+
+            //IMPRIMER LA FACTURE
+            Route::post('print_invoice', [FactureController::class, 'PrintInvoice']);
+
+            //TABLEAU DES FACTURES
+            Route::get('factures', function () {
+                return view('admins/factures');
+            });
+
+            //UPLOAD FICHIER DE FACTURE
+            Route::post('uploadfileinvoice', [FactureController::class, 'upload']);
+
+            //APERCU DU FICHIER
+            Route::post('dld_invoice', [FactureController::class, 'View']);
+
+            //SUPPRIMER LA FACTURE
+            Route::post('deletefacture', [FactureController::class, 'TryDelete']);
+
+            Route::post('paiement_form', [PaiementController::class, 'GoForm']);
+
+            //SUPPRIMER LES PAIEMENS
+            Route::post('delete_paiement', [PaiementController::class, 'DeletePaiement']);
+        
+            //PAYER
+            Route::post('do_paiement', [PaiementController::class, 'DoPaiement']);
+
+            //EDITER UN PAIEMENT
+            Route::post('edit_paiement_form', [PaiementController::class, 'EditPaiementForm']);
+
+            Route::post('p_edit', [PaiementController::class, 'EditForm']);
+
+            Route::post('updatepaiement', [PaiementController::class, 'UpdatePaiement']);
+
+            Route::post('edit_paiement', [PaiementController::class, 'EditPaiement']);
+
+            //TABLEAU DES PAIEMENTS
+            Route::get('paiements', function () {
+                return view('finances/paiements');
+            });
+
+            //SUPPRIMER LE PAIEMENT
+            Route::post('deletepaiement', [PaiementController::class, 'DeletePaiement']);
+
+            //LES FONCTIONS
+            Route::get('fonctions', function () {
+                return view('admins/fonctions');
+            });
+
+            //SUPPRIMER UNE FONCTION
+            Route::post('deletefonction', [FonctionController::class, 'deletefonction']);
+
+            //LES INTERLOCUTEURS
+            Route::get('interlocuteurs', function () {
+                return view('admins/interlocuteurs');
+            });
+
+            //SUPPRIMER L'INTERLOCUTEUR
+            Route::post('deleteinterlocuteur', [InterlocuteurController::class, 'delete']);
+
+            //LES PROJETS
+            Route::get('projets', function () {
+                return view('admins/projets');
+            });
+
+            //LES FOURNISSEURS
+            Route::get('fournisseurs', function () {
+                return view('admins/fournisseurs');
+            });
+
+            //SUPPRIMER LE PROJET
+            Route::post('deleteprojet', [ProjetController::class, 'delete']);
+
+
+}); 

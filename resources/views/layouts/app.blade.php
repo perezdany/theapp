@@ -41,6 +41,12 @@
                     </div>
                   @endif
 
+                  @if(isset($success))
+                    <div class="alert alert-success col-md-12">
+                      {{$success}}
+                    </div>
+                  @endif
+
                   @if(session('warn'))
                     <div class="alert alert-warning col-md-12">
                       {{session('warn')}}
@@ -103,6 +109,9 @@
   <!--ion icon-->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!--full calendar-->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
 
   <!-- AdminLTE for demo purposes -->
   <!--<script src="dist/js/demo.js"></script>-->

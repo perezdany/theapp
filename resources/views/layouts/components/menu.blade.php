@@ -1,7 +1,7 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">The App</span>
     </a>
@@ -23,14 +23,7 @@
               </p>
             </a>
           </li>
-           <li class="nav-item">
-            <a href="customers" class="nav-link">
-              <i class="nav-icon fa fa-users"></i>
-              <p>
-                Clients
-              </p>
-            </a>
-          </li>
+          
           <li class="nav-item">
             <a href="devis" class="nav-link">
               <i class="nav-icon fa fa-file-invoice"></i>
@@ -40,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="customers" class="nav-link">
+            <a href="factures" class="nav-link">
               <i class="nav-icon fas fa-receipt"></i>
               <p>
                 Factures
@@ -48,15 +41,24 @@
             </a>
           </li>
            <li class="nav-item">
-            <a href="customers" class="nav-link">
+            <a href="paiements" class="nav-link">
               <i class="nav-icon fa fa-money-bill"></i>
               <p>
                 Paiements
               </p>
             </a>
           </li>
-           <li class="nav-item">
-            <a href="customers" class="nav-link">
+          
+          <li class="nav-item">
+            <a href="projets" class="nav-link">
+              <i class="nav-icon fa fa-folder"></i>
+              <p>
+                Projets
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="suivi" class="nav-link">
               <i class="nav-icon fa fa-calendar"></i>
               <p>
                 Suivi Commercial
@@ -64,21 +66,68 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="depenses" class="nav-link">
-              <i class="nav-icon fa fa-money-bill"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-gift"></i>
               <p>
-                Dépenses
+                Gestions
+                <i class="fas fa-angle-left right"></i>
+                
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="customers" class="nav-link">
+                  <i class="nav-icon fa fa-users"></i>
+                  <p>
+                    Clients
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="interlocuteurs" class="nav-link">
+                  <i class="nav-icon fa fa-users"></i>
+                  <p>
+                    Interlocuteurs
+                  </p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="fonctions" class="nav-link">
+                  <i class="nav-icon fa fa-info"></i>
+                  <p>
+                    Fonction d'interlocuteurs
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="fournisseurs" class="nav-link">
+                  <i class="nav-icon fa fa-users"></i>
+                  <p>
+                    Fournisseurs
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="depenses" class="nav-link">
+                  <i class="nav-icon fa fa-money-bill"></i>
+                  <p>
+                    Dépenses
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="services" class="nav-link">
+                  <i class="nav-icon fa fa-gavel"></i>
+                  <p>
+                    Services
+                  </p>
+                </a>
+              </li>
+             
+            </ul>
           </li>
-          <li class="nav-item">
-            <a href="services" class="nav-link">
-              <i class="nav-icon fa fa-gavel"></i>
-              <p>
-                Services
-              </p>
-            </a>
-          </li>
+         
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-gift"></i>
@@ -134,7 +183,31 @@
             
             </ul>
           </li>
-         
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-gift"></i>
+              <p>
+                Graphes
+                <i class="fas fa-angle-left right"></i>
+                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Chiffre d'affaire Mensuel</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="types" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Chiffre d'affaire Annuel</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
          
         </ul>
       </nav>

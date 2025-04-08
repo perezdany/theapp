@@ -13,4 +13,10 @@ class Service extends Model
         'libele_service', 'code', 'description', 'suspendu', 'id_user'
     ];
 
+    public function cotations()
+    {
+        return $this->belongsToMany(Cotation::class);
+
+    }
+
 }

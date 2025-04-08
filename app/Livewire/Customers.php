@@ -53,7 +53,7 @@ class Customers extends Component
     public function editmodalparticulier(Client $customer)
     {
         //dd('ici'); 
-        $this->editCustomer = $customer->toArray();
+        $this->editCustomerParticulier= $customer->toArray();
 
         $this->editOldValues = $this->editCustomerParticulier; //Mettre les valeurs ancienne dedans
 
@@ -129,18 +129,20 @@ class Customers extends Component
 
     public function updateParticulier()
     {
-        //dd($this->editCustomer['date_virement']);
-        $affected = DB::table('depenses')
-        ->where('id', $this->editCustomer['id'])
+        //dd($this->editCustomerParticulier);
+        $affected = DB::table('clients')
+        ->where('id', $this->editCustomerParticulier['id'])
         ->update([
-            'nom' => $this->nom, 'adresse'=>$this->adresse, 
-                'id_statutclient' => $this->id_statutclient, 'particulier' => 0, 
-                'telephone' => $this->telephone, 'activite' => $this->activite, 'adresse_email' => $this->adresse_email, 
-            'id_user' => auth()->user()->id,
-            
+            'nom' => $this->editCustomerParticulier['nom'], 'adresse'=>$this->editCustomerParticulier['adresse'], 
+                'id_statutclient' => $this->editCustomerParticulier['id_statutclient'], 'particulier' => $this->editCustomerParticulier['particulier'], 
+                'telephone' => $this->editCustomerParticulier['telephone'], 'activite' => $this->editCustomerParticulier['activite'], 
+                'adresse_email' => $this->editCustomerParticulier['adresse_email'], 
+                   
         ]);
+
+        //dd($affected);
         //session()->flash('success', 'Modification effectuée');
-        $this->dispatch('showUpdSuccessMessage');
+        $this->dispatch('showAddSuccessMessage');
         $this->dispatch('closeUpdateModalParticulier');
 
     }
@@ -148,26 +150,68 @@ class Customers extends Component
     public function updateCustomer()
     {
         //dd($this->editCustomer['date_virement']);
-        $affected = DB::table('depenses')
+        $affected = DB::table('clients')
         ->where('id', $this->editCustomer['id'])
         ->update([
-            'nom' => $this->nom, 'adresse'=>$this->adresse, 
-            'id_statutclient' => $this->id_statutclient, 'particulier' => 1, 
-            'telephone' => $this->telephone, 'activite' => $this->activite, 'adresse_email' => $this->adresse_email, 
-            'adresse_facturation' => $this->adresse_facturation,  'numero_contribuable' => $this->numero_contribuable,  
+            'nom' => $this->editCustomer['nom'], 'adresse'=>$this->editCustomer['adresse'], 
+            'id_statutclient' => $this->editCustomer['id_statutclient'], 'particulier' => $this->editCustomer['particulier'], 
+            'telephone' => $this->editCustomer['telephone'], 'activite' => $this->editCustomer['activite'], 
+            'adresse_email' => $this->editCustomer['adresse_email'], 
+            'adresse_facturation' => $this->editCustomer['adresse_facturation'],  
+            'numero_contribuable' => $this->editCustomer['numero_contribuable'],  
             
         ]);
         //session()->flash('success', 'Modification effectuée');
-        $this->dispatch('showUpdSuccessMessage');
+        $this->dispatch('showAddSuccessMessage');
         $this->dispatch('closeUpdateModal');
 
     }
 
     public function render()
-    {
-        
+    {     
         $customerQuery = Client_statut::query();
-        //dd($customerQuery);
+        
+        if($this->search != "")
+        {
+            $customerQuery->where("nom", "LIKE", "%".$this->search."%")
+            ->orwhere("adresse", "LIKE", "%".$this->search."%")
+            ->orwhere("telephone", "LIKE", "%".$this->search."%")
+            ->orwhere("nom_prenoms", "LIKE", "%".$this->search."%");
+        }
+
+        if($this->user != "")
+        {
+            $customerQuery->where("id_user", $this->user);
+        }
+
+        if($this->statut != "")
+        {
+            $customerQuery->where("id_statutclient", $this->statut);
+        }
+
+        if($this->compare != "" AND $this->annee != "")
+        {
+            
+            if($this->compare == "=")
+            {
+                $annee = $this->annee."-01-01";
+                $annee_f = $this->annee."-12-31";
+             
+                $customerQuery->where("created_at", '<', $annee_f)->where("created_at", '>', $annee);
+            }
+            elseif($this->compare == "<")
+            {
+                $annee = $this->annee."-01-01";
+                $customerQuery->where("created_at", $this->compare,  $annee);
+            }
+            else
+            {
+                $annee = $this->annee."-12-31";
+                $customerQuery->where("created_at", $this->compare,  $annee);
+            }
+            
+        }
+
         return view('livewire.customers.index',  ['customers' => $customerQuery->orderBy($this->orderField, $this->orderDirection)->paginate(10)]);
     }
 }

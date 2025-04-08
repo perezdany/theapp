@@ -3,6 +3,8 @@
 @endphp
 
 <div>
+    @include('livewire.customers.edit')
+    @include('livewire.customers.editparticulier')
     @include('livewire.customers.detailsparticulier')
     @include('livewire.customers.details') 
     @include('livewire.customers.add')
@@ -31,6 +33,19 @@
 
             })
 
+            @this.on('showAddSuccessMessage', (event)=>{
+                Swal.fire({
+                position: 'top-end',
+                icon: "success",
+                toast: true,
+                title: "Opération effectuée avec succès!",
+                showCancelButton: false,
+                timer: 3000,
+                })
+
+              
+            })
+
             @this.on('addmodal', (event)=>{
                $("#addModal").modal(
                     {
@@ -41,7 +56,7 @@
 
             })
 
-             @this.on('addmodalparticulier', (event)=>{
+            @this.on('addmodalparticulier', (event)=>{
                $("#addModalParticulier").modal(
                     {
                         "show" : true, 
@@ -61,7 +76,7 @@
 
             })
 
-             @this.on('editmodalParticulier', (event)=>{
+             @this.on('editmodalparticulier', (event)=>{
                $("#editModalParticulier").modal(
                     {
                         "show" : true, 
@@ -91,19 +106,6 @@
 
             })
 
-            @this.on('showAddSuccessMessage', (event)=>{
-                Swal.fire({
-                position: 'top-end',
-                icon: "success",
-                toast: true,
-                title: "Opération effectuée avec succès!",
-                showCancelButton: false,
-                timer: 3000,
-                })
-
-              
-            })
-
             @this.on('closeAddModal', (event)=>{
                 $("#addModal").modal(
                    "hide"
@@ -126,7 +128,7 @@
             })
 
              @this.on('closeUpdateModalParticulier', (event)=>{
-               $("#editModal").modal(
+               $("#editModalParticulier").modal(
                    "hide"
                 )
 

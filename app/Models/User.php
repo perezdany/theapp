@@ -63,4 +63,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function suivis(): BelongsTomany
+    {
+        return $this->belongsToMany(related: Suivicommercial::class);
+    }
 }
