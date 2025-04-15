@@ -57,14 +57,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="suivi" class="nav-link">
-              <i class="nav-icon fa fa-calendar"></i>
-              <p>
-                Suivi Commercial
-              </p>
-            </a>
-          </li>
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-gift"></i>
@@ -127,7 +120,34 @@
             </ul>
           </li>
          
-
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-calendar"></i>
+              <p>
+                Suivi commercial
+                <i class="fas fa-angle-left right"></i>
+                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="suivi" class="nav-link">
+                  <i class="nav-icon fa fa-calendar"></i>
+                  <p>
+                   Calendrier
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="suivi_table" class="nav-link">
+                  <i class="nav-icon fas fa-table"></i>
+                  <p>Tableau récapitulatif</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-gift"></i>

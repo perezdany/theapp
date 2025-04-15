@@ -64,8 +64,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function suivis(): BelongsTomany
+    /**public function suivis(): BelongsTomany
     {
         return $this->belongsToMany(related: Suivicommercial::class);
-    }
+    }**/
 }

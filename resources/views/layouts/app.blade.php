@@ -1,11 +1,12 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <!--begin::Head-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The App</title>
+  <meta name="_token" content="{!! csrf_token() !!}" />
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -15,6 +16,9 @@
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+  <!--full calendar-->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
 </head>
   <!--end::Head-->
   <!--begin::Body-->
@@ -64,7 +68,7 @@
           </div><!--/. container-fluid -->
         </section>
         <!-- /.content -->
-        
+       
       </div>
       
       <!--begin::Footer-->
@@ -106,12 +110,15 @@
   <!-- ChartJS -->
   <script src="plugins/chart.js/Chart.min.js"></script>
 
+  <!--moment js-->
+  <script src="plugins/moment/moment.min.js"></script>
+  <script src="plugins/moment/locale/fr.js"></script>
+
   <!--ion icon-->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-  <!--full calendar-->
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+
 
   <!-- AdminLTE for demo purposes -->
   <!--<script src="dist/js/demo.js"></script>-->

@@ -10,7 +10,6 @@ use App\Models\Projet_user;
 
 use Livewire\WithPagination;
 
-
 class Projets extends Component
 {
     use WithPagination; //POUR LA PAGINATION

@@ -10,18 +10,12 @@ class Suivicommercial extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'id', 'title', 'colour', 
-        'starts_at', 'ends_at', 
+        'id', 'title', 'color', 
+        'start', 'end', 
         'id_projet', 'id_fournisseur', 
         'id_client',  'id_user'
     ];
 
-    protected $casts = [
-        'starts_at' => 'datetime', 'ends_at' => 'datetime', 
-    ];
-
-    public function users(): BelongsTomany
-    {
-        return $this->belongsToMany(related: User::class);
-    }
+   
+    
 }

@@ -1,0 +1,9 @@
+CREATE VIEW suivi_users
+(id, title, color, start, end, id_projet, id_fournisseur, id_client, created_at, id_user, nom_prenoms)
+AS SELECT suivicommercials.id, suivicommercials.title, suivicommercials.color, 
+suivicommercials.start, suivicommercials.end, suivicommercials.id_projet, suivicommercials.id_fournisseur, 
+suivicommercials.id_client, suivicommercials.created_at, suivicommercials.id_user,
+users.nom_prenoms
+
+FROM users users, suivicommercials suivicommercials
+WHERE suivicommercials.id_user=users.id

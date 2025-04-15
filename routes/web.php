@@ -32,6 +32,8 @@ use App\Http\Controllers\InterlocuteurController;
 
 use App\Http\Controllers\ProjetController;
 
+use App\Http\Controllers\SuiviController;
+
 
 Route::middleware(['guest'])->group(function(){
 
@@ -288,6 +290,24 @@ Route::middleware(['auth'])->group(function(){
 
             //SUPPRIMER LE PROJET
             Route::post('deleteprojet', [ProjetController::class, 'delete']);
+
+            //SUIVI DES COMMERCIAUX
+            Route::get('suivi', function () {
+                return view('admins/suivis');
+            });
+
+            //ROUTE D'AJOUT D'EVENEMENT DANS LE CALENDRIER
+            Route::post('addsuivi', [SuiviController::class, 'Add']);
+            //MODIFICATION EN GLISSANT DANS LE CALENDRIER
+            Route::patch('updatesuivi/{id}', [SuiviController::class, 'UpdateSuivi']);
+
+            //EN CLIQUANT TU SUPPRIME DANS LE CALENDRIER 
+            Route::delete('delete/{id}', [SuiviController::class, 'deleteSuivi']);
+
+            //LE TABLEAU 
+            Route::get('suivi_table', function () {
+                return view('admins/suivitable');
+            });
 
 
 }); 
