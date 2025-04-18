@@ -155,7 +155,7 @@ class UserController extends Controller
         ->where('id', $request->id_user)
         ->update(['active' =>  0, ]);
 
-        return redirect('users')->with('success', 'Utilisateur désactivé');
+        return back()->with('success', 'Utilisateur désactivé');
     }
 
     public function EnableUser(Request $request)
@@ -164,7 +164,7 @@ class UserController extends Controller
         ->where('id', $request->id_user)
         ->update(['active' =>  1, ]);
 
-        return redirect('users')->with('success', 'Utilisateur activé');
+        return back()->with('success', 'Utilisateur activé');
     }
     
     public function GetAll()

@@ -1,3 +1,11 @@
+@php
+    use App\Http\Controllers\Calculator;
+    use App\Http\Controllers\FactureController;
+    use App\Http\Controllers\ArticleController;
+    $calculator = new Calculator();
+    $facturecontroller = new FactureController();
+    $articlecontroller = new ArticleController();
+@endphp
 @extends('layouts.app')
 
 
@@ -20,14 +28,16 @@
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
-            <span class="info-box-icon text-bg-primary shadow-sm">
-            <i class="bi bi-gear-fill"></i>
-            </span>
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-file-invoice"></i></span>
+
             <div class="info-box-content">
-            <span class="info-box-text">CPU Traffic</span>
+            <span class="info-box-text">Factures</span>
             <span class="info-box-number">
-                10
-                <small>%</small>
+                @php
+                    $f = $calculator->CountFacture();
+                @endphp
+                {{$f}}
+                <!--<small>%</small>-->
             </span>
             </div>
             <!-- /.info-box-content -->
@@ -37,12 +47,15 @@
         <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
-            <span class="info-box-icon text-bg-danger shadow-sm">
-            <i class="bi bi-hand-thumbs-up-fill"></i>
-            </span>
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
             <div class="info-box-content">
-            <span class="info-box-text">Likes</span>
-            <span class="info-box-number">41,410</span>
+            <span class="info-box-text">Article</span>
+            <span class="info-box-number">
+                @php
+                    $a = $calculator->CountArticle();
+                @endphp
+                {{$a}}
+            </span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -53,12 +66,16 @@
         <!-- <div class="clearfix hidden-md-up"></div> -->
         <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
-            <span class="info-box-icon text-bg-success shadow-sm">
-            <i class="bi bi-cart-fill"></i>
-            </span>
+            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
             <div class="info-box-content">
-            <span class="info-box-text">Sales</span>
-            <span class="info-box-number">760</span>
+            <span class="info-box-text">Clients</span>
+            <span class="info-box-number">
+                @php
+                    $c = $calculator->CountCustomer();
+                @endphp
+                {{$c}}
+            </span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -67,12 +84,15 @@
         <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
-            <span class="info-box-icon text-bg-warning shadow-sm">
-            <i class="bi bi-people-fill"></i>
-            </span>
+            <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-bullseye "></i></span>
             <div class="info-box-content">
-            <span class="info-box-text">New Members</span>
-            <span class="info-box-number">2,000</span>
+            <span class="info-box-text">Prospects</span>
+            <span class="info-box-number">
+                @php
+                    $p = $calculator->CountProspect();
+                @endphp
+                {{$p}}
+            </span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -85,12 +105,12 @@
     <!--begin::Row-->
     <div class="row">
         <!-- Start col -->
-        <div class="col-md-8">
+        <div class="col-md-6">
         
             <!--begin::Latest Order Widget-->
             <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Latest Orders</h3>
+                <h3 class="card-title">Factures pas encore reglées</h3>
                 <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
                     <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -107,97 +127,30 @@
                 <table class="table m-0">
                     <thead>
                     <tr>
-                        <th>Order ID</th>
-                        <th>Item</th>
-                        <th>Status</th>
-                        <th>Popularity</th>
+                        <th>Numéro</th>
+                        <th>Client</th>
+                        <th>Montant</th>
+                        <th>Date d'émission</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR9842</a
-                        >
-                        </td>
-                        <td>Call of Duty IV</td>
-                        <td><span class="badge text-bg-success"> Shipped </span></td>
-                        <td><div id="table-sparkline-1"></div></td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR1848</a
-                        >
-                        </td>
-                        <td>Samsung Smart TV</td>
-                        <td><span class="badge text-bg-warning">Pending</span></td>
-                        <td><div id="table-sparkline-2"></div></td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR7429</a
-                        >
-                        </td>
-                        <td>iPhone 6 Plus</td>
-                        <td><span class="badge text-bg-danger"> Delivered </span></td>
-                        <td><div id="table-sparkline-3"></div></td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR7429</a
-                        >
-                        </td>
-                        <td>Samsung Smart TV</td>
-                        <td><span class="badge text-bg-info">Processing</span></td>
-                        <td><div id="table-sparkline-4"></div></td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR1848</a
-                        >
-                        </td>
-                        <td>Samsung Smart TV</td>
-                        <td><span class="badge text-bg-warning">Pending</span></td>
-                        <td><div id="table-sparkline-5"></div></td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR7429</a
-                        >
-                        </td>
-                        <td>iPhone 6 Plus</td>
-                        <td><span class="badge text-bg-danger"> Delivered </span></td>
-                        <td><div id="table-sparkline-6"></div></td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR9842</a
-                        >
-                        </td>
-                        <td>Call of Duty IV</td>
-                        <td><span class="badge text-bg-success">Shipped</span></td>
-                        <td><div id="table-sparkline-7"></div></td>
-                    </tr>
+                        @php
+                            $nr = $facturecontroller->GetNoreglee();
+                        @endphp
+                        @foreach($nr as $facture)
+                            @if($facture->numero_facture == NULL)
+                            @else
+                            <tr>
+                                <td>
+                                    {{$facture->numero_facture}}
+                                </td>
+                                <td>{{$facture->nom}}</td>
+                                <td>{{$facture->montant_facture}}</td>
+                                <td>{{$facture->date_emission}}</td>
+                            </tr>
+                            @endif
+                        @endforeach
+
                     </tbody>
                 </table>
                 </div>
@@ -205,11 +158,11 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-primary float-start">
-                Place New Order
+                <a href="devis" class="btn btn-sm btn-primary float-start">
+                    Ajouter une facture
                 </a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-end">
-                View All Orders
+                <a href="factures" class="btn btn-sm btn-secondary float-end">
+                    Voir tout
                 </a>
             </div>
             <!-- /.card-footer -->
@@ -217,13 +170,13 @@
             <!-- /.card -->
         </div>
         <!-- /.col -->
-        <div class="col-md-4">
+        <div class="col-md-6">
         
         
         <!-- PRODUCT LIST -->
         <div class="card">
             <div class="card-header">
-            <h3 class="card-title">Recently Added Products</h3>
+            <h3 class="card-title">Articles récemment ajoutés</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
                 <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -241,97 +194,28 @@
                 <table class="table m-0">
                     <thead>
                     <tr>
-                        <th>Order ID</th>
-                        <th>Item</th>
-                        <th>Status</th>
+                        <th>Code</th>
+                        <th>Désignation</th>
+                        <th>Type</th>
                         
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR9842</a
-                        >
-                        </td>
-                        <td>Call of Duty IV</td>
-                        <td><span class="badge text-bg-success"> Shipped </span></td>
-                    
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR1848</a
-                        >
-                        </td>
-                        <td>Samsung Smart TV</td>
-                        <td><span class="badge text-bg-warning">Pending</span></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR7429</a
-                        >
-                        </td>
-                        <td>iPhone 6 Plus</td>
-                        <td><span class="badge text-bg-danger"> Delivered </span></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR7429</a
-                        >
-                        </td>
-                        <td>Samsung Smart TV</td>
-                        <td><span class="badge text-bg-info">Processing</span></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR1848</a
-                        >
-                        </td>
-                        <td>Samsung Smart TV</td>
-                        <td><span class="badge text-bg-warning">Pending</span></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR7429</a
-                        >
-                        </td>
-                        <td>iPhone 6 Plus</td>
-                        <td><span class="badge text-bg-danger"> Delivered </span></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>
-                        <a
-                            href="pages/examples/invoice.html"
-                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            >OR9842</a
-                        >
-                        </td>
-                        <td>Call of Duty IV</td>
-                        <td><span class="badge text-bg-success">Shipped</span></td>
-                    
-                    </tr>
+
+                        @php
+                            $articles = $articlecontroller->GetLastest();
+                        @endphp
+                        @foreach($articles as $article)
+                          
+                            <tr>
+                                <td><b>{{$article->code}}</b> </td>
+                                <td>{{$article->designation}}</td>
+                                <td>{{$article->libele}}</td>
+                               
+                            </tr>
+                          
+                        @endforeach
+
                     </tbody>
                 </table>
                 </div>
@@ -340,7 +224,7 @@
             <!-- /.card-body -->
             
             <div class="card-footer text-center">
-            <a href="javascript:void(0)" class="uppercase"> View All Products </a>
+            <a href="articles" class="uppercase"> Voir tous les articles </a>
             </div>
             <!-- /.card-footer -->
         </div>

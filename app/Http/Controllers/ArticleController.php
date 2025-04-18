@@ -30,4 +30,15 @@ class ArticleController extends Controller
             return back()->with('error', 'Vous ne pouvez pas supprimer cet article. En effet, un devis contient ce article');
         }
     }
+
+    public function GetLastest()
+    {
+        $get = DB::table('articles')
+            ->join('typearticles', 'articles.id_typearticle', '=', 'typearticles.id')
+            ->orderBy('created_at', 'DESC')
+            ->limit(10)
+            ->get(['articles.*', 'typearticles.libele']);
+
+        return $get;
+    }
 }

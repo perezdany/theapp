@@ -210,4 +210,14 @@ class FactureController extends Controller
        
         return $get;
     }
+
+    public function GetNoreglee()
+    {
+        $get =DB::table('factures')
+            ->join('cotations', 'factures.id_cotation', '=', 'cotations.id')
+            ->join('clients', 'cotations.id_client', '=', 'clients.id' )
+            ->limit(10)
+            ->where('reglee', 0)->where('annulee', 0)->get(['factures.*', 'clients.nom']);
+        return $get;
+    }
 }
