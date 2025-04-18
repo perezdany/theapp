@@ -72,4 +72,15 @@ class SuiviController extends Controller
         return response($findit);//->json('Modification effectuée');;
    
     }
+
+    public function DestroySuivi(Request $request)
+    {
+        //dd('icio');
+        $f = Suivicommercial::find($request->id);
+        
+        Suivicommercial::destroy($request->id);
+
+        return back()->with('success', 'Elément supprimée');
+
+    }
 }

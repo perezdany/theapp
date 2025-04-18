@@ -62,7 +62,7 @@ class CotationController extends Controller
         return view('forms/add_ligne_devis',[
             'id_devis' => $create->id,
             'success' => 'Enregistrement du devis effectué. 
-            Veuillez rensegner les détails du service ou cliquez sur retour pour renseigner plus tard'
+            Veuillez renseigner les détails du service ou cliquez sur retour pour renseigner plus tard'
         ]);
     }
 
@@ -227,6 +227,7 @@ class CotationController extends Controller
 
     public function AddLines(Request $request)
     {
+        //dd($request->all());
         $servs = DB::table('services')->get();
         if(isset($request->service8))
         {

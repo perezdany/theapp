@@ -43,6 +43,7 @@
                 events: suivi,
                 editable: true,
                 selectable: true,
+                eventTextColor: '#fff',
                 //selectHelper : true,
                 dateClick: function(info) {
                     /*alert('Clicked on: ' + info.dateStr);

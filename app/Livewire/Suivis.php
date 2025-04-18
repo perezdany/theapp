@@ -62,7 +62,8 @@ class Suivis extends Component
                 'id_projet' => $event->id_projet,
                 'id_fournisseur' => $event->id_fournisseur,
                 'id_client' => $event->id_client,
-                'id_user' => $event->id_user
+                'id_user' => $event->id_user,
+                
             ];
         }
         //dd($events);

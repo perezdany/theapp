@@ -7,14 +7,12 @@
 <div class="row">
     
     <div class="col-12">
-       
+        <a href="suivi"><button class="btn btn-info" >
+            <b><i class="fa fa-calendar"></i> ALLER AU CALENDRIER</b></button>
+        </a><br>
         <div class="card">
          
             <div class="card-header"><h3 class="card-title">Liste des suivis</h3><br>
-            
-              <!--<button class="btn btn-primary" wire:click="addmodal" >
-                <b><i class="fa fa-plus"></i></b></button><br>-->
-              
                 <a href="suivi_table" style="color:blue"><u>Rétablir<i class="fa fa-retweet" aria-hidden="true"></i></u></a> &emsp;&emsp; <label>Filtrer par:</label>
                 <div class="row">
                     Date de création:

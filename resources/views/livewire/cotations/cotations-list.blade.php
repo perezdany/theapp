@@ -328,7 +328,7 @@
                                                                 @endphp
                                                                 @if($infos != 0)
                                                                     @php
-                                                                        echo 'ssuper';
+                                                                        
                                                                         $infos = DB::table('cotation_article')
                                                                         ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
                                                                         ->where('cotation_id', $cotation->id)

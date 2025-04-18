@@ -184,6 +184,9 @@ Route::middleware(['auth'])->group(function(){
             //AJOUTER UN DEVIS
             Route::post('add_devis', [CotationController::class, 'AddDevis']);
 
+            //AJOUTER LES LIGNES DU DEVIS
+            Route::post('add_line_devis', [CotationController::class, 'AddLines']);
+
             //ALLER AU FORMULAIRE DE MODIFICATION DES LIGNES
             //Route::post('edit_lines', [CotationController::class, 'GoFormLines']);
 
@@ -308,6 +311,10 @@ Route::middleware(['auth'])->group(function(){
             Route::get('suivi_table', function () {
                 return view('admins/suivitable');
             });
+            
+            //SUPPRIMER LE SUIVI DANS LE TABLEAU
+            Route::post('deletesuivi', [SuiviController::class, 'DestroySuivi']);
+
 
 
 }); 
