@@ -30,9 +30,20 @@
         <div class="card">
          
             <div class="card-header"><h3 class="card-title">Liste des devis</h3><br>
+                <div class="row">
+                    <div  class="col-xs-3">
+                        <a href="add_devis"><button class="btn btn-primary">
+                         <b><i class="fa fa-plus"></i>DEVIS PRESTATIONS DE SERVICES</b></button><br></a>
             
-                <a href="add_devis"><button class="btn btn-primary">
-                <b><i class="fa fa-plus"></i></b></button><br></a>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="add_devis_vente" class="col-sm-3"><button class="btn btn-success">
+                        <b><i class="fa fa-plus"></i>DEVIS VENTE DE MATERIEL</b></button><br></a>
+                    </div>
+             
+                </div>
+          
+                 
               
                 <a href="devis" style="color:blue"><u>Rétablir<i class="fa fa-retweet" aria-hidden="true"></i></u></a> &emsp;&emsp; <label>Filtrer par:</label>
                 <div class="row">
@@ -108,12 +119,13 @@
                         <th>Date de validité</th>
                         <th>Client</th>
                         <th>Etat</th>
-                        <th>Ajouté par:</th>
+                        <th>Marq. comme rejeté</th>
+                        <th>Par:</th>
                         <th>Ajouter un service</th>
                         <th>Ajouter un article</th>
                         <th>Détails</th>
                         <th>Modifier les lignes</th>
-                        <th>Mod/Supp</th>
+                        <th>Mod/Supp/Valider</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,9 +138,77 @@
                         <td>
                             @if($cotation->valide == 1)
                                <span class="bg-success">Validé</span>
+                            @elseif($cotation->rejete == 1)
+                                <span class="bg-danger">Rejeté</span>
                             @else
-                               <span class="bg-danger">Pas validé</span>
+                                <span class="bg-danger">Pas validé</span>
+                                
                             @endif
+                        </td>
+                        <td>
+                           <button class="btn btn-info" 
+                            data-toggle="modal" data-target="#r{{$cotation->id}}" >
+                                <b><i class="fa fa-cogs"></i></b></button>
+                            <div class="modal fade" id="r{{$cotation->id}}"  
+                                wire:ignore.self  role="dialog" aria-hidden="true" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h4 class="modal-title">Marquer comme rejeté</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--begin::Form-->
+                                        <form method="post" action="updaterejeter">
+                                            <!--begin::Body-->
+                                            @csrf
+                                           
+                                            <input type="text" class="form-control" value="{{$cotation->id}}" wire-model="id" 
+                                            name="id" id="{{$cotation->id}}" style="display:none;">
+                                            
+                                            <div class="form-group">
+                                            <label>Rejeté:</label>
+                                                <select class="form-control" name="rejeter" required>
+                                                   
+                                                    @if($cotation->rejete == 0)
+                                                        <option value="0">NON</option>
+                                                        <option value="1">OUI</option> 
+                                                    @else
+                                                        <option value="1">OUI</option> 
+                                                        <option value="0">NON</option>
+                                                    @endif
+                                                        
+                                                </select>   
+                                            </div>
+
+                                            <div class="form-group">
+                                            <label>Motif:</label>
+                                                <textarea class="form-control" name="motif">
+                                                    {{$cotation->motif}}
+                                                </textarea>
+                                            </div>
+
+                                           
+                                            <div class=" row modal-footer justify-content-between" style="aling:center">
+                                            
+                                            <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
+                                    
+                                            <button type="submit"  class="btn btn-success col-md-3">Enregistrer</button>
+                                                    
+                                                
+                                            </div>
+                                            <!--end::Footer-->
+                                            
+                                        </form>
+                                        <!--end::Form-->
+                                    </div> 
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>    
+                            <!-- /.modal -->
                         </td>
                         <td>{{$cotation->nom_prenoms}}</td>
                         <td>
@@ -173,20 +253,19 @@
                                             </div>
 
                                             <div class="form-group">
-                                            <label>Durée en mois:</label>
-                                            <input type="number" name="mois" min="0" value="0"
+                                            <label>Durée:</label>
+                                            <input type="number" name="duree" min="0" value="0"
                                             class="form-control" placeholder="Entrez ..." >
                                             </div>
 
                                             <div class="form-group">
-                                            <label>Durée en jours:</label>
-                                            <input type="number" name="jours" min="0" value="0" 
-                                            class="form-control" placeholder="Entrez ..." >
-                                            </div>
-                                            <div class="form-group">
-                                            <label>Durée en semaines:</label>
-                                            <input type="number" name="semaines" min="0" value="0"
-                                            class="form-control" placeholder="Entrez ..." >
+                                            <label>Choisir:</label>
+                                            <select  class="form-control" name="duree_type" id="duree_type">
+                                                <option value="jours">Jours</option>
+                                                <option value="mois">Mois</option>
+                                                <option value="annees">Années</option>
+                                            </select>
+                                            
                                             </div>
                                             <div class=" row modal-footer justify-content-between" style="aling:center">
                                             
@@ -209,7 +288,7 @@
                             <!-- /.modal -->
                                
                         </td>
-                          <td>
+                        <td>
                             <button class="btn btn-success" 
                             data-toggle="modal" data-target="#article{{$cotation->id}}" >
                                 <b><i class="fa fa-plus"></i></b></button>
@@ -313,11 +392,11 @@
                                                 @if(isset($get_service))
                                                     @foreach($get_service as $service)
                                                     <div class="col-sm-3">
-                                                        @if($service->service_id == 8)
+                                                        @if($service->code == "MAT")
                                                        
                                                             <h3 class="card-title bg-warning"><b><u><i>{{$service->libele_service}}</i></u></b></h3><br>
                                                             <!-- text input -->
-                                                            <input type="text" value={{$service->service_id}} name="service{{$service->service_id}}" style="display:none;">
+                                                            <input type="text" value={{$service->service_id}} name="{{$service->code}}" style="display:none;">
                                                             <div class="form-group">
                                                                 @php
                                                                     $infos = DB::table('cotation_article')
@@ -374,32 +453,33 @@
                                                                 $infos = DB::table('cotation_service')
                                                                 ->join('services', 'cotation_service.service_id', '=', 'services.id')
                                                                 ->where('cotation_id', $cotation->id)->where('service_id', $service->service_id)
-                                                                ->get(['cotation_service.*']);
+                                                                ->get(['cotation_service.*', 'services.code']);
                                                                 //dd($infos);
                                                             @endphp
                                                             @foreach($infos as $info)
-                                                            <input type="text" value={{$service->service_id}} name="service{{$service->service_id}}" style="display:none;">
+                                                            <input type="text" value={{$service->service_id}} name="{{$service->code}}" style="display:none;">
                                                             <div class="form-group">
                                                             <label>Prix Hors taxe:</label>
-                                                            <input type="number" class="form-control"  name="prix_ht{{$service->service_id}}" value={{$info->prix_ht}} required>
+                                                            <input type="number" class="form-control"  name="prix_ht{{$service->code}}" value="{{$info->prix_ht}}" required>
                                                             </div>
 
                                                             <div class="form-group">
-                                                            <label>Durée en mois:</label>
-                                                            <input type="number" name="mois{{$service->service_id}}" value={{$info->duree_mois}} 
+                                                            <label>Durée:</label>
+                                                            <input type="number" name="duree{{$service->code}}" value={{$info->duree}} 
                                                             min="0" class="form-control"  >
                                                             </div>
 
                                                             <div class="form-group">
-                                                            <label>Durée en jours:</label>
-                                                            <input type="number" name="jours{{$service->service_id}}" value={{$info->duree_jours}} min="0"
-                                                            class="form-control" >
+                                                            <label>Choisir:</label>
+                                                            <select  class="form-control" name="duree_type{{$info->code}}">
+                                                                <option value="{{$info->duree_type}}">{{$info->duree_type}}</option>
+                                                                <option value="jours">Jours</option>
+                                                                <option value="mois">Mois</option>
+                                                                <option value="annees">Années</option>
+                                                            </select>
+                                                            
                                                             </div>
-                                                            <div class="form-group">
-                                                            <label>Durée en semaines:</label>
-                                                            <input type="number" name="semaines{{$service->service_id}}" value={{$info->duree_semaines}} min="0" 
-                                                            class="form-control"  >
-                                                            </div>
+                                                      
                                                             @endforeach
                                                       
                                                         @endif
@@ -427,8 +507,7 @@
                         </td> 
                         <td>
                         <div class="row">
-                            <div class="col-sm-6">
-                
+                            <div class="col-sm-4">
                                 <button class="btn btn-info" 
                                 data-toggle="modal" data-target="#edit{{$cotation->id}}" >
                                     <b><i class="fa fa-edit"></i></b></button>
@@ -528,7 +607,7 @@
                                 </div>    
                                 <!-- /.modal -->
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <button class="btn btn-danger" 
                                 data-toggle="modal" data-target="#delete{{$cotation->id}}" >
                                  <b><i class="fa fa-trash"></i></b></button>
@@ -572,6 +651,23 @@
                                 </div>    
                                 <!-- /.modal -->
                                
+                            </div>
+                            <div class="col-sm-4">
+                                @if($cotation->valide == 0)
+                                    <form action="validecotation" method="post">  
+                                    @csrf
+                                    <input type="text" value="{{$cotation->id}}" name="id" style="display:none">
+                                    <button class="btn btn-success">
+                                        <b><i class="fa fa-check"></i></b></button>
+                                    </form>
+                                @else
+                                    <form action="cvalidecotation" method="post">  
+                                    @csrf
+                                    <input type="text" value="{{$cotation->id}}" name="id" style="display:none">
+                                    <button class="btn btn-danger">
+                                        <b><i class="fa fa-times"></i></b></button>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                         </td>

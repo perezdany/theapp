@@ -10,7 +10,8 @@ class Cotation extends Model
     public $timestamps = true;
     
     protected $fillable = [
-        'date_creation', 'numero_devis', 'date_validite', 'id_client', 'valide', 'id_user', 
+        'date_creation', 'numero_devis', 'date_validite', 
+        'id_client', 'valide', 'rejete', 'motif', 'id_user', 
     ];
 
     public function services()

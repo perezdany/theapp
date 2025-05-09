@@ -41,4 +41,20 @@ class ArticleController extends Controller
 
         return $get;
     }
+
+    public function DeleteLineArticle(Request $request)
+    {
+        $get = DB::table('cotation_article')
+        ->where('id', $request->id)
+        ->get(['cotation_article.cotation_id']);
+        //dd($get);
+        foreach($get as $get)
+        {
+            $id = $get->cotation_id;
+        }
+       
+        $delete = DB::table('cotation_article')->where('id', $request->id)->delete();
+
+        return view('forms/devis_vente', compact('id'));
+    }
 }

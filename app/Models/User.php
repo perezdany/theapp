@@ -41,6 +41,31 @@ class User extends Authenticatable
 
     }
 
+    public function hasPermissions()
+    {
+        return $this->permissions()->where('libele', $permission)->first() !== null;    
+    }
+
+    public function hasAnyPermission($permissions)
+    {
+        //SI IL A SOIT UNE PERMISSION OU UNE AUTRE 
+        return $this->permissions()->whereIn('libele', $permissions)->first() !== null;
+    }
+    
+    public function hasRole($role)
+    {
+        return $this->roles()->where("intitule", $role)->first() !== null;
+        //dd
+    }
+
+    public function hasAnyRole($role)
+    {
+        //SI IL A SOIT UNE PERMISSION OU UNE AUTRE 
+
+       return $this->roles()->whereIn('intitule', $role)->first() !== null;
+    
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

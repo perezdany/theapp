@@ -1,5 +1,5 @@
 @php
-    use App\Http\Controllers\FoncTIONController;
+    use App\Http\Controllers\FonctionController;
 
     $cotationcontroller = new FonctionController();
 @endphp

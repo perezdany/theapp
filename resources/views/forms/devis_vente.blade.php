@@ -1,0 +1,339 @@
+@php
+    use App\Http\Controllers\CotationController;
+    use App\Http\Controllers\ServiceController;
+
+    $servicecontroller = new ServiceController();
+    $cotationcontroller = new CotationController();
+@endphp
+@extends('layouts.app')
+<!--.form-control-border.border-width-2-->
+
+@section('content')
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"></h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+           
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <div class="row">                
+        <!--/.col (left) -->
+        <!-- right column -->
+         <div class="col-md-2"></div>
+        <div class="col-md-8">
+ 
+            <!-- general form elements disabled -->
+            
+            @if(isset($id))
+                <div class="row">
+                    <div class="col-sm-3">
+                        <button class="btn btn-success" 
+                        data-toggle="modal" data-target="#article{{$id}}" >
+                            <b><i class="fa fa-plus">ARTICLE</i></b></button>
+                        <div class="modal fade" id="article{{$id}}"  wire:ignore.self  
+                        role="dialog" aria-hidden="true" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title">Ajouter un article</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--begin::Form-->
+                                    <form method="get" action="addarticlefordevis">
+                                        <!--begin::Body-->
+                                        @csrf
+                                    
+                                        <input type="text" class="form-control" value="{{$id}}" 
+                                        name="id_cotation" id="{{$id}}" style="display:none;">
+
+                                        <div class="form-group">
+                                        <label>Articles:</label>
+                                        <select class="form-control" name="article">
+                                            @php
+                                                $t = DB::table('articles')->get();
+                                            @endphp
+                                            @foreach($t as $t)
+                                                <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                            @endforeach
+                                            
+                                        </select>   
+                                        </div>
+
+                                        <div class="form-group">
+                                        <label>Quantité:</label>
+                                        <input type="number" name="qte" min="1" value="1"
+                                        class="form-control">
+                                        </div>
+                                        <div class="row modal-footer justify-content-between" style="aling:center">
+                                        
+                                        <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
+                                
+                                        <button type="submit"  class="btn btn-success col-md-3">Ajouter</button>
+
+                                        </div>
+                                        <!--end::Footer-->
+                                    </form>
+                                    <!--end::Form-->
+
+                                </div> 
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>    
+                        <!-- /.modal -->
+                    </div>
+                     <div class="col-sm-3"></div>
+                      <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        
+                        <form action="retour_delete" method="post">
+                            @csrf   
+                            <input type="text" value="{{$id}}" name="id" style="display:none;">
+                            <button class="btn btn-danger">ANNULER LA CREATION</button>
+                        </form>
+                        
+                    </div>
+                </div>
+                @php
+                    //dd($id);
+                    $le_devis = $cotationcontroller->GetDevis($id);
+                @endphp
+                @foreach($le_devis as $devis)
+                    
+                    <div class="card card-warning">
+                        <div class="card-header">
+                        <h3 class="card-title">{{$devis->numero_devis}}</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form method="post" action="add_devis_vente">
+                                @csrf
+                                <div class="content" id="support">
+                                    <input type="text" value="{{$id}}" name="id_cotation" style="display: none;">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                            <label>Date de création</label>
+                                            <input type="date" name="date_creation" class="form-control" value="{{$devis->date_creation}}" required>
+                                            </div>
+                                        </div>
+                                        <!--<div class="col-sm-3">
+                                            <div class="form-group">
+                                            <label>Numero du devis</label>
+                                            <input type="text" name="numero_devis" class="form-control" placeholder="Entrez ..." required>
+                                            </div>
+                                        </div>-->
+                                        <div class="col-sm-4">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                            <label>Valide jusqu'au:</label>
+                                            <input type="date" name="date_validite" class="form-control" value="{{$devis->date_validite}}" >
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                            <label>Choisir le client</label>
+                                                <select class="form-control" required name="id_client">
+                                                    @php
+                                                        $clients = DB::table('clients')->get();
+                                                    @endphp
+                                                    @foreach($clients as $client)
+                                                        <option value="{{$client->id}}">{{$client->nom}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <div class="card-footer">
+                                
+                                <button type="submit" class="btn btn-info float-right">VALIDER</button>
+                                </div>
+                            </form>
+                            <hr>
+                                    
+                            @php
+                                $les_articles = DB::table('cotation_article')
+                                ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+                                ->join('articles', 'cotation_article.article_id', 'articles.id')
+                                ->where('cotation_article.cotation_id', $id)
+                                ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
+                            @endphp
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Désignation</th>
+                                        <th>Quantité</th>
+                                        <th>Prix</th>   
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach($les_articles as $article)
+                                        
+                                            <tr>
+                                                <td><b>{{$article->designation}}</b> </td>
+                                                <td>{{$article->quantite}}</td>
+                                                <td>
+                                                    @php
+                                                        $p = $article->prix_unitaire * $article->quantite;
+                                                    @endphp
+                                                    {{$p}}
+                                                </td>
+                                                <td>
+                                                <button class="btn btn-danger" 
+                                                data-toggle="modal" data-target="#delete{{$article->id}}" >
+                                                <b><i class="fa fa-trash"></i></b></button>
+                                                <div class="modal fade" id="delete{{$article->id}}"  
+                                                wire:ignore.self  role="dialog" aria-hidden="true" >
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <!--begin::Form-->
+                                                            <form method="post" action="supp">
+                                                                <!--begin::Body-->
+                                                                @csrf
+                                                                <label style="text-align:center; color:red">
+                                                                Voulez vous vraiment supprimer cette ligne ?</label>
+                                                                <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
+                                                                name="id" id="{{$article->id}}" style="display:none;">
+
+                                                                <!--end::Body-->
+                                                                <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
+                                                                <div class=" row modal-footer justify-content-between" style="aling:center">
+                                                                
+                                                                <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
+                                                                data-dismiss="modal">NON</button>
+                                                        
+                                                                <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
+                                                                                                                        
+                                                                </div>
+                                                                <!--end::Footer-->
+                                                            </form>
+                                                            <!--end::Form-->
+                                                        </div> 
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>    
+                                                <!-- /.modal -->
+                                                </td>
+                                            </tr>
+                                        
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                            <script type="text/javascript">
+                                function displayLine()
+                                {
+                                    //alert('ici');
+                                    //SCRIPT POUR AJOUTER DES LIGNES DE FACON MODULABLE.
+                                    let choix = document.getElementById('selservice').value;
+                                    let id_div = choix+choix;
+                                    let id_prix = 'prix_ht'+choix;
+                                    let duree = 'duree'+choix;
+                                    let type_d = 'duree_type'+choix;
+                                    document.getElementById(choix).setAttribute("checked", "checked");
+                                    document.getElementById(id_prix).removeAttribute("disabled");
+                                    document.getElementById(duree).removeAttribute("disabled");
+                                    document.getElementById(type_d).removeAttribute("disabled");
+                                    document.getElementById(id_div).removeAttribute("style");
+                                    
+                                
+                                }
+
+                                function hideLine()
+                                {
+                                    //alert('ici');
+                                    //SCRIPT POUR AJOUTER DES LIGNES DE FACON MODULABLE.
+                            
+                                    let collection = document.getElementById("SUR");
+                                    if (collection.checked) {}
+                                    else{
+                                        collection.removeAttribute("checked");
+                                        document.getElementById('SURSUR').setAttribute("style", "display:none");
+                                        
+                                    }
+                                    let sec = document.getElementById("SECURINC");
+                                    if (sec.checked) {}
+                                    else{
+                                        sec.removeAttribute("checked");
+                                        document.getElementById('SECURINCSECURINC').setAttribute("style", "display:none");}
+
+                                    let am = document.getElementById("AM");
+                                    if (am.checked) {}
+                                    else{ 
+                                        am.removeAttribute("checked");
+                                        document.getElementById('AMAM').setAttribute("style", "display:none");}
+                                    let form = document.getElementById("FORM");
+                                    if (form.checked) {}
+                                    else{
+                                        form.removeAttribute("checked");
+                                        document.getElementById('FORMFORM').setAttribute("style", "display:none");}
+                                    let heb = document.getElementById("HEB");
+                                    if (heb.checked) {}
+                                    else{
+                                        heb.removeAttribute("checked");
+                                        document.getElementById('HEBHEB').setAttribute("style", "display:none");}
+                                    let mat = document.getElementById("MAT");
+                                    if (mat.checked) {}
+                                    else{
+                                        mat.removeAttribute("checked");
+                                        document.getElementById('MATMAT').setAttribute("style", "display:none");}
+                                    //console.log(collection);
+                                    /*for (let i = 0; i < collection.length; i++) {
+                                        //console.log(collection[i].getAttribute('checked'));
+                                        //collection[i].setAttribute("style", "display:none") ;
+                                        if (collection[i].getAttribute('checked') == "checked") {
+                                        
+                                        document.getElementById('SURSUR').setAttribute("style", "display:none");
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }*/
+                    
+                                }
+                            
+                            </script>
+                        </div>
+                        
+                        <!-- /.card-body -->
+                    </div> 
+                @endforeach
+                    
+                
+            @endif
+            <!-- /.card -->
+       
+        </div>
+        <!--/.col (right) -->
+        <div class="col-md-2"></div>
+       
+    </div>
+    <!-- /.row -->
+
+@endsection
+    

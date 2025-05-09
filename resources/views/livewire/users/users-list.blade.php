@@ -99,7 +99,8 @@
 
                         <td>
                             
-                           <button class="btn btn-primary"  data-toggle="modal" data-target="#roles{{$user->id}}"><b><i class="fa fa-cogs"></i></b></button>
+                           <button class="btn btn-primary"  data-toggle="modal" data-target="#roles{{$user->id}}">
+                           <b><i class="fa fa-cogs"></i></b></button>
                             <div class="modal fade" id="roles{{$user->id}}" wire:ignore.self  role="dialog" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">

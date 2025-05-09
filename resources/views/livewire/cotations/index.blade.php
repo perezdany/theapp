@@ -1,7 +1,9 @@
 @php
     use App\Http\Controllers\CotationController;
+    use App\Http\Controllers\ServiceController;
 
     $cotationcontroller = new CotationController();
+    $servicecontroller = new ServiceController();
 @endphp
 
 <div>

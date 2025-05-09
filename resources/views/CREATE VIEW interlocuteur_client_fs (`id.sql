@@ -1,0 +1,3 @@
+CREATE VIEW interlocuteur_client_fs (`id`, `titre`, `i_nom`, `prenom`, `tel`, `email`, `id_fonction`, `id_client`, `created_at`, `id_user`, `nom`, `nom_prenoms`, `libele_fonction`) AS SELECT interlocuteurs.id, interlocuteurs.`titre`, interlocuteurs.`i_nom`, interlocuteurs.`prenom`, interlocuteurs.`tel`, interlocuteurs.`email`, interlocuteurs.`id_fonction`, interlocuteurs.`id_client`, interlocuteurs.`created_at`, interlocuteurs.`id_user`, clients.`nom`, users.`nom_prenoms`, fonctions.`libele_fonction` 
+FROM interlocuteurs interlocuteurs, clients clients, users users, fonctions fonctions 
+WHERE interlocuteurs.id_user = users.id AND interlocuteurs.id_client=clients.id AND interlocuteurs.id_fonction = fonctions.id;

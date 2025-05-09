@@ -104,7 +104,7 @@
                         <tr>
                         <th>Service</th>
                         <th>Code</th>
-                        <th>Durée(M./Jr./Sem)/Désignation</th>
+                        <th>Durée/Désignation</th>
                         <th>Qté</th>
                         <th>Prix (Unitaire)</th>
                         <th>Total</th>
@@ -138,18 +138,18 @@
                                 <tr>
                                     <td>{{$devis->libele_service}}</td>
                                     <td>{{$devis->code}}</td>
-                                    <td>{{$devis->duree_mois}}mois/{{$devis->duree_jours}}jours/{{$devis->duree_jours}}semaines</td>
+                                    <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
                                     <td>N/A</td>
                                     <td>@php echo number_format($devis->prix_ht, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
-                                    @php echo number_format($devis->prix_ht, 2, ".", " ")."F CFA"; @endphp
+                                    @php echo number_format(($devis->prix_ht * $devis->duree), 2, ".", " ")."F CFA"; @endphp
                               
                                     </td>
                                 <tr>
                                 @php
                                     //dump("oi");
-                                    $somme = $somme + $devis->prix_ht;
+                                    $somme = $somme + ($devis->prix_ht * $devis->duree);
                                 @endphp
                             @endif 
                         @endforeach
@@ -205,15 +205,31 @@
                                     @endphp</td>
                                 </tr>
                             @else
-                                <tr>
-                                <th>Tax (18%)</th>
-                                <td>
-                                    @php
-                                        $m = $somme * (18/100);
-                                        echo number_format($m, 2, ".", " ")."F CFA";
-                                    @endphp
-                                </td>
-                            </tr>
+                               
+                                @php
+                                    $v = DB::table('cotations')->where('id', $id_cotation)->get(['date_creation']);
+                                    foreach($v as $verif)
+                                    {
+                                        if($verif->date_creation >= $tva->date_activation)
+                                        {
+                                            echo' <tr><th>Tax (18%)</th>
+                                            <td>';
+                                                
+                                           
+                                            $m = $somme * (18/100);
+                                            echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
+                                        }
+                                        else
+                                        {
+                                            $m = 0;
+                                            //echo number_format($somme, 2, ".", " ")."F CFA"; 
+                                            
+                                            $pour_facture = $somme;
+                                        }
+                                    }
+                                       
+                                @endphp
+
                             <tr>
                                 <th>Livraison:</th>
                                 <td>A définir</td>

@@ -4,6 +4,12 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Support\Facades\Gate;
+
+use App\Models\User;
+
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -20,5 +26,45 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+
+        //DEFINITION DES GATES 
+        Gate::after(function (User $user) {
+    
+            return $user->hasAnyRole([ "super_admin", "admin",]);
+        });
+
+        Gate::define("admin", function(User $user){
+            return $user->hasAnyRole(["admin", "super_admin"]);
+            //dd($user->hasAnyRole(["admin", "super_admin"]));
+        });
+
+       
+
+        Gate::define("commercial", function(User $user){
+            return $user->hasRole("commercial");
+        });
+
+        Gate::define("statisticien", function(User $user){
+            return $user->hasRole("statisticien");
+        });
+
+        Gate::define("standard", function(User $user){
+            return $user->hasRole("standard");
+        });
+
+        Gate::define("caissier", function(User $user){
+            return $user->hasRole("caissier");
+        });
+
+        Gate::define("facturier", function(User $user){
+            return $user->hasRole("facturier");
+        });
+
+        /*Gate::define("super_admin", function(User $user){
+            return $user->hasRole("super_admin");
+        });*/
+
+        
+
     }
 }

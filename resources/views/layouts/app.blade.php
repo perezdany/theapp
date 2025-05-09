@@ -51,6 +51,12 @@
                     </div>
                   @endif
 
+                   @if(isset($error))
+                    <div class="alert alert-danger col-md-12">
+                      {{$error}}
+                    </div>
+                  @endif
+
                   @if(session('warn'))
                     <div class="alert alert-warning col-md-12">
                       {{session('warn')}}
@@ -108,8 +114,9 @@
   <script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
   <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
   <!-- ChartJS -->
-  <script src="plugins/chart.js/Chart.min.js"></script>
+  <!--<script src="plugins/chart.js/Chart.min.js"></script>-->
 
+                    
   <!--moment js-->
   <script src="plugins/moment/moment.min.js"></script>
   <script src="plugins/moment/locale/fr.js"></script>

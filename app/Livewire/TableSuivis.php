@@ -9,7 +9,7 @@ use App\Models\Suivicommercial;
 
 use Livewire\WithPagination;
 
-class TableSuivis extends Component
+class Tablesuivis extends Component
 {
     use WithPagination; //POUR LA PAGINATION
     protected $paginationTheme = "bootstrap";

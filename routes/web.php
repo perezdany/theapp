@@ -34,6 +34,8 @@ use App\Http\Controllers\ProjetController;
 
 use App\Http\Controllers\SuiviController;
 
+use App\Http\Controllers\Calculator;
+
 
 Route::middleware(['guest'])->group(function(){
 
@@ -177,12 +179,23 @@ Route::middleware(['auth'])->group(function(){
             });
 
 
-            Route::get('add_devis', function () {
-                return view('forms/add_devis');
-            });
+            Route::get('add_devis', [CotationController::class, 'CreateDevis']);
+
+            //REJETER UN DEVIS
+            Route::post('updaterejeter', [CotationController::class, 'UpdateRejeter']);
 
             //AJOUTER UN DEVIS
             Route::post('add_devis', [CotationController::class, 'AddDevis']);
+
+            //DEVIS DE VENTE
+            Route::get('add_devis_vente', [CotationController::class, 'CreateDevisVente']);
+            Route::post('add_devis_vente', [CotationController::class, 'SaveDevisVente']);
+
+            //VALIDER LE DEVIS AU CLICK
+            Route::post('validecotation', [CotationController::class, 'ValideCotation']);
+
+            //ANNULER LA VALIDATION EXPRESS
+            Route::post('cvalidecotation', [CotationController::class, 'CancelValideCotation']);
 
             //AJOUTER LES LIGNES DU DEVIS
             Route::post('add_line_devis', [CotationController::class, 'AddLines']);
@@ -199,6 +212,9 @@ Route::middleware(['auth'])->group(function(){
             //MODIFIER LE DEVIS
             Route::post('edit_devis', [CotationController::class, 'EditDevis']);
 
+            //ANNULER L'ACTION DE CREATION DE DEVIS
+            Route::post('retour_delete', [CotationController::class, 'CancelCreation']);
+
             //SUPPRIMER LE DEVIS
             Route::post('deletedevis', [CotationController::class, 'TryDelete']);
             
@@ -214,8 +230,21 @@ Route::middleware(['auth'])->group(function(){
             //AJOUTER UN SERVICE 
             Route::post('addaservice', [CotationController::class, 'AddaService']);
 
+            //SUPPRIMER LA LIGNE DU SERVICE POUR LE DEVIS
+            Route::post('suppserv', [ServiceController::class, 'DeleteLineService']);
+
+
+            //AJOUTER UNE LIGNE DE SERVICE DANS LE DEVIS
+            Route::post('addaserviceforcreate', [ServiceController::class, 'AddLineForCreation']);
+
             //AJOUTER UN ARTICLE
-            Route::post('addanarticle', [CotationController::class, 'addanarticle']);
+            Route::post('addanarticle', [CotationController::class, 'AddAnArticle']);
+
+            //AJOUTER UNE LIGNE D'ARTICLE DANS LE DEVIS
+            Route::get('addarticlefordevis', [CotationController::class, 'AddLineArticle']);
+
+            //SUPPRIMER UNE LIGNE D'ARTICLE dans le DEVIS
+            Route::post('supp', [ArticleController::class, 'DeleteLineArticle']);
 
             //IMPRIMER LE DEVIS
             Route::post('print_devis', [CotationController::class, 'PrintDevis']);
@@ -315,6 +344,31 @@ Route::middleware(['auth'])->group(function(){
             //SUPPRIMER LE SUIVI DANS LE TABLEAU
             Route::post('deletesuivi', [SuiviController::class, 'DestroySuivi']);
 
+    //LES GRAPHES 
+
+    //MENSUEL
+    Route::get('monthly', [Calculator::class, 'MonthlyChart']);
+
+    //RECHERCHER UN MOIS 
+    Route::post('search_monthly_chart', [Calculator::class, 'SearchMonth']);
+
+    //ANNUEL
+    Route::get('yearly', [Calculator::class, 'YearlyChart']);
+
+    //RECHERCHER UNE ANNEE
+    Route::post('search_yearly_chart', [Calculator::class, 'SearchYear']);
+
+    //NOUVEAUX CLIENTS DANS L'ANNEE EN COURS
+    Route::get('newcustomery', [Calculator::class, 'NewCustomerInYear']);
+
+    //RECHERCHER UNE ANNEE
+    Route::post('search_yearly_customer', [Calculator::class, 'SearchNewCustomerInYear']);
+
+    //NOUVEAUX CLIENTS DANS LE MOIS EN COURS
+    Route::get('newcustomerm', [Calculator::class, 'NewCustomerInMonth']);
+
+    //RECHERCHER UN MOIS
+    Route::post('search_monthly_customer', [Calculator::class, 'SearchNewCustomerInMonth']);
 
 
 }); 
