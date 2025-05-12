@@ -52,10 +52,13 @@
                         </td>
                         <td>
                         <div class="row">
+                            @can("edit")
                             <div class="col-sm-6">
                               <button wire:click="editmodal('{{$type->id}}')"
                                class="btn btn-info"><i class="fa fa-edit"></i></button>
                             </div>
+                            @endcan
+                            @can("delete")
                             <div class="col-sm-6">
                                 <button class="btn btn-danger" 
                                data-toggle="modal" data-target="#delete{{$type->id}}" >
@@ -70,7 +73,6 @@
                                         </div>
                                         <div class="modal-body">
                                           
-                                        
                                             <!--begin::Form-->
                                             <form method="post" action="deletetype">
                                                 <!--begin::Body-->
@@ -104,8 +106,8 @@
                                     <!-- /.modal-dialog -->
                                 </div>    
                                 <!-- /.modal -->
-                               
                             </div>
+                            @endcan
                         </div>
                         </td>
                     </tr>

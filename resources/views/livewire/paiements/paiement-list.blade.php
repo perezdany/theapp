@@ -142,14 +142,16 @@
         
                         <td>
                         <div class="row">
+                            @can("edit")
                             <div class="col-sm-6">
                                 <form action="p_edit" method="post">
                                     @csrf
                                     <input type="text" value={{$paiement->id}} style="display:none;" name="id_paiement">
                                     <button type="submit" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                 </form>
-                               
                             </div>
+                            @endcan
+                            @can("delete")
                             <div class="col-sm-6">
                                 <button class="btn btn-danger" 
                                 data-toggle="modal" data-target="#delete{{$paiement->id}}" >
@@ -193,8 +195,8 @@
                                     <!-- /.modal-dialog -->
                                 </div>    
                                 <!-- /.modal -->
-                               
                             </div>
+                            @endcan
                         </div>
                         </td>
                     </tr>

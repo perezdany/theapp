@@ -507,6 +507,7 @@
                         </td> 
                         <td>
                         <div class="row">
+                            @can("edit")
                             <div class="col-sm-4">
                                 <button class="btn btn-info" 
                                 data-toggle="modal" data-target="#edit{{$cotation->id}}" >
@@ -607,6 +608,8 @@
                                 </div>    
                                 <!-- /.modal -->
                             </div>
+                            @endcan
+                            @can("delete")
                             <div class="col-sm-4">
                                 <button class="btn btn-danger" 
                                 data-toggle="modal" data-target="#delete{{$cotation->id}}" >
@@ -652,6 +655,7 @@
                                 <!-- /.modal -->
                                
                             </div>
+                            @endcan
                             <div class="col-sm-4">
                                 @if($cotation->valide == 0)
                                     <form action="validecotation" method="post">  

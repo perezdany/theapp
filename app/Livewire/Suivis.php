@@ -7,6 +7,8 @@ use Livewire\Component;
 use App\Models\Suivi_user;
 use App\Models\Suivicommercial;
 
+use DB;
+
 class Suivis extends Component
 {
     public $events = [];
@@ -50,22 +52,52 @@ class Suivis extends Component
     public function render()
     {
         $events = [];
-        $this->events = Suivicommercial::all();
-        foreach($this->events as $event)
+        //voir si c'est un admin
+        $get =  DB::table('role_user')->join('roles', 'role_user.role_id', '=', 'roles.id')
+        ->join('users', 'role_user.user_id', '=', 'users.id')
+        ->where('user_id', auth()->user()->id)
+        ->where('roles.intitule', "super_admin")->count();
+
+        if($get !== 0)//C'est un admin
         {
-            $events[] = [
-                'id' => $event->id,
-                'title' => $event->title,
-                'color' => $event->color,
-                'start' => $event->start,
-                'end' => $event->end,
-                'id_projet' => $event->id_projet,
-                'id_fournisseur' => $event->id_fournisseur,
-                'id_client' => $event->id_client,
-                'id_user' => $event->id_user,
-                
-            ];
+            $this->events = Suivicommercial::all();
+            foreach($this->events as $event)
+            {
+                $events[] = [
+                    'id' => $event->id,
+                    'title' => $event->title,
+                    'color' => $event->color,
+                    'start' => $event->start,
+                    'end' => $event->end,
+                    'id_projet' => $event->id_projet,
+                    'id_fournisseur' => $event->id_fournisseur,
+                    'id_client' => $event->id_client,
+                    'id_user' => $event->id_user,
+                    
+                ];
+            }
         }
+        else
+        {
+            $this->events = Suivicommercial::where('id_user', auth()->user()->id)->get();
+            //dd($this->events);
+            foreach($this->events as $event)
+            {
+                $events[] = [
+                    'id' => $event->id,
+                    'title' => $event->title,
+                    'color' => $event->color,
+                    'start' => $event->start,
+                    'end' => $event->end,
+                    'id_projet' => $event->id_projet,
+                    'id_fournisseur' => $event->id_fournisseur,
+                    'id_client' => $event->id_client,
+                    'id_user' => $event->id_user,
+                    
+                ];
+            }
+        }
+       
         //dd($events);
         return view('livewire.suivis.index', ['events' => $events]);
     }

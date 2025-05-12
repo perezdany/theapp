@@ -44,10 +44,13 @@
                         <td>@php echo date('d/m/Y',strtotime($departement->created_at));@endphp</td>
                         <td>
                         <div class="row">
+                            @can("edit")
                             <div class="col-sm-6">
                               <button wire:click="editmodal('{{$departement->id}}')"
                                class="btn btn-info"><i class="fa fa-edit"></i></button>
                             </div>
+                            @endcan
+                            @can("delete")
                             <div class="col-sm-6">
                                 <button class="btn btn-danger" 
                                data-toggle="modal" data-target="#delete{{$departement->id}}" >
@@ -97,8 +100,8 @@
                                     <!-- /.modal-dialog -->
                                 </div>    
                                 <!-- /.modal -->
-                               
                             </div>
+                            @endcan
                         </div>
                         </td>
                     </tr>

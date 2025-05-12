@@ -89,10 +89,13 @@
                         <td>{{$fonction->libele_fonction}}</td>
                        
                         <td>
+                            @can("edit")
                             <button wire:click="editmodal('{{$fonction->id}}')"
                                class="btn btn-info"><i class="fa fa-edit"></i></button>
+                            @endcan
                         </td>
                         <td>
+                            @can("delelte")
                             <button class="btn btn-danger" 
                             data-toggle="modal" data-target="#delete{{$fonction->id}}" >
                                 <b><i class="fa fa-trash"></i></b></button>
@@ -137,6 +140,7 @@
                                 <!-- /.modal-dialog -->
                             </div>    
                             <!-- /.modal -->
+                            @endcan
                         </td>
                     </tr>
                 @empty

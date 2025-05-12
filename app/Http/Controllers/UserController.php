@@ -83,7 +83,7 @@ class UserController extends Controller
             if($get_permissions_in_table != 0)
             {
                 //SUPPRIMER L'ENREGISTREMENT
-                $delete = DB::table('permission_user')->where('user', $request->id_user)->where('permission_id', 1)->delete();
+                $delete = DB::table('permission_user')->where('user_id', $request->id_user)->where('permission_id', 1)->delete();
             }
             else
             {

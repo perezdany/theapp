@@ -117,12 +117,16 @@
                         <td>
                         <div class="row">
                             <div class="col-sm-6">
-                             @if($customer->particulier == 1)
-                              <button wire:click="editmodalparticulier('{{$customer->id}}')"
+                            @if($customer->particulier == 1)
+                                @can("edit")
+                                <button wire:click="editmodalparticulier('{{$customer->id}}')"
                                class="btn btn-info"><i class="fa fa-edit"></i></button>
+                               @endcan
                             @else
-                                 <button wire:click="editmodal('{{$customer->id}}')"
+                                @can("edit")
+                                <button wire:click="editmodal('{{$customer->id}}')"
                                class="btn btn-info"><i class="fa fa-edit"></i></button>
+                               @endcan
                             @endif
                               
                             </div>

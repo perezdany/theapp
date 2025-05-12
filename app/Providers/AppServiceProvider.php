@@ -64,6 +64,20 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasRole("super_admin");
         });*/
 
+         //GATE POUR SUPPRIMER
+        Gate::define("delete", function(User $user){
+            return $user->hasPermission("Suppression");
+        });
+
+        Gate::define("edit", function(User $user){
+            return $user->hasPermission("Ecriture");
+        });
+
+        Gate::define("procuration", function(User $user){
+            return $user->hasPermission("Procuration");
+        });
+
+
         
 
     }

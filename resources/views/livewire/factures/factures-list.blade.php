@@ -131,6 +131,8 @@
                         
                         <td>{{$facture->nom}}</td>
                         <td>
+                            @can("edit")
+                        
                             <button class="btn btn-primary" 
                                 data-toggle="modal" data-target="#upload{{$facture->id}}" >
                                  <b><i class="fa fa-upload"></i></b></button>
@@ -172,8 +174,9 @@
                                 <!-- /.modal-content -->
                             </div>
                             <!-- /.modal-dialog -->
-                        </div>    
-                        <!-- /.modal -->
+                            </div>    
+                            <!-- /.modal -->
+                            @endcan
                         </td>
                         <td>
                             <form action="dld_invoice" method="post" target="blank" enctype="multipart/form-data">
@@ -195,11 +198,14 @@
                         </td>
                         <td>
                         <div class="row">
+                            @can("edit")
                             <div class="col-sm-6">
                                 <button wire:click="editmodal('{{$facture->id}}')"
                                class="btn btn-info"><i class="fa fa-edit"></i></button>
                                
                             </div>
+                            @endcan
+                            @can("delete")
                             <div class="col-sm-6">
                                 <button class="btn btn-danger" 
                                 data-toggle="modal" data-target="#delete{{$facture->id}}" >
@@ -245,6 +251,7 @@
                                 <!-- /.modal -->
                                
                             </div>
+                            @endcan
                         </div>
                         </td>
                     </tr>

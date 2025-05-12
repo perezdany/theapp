@@ -37,13 +37,16 @@ class User extends Authenticatable
 
     public function permissions()
     {
+        //dd($this->belongsToMany(Permission::class));
         return $this->belongsToMany(Permission::class);
 
     }
 
-    public function hasPermissions()
+    public function hasPermission($permission)
     {
-        return $this->permissions()->where('libele', $permission)->first() !== null;    
+        //dd( $this->permissions()->where('libele', $permission)->first() !== null);
+        return $this->permissions()->where('libele', $permission)->first() !== null;
+
     }
 
     public function hasAnyPermission($permissions)
