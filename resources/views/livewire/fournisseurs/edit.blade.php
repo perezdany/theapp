@@ -27,6 +27,22 @@
                         <input type="text"  wire:model="editFournisseur.telephone" class="form-control" placeholder="+225 65 98 74 52 10" >
                         </div>
                     </div>
+
+                     <div class="col-sm-12">
+                         
+                        <div class="form-group">
+                        <label>Adresse géographique</label>
+                        <input type="text"  wire:model="editFournisseur.adresse_geo" class="form-control" placeholder="EX: KOUMASSI RAMBLAIS" >
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                         
+                        <div class="form-group">
+                        <label>Email</label>
+                        <input type="text"  wire:model="editFournisseur.email" class="form-control" >
+                        </div>
+                    </div>
                     
                     
                 </div>

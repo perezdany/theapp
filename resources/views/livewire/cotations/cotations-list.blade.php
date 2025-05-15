@@ -32,13 +32,129 @@
             <div class="card-header"><h3 class="card-title">Liste des devis</h3><br>
                 <div class="row">
                     <div  class="col-xs-3">
-                        <a href="add_devis"><button class="btn btn-primary">
-                         <b><i class="fa fa-plus"></i>DEVIS PRESTATIONS DE SERVICES</b></button><br></a>
-            
+                        <!--<a href=""><button class="btn btn-primary">
+                         <b><i class="fa fa-plus"></i></b></button><br></a>-->
+
+                        <button class="btn btn-primary" 
+                        data-toggle="modal" data-target="#createds" >
+                            <b><i class="fa fa-plus"></i>DEVIS PRESTATIONS DE SERVICES</b></button>
+                        <div class="modal fade" id="createds"  
+                            wire:ignore.self  role="dialog" aria-hidden="true" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title">Quel service concerne ce devis ?</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--begin::Form-->
+                                    <form method="get" action="create_devis">
+                                        <!--begin::Body-->
+                                        @csrf
+                                        <div class="form-group">
+                                        <label>Service:</label>
+                                            <select class="form-control" name="service" required>
+                                                
+                                                @php
+                                                    $s = DB::table('services')->get();
+                                                @endphp
+                                                @foreach($s as $s)
+                                                    <option value={{$s->id}}>{{$s->libele_service}}</option>
+                                                @endforeach
+                                                
+                                            </select>   
+                                        </div>
+
+                                        <div class="form-group">
+                                        <label>Service:</label>
+                                            <select class="form-control" name="client" required>
+                                                
+                                                @php
+                                                    $clients = DB::table('clients')->get();
+                                                @endphp
+                                                @foreach($clients as $client)
+                                                    <option value={{$client->id}}>{{$client->nom}}</option>
+                                                @endforeach
+                                                
+                                            </select>   
+                                        </div>
+
+                                       
+                                        <div class=" row modal-footer justify-content-between" style="aling:center">
+                                        
+                                        <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
+                                
+                                        <button type="submit"  class="btn btn-success col-md-3">Aller au devis</button>
+                                                
+                                        </div>
+                                        <!--end::Footer-->
+                                    </form>
+                                    <!--end::Form-->
+                                </div> 
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>    
+                        <!-- /.modal -->
+          
                     </div>
+
+                   
                     <div class="col-xs-3">
-                        <a href="add_devis_vente" class="col-sm-3"><button class="btn btn-success">
-                        <b><i class="fa fa-plus"></i>DEVIS VENTE DE MATERIEL</b></button><br></a>
+                         <button class="btn btn-success" 
+                        data-toggle="modal" data-target="#createdv" >
+                            <b><i class="fa fa-plus"></i>DEVIS VENTE DE MATERIEL</b></button>
+                        <div class="modal fade" id="createdv"  
+                            wire:ignore.self  role="dialog" aria-hidden="true" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title">Choisissez le client</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--begin::Form-->
+                                    <form method="get" action="add_devis_vente">
+                                        <!--begin::Body-->
+                                        @csrf
+                                       
+                                        <div class="form-group">
+                                        <label>Service:</label>
+                                            <select class="form-control" name="client" required>
+                                                
+                                                @php
+                                                    $clients = DB::table('clients')->get();
+                                                @endphp
+                                                @foreach($clients as $client)
+                                                    <option value={{$client->id}}>{{$client->nom}}</option>
+                                                @endforeach
+                                                
+                                            </select>   
+                                        </div>
+
+                                       
+                                        <div class=" row modal-footer justify-content-between" style="aling:center">
+                                        
+                                        <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
+                                
+                                        <button type="submit"  class="btn btn-success col-md-3">Aller au devis</button>
+                                                
+                                        </div>
+                                        <!--end::Footer-->
+                                    </form>
+                                    <!--end::Form-->
+                                </div> 
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>    
+                        <!-- /.modal -->
+                        <!--<a href="add_devis_vente" class="col-sm-3"><button class="btn btn-success">
+                        <b><i class="fa fa-plus"></i></b></button><br></a>-->
                     </div>
              
                 </div>
@@ -377,10 +493,11 @@
                                                 //CODE POUR AFFICHER LES FORMULAIRES EN FONCTION DES SERVICES
                                                 if(isset($cotation->id))
                                                 {
-                                                    $get_service = DB::table('cotation_service')
-                                                    ->join('services', 'cotation_service.service_id', '=', 'services.id')
+                                                    $get_service = DB::table('details_cotations')
+                                                    ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                                                    ->join('services', 'cotations.id_service', '=', 'services.id')
                                                     ->where('cotation_id', $cotation->id)
-                                                    ->get(['cotation_service.*', 'services.libele_service', 'services.code']);
+                                                    ->get(['details_cotations.*', 'services.libele_service', 'services.code']);
                                                 }
                                                 //dd($get_service);
                                             @endphp
@@ -393,8 +510,7 @@
                                                     @foreach($get_service as $service)
                                                     <div class="col-sm-3">
                                                         @if($service->code == "MAT")
-                                                       
-                                                            <h3 class="card-title bg-warning"><b><u><i>{{$service->libele_service}}</i></u></b></h3><br>
+                                                    
                                                             <!-- text input -->
                                                             <input type="text" value={{$service->service_id}} name="{{$service->code}}" style="display:none;">
                                                             <div class="form-group">
@@ -447,18 +563,27 @@
                                                             </div>
                                                            
                                                         @else
-                                                            <h3 class="card-title bg-warning"><b><u><i>{{$service->libele_service}}</i></u></b></h3><br>
+                                                           
                                                             <!-- text input -->
                                                              @php
-                                                                $infos = DB::table('cotation_service')
-                                                                ->join('services', 'cotation_service.service_id', '=', 'services.id')
-                                                                ->where('cotation_id', $cotation->id)->where('service_id', $service->service_id)
-                                                                ->get(['cotation_service.*', 'services.code']);
+                                                                $infos =  DB::table('details_cotations')
+                                                            ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                                                            ->join('services', 'cotations.id_service', '=', 'services.id')
+                                                                ->where('cotation_id', $cotation->id)
+                                                                ->get(['details_cotations.*', 'services.code']);
                                                                 //dd($infos);
                                                             @endphp
                                                             @foreach($infos as $info)
-                                                            <input type="text" value={{$service->service_id}} name="{{$service->code}}" style="display:none;">
+                                                            <input type="text" value={{$info->id}} name="line"{{$info->id}} style="display:none;">
                                                             <div class="form-group">
+                                                            
+                                                            <div class="form-group">
+                                                                <label>Désignation:</label>
+                                                                <textarea name="designation" class="form-control" >
+                                                                    {{$service->designation}}
+                                                                </textarea>
+                                                        
+                                                            </div>
                                                             <label>Prix Hors taxe:</label>
                                                             <input type="number" class="form-control"  name="prix_ht{{$service->code}}" value="{{$info->prix_ht}}" required>
                                                             </div>
@@ -471,7 +596,7 @@
 
                                                             <div class="form-group">
                                                             <label>Choisir:</label>
-                                                            <select  class="form-control" name="duree_type{{$info->code}}">
+                                                            <select  class="form-control" name="duree_type{{$info->id}}">
                                                                 <option value="{{$info->duree_type}}">{{$info->duree_type}}</option>
                                                                 <option value="jours">Jours</option>
                                                                 <option value="mois">Mois</option>
@@ -566,29 +691,18 @@
                                                 <div class="row">
                                                     <div class="col-sm-2"></div>
                                                     <div class="form-group">
-                                                        @php
-                                                            $services = DB::table('services')->get();
-                                                        @endphp
-                                                        @foreach($services as $services)
-                                                            @php
-                                                                $verif = DB::table('cotation_service')->where('cotation_id', $cotation->id)
-                                                            ->where('service_id', $services->id)->count();
-                                                            @endphp
-                                                            @if($verif == 0)
-                                                                <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="{{$services->id}}" name="{{$services->code}}">
-                                                                <label class="form-check-label"><b>{{$services->libele_service}}</b></label>
-                                                                </div>
-                                                            @else
-                                                                <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="{{$services->id}}" name="{{$services->code}}" checked>
-                                                                <label class="form-check-label"><b>{{$services->libele_service}}</b></label>
-                                                                </div>
-                                                            @endif
+                                                       <label>Service:</label>
+                                                        <select class="form-control" name="service" >
                                                             
-                                                        @endforeach
+                                                            @php
+                                                                $services = DB::table('services')->get();
+                                                            @endphp
+                                                            <option value={{$cotation->id_service}}>{{$cotation->libele_service}}</option>
+                                                            @foreach($services as $service)
+                                                                <option value={{$service->id}}>{{$service->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
                                                     </div>
                                                     <div class="col-sm-2"></div>
                                                 </div>

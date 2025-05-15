@@ -1,4 +1,5 @@
 <div class="modal fade" id="editModalParticulier" wire:ignore.self >
+  
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -75,10 +76,22 @@
                     
                         </div>
 
-                         <div class="row mb-3">
+                        <div class="row mb-3">
                             <label  class="col-sm-12 col-form-label">Particulier? </label>
                             <div class="col-sm-12">
-                                <select class="form-control" wire:model="editCustomerParticulier.id_statutclient" required>
+                                <select class="form-control" wire:model="editCustomerParticulier.particulier" required>
+                                 
+                                    <option value="1">OUI</option>
+                                    <option value="0">NON</option>
+                                </select>
+                            </div>
+                    
+                        </div>
+
+                        <div class="row mb-3">
+                            <label  class="col-sm-12 col-form-label">Actif ? </label>
+                            <div class="col-sm-12">
+                                <select class="form-control" wire:model="editCustomerParticulier.actif" >
                                  
                                     <option value="1">OUI</option>
                                     <option value="0">NON</option>

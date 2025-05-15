@@ -20,9 +20,10 @@ class Customers extends Component
     public $orderDirection = 'DESC';
 
     public $nom, $adresse, $particulier, $telephone, $activite, 
-    $adresse_email, $adresse_facturation, $numero_contribuable, $id_user;
+    $adresse_email, $adresse_facturation, $actif, $numero_contribuable, $id_user;
 
     public $id_statutclient = '';
+    public $si_actif = '';
 
     public $statut = '';
     public $user = '';
@@ -42,7 +43,7 @@ class Customers extends Component
 
     public function editmodal(Client $customer)
     {
-        //dd('ici'); 
+        //dd('part'); 
         $this->editCustomer = $customer->toArray();
 
         $this->editOldValues = $this->editCustomer; //Mettre les valeurs ancienne dedans
@@ -62,7 +63,7 @@ class Customers extends Component
 
     public function detailsmodal(Client $customer)
     {
-        //dd('ici'); 
+        
         $this->Details = $customer->toArray();
 
         $this->dispatch('details');
@@ -96,7 +97,7 @@ class Customers extends Component
         $create = Client::create(
             [ 
                 'nom' => $this->nom, 'adresse'=>$this->adresse, 
-                'id_statutclient' => $this->id_statutclient, 'particulier' => 1, 
+                'id_statutclient' => $this->id_statutclient, 'particulier' => 1, 'actif' => 0, 
                 'telephone' => $this->telephone, 'activite' => $this->activite, 'adresse_email' => $this->adresse_email, 
                 'id_user' => auth()->user()->id,
             ]
@@ -114,7 +115,7 @@ class Customers extends Component
         $create = Client::create(
             [ 
                 'nom' => $this->nom, 'adresse'=>$this->adresse, 
-                'id_statutclient' => $this->id_statutclient, 'particulier' => 0, 
+                'id_statutclient' => $this->id_statutclient, 'particulier' => 0, 'actif' => 0, 
                 'telephone' => $this->telephone, 'activite' => $this->activite, 'adresse_email' => $this->adresse_email, 
                 'adresse_facturation' => $this->adresse_facturation,  'numero_contribuable' => $this->numero_contribuable, 
                 'id_user' => auth()->user()->id,
@@ -134,7 +135,8 @@ class Customers extends Component
         ->where('id', $this->editCustomerParticulier['id'])
         ->update([
             'nom' => $this->editCustomerParticulier['nom'], 'adresse'=>$this->editCustomerParticulier['adresse'], 
-                'id_statutclient' => $this->editCustomerParticulier['id_statutclient'], 'particulier' => $this->editCustomerParticulier['particulier'], 
+                'id_statutclient' => $this->editCustomerParticulier['id_statutclient'], 
+                'particulier' => $this->editCustomerParticulier['particulier'], 'actif' => $this->editCustomerParticulier['actif'], 
                 'telephone' => $this->editCustomerParticulier['telephone'], 'activite' => $this->editCustomerParticulier['activite'], 
                 'adresse_email' => $this->editCustomerParticulier['adresse_email'], 
                    
@@ -149,12 +151,13 @@ class Customers extends Component
 
     public function updateCustomer()
     {
-        //dd($this->editCustomer['date_virement']);
+        //dd($this->editCustomer['id_statutclient']);
         $affected = DB::table('clients')
         ->where('id', $this->editCustomer['id'])
         ->update([
             'nom' => $this->editCustomer['nom'], 'adresse'=>$this->editCustomer['adresse'], 
             'id_statutclient' => $this->editCustomer['id_statutclient'], 'particulier' => $this->editCustomer['particulier'], 
+            'actif' => $this->editCustomer['actif'],
             'telephone' => $this->editCustomer['telephone'], 'activite' => $this->editCustomer['activite'], 
             'adresse_email' => $this->editCustomer['adresse_email'], 
             'adresse_facturation' => $this->editCustomer['adresse_facturation'],  
@@ -182,6 +185,11 @@ class Customers extends Component
         if($this->user != "")
         {
             $customerQuery->where("id_user", $this->user);
+        }
+
+        if($this->si_actif!= "")
+        {
+            $customerQuery->where("actif", $this->si_actif);
         }
 
         if($this->statut != "")

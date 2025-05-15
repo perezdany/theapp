@@ -67,7 +67,7 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                         <label>Numéro avoir</label>
+                         <label>Cotation</label>
                         <select class="form-control" wire:model="editFacture.id_cotation">
                             @php
                                 $les_devis = DB::table('cotations')->get();
@@ -79,7 +79,11 @@
                         </select>
                     </div>
                     <div class="col-sm-6">
-                       
+                       <div class="form-group">
+                        <label>Numéro impôt</label>
+                        <input type="text"  wire:model="editFacture.numero_impot" class="form-control" placeholder="Entrer ..." >
+                        
+                        </div>
                     </div>
                 </div>
                

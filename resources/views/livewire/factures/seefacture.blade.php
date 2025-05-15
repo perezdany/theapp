@@ -85,8 +85,23 @@
                 <!-- /.row -->
                 
                 @php
-                    $devis = $cotationcontroller->GetLines($id_cotation);
                     $somme = 0;
+                    $compter = DB::table('details_cotations')->where('cotation_id', $id_cotation)
+                    ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'cotations.id_service', '=', 'services.id')
+                    ->join('clients', 'cotations.id_client', '=', 'clients.id')
+                    ->count();
+
+                    //dd($devis->id); 
+                    if($compter  == 0)//Y A PAS D'ID DE DEVIS
+                    {
+                        //dd('ok');
+                       $devis = $cotationcontroller->GetArticleLines($id_cotation);
+                    }
+                    else
+                    {
+                        $devis = $cotationcontroller->GetLines($id_cotation);
+                    }
                 @endphp
                 <!-- Table row -->
                 <div class="row">
@@ -104,28 +119,26 @@
                         </thead>
                         <tbody>
                         @foreach($devis as $devis)
-                            @if($devis->service_id == 8)
+                            @if($devis->code == "MAT")
 
                                 @php
                                     //dump("i");
                                     $articles = $cotationcontroller->GetArticleLines($id_cotation);
                                 @endphp  
-                                @foreach($articles as $article)
-                                    <tr>
-                                        <td>{{$devis->libele_service}}</td>
-                                        <td>{{$devis->code}}</td>
-                                        <td>{{$article->designation}}</td>
-                                        <td>{{$article->quantite}}</td>
-                                        <td>@php echo number_format($article->prix_unitaire, 2, ".", " ")."F CFA"; @endphp</td>
-                                        <td>
-                                            @php
-                                                $total = $article->quantite * $article->prix_unitaire;
-                                                echo number_format($total, 2, ".", " ")."F CFA";
-                                                $somme = $somme + $total;
-                                            @endphp
-                                        </td>
-                                    <tr>
-                                @endforeach
+                                <tr>
+                                    <td>{{$devis->libele_service}}</td>
+                                    <td>{{$devis->code}}</td>
+                                    <td>{{$devis->designation}}</td>
+                                    <td>{{$devis->quantite}}</td>
+                                    <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
+                                    <td>
+                                        @php
+                                            $total = $devis->quantite * $devis->pu;
+                                            echo number_format($total, 2, ".", " ")."F CFA";
+                                            $somme = $somme + $total;
+                                        @endphp
+                                    </td>
+                                <tr>
                             @else
                                 <tr>
                                     <td>{{$devis->libele_service}}</td>
@@ -135,13 +148,13 @@
                                     <td>N/A</td>
                                     <td>@php echo number_format($devis->prix_ht, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
-                                    @php echo number_format(($devis->prix_ht * $devis->duree), 2, ".", " ")."F CFA"; @endphp
+                                    @php echo number_format(($devis->prix_ht), 2, ".", " ")."F CFA"; @endphp
                               
                                     </td>
                                 <tr>
                                 @php
                                     //dump("oi");
-                                    $somme = $somme + ($devis->prix_ht * $devis->duree);
+                                    $somme = $somme + ($devis->prix_ht);
                                 @endphp
                             @endif 
                         @endforeach

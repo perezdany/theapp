@@ -8,6 +8,7 @@ use App\Models\Facture;
 use App\Models\Client;
 use App\Models\Article;
 use App\Models\Service;
+use App\Models\Cotation;
 
 use DB;
 
@@ -1054,5 +1055,55 @@ class Calculator extends Controller
         
         
         return view('graph/newcustomery', compact('data', 'mois_francais',  'company' , 'year', 'customers'));
+    }
+
+    public function GenerateNumDevis($date, $service)
+    {
+        $recup_les_devis = Cotation::where('date_creation', $date)->count();
+        if($recup_les_devis != 0 )
+        {
+            //IL EXISTE DES FACTURES
+            //ON INCREMENTE LE DERNIER ID
+            $nouveau_id = $recup_les_devis + 1;
+            //CONVERTIR EN STRING
+            $to_chaine = strval($nouveau_id);
+            //FAIRE LA DIFFRENCE POUR LA TAILLE EN VU DE VOIR LE NOMRE DE ZERO A AJOUTER 
+            $taille_to_chaine = strlen($to_chaine);
+            $diff_taille = 3 - $taille_to_chaine;
+            //dd($diff_taille);
+            $i= 0;
+            $id = "";
+            //FAIRE UNE BOUCLE POUR ECRIRE L'ID A LA SUITE DU CODE DU SERVIE
+            while ($i < $diff_taille) {
+                $id = $id."0";
+                $i++;
+            }
+            $id = $id."".$nouveau_id;
+            //dd($id);
+            $recup_les_devis = Cotation::where('date_creation', $date)->orderBy('id', 'DESC')->get('id', 'numero_devis');
+            
+            foreach($recup_les_devis as $recup)
+            {
+                $serv = DB::table('services')->where('id', $service)->get(['code']);
+                foreach($serv as $serv)
+                {
+                    $numero_devis = $serv->code."-".Date('dmY')."-".$id;
+                }
+            }
+
+            //dd($numero_devis);
+        }
+        else
+        {
+            $serv = DB::table('services')->where('id', $service)->get(['code']);
+            foreach($serv as $serv)
+            {
+                $numero_devis = $serv->code."-".Date('dmY')."-001";
+            }
+            //dd($numero_devis);
+           
+        }
+
+        return $numero_devis;
     }
 }

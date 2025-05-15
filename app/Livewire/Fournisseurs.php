@@ -26,6 +26,8 @@ class Fournisseurs extends Component
 
     public $nom;
     public $telephone;
+    public $email;
+    public $adresse_geo;
     public $user = '';
 
 
@@ -54,7 +56,10 @@ class Fournisseurs extends Component
     public function addFournisseur()
     {
         $add = Fournisseur::create([
-            'nom' => $this->nom, 'telephone' => $this->telephone, 'id_user' => auth()->user()->id
+            'nom' => $this->nom, 'telephone' => $this->telephone, 
+            'adresse_geo' => $this->adresse_geo,
+            'email' => $this->email,
+            'id_user' => auth()->user()->id
         ]);
 
         $this->dispatch('showAddSuccessMessage');
@@ -65,7 +70,10 @@ class Fournisseurs extends Component
     public function updateFournisseur()
     {
         $edit = Fournisseur::where('id', $this->editFournisseur['id'])->update([
-            'nom' => $this->editFournisseur['nom'], 'telephone' => $this->editFournisseur['telephone'],
+            'nom' => $this->editFournisseur['nom'], 
+            'telephone' => $this->editFournisseur['telephone'],
+            'adresse_geo' => $this->editFournisseur['adresse_geo'],
+            'email' => $this->editFournisseur['email'],
         ]);
 
         $this->dispatch('showAddSuccessMessage');

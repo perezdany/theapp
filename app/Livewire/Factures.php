@@ -26,7 +26,7 @@ class Factures extends Component
     public $statut = '';
     public $user = '';
 
-    public  $numero_facture,  $numero_avoir, $date_reglement, $date_emission, 
+    public  $numero_facture,  $numero_avoir, $date_reglement, $date_emission, $numero_impot,
             $montant_facture, $id_cotation, $reglee, $annulee, $id_user, $file_path; 
 
     public $editFacture = [];
@@ -77,6 +77,7 @@ class Factures extends Component
         ->update([
             'numero_facture' => $this->editFacture['numero_facture'],  
             'numero_avoir' => $this->editFacture['numero_avoir'], 
+            'numero_impot' => $this->editFacture['numero_impot'], 
             'date_reglement' => $this->editFacture['date_reglement'], 
             'date_emission' => $this->editFacture['date_emission'], 
             'montant_facture' => $this->editFacture['montant_facture'], 'id_cotation' => $this->editFacture['id_cotation'], 

@@ -40,7 +40,27 @@
                     $somme = 0;
                 @endphp
                 @foreach($devis as $devis)
-                
+                    <div>
+                        @php
+                            $tva = DB::table('taxes')->get();
+                        @endphp
+                        @foreach($tva as $tva)
+                            @if($tva->active == 0)
+                                <form action="manage_taxe" method="post">
+                                    @csrf
+                                    <input type="text" value={{$id_cotation}} style="display:none" name="id_cotation">
+                                    <button class="btn btn-danger" type="submit">Activer la TVA</button>
+                                </form>
+                            @else
+                                <form action="manage_taxe" method="post">
+                                    @csrf
+                                    <input type="text" value={{$id_cotation}} style="display:none" name="id_cotation">
+                                    <button class="btn btn-warning" type="submit">Désactiver la TVA</button>
+                                </form>
+                            @endif
+                        @endforeach
+                        
+                    </div>
                     <!-- Main content -->
                     <div class="invoice p-3 mb-3">
                     <!-- title row -->
@@ -92,8 +112,23 @@
                     <!-- /.row -->
                 @endforeach
                 @php
-                    $devis = $cotationcontroller->GetLines($id_cotation);
                     $somme = 0;
+                    $compter = DB::table('details_cotations')->where('cotation_id', $id_cotation)
+                    ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'cotations.id_service', '=', 'services.id')
+                    ->join('clients', 'cotations.id_client', '=', 'clients.id')
+                    ->count();
+
+                    //dd($devis->id); 
+                    if($compter  == 0)//Y A PAS D'ID DE DEVIS
+                    {
+                        //dd('ok');
+                       $devis = $cotationcontroller->GetArticleLines($id_cotation);
+                    }
+                    else
+                    {
+                        $devis = $cotationcontroller->GetLines($id_cotation);
+                    }
                 @endphp
                 <!-- Table row -->
                 <div class="row">
@@ -103,7 +138,7 @@
                         <tr>
                         <th>Service</th>
                         <th>Code</th>
-                        <th>Durée(M./Jr./Sem)/Désignation</th>
+                        <th>Durée/Désignation</th>
                         <th>Qté</th>
                         <th>Prix (Unitaire)</th>
                         <th>Total</th>
@@ -111,44 +146,42 @@
                         </thead>
                         <tbody>
                         @foreach($devis as $devis)
-                            @if($devis->service_id == 8)
+                            @if($devis->code == "MAT")
 
                                 @php
                                     //dump("i");
                                     $articles = $cotationcontroller->GetArticleLines($id_cotation);
                                 @endphp  
-                                @foreach($articles as $article)
-                                    <tr>
-                                        <td>{{$devis->libele_service}}</td>
-                                        <td>{{$devis->code}}</td>
-                                        <td>{{$article->designation}}</td>
-                                        <td>{{$article->quantite}}</td>
-                                        <td>@php echo number_format($article->prix_unitaire, 2, ".", " ")."F CFA"; @endphp</td>
-                                        <td>
-                                            @php
-                                                $total = $article->quantite * $article->prix_unitaire;
-                                                echo number_format($total, 2, ".", " ")."F CFA";
-                                                $somme = $somme + $total;
-                                            @endphp
-                                        </td>
-                                    <tr>
-                                @endforeach
-                            @else
                                 <tr>
                                     <td>{{$devis->libele_service}}</td>
+                                    <td>{{$devis->code}}</td>
+                                    <td>{{$devis->designation}}</td>
+                                    <td>{{$devis->quantite}}</td>
+                                    <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
+                                    <td>
+                                        @php
+                                            $total = $devis->quantite * $devis->pu;
+                                            echo number_format($total, 2, ".", " ")."F CFA";
+                                            $somme = $somme + $total;
+                                        @endphp
+                                    </td>
+                                <tr>
+                            @else
+                                <tr>
+                                    <td>{{$devis->designation}}</td>
                                     <td>{{$devis->code}}</td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
                                     <td>N/A</td>
                                     <td>@php echo number_format($devis->prix_ht, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
-                                    @php echo number_format(($devis->prix_ht * $devis->duree), 2, ".", " ")."F CFA"; @endphp
+                                    @php echo number_format(($devis->prix_ht), 2, ".", " ")."F CFA"; @endphp
                               
                                     </td>
                                 <tr>
                                 @php
-                                    dump("oi");
-                                    $somme = $somme + ($devis->prix_ht * $devis->duree);
+                                    //dump("oi");
+                                    $somme = $somme + ($devis->prix_ht);
                                 @endphp
                             @endif 
                         @endforeach
@@ -197,10 +230,15 @@
                                 </tr>
                                 <tr>
                                     <th>Total:</th>
-                                    <td>@php echo number_format($somme, 2, ".", " ")."F CFA"; @endphp</td>
+                                    <td>
+                                    @php 
+                                        echo number_format($somme, 2, ".", " ")."F CFA"; 
+                                        $pour_facture = $somme;
+                                    @endphp</td>
                                 </tr>
                             @else
-                               @php
+                               
+                                @php
                                     $v = DB::table('cotations')->where('id', $id_cotation)->get(['date_creation']);
                                     foreach($v as $verif)
                                     {
@@ -223,6 +261,7 @@
                                     }
                                        
                                 @endphp
+
                             <tr>
                                 <th>Livraison:</th>
                                 <td>A définir</td>
@@ -233,6 +272,7 @@
                                     @php
                                         $l = $somme + $m;
                                         echo number_format($l, 2, ".", " ")."F CFA";
+                                        $pour_facture = $l;
                                     @endphp
                                 </td>
                             </tr>
@@ -250,13 +290,39 @@
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
                     <div class="col-12">
-                    <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Imprimer/télécharger</a>
-                    <!--<button type="button" class="btn btn-success float-right"><i class="fa fa-credit-card"></i> Submit
-                        Payment
-                    </button>-->
-                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                        <i class="fa fa-file"></i> Créer une facture
-                    </button>
+                        <div class="col-md-12">
+                        <form action="print_devis" method="post" target="blank">
+                            @csrf
+                            <input style="display:none;" value="{{$id_cotation}}" name="id_cotation">
+                            <button target="blank" class="btn btn-default float-left"><i class="fa fa-print"></i> Imprimer/télécharger</button>
+
+                        </form>
+                        </div>
+                        <div class="col-md-12">
+                        @php
+                            $voir_valider = DB::table('cotations')->where('id', $id_cotation)->get();
+                        @endphp
+                        @foreach($voir_valider as $voir_valider)
+                            @if($voir_valider->valide == 0)
+                                 <form action="gocreateinvoice" method="post">
+                                    @csrf
+                                    <input type="text" style="display:none;" value="{{$id_cotation}}" name="id_cotation">
+                                    <input type="text" style="display:none;" value="{{$pour_facture}}" name="montant_facture">
+                                    <button type="submit" class="btn btn-primary float-right">
+                                    <i class="fa fa-file"></i> Créer une facture
+                                    </button>
+                                </form>
+                            @else
+                                <form action="print_invoice" method="post" target="blank">
+                                    @csrf
+                                    <input type="text" style="display:none;" value="{{$id_cotation}}" name="id_cotation">
+                                    <button target="blank" class="btn btn-success float-right"><i class="fa fa-print"></i> Imprimer la facture</button>
+
+                                </form>
+                            @endif
+                        @endforeach
+                       
+                        </div>
                     </div>
                 </div>
                 </div>

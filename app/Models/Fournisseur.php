@@ -10,6 +10,6 @@ class Fournisseur extends Model
     public $timestamps = true ;
 
     protected $fillable = [
-         'nom', 'telephone', 'id_user'
+         'nom', 'telephone',  'adresse_geo', 'email', 'id_user'
     ];
 }

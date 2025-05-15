@@ -12,6 +12,6 @@ class Fonction extends Model
 
     protected $fillable = [
         'libele_fonction',
-        'id_user'
+        'id_user',
     ];
 }

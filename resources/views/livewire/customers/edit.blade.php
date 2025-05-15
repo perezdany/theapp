@@ -57,7 +57,7 @@
                             <label  class="col-sm-12 col-form-label">Email </label>
                             <div class="col-sm-12">
                             <input type="email" class="form-control" maxlength="30" wire:model="editCustomer.adresse_email" 
-                            required  />
+                          />
                             </div>
                     
                         </div>
@@ -66,7 +66,7 @@
                             <label  class="col-sm-12 col-form-label">Adresse de facturation</label>
                             <div class="col-sm-12">
                             <input type="text" class="form-control" maxlength="60" wire:model="editCustomer.adresse_facturation" 
-                            required  />
+                              />
                             </div>
                     
                         </div>
@@ -75,7 +75,7 @@
                             <label  class="col-sm-12 col-form-label">Numéro de contribuable </label>
                             <div class="col-sm-12">
                             <input type="text" class="form-control" maxlength="150" wire:model="editCustomer.numero_contribuable" 
-                            required  />
+                          />
                             </div>
                     
                         </div>
@@ -94,7 +94,19 @@
                         <div class="row mb-3">
                             <label  class="col-sm-12 col-form-label">Particulier? </label>
                             <div class="col-sm-12">
-                                <select class="form-control" wire:model="editCustomer.id_statutclient" required>
+                                <select class="form-control" wire:model="editCustomer.particulier" required>
+                                 
+                                    <option value="1">OUI</option>
+                                    <option value="0">NON</option>
+                                </select>
+                            </div>
+                    
+                        </div>
+
+                        <div class="row mb-3">
+                            <label  class="col-sm-12 col-form-label">Actif ? </label>
+                            <div class="col-sm-12">
+                                <select class="form-control" wire:model="editCustomer.actif" >
                                  
                                     <option value="1">OUI</option>
                                     <option value="0">NON</option>

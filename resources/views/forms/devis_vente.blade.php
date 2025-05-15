@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <!--begin::Form-->
-                                    <form method="get" action="addarticlefordevis">
+                                    <form method="post" action="addarticlefordevis">
                                         <!--begin::Body-->
                                         @csrf
                                     
@@ -70,6 +70,11 @@
                                         <div class="form-group">
                                         <label>Quantité:</label>
                                         <input type="number" name="qte" min="1" value="1"
+                                        class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                        <label>Prix unitaire:</label>
+                                        <input type="number" name="pu" 
                                         class="form-control">
                                         </div>
                                         <div class="row modal-footer justify-content-between" style="aling:center">
@@ -115,32 +120,32 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form method="post" action="add_devis_vente">
+                            <form method="post" action="save_devis_vente">
                                 @csrf
                                 <div class="content" id="support">
                                     <input type="text" value="{{$id}}" name="id_cotation" style="display: none;">
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <!-- text input -->
                                             <div class="form-group">
                                             <label>Date de création</label>
                                             <input type="date" name="date_creation" class="form-control" value="{{$devis->date_creation}}" required>
                                             </div>
                                         </div>
-                                        <!--<div class="col-sm-3">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                             <label>Numero du devis</label>
-                                            <input type="text" name="numero_devis" class="form-control" placeholder="Entrez ..." required>
+                                            <input type="text" name="numero_devis" class="form-control" value="{{$devis->numero_devis}}"  required>
                                             </div>
-                                        </div>-->
-                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-3">
                                             <!-- text input -->
                                             <div class="form-group">
                                             <label>Valide jusqu'au:</label>
                                             <input type="date" name="date_validite" class="form-control" value="{{$devis->date_validite}}" >
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                             <label>Choisir le client</label>
                                                 <select class="form-control" required name="id_client">
@@ -188,53 +193,123 @@
                                                 <td>{{$article->quantite}}</td>
                                                 <td>
                                                     @php
-                                                        $p = $article->prix_unitaire * $article->quantite;
+                                                        $p = $article->pu * $article->quantite;
                                                     @endphp
                                                     {{$p}}
                                                 </td>
                                                 <td>
-                                                <button class="btn btn-danger" 
-                                                data-toggle="modal" data-target="#delete{{$article->id}}" >
-                                                <b><i class="fa fa-trash"></i></b></button>
-                                                <div class="modal fade" id="delete{{$article->id}}"  
-                                                wire:ignore.self  role="dialog" aria-hidden="true" >
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                        <div class="modal-header">
-                                                        <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <!--begin::Form-->
-                                                            <form method="post" action="supp">
-                                                                <!--begin::Body-->
-                                                                @csrf
-                                                                <label style="text-align:center; color:red">
-                                                                Voulez vous vraiment supprimer cette ligne ?</label>
-                                                                <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
-                                                                name="id" id="{{$article->id}}" style="display:none;">
+                                                <div class="row">
+                                                <div class="col-sm-6">
+                                                    <button class="btn btn-danger" 
+                                                    data-toggle="modal" data-target="#delete{{$article->id}}" >
+                                                    <b><i class="fa fa-trash"></i></b></button>
+                                                    <div class="modal fade" id="delete{{$article->id}}"  
+                                                    wire:ignore.self  role="dialog" aria-hidden="true" >
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!--begin::Form-->
+                                                                <form method="post" action="supp">
+                                                                    <!--begin::Body-->
+                                                                    @csrf
+                                                                    <label style="text-align:center; color:red">
+                                                                    Voulez vous vraiment supprimer cette ligne ?</label>
+                                                                    <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
+                                                                    name="id" id="{{$article->id}}" style="display:none;">
 
-                                                                <!--end::Body-->
-                                                                <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
-                                                                <div class=" row modal-footer justify-content-between" style="aling:center">
-                                                                
-                                                                <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
-                                                                data-dismiss="modal">NON</button>
-                                                        
-                                                                <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
-                                                                                                                        
-                                                                </div>
-                                                                <!--end::Footer-->
-                                                            </form>
-                                                            <!--end::Form-->
-                                                        </div> 
+                                                                    <!--end::Body-->
+                                                                    <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
+                                                                    <div class=" row modal-footer justify-content-between" style="aling:center">
+                                                                    
+                                                                    <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
+                                                                    data-dismiss="modal">NON</button>
+                                                            
+                                                                    <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
+                                                                                                                            
+                                                                    </div>
+                                                                    <!--end::Footer-->
+                                                                </form>
+                                                                <!--end::Form-->
+                                                            </div> 
+                                                            </div>
+                                                            <!-- /.modal-content -->
                                                         </div>
-                                                        <!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>    
-                                                <!-- /.modal -->
+                                                        <!-- /.modal-dialog -->
+                                                    </div>    
+                                                    <!-- /.modal -->
+                                                </div>
+                                                <div clas="col-sm-6">
+                                                    <button class="btn btn-primary" 
+                                                    data-toggle="modal" data-target="#edit{{$article->id}}" >
+                                                    <b><i class="fa fa-edit"></i></b></button>
+                                                    <div class="modal fade" id="edit{{$article->id}}"  
+                                                    wire:ignore.self  role="dialog" aria-hidden="true" >
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <h4 class="modal-title">Modification <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!--begin::Form-->
+                                                                <form method="post" action="editarticleforcreating">
+                                                                    <!--begin::Body-->
+                                                                    @csrf
+                                                                     <input type="text" class="form-control" value="{{$id}}"
+                                                                      name="id_cotation" style="display:none;">
+                                                                    <input type="text" class="form-control" value="{{$article->id}}" 
+                                                                    name="id" id="{{$article->id}}" style="display:none;">
+                                                                        <div class="form-group">
+                                                                        <label>Articles:</label>
+                                                                        <select class="form-control" name="article">
+                                                                            @php
+                                                                                $t = DB::table('articles')->get();
+                                                                            @endphp
+                                                                            @foreach($t as $t)
+                                                                                <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                                            @endforeach
+                                                                            
+                                                                        </select>   
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                        <label>Quantité:</label>
+                                                                        <input type="number" name="qte" min="1" value="{{$article->quantite}}"
+                                                                        class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                        <label>Prix unitaire:</label>
+                                                                        <input type="number" name="pu"  value="{{$article->pu}}"
+                                                                        class="form-control">
+                                                                        </div>
+                                                                    <!--end::Body-->
+                                                                   
+                                                                    <div class=" row modal-footer justify-content-between" style="aling:center">
+                                                                    
+                                                                    <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
+                                                                    data-dismiss="modal">FERMER</button>
+                                                            
+                                                                    <button type="submit"  class="btn btn-success btn-lg col-md-3">VALIDER</button>
+                                                                                                                            
+                                                                    </div>
+                                                                    <!--end::Footer-->
+                                                                </form>
+                                                                <!--end::Form-->
+                                                            </div> 
+                                                            </div>
+                                                            <!-- /.modal-content -->
+                                                        </div>
+                                                        <!-- /.modal-dialog -->
+                                                    </div>    
+                                                    <!-- /.modal -->
+                                                </div>
+                                                </div>
                                                 </td>
                                             </tr>
                                         

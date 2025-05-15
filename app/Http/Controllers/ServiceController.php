@@ -32,11 +32,29 @@ class ServiceController extends Controller
 
     public function AddLineForCreation(Request $request)
     {
-        //dd($request->all());
-        $add = DB::table('cotation_service')
+       //dd($request->all());
+        $add = DB::table('details_cotations')
         ->insert([
                 'cotation_id' => $request->id_cotation,
-                'service_id' => $request->service,
+                'designation' => $request->designation,
+                'prix_ht' => $request->prix,
+                'duree' => $request->duree,
+                'duree_type' => $request->duree_type,
+                   
+          ]);
+
+          return view('forms/add_devis',[
+            'id' => $request->id_cotation,
+        ]);
+    }
+
+     public function EditLineForCreation(Request $request)
+    {
+       //dd($request->all());
+        $add = DB::table('details_cotations')->where('id', $request->id)
+        ->update([
+                
+                'designation' => $request->designation,
                 'prix_ht' => $request->prix,
                 'duree' => $request->duree,
                 'duree_type' => $request->duree_type,
@@ -51,16 +69,16 @@ class ServiceController extends Controller
     public function DeleteLineService(Request $request)
     {
         //dd($request->all());
-        $get = DB::table('cotation_service')
+        $get = DB::table('details_cotations')
         ->where('id', $request->id)
-        ->get(['cotation_service.cotation_id']);
+        ->get(['details_cotations.cotation_id']);
         //dd($get);
         foreach($get as $get)
         {
             $id = $get->cotation_id;
         }
        
-        $delete = DB::table('cotation_service')->where('id', $request->id)->delete();
+        $delete = DB::table('details_cotations')->where('id', $request->id)->delete();
 
         return view('forms/add_devis', compact('id'));
     }

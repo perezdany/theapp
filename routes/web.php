@@ -179,7 +179,7 @@ Route::middleware(['auth'])->group(function(){
             });
 
 
-            Route::get('add_devis', [CotationController::class, 'CreateDevis']);
+            Route::get('create_devis', [CotationController::class, 'CreateDevis']);
 
             //REJETER UN DEVIS
             Route::post('updaterejeter', [CotationController::class, 'UpdateRejeter']);
@@ -189,7 +189,7 @@ Route::middleware(['auth'])->group(function(){
 
             //DEVIS DE VENTE
             Route::get('add_devis_vente', [CotationController::class, 'CreateDevisVente']);
-            Route::post('add_devis_vente', [CotationController::class, 'SaveDevisVente']);
+            Route::post('save_devis_vente', [CotationController::class, 'SaveDevisVente']);
 
             //VALIDER LE DEVIS AU CLICK
             Route::post('validecotation', [CotationController::class, 'ValideCotation']);
@@ -237,11 +237,17 @@ Route::middleware(['auth'])->group(function(){
             //AJOUTER UNE LIGNE DE SERVICE DANS LE DEVIS
             Route::post('addaserviceforcreate', [ServiceController::class, 'AddLineForCreation']);
 
+            //MODIFICATION
+            Route::post('editlinescreating', [ServiceController::class, 'EditLineForCreation']);
+
             //AJOUTER UN ARTICLE
             Route::post('addanarticle', [CotationController::class, 'AddAnArticle']);
 
             //AJOUTER UNE LIGNE D'ARTICLE DANS LE DEVIS
-            Route::get('addarticlefordevis', [CotationController::class, 'AddLineArticle']);
+            Route::post('addarticlefordevis', [CotationController::class, 'AddLineArticle']);
+
+            //MODIFICATION
+             Route::post('editarticleforcreating', [CotationController::class, 'EditLineArticle']);
 
             //SUPPRIMER UNE LIGNE D'ARTICLE dans le DEVIS
             Route::post('supp', [ArticleController::class, 'DeleteLineArticle']);

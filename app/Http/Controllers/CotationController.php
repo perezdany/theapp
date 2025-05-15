@@ -11,18 +11,25 @@ use DB;
 class CotationController extends Controller
 {
     //
-    public function CreateDevis()
+    public function CreateDevis(Request $request)
     {
-        //dd('ici');
+        //dd($request->all());
+      
         $date = Date('Y-m-d');
         $timestamp = strtotime($date);
         $departtime = strtotime('+7 days', $timestamp);
         $date_valide = date("Y-m-d",  $departtime);
 
-       $create = Cotation::create(
+        $numero_devis = (new Calculator())-> GenerateNumDevis($date, $request->service);
+        //dd($numero_devis );
+        //->orderBy('id', 'DESC')->get('id', 'numero_devis')
+        $create = Cotation::create(
             [ 
+                'numero_devis' => $numero_devis,
                 'date_creation' => $date, 
-                'date_validite' =>  $date_valide, 'id_client' => NULL,
+                'date_validite' =>  $date_valide, 
+                'id_client' => $request->client,
+                'id_service' => $request->service,
                 'valide' => 0,
                 'rejete' => 0,
                 'id_user' => auth()->user()->id,
@@ -30,9 +37,11 @@ class CotationController extends Controller
         );
 
         //METTRE A JOUR LE NUMERO DE DEVIS
-        $id  = 'DEVIS'.$create->id;
+        //INCREMENTER EN FONCTION DE L'ORDRE PAR JOUR
+       
+        /*$id  = 'DEVIS'.$create->id;
         $affected = DB::table('cotations')->where('id', $create->id)
-        ->update(['numero_devis' => $id]);
+        ->update(['numero_devis' => $id]);*/
 
         return view('forms/add_devis',[
             'id' => $create->id,
@@ -46,10 +55,9 @@ class CotationController extends Controller
 
         //dd($request->all());
         //ON VA VOIR SI Y A AUCUNE LIGNE AJOUTEE ON SE RETOUR ET ON LUI DIT IL N'A QU'AJOUTER AU MOINS UNE LIGNE
-        $les_articles = DB::table('cotation_service')
-        ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-        ->join('services', 'cotation_service.service_id', 'services.id')
-        ->where('cotation_service.cotation_id', $request->id_cotation)
+        $les_articles = DB::table('details_cotations')
+        ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+        ->where('details_cotations.cotation_id', $request->id_cotation)
         ->count();
         if($les_articles == 0)
         {
@@ -58,18 +66,18 @@ class CotationController extends Controller
                 'error' => 'il faut au moins renseigner une ligne pour le devis!'
             ]);
         }
+       
 
         $up = DB::table('cotations')->where('id', $request->id_cotation)
         ->update(
             [ 
-                'date_creation' => $request->date_creation, 
+                'date_creation' => $request->date_creation, 'numero_devis' => $request->numero_devis,
                 'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
             ]
         );
-
     
         return view('admins/devis')->with('success', 'Le devis a été créé!');
-       /* $create = Cotation::create(
+       /*$create = Cotation::create(
             [ 
                 'date_creation' => $request->date_creation, 
                 'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
@@ -81,27 +89,40 @@ class CotationController extends Controller
         return back()->with('success', 'Le devis a été créé!');
     }
 
-    public function CreateDevisVente()
+    public function CreateDevisVente(Request $request)
     {
+        
         $date = Date('Y-m-d');
         $timestamp = strtotime($date);
         $departtime = strtotime('+7 days', $timestamp);
         $date_valide = date("Y-m-d",  $departtime);
-
-        $create = Cotation::create(
+        
+        $le_service_vente = DB::table('services')->where('code', 'MAT')->get();
+        //dd($le_service_vente);
+        foreach( $le_service_vente as $serv)
+        {
+            //dd('ici');
+            $numero_devis = (new Calculator())-> GenerateNumDevis($date, $serv->id);
+            //dd($numero_devis);
+             $create = Cotation::create(
             [ 
+                'numero_devis' => $numero_devis,
                 'date_creation' => $date, 
-                'date_validite' =>  $date_valide, 'id_client' => NULL,
+                'date_validite' =>  $date_valide, 
+                'id_client' => $request->client,
+                'id_service' => $serv->id,
                 'valide' => 0,
                 'rejete' => 0,
                 'id_user' => auth()->user()->id,
             ]
         );
+        }
+       
 
         //METTRE A JOUR LE NUMERO DE DEVIS
-        $id  = 'DEVIS'.$create->id;
+        /*$id  = 'DEVIS'.$create->id;
         $affected = DB::table('cotations')->where('id', $create->id)
-        ->update(['numero_devis' => $id]);
+        ->update(['numero_devis' => $id]);*/
 
         return view('forms/devis_vente',[
             'id' => $create->id,
@@ -115,7 +136,7 @@ class CotationController extends Controller
         $les_articles = DB::table('cotation_article')
         ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
         ->join('articles', 'cotation_article.article_id', 'articles.id')
-        ->where('cotation_article.cotation_id', $id)
+        ->where('cotation_article.cotation_id', $request->id_cotation)
         ->count();
         if($les_articles == 0)
         {
@@ -127,7 +148,7 @@ class CotationController extends Controller
         $up = DB::table('cotations')->where('id', $request->id_cotation)
         ->update(
             [ 
-                'date_creation' => $request->date_creation, 
+                'date_creation' => $request->date_creation, 'numero_devis' => $request->numero_devis,
                 'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
             ]
         );
@@ -153,11 +174,11 @@ class CotationController extends Controller
             [ 
                 'date_creation' => $request->date_creation, 'numero_devis'=>$request->numero_devis,
                 'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
-                'valide' => 0,
+                'id_service' => $request->service,
                 'id_user' => auth()->user()->id,
             ]
         );
-
+        /*
         if(isset($request->SUR))//SI IL A COCHE LA CASE DE LA PERMISSION SUPPRIMER
         {
             //dd('dd');
@@ -268,7 +289,7 @@ class CotationController extends Controller
             $v = DB::table('cotation_service')->where('cotation_id', $request->id)
             ->where('service_id', 8)->delete();
             
-        }
+        }*/
 
         return back()->with(
             'success', 'Modification effectuée avec succès'
@@ -495,12 +516,12 @@ class CotationController extends Controller
 
     public function GetLinesinfoCustomer($id)
     {
-        $get = DB::table('cotation_service')->where('cotation_id', $id)
-        ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-        ->join('services', 'cotation_service.service_id', '=', 'services.id')
+        $get = DB::table('cotations')->where('cotations.id', $id)
+        //->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
+        ->join('services', 'cotations.id_service', '=', 'services.id')
         ->join('clients', 'cotations.id_client', '=', 'clients.id')
         ->limit(1)
-        ->get(['cotation_service.*', 'cotations.date_creation', 'cotations.numero_devis',
+        ->get(['cotations.date_creation', 'cotations.numero_devis',
                 'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
                 'clients.nom', 'clients.adresse', 'clients.telephone', 'clients.activite',
                 'clients.adresse_email', 'adresse_facturation', 'clients.numero_contribuable',
@@ -514,32 +535,34 @@ class CotationController extends Controller
 
     public function GetLines($id)
     {
-        $get = DB::table('cotation_service')->where('cotation_id', $id)
-        ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-        ->join('services', 'cotation_service.service_id', '=', 'services.id')
+        $get = DB::table('details_cotations')->where('cotation_id', $id)
+        ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+        ->join('services', 'cotations.id_service', '=', 'services.id')
         ->join('clients', 'cotations.id_client', '=', 'clients.id')
-        ->get(['cotation_service.*', 'cotations.date_creation', 'cotations.numero_devis',
+        ->get(['details_cotations.*', 'cotations.date_creation', 'cotations.numero_devis',
                 'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
                 'clients.nom', 'clients.adresse', 'clients.telephone', 'clients.activite',
                 'clients.adresse_email', 'adresse_facturation', 'clients.numero_contribuable',
                 'services.libele_service', 'services.code'
             ]);
 
-       // dd($get);
+       //dd($get);
         
         return $get;
     }
 
     public function GetArticleLines($id)
     {
+        //dd('ici');
         $get = DB::table('cotation_article')->where('cotation_id', $id)
         ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
         ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
         ->join('typearticles', 'articles.id_typearticle', '=', 'typearticles.id')
+        ->join('services', 'cotations.id_service', '=', 'services.id')
         ->get(['cotation_article.*', 'cotations.date_creation', 'cotations.numero_devis',
                 'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
                 'articles.designation', 'articles.code', 'articles.prix_unitaire',
-               
+                'services.code', 'services.libele_service'
             ]);
         
         return $get;
@@ -634,7 +657,23 @@ class CotationController extends Controller
         $add = DB::table('cotation_article')
         ->insert(['cotation_id' => $request->id_cotation,
                     'article_id' => $request->article,
-                    'quantite' => $request->qte
+                    'quantite' => $request->qte,
+                    'pu' => $request->pu,
+        ]);
+
+        return view('forms/devis_vente',[
+            'id' => $request->id_cotation,
+        ]);
+    }
+
+    public function EditLineArticle(Request $request)
+    {
+        //dd($request->all());
+        $add = DB::table('cotation_article')->where('id', $request->id)
+        ->update([
+                    'article_id' => $request->article,
+                    'quantite' => $request->qte,
+                    'pu' => $request->pu,
         ]);
 
         return view('forms/devis_vente',[

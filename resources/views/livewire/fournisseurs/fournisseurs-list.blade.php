@@ -77,6 +77,8 @@
                     <tr>
                         <th>Nom</th>
                         <th>Téléphone</th>
+                        <th>Adresse Géographique</th>
+                        <th>Email</th>
                         <th>Mod/Supp</th>
                     </tr>
                 </thead>
@@ -85,7 +87,8 @@
                     <tr class="align-middle">
                         <td>{{$fournisseur->nom}} </td>
                         <td> {{$fournisseur->telephone}}</td>    
-    
+                        <td> {{$fournisseur->adresse_geo}}</td>
+                        <td> {{$fournisseur->email}}</td>
                         <td>
                             <div class="row">
                                 @can("edit")

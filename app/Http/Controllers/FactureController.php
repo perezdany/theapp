@@ -18,10 +18,54 @@ class FactureController extends Controller
     public function CreateInvoice(Request $request)
     {
         //dd($request->all());
+         //PRENDRE TOUS LES MONTANTS DES DETAILS ET AJOUTER DANS LE DEVIS 
+        $somme = 0;
+        $count_lines = DB::table('details_cotations')
+        ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+        ->where('details_cotations.cotation_id', $request->id_cotation)->count();
+        if($count_lines != 0)//C'EST SERVICE PAS VENTE
+        {
+            $lines = DB::table('details_cotations')
+            ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+            ->where('details_cotations.cotation_id', $request->id_cotation)
+            ->get(['details_cotations.*', 'cotations.numero_devis']);
+
+            foreach($lines as $line)
+            {
+                $numero = $line->numero_devis;
+                $somme = $somme + $line->prix_ht;
+            }
+        }
+        else
+        {
+            $lines = DB::table('cotation_article')
+            ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+            ->where('cotation_article.cotation_id', $request->id_cotation)
+            ->get(['cotation_article.*', 'cotations.numero_devis']);
+
+            foreach($lines as $line)
+            {
+                $numero = $line->numero_devis;
+                $somme = $somme + $line->pu;
+            }
+        }
+        
+        
+        $today = date('Y-m-d');
+        $timestamp = strtotime($today);
+        $departtime1 = strtotime('+15 days', $timestamp);
+        $result_date = date("Y-m-d", $departtime1 );
+        $insert = Facture::create([
+                'numero_facture' => $numero, 
+                'date_reglement' => $result_date, 'date_emission' => $today, 
+                'montant_facture' => $request->montant_facture , 'id_cotation' => $request->id_cotation, 
+                'reglee' => 0, 'annulee' => 0, 'id_user' => auth()->user()->id,
+            ]);
         //récupérer la dernière facture pour le numero facture
+
         $count = Facture::count();
         //dd($count);
-        if($count != 0)
+        /*if($count != 0)
         {
             $last = Facture::orderBy('created_at', 'DESC')->limit(1)->get();
             foreach($last as $last)
@@ -48,13 +92,8 @@ class FactureController extends Controller
             $departtime1 = strtotime('+15 days', $timestamp);
             $result_date = date("Y-m-d", $departtime1 );
             //dd($depart);
-            $insert = Facture::create([
-                'numero_facture' => $num, 
-                'date_reglement' => $result_date, 'date_emission' => $today, 
-                'montant_facture' => $request->montant_facture , 'id_cotation' => $request->id_cotation, 
-                'reglee' => 0, 'annulee' => 0, 'id_user' => auth()->user()->id,
-            ]);
-        }
+            
+        }*/
         //Ne pas oublier de valider le devis
         $valider_devis = DB::table('cotations')->where('id', $request->id_cotation)
         ->update(['valide' => 1]);
@@ -67,7 +106,7 @@ class FactureController extends Controller
 
     public function GetByIdCotation($id)
     {
-        $get = Facture::where('id_cotation', $id)->get();
+        $get = Facture::where('id_cotation', $id)->limit(1)->get();
         return $get;
     }
 
@@ -216,7 +255,7 @@ class FactureController extends Controller
         $get =DB::table('factures')
             ->join('cotations', 'factures.id_cotation', '=', 'cotations.id')
             ->join('clients', 'cotations.id_client', '=', 'clients.id' )
-            ->limit(10)
+            ->limit(5)
             ->where('reglee', 0)->where('annulee', 0)->get(['factures.*', 'clients.nom']);
         return $get;
     }

@@ -28,6 +28,22 @@
                         </div>
                     </div>
                     
+                    <div class="col-sm-12">
+                         
+                        <div class="form-group">
+                        <label>Adresse géographique</label>
+                        <input type="text"  wire:model="adresse_geo" class="form-control" placeholder="EX: KOUMASSI RAMBLAIS" >
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                         
+                        <div class="form-group">
+                        <label>Email</label>
+                        <input type="text"  wire:model="email" class="form-control" >
+                        </div>
+                    </div>
+                    
                     
                 </div>
                
