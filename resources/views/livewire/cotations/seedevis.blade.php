@@ -211,10 +211,7 @@
                         @endphp
                         @foreach($tva as $tva)
                             @if($tva->active == 0)
-                                <tr>
-                                    <th>Livraison:</th>
-                                    <td>A définir</td>
-                                </tr>
+                          
                                 <tr>
                                     <th>Total:</th>
                                     <td>

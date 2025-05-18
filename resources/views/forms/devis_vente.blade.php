@@ -22,20 +22,16 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-    <div class="row">                
-        <!--/.col (left) -->
-        <!-- right column -->
-         <div class="col-md-2"></div>
-        <div class="col-md-8">
- 
-            <!-- general form elements disabled -->
+    <div class="row">
+        <div class="col-md-6">
+        <!-- general form elements disabled -->
             
             @if(isset($id))
                 <div class="row">
                     <div class="col-sm-3">
-                        <button class="btn btn-success" 
+                        <!--<button class="btn btn-success" 
                         data-toggle="modal" data-target="#article{{$id}}" >
-                            <b><i class="fa fa-plus">ARTICLE</i></b></button>
+                            <b><i class="fa fa-plus"></i>ARTICLE</b></button>-->
                         <div class="modal fade" id="article{{$id}}"  wire:ignore.self  
                         role="dialog" aria-hidden="true" >
                             <div class="modal-dialog">
@@ -103,7 +99,7 @@
                         <form action="retour_delete" method="post">
                             @csrf   
                             <input type="text" value="{{$id}}" name="id" style="display:none;">
-                            <button class="btn btn-danger">ANNULER LA CREATION</button>
+                            <button class="btn btn-danger"><b><i class="fa fa-times"></i>ANNULER</b></button>
                         </form>
                         
                     </div>
@@ -116,6 +112,7 @@
                     
                     <div class="card card-warning">
                         <div class="card-header">
+                        
                         <h3 class="card-title">{{$devis->numero_devis}}</h3>
                         </div>
                         <!-- /.card-header -->
@@ -163,161 +160,14 @@
                                     
                                 <div class="card-footer">
                                 
-                                <button type="submit" class="btn btn-info float-right">VALIDER</button>
+                                <button type="submit" class="btn btn-info float-right">FINALISER LA CREATION</button>
                                 </div>
                             </form>
                             <hr>
-                                    
-                            @php
-                                $les_articles = DB::table('cotation_article')
-                                ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
-                                ->join('articles', 'cotation_article.article_id', 'articles.id')
-                                ->where('cotation_article.cotation_id', $id)
-                                ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
-                            @endphp
-                            <div class="table-responsive">
-                                <table class="table m-0">
-                                    <thead>
-                                    <tr>
-                                        <th>Désignation</th>
-                                        <th>Quantité</th>
-                                        <th>Prix</th>   
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                            <!--LES FORMULAIRES DES LIGNES-->
+                            @include("forms.btn_add_lines")
 
-                                        @foreach($les_articles as $article)
-                                        
-                                            <tr>
-                                                <td><b>{{$article->designation}}</b> </td>
-                                                <td>{{$article->quantite}}</td>
-                                                <td>
-                                                    @php
-                                                        $p = $article->pu * $article->quantite;
-                                                    @endphp
-                                                    {{$p}}
-                                                </td>
-                                                <td>
-                                                <div class="row">
-                                                <div class="col-sm-6">
-                                                    <button class="btn btn-danger" 
-                                                    data-toggle="modal" data-target="#delete{{$article->id}}" >
-                                                    <b><i class="fa fa-trash"></i></b></button>
-                                                    <div class="modal fade" id="delete{{$article->id}}"  
-                                                    wire:ignore.self  role="dialog" aria-hidden="true" >
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                            <div class="modal-header">
-                                                            <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <!--begin::Form-->
-                                                                <form method="post" action="supp">
-                                                                    <!--begin::Body-->
-                                                                    @csrf
-                                                                    <label style="text-align:center; color:red">
-                                                                    Voulez vous vraiment supprimer cette ligne ?</label>
-                                                                    <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
-                                                                    name="id" id="{{$article->id}}" style="display:none;">
-
-                                                                    <!--end::Body-->
-                                                                    <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
-                                                                    <div class=" row modal-footer justify-content-between" style="aling:center">
-                                                                    
-                                                                    <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
-                                                                    data-dismiss="modal">NON</button>
-                                                            
-                                                                    <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
-                                                                                                                            
-                                                                    </div>
-                                                                    <!--end::Footer-->
-                                                                </form>
-                                                                <!--end::Form-->
-                                                            </div> 
-                                                            </div>
-                                                            <!-- /.modal-content -->
-                                                        </div>
-                                                        <!-- /.modal-dialog -->
-                                                    </div>    
-                                                    <!-- /.modal -->
-                                                </div>
-                                                <div clas="col-sm-6">
-                                                    <button class="btn btn-primary" 
-                                                    data-toggle="modal" data-target="#edit{{$article->id}}" >
-                                                    <b><i class="fa fa-edit"></i></b></button>
-                                                    <div class="modal fade" id="edit{{$article->id}}"  
-                                                    wire:ignore.self  role="dialog" aria-hidden="true" >
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                            <div class="modal-header">
-                                                            <h4 class="modal-title">Modification <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <!--begin::Form-->
-                                                                <form method="post" action="editarticleforcreating">
-                                                                    <!--begin::Body-->
-                                                                    @csrf
-                                                                     <input type="text" class="form-control" value="{{$id}}"
-                                                                      name="id_cotation" style="display:none;">
-                                                                    <input type="text" class="form-control" value="{{$article->id}}" 
-                                                                    name="id" id="{{$article->id}}" style="display:none;">
-                                                                        <div class="form-group">
-                                                                        <label>Articles:</label>
-                                                                        <select class="form-control" name="article">
-                                                                            @php
-                                                                                $t = DB::table('articles')->get();
-                                                                            @endphp
-                                                                            @foreach($t as $t)
-                                                                                <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
-                                                                            @endforeach
-                                                                            
-                                                                        </select>   
-                                                                        </div>
-
-                                                                        <div class="form-group">
-                                                                        <label>Quantité:</label>
-                                                                        <input type="number" name="qte" min="1" value="{{$article->quantite}}"
-                                                                        class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                        <label>Prix unitaire:</label>
-                                                                        <input type="number" name="pu"  value="{{$article->pu}}"
-                                                                        class="form-control">
-                                                                        </div>
-                                                                    <!--end::Body-->
-                                                                   
-                                                                    <div class=" row modal-footer justify-content-between" style="aling:center">
-                                                                    
-                                                                    <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
-                                                                    data-dismiss="modal">FERMER</button>
-                                                            
-                                                                    <button type="submit"  class="btn btn-success btn-lg col-md-3">VALIDER</button>
-                                                                                                                            
-                                                                    </div>
-                                                                    <!--end::Footer-->
-                                                                </form>
-                                                                <!--end::Form-->
-                                                            </div> 
-                                                            </div>
-                                                            <!-- /.modal-content -->
-                                                        </div>
-                                                        <!-- /.modal-dialog -->
-                                                    </div>    
-                                                    <!-- /.modal -->
-                                                </div>
-                                                </div>
-                                                </td>
-                                            </tr>
-                                        
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
+                           
                             <!-- /.table-responsive -->
                             <script type="text/javascript">
                                 function displayLine()
@@ -391,7 +241,44 @@
                                     }*/
                     
                                 }
-                            
+
+                                function displayTheLine(id, id_bt)
+                                {
+                                    //alert($id);
+                                    let bt = document.getElementById(id_bt);
+                                    let support = document.getElementById(id);
+                                    support.removeAttribute("style");
+                                    bt.setAttribute("style", "display:none");
+                                   
+                                }
+
+                                function EnableFields(sel, q, p)
+                                {
+                                    let article = document.getElementById(sel);
+                                    
+                                    quantite = document.getElementById(q);
+                                    prix = document.getElementById(p);
+                                    if(article.value != "--")
+                                    {
+                                       
+                                        quantite.removeAttribute("disabled");
+                                        quantite.setAttribute("enabled", "enabled");
+                                        prix.removeAttribute("disabled");
+                                        prix.setAttribute("enabled", "enabled");
+                                    }
+                                    else
+                                    {  
+                                        quantite.removeAttribute("enabled");
+                                          quantite.setAttribute("disabled", "disabled");
+                                        prix.removeAttribute("enabled");
+                                      
+                                        prix.setAttribute("disabled", "disabled");
+                                    }
+
+                                    
+                                }
+
+
                             </script>
                         </div>
                         
@@ -404,9 +291,33 @@
             <!-- /.card -->
        
         </div>
+        
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                        
+                        <h3 class="card-title">Articles ajoutés</h3>
+                        </div>
+            <div class="card-body">
+            @include("forms.tableau_lignes_articles")
+            </div>
+
+          
+        </div>                
+    </div>
+    <div class="row">                
+        <!--/.col (left) -->
+        <!-- right column -->
+
+        <div class="col-md-8">
+ 
+            
+        </div>
         <!--/.col (right) -->
-        <div class="col-md-2"></div>
-       
+        <div class="col-md-4">
+           
+        </div>       
     </div>
     <!-- /.row -->
 

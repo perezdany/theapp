@@ -37,7 +37,7 @@
 
                         <button class="btn btn-primary" 
                         data-toggle="modal" data-target="#createds" >
-                            <b><i class="fa fa-plus"></i>DEVIS PRESTATIONS DE SERVICES</b></button>
+                            <b><i class="fa fa-plus"></i>DEVIS</b></button>
                         <div class="modal fade" id="createds"  
                             wire:ignore.self  role="dialog" aria-hidden="true" >
                             <div class="modal-dialog">
@@ -102,60 +102,7 @@
                     </div>
 
                    
-                    <div class="col-xs-3">
-                         <button class="btn btn-success" 
-                        data-toggle="modal" data-target="#createdv" >
-                            <b><i class="fa fa-plus"></i>DEVIS VENTE DE MATERIEL</b></button>
-                        <div class="modal fade" id="createdv"  
-                            wire:ignore.self  role="dialog" aria-hidden="true" >
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                <h4 class="modal-title">Choisissez le client</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!--begin::Form-->
-                                    <form method="get" action="add_devis_vente">
-                                        <!--begin::Body-->
-                                        @csrf
-                                       
-                                        <div class="form-group">
-                                        <label>Service:</label>
-                                            <select class="form-control" name="client" required>
-                                                
-                                                @php
-                                                    $clients = DB::table('clients')->get();
-                                                @endphp
-                                                @foreach($clients as $client)
-                                                    <option value={{$client->id}}>{{$client->nom}}</option>
-                                                @endforeach
-                                                
-                                            </select>   
-                                        </div>
-
-                                       
-                                        <div class=" row modal-footer justify-content-between" style="aling:center">
-                                        
-                                        <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
-                                
-                                        <button type="submit"  class="btn btn-success col-md-3">Aller au devis</button>
-                                                
-                                        </div>
-                                        <!--end::Footer-->
-                                    </form>
-                                    <!--end::Form-->
-                                </div> 
-                                </div>
-                                <!-- /.modal-content -->
-                            </div>
-                            <!-- /.modal-dialog -->
-                        </div>    
-                        <!-- /.modal -->
-                        <!--<a href="add_devis_vente" class="col-sm-3"><button class="btn btn-success">
-                        <b><i class="fa fa-plus"></i></b></button><br></a>-->
-                    </div>
+                   
              
                 </div>
           
@@ -237,10 +184,10 @@
                         <th>Etat</th>
                         <th>Marq. comme rejeté</th>
                         <th>Par:</th>
-                        <th>Ajouter un service</th>
-                        <th>Ajouter un article</th>
+                        <!--<th>Ajouter un service</th>
+                        <th>Ajouter un article</th>-->
                         <th>Détails</th>
-                        <th>Modifier les lignes</th>
+                        <!--<th>Modifier les lignes</th>-->
                         <th>Mod/Supp/Valider</th>
                     </tr>
                 </thead>
@@ -327,141 +274,7 @@
                             <!-- /.modal -->
                         </td>
                         <td>{{$cotation->nom_prenoms}}</td>
-                        <td>
-                            <button class="btn btn-success" 
-                            data-toggle="modal" data-target="#serv{{$cotation->id}}" >
-                                <b><i class="fa fa-plus"></i></b></button>
-                            <div class="modal fade" id="serv{{$cotation->id}}"  
-                                wire:ignore.self  role="dialog" aria-hidden="true" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h4 class="modal-title">Service</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!--begin::Form-->
-                                        <form method="post" action="addaservice">
-                                            <!--begin::Body-->
-                                            @csrf
-                                           
-                                            <input type="text" class="form-control" value="{{$cotation->id}}" wire-model="id" 
-                                            name="id" id="{{$cotation->id}}" style="display:none;">
-                                            
-                                            <div class="form-group">
-                                            <label>Service:</label>
-                                                <select class="form-control" name="service" required>
-                                                   
-                                                    @php
-                                                        $s = DB::table('services')->get();
-                                                    @endphp
-                                                    @foreach($s as $s)
-                                                        <option value={{$s->id}}>{{$s->libele_service}}</option>
-                                                    @endforeach
-                                                    
-                                                </select>   
-                                            </div>
-
-                                            <div class="form-group">
-                                            <label>Prix Hors taxe:</label>
-                                            <input type="number" name="prix" class="form-control" placeholder="un nombre..." required>
-                                            </div>
-
-                                            <div class="form-group">
-                                            <label>Durée:</label>
-                                            <input type="number" name="duree" min="0" value="0"
-                                            class="form-control" placeholder="Entrez ..." >
-                                            </div>
-
-                                            <div class="form-group">
-                                            <label>Choisir:</label>
-                                            <select  class="form-control" name="duree_type" id="duree_type">
-                                                <option value="jours">Jours</option>
-                                                <option value="mois">Mois</option>
-                                                <option value="annees">Années</option>
-                                            </select>
-                                            
-                                            </div>
-                                            <div class=" row modal-footer justify-content-between" style="aling:center">
-                                            
-                                            <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
-                                    
-                                            <button type="submit"  class="btn btn-success col-md-3">Enregistrer</button>
-                                                    
-                                                
-                                            </div>
-                                            <!--end::Footer-->
-                                            
-                                        </form>
-                                        <!--end::Form-->
-                                    </div> 
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>    
-                            <!-- /.modal -->
-                               
-                        </td>
-                        <td>
-                            <button class="btn btn-success" 
-                            data-toggle="modal" data-target="#article{{$cotation->id}}" >
-                                <b><i class="fa fa-plus"></i></b></button>
-                            <div class="modal fade" id="article{{$cotation->id}}"  wire:ignore.self  role="dialog" aria-hidden="true" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h4 class="modal-title">Article</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!--begin::Form-->
-                                        <form method="post" action="addanarticle">
-                                            <!--begin::Body-->
-                                            @csrf
-                                           
-                                            <input type="text" class="form-control" value="{{$cotation->id}}" 
-                                            name="id_cotation" id="{{$cotation->id}}" style="display:none;">
-
-                                            <div class="form-group">
-                                            <label>Articles:</label>
-                                            <select class="form-control" name="article">
-                                                @php
-                                                    $t = DB::table('articles')->get();
-                                                @endphp
-                                                @foreach($t as $t)
-                                                    <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
-                                                @endforeach
-                                                
-                                            </select>   
-                                            </div>
-
-                                            <div class="form-group">
-                                            <label>Quantité:</label>
-                                            <input type="number" name="qte" min="1" value="1"
-                                            class="form-control">
-                                            </div>
-                                            <div class="row modal-footer justify-content-between" style="aling:center">
-                                            
-                                            <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
-                                    
-                                            <button type="submit"  class="btn btn-success col-md-3">Enregistrer</button>
-
-                                            </div>
-                                            <!--end::Footer-->
-                                        </form>
-                                        <!--end::Form-->
-
-                                    </div> 
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>    
-                            <!-- /.modal -->    
-                        </td>
+                       
                         <td>
                             <form action="see_devis" method="post">
                                 @csrf
@@ -469,167 +282,7 @@
                                 <button class="btn btn-warning"><i class="fa fa-eye"></i></button>
                             </form>
                         </td>
-                        <td>
-                            <!--<form action="edit_lines" method="post">
-                              
-                                <input type="text" value="" name="id_cotation" style="display:none">
-                                <button class="btn btn-primary"><i class="fa fa-edit"></i></button>
-                            </form>-->
-                            <button class="btn btn-primary" 
-                                data-toggle="modal" data-target="#editlines{{$cotation->id}}" >
-                                    <b><i class="fa fa-edit"></i></b></button>
-                            <div class="modal fade" id="editlines{{$cotation->id}}" role="dialog" aria-hidden="true" >
-                                <div class="modal-dialog modal-xl">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h4 class="modal-title">Edition des lignes du devis {{$cotation->numero_devis}}</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!--begin::Form-->
-                                        <form method="post" action="edit_lines">
-                                            @php
-                                                //CODE POUR AFFICHER LES FORMULAIRES EN FONCTION DES SERVICES
-                                                if(isset($cotation->id))
-                                                {
-                                                    $get_service = DB::table('details_cotations')
-                                                    ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-                                                    ->join('services', 'cotations.id_service', '=', 'services.id')
-                                                    ->where('cotation_id', $cotation->id)
-                                                    ->get(['details_cotations.*', 'services.libele_service', 'services.code']);
-                                                }
-                                                //dd($get_service);
-                                            @endphp
-                                            @csrf
-                                            <div class="row">
-                                                <input type="text" value="{{$cotation->id}}" name="id_cotation" 
-                                                style="display:none;">
-                                          
-                                                @if(isset($get_service))
-                                                    @foreach($get_service as $service)
-                                                    <div class="col-sm-3">
-                                                        @if($service->code == "MAT")
-                                                    
-                                                            <!-- text input -->
-                                                            <input type="text" value={{$service->service_id}} name="{{$service->code}}" style="display:none;">
-                                                            <div class="form-group">
-                                                                @php
-                                                                    $infos = DB::table('cotation_article')
-                                                                    ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
-                                                                    ->where('cotation_id', $cotation->id)
-                                                                    ->count()
-                                                                    //->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
-                                                                @endphp
-                                                                @if($infos != 0)
-                                                                    @php
-                                                                        
-                                                                        $infos = DB::table('cotation_article')
-                                                                        ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
-                                                                        ->where('cotation_id', $cotation->id)
-                                                                        //->count()
-                                                                        ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
-                                                                    @endphp
-                                                                    @foreach($infos as $info)
-                                                                    <label>Articles:</label>
-                                                                    <select class="form-control" name="article">
-                                                                        <option value={{$info->id}}>{{$info->designation}}/Prix:{{$info->prix_unitaire}}XOF</option>
-                                                                        @php
-                                                                            $t = DB::table('articles')->get();
-                                                                        @endphp
-                                                                        @foreach($t as $t)
-                                                                            <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
-                                                                        @endforeach
-                                                                        
-                                                                    </select>   
-                                                                    <label>Quantité:</label>
-                                                                    <input type="number" class="form-control"  name="qte"
-                                                                     value={{$info->quantite}} required>
-                                                                    @endforeach
-                                                                @else
-                                                                    <label>Articles:</label>
-                                                                    <select class="form-control" name="article">
-                                                                        @php
-                                                                            $t = DB::table('articles')->get();
-                                                                        @endphp
-                                                                        @foreach($t as $t)
-                                                                            <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
-                                                                        @endforeach
-                                                                    </select>   
-                                                                    <label>Quantité:</label>
-                                                                    <input type="number" class="form-control"  name="qte" required>
-                                                                @endif
-                                                               
-                                                            </div>
-                                                           
-                                                        @else
-                                                           
-                                                            <!-- text input -->
-                                                             @php
-                                                                $infos =  DB::table('details_cotations')
-                                                            ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-                                                            ->join('services', 'cotations.id_service', '=', 'services.id')
-                                                                ->where('cotation_id', $cotation->id)
-                                                                ->get(['details_cotations.*', 'services.code']);
-                                                                //dd($infos);
-                                                            @endphp
-                                                            @foreach($infos as $info)
-                                                            <input type="text" value={{$info->id}} name="line"{{$info->id}} style="display:none;">
-                                                            <div class="form-group">
-                                                            
-                                                            <div class="form-group">
-                                                                <label>Désignation:</label>
-                                                                <textarea name="designation" class="form-control" >
-                                                                    {{$service->designation}}
-                                                                </textarea>
-                                                        
-                                                            </div>
-                                                            <label>Prix Hors taxe:</label>
-                                                            <input type="number" class="form-control"  name="prix_ht{{$service->code}}" value="{{$info->prix_ht}}" required>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                            <label>Durée:</label>
-                                                            <input type="number" name="duree{{$service->code}}" value={{$info->duree}} 
-                                                            min="0" class="form-control"  >
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                            <label>Choisir:</label>
-                                                            <select  class="form-control" name="duree_type{{$info->id}}">
-                                                                <option value="{{$info->duree_type}}">{{$info->duree_type}}</option>
-                                                                <option value="jours">Jours</option>
-                                                                <option value="mois">Mois</option>
-                                                                <option value="annees">Années</option>
-                                                            </select>
-                                                            
-                                                            </div>
-                                                      
-                                                            @endforeach
-                                                      
-                                                        @endif
-                                                    </div>
-                                                
-                                                    @endforeach
-                                                @endif
-
-                                            </div>
-                                             
-                                            <div class="row modal-footer justify-content-between">
-                                            <button data-dismiss="modal" class="btn btn-danger">Retour</button>
-                                            <button type="submit" class="btn btn-info float-right">Valider</button>
-                                            </div>
-                                        </form>
-                                        <!--end::Form-->
-
-                                    </div> 
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>    
-                            <!-- /.modal -->
-                        </td> 
+                       
                         <td>
                         <div class="row">
                             @can("edit")

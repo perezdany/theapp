@@ -25,16 +25,16 @@
     <div class="row">                
         <!--/.col (left) -->
         <!-- right column -->
-         <div class="col-md-2"></div>
-        <div class="col-md-8">
+ 
+        <div class="col-md-6">
  
             <!-- general form elements disabled -->
             @if(isset($id))
                 <div class="row">
                     <div class="col-sm-3">
-                         <button class="btn btn-success" 
+                         <!--<button class="btn btn-success" 
                             data-toggle="modal" data-target="#serv{{$id}}" >
-                                <b><i class="fa fa-plus">Détails</i></b></button>
+                                <b><i class="fa fa-plus">Détails</i></b></button>-->
                             <div class="modal fade" id="serv{{$id}}"  
                                 wire:ignore.self  role="dialog" aria-hidden="true" >
                                 <div class="modal-dialog">
@@ -108,7 +108,7 @@
                         <form action="retour_delete" method="post">
                             @csrf   
                             <input type="text" value="{{$id}}" name="id" style="display:none;">
-                            <button class="btn btn-danger">ANNULER LA CREATION</button>
+                            <button class="btn btn-danger"><i class="fa fa-times"></i>ANNULER</button>
                         </form>
                         
                     </div>
@@ -172,165 +172,11 @@
                                 <button type="submit" class="btn btn-info float-right">VALIDER</button>
                                 </div>
                             </form>
-                            @php
-                                $les_articles = DB::table('details_cotations')
-                                ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-                                ->where('details_cotations.cotation_id', $id)
-                                ->get(['details_cotations.*',]);
-                                //dd($les_articles);
-                            @endphp
-                            <div class="table-responsive">
-                                <table class="table m-0">
-                                    <thead>
-                                    <tr>
-                                        <th>Désignation</th>
-                                        <th>Durée</th>
-                                        <th>Montant HT (F CFA)</th>  
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                            
+                            <!--LES LIGNES DES DETAILS-->
+                            @include("forms.forms_details")
 
-                                        @foreach($les_articles as $article)
-                                        
-                                            <tr>
-                                                <td><b>{{$article->designation}}</b> </td>
-                                                <td>{{$article->duree}} {{$article->duree_type}}</td>
-                                               
-                                                <td>
-                                                    @php
-                                                        $p = $article->prix_ht;
-                                                    @endphp
-                                                    {{$p}}
-                                                </td>
-                                                <td>
-                                                <div class="row">
-                                                <div class="col-sm-6">
-                                                    <button class="btn btn-danger" 
-                                                    data-toggle="modal" data-target="#delete{{$article->id}}" >
-                                                    <b><i class="fa fa-trash"></i></b></button>
-                                                    <div class="modal fade" id="delete{{$article->id}}"  
-                                                    wire:ignore.self  role="dialog" aria-hidden="true" >
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                            <div class="modal-header">
-                                                            <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <!--begin::Form-->
-                                                                <form method="post" action="suppserv">
-                                                                    <!--begin::Body-->
-                                                                    @csrf
-                                                                    <label style="text-align:center; color:red">
-                                                                    Voulez vous vraiment supprimer cette ligne ?</label>
-                                                                    <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
-                                                                    name="id" id="{{$article->id}}" style="display:none;">
-
-                                                                    <!--end::Body-->
-                                                                    <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
-                                                                    <div class=" row modal-footer justify-content-between" style="aling:center">
-                                                                    
-                                                                    <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
-                                                                    data-dismiss="modal">NON</button>
-                                                            
-                                                                    <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
-                                                                                                                            
-                                                                    </div>
-                                                                    <!--end::Footer-->
-                                                                </form>
-                                                                <!--end::Form-->
-                                                            </div> 
-                                                            </div>
-                                                            <!-- /.modal-content -->
-                                                        </div>
-                                                        <!-- /.modal-dialog -->
-                                                    </div>    
-                                                    <!-- /.modal -->
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <button class="btn btn-primary" 
-                                                    data-toggle="modal" data-target="#edit{{$article->id}}" >
-                                                    <b><i class="fa fa-edit"></i></b></button>
-                                                    <div class="modal fade" id="edit{{$article->id}}"  
-                                                    wire:ignore.self  role="dialog" aria-hidden="true" >
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                            <div class="modal-header">
-                                                            <h4 class="modal-title">Modification<!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <!--begin::Form-->
-                                                                <form method="post" action="editlinescreating">
-                                                                    <!--begin::Body-->
-                                                                    @csrf
-                                                                    <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
-                                                                    name="id" id="{{$article->id}}" style="display:none;">
-                                                                    <input type="text" class="form-control" value="{{$id}}" wire-model="id" 
-                                                                    name="id_cotation" id="{{$id}}" style="display:none;">
-                                                                
-                                                                    <div class="form-group">
-                                                                        <label>Désignation:</label>
-                                                                        <textarea name="designation" class="form-control" >
-                                                                            {{$article->designation}}
-                                                                        </textarea>
-                                                                
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                    <label>Prix Hors taxe:</label>
-                                                                    <input type="number" name="prix" class="form-control" 
-                                                                    value="{{$article->prix_ht}}">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                    <label>Durée:</label>
-                                                                    <input type="number" name="duree"
-                                                                    class="form-control" value="{{$article->duree}}">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                    <label>Choisir:</label>
-                                                                    <select  class="form-control" name="duree_type" id="duree_type">
-                                                                        <option value="{{$article->duree_type}}">{{$article->duree_type}}</option>
-                                                                        <option value="jours">Jours</option>
-                                                                        <option value="mois">Mois</option>
-                                                                        <option value="annees">Années</option>
-                                                                    </select>
-                                                                    
-                                                                    </div>
-                                                                    <!--end::Body-->
-                                                                   
-                                                                    <div class="row modal-footer justify-content-between" style="aling:center">
-                                                                    
-                                                                    <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
-                                                                    data-dismiss="modal">FERMER</button>
-                                                            
-                                                                    <button type="submit"  class="btn btn-success btn-lg col-md-3">VALIDER</button>
-                                                                                                                            
-                                                                    </div>
-                                                                    <!--end::Footer-->
-                                                                </form>
-                                                                <!--end::Form-->
-                                                            </div> 
-                                                            </div>
-                                                            <!-- /.modal-content -->
-                                                        </div>
-                                                        <!-- /.modal-dialog -->
-                                                    </div>    
-                                                    <!-- /.modal -->
-                                                </div>
-                                                </td>
-                                            </tr>
-                                        
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
+                          
                             <script type="text/javascript">
                                 function displayLine()
                                 {
@@ -352,6 +198,7 @@
 
                                 function hideLine()
                                 {
+
                                     //alert('ici');
                                     //SCRIPT POUR AJOUTER DES LIGNES DE FACON MODULABLE.
                             
@@ -403,7 +250,49 @@
                                     }*/
                     
                                 }
-                            
+
+
+                                function displayTheLine(id, id_bt)
+                                {
+                                    //alert(id);
+                                    let bt = document.getElementById(id_bt);
+                                    let support = document.getElementById(id);
+                                    //salert(support);
+                                    support.removeAttribute("style");
+                                    bt.setAttribute("style", "display:none");
+                                   
+                                }
+
+                                function EnableFields(sel, q, p, d)
+                                {
+                                    
+                                    let designation = document.getElementById(sel);
+                                    
+                                    prix= document.getElementById(q);
+                                    duree = document.getElementById(p);
+                                    type_d = document.getElementById(d);
+                                    //alert(type_d);
+                                    if(designation.value != "")
+                                    {
+                                        //alert('ok');
+                                        prix.removeAttribute("disabled");
+                                        prix.setAttribute("enabled", "enabled");
+                                        duree.removeAttribute("disabled");
+                                        duree.setAttribute("enabled", "enabled");
+                                        type_d.removeAttribute("disabled");
+                                        type_d.setAttribute("enabled", "enabled");
+                                    }
+                                    else
+                                    {  
+                                        
+                                        prix.removeAttribute("enabled");
+                                        prix.setAttribute("disabled", "disabled");
+                                        duree.removeAttribute("enabled");
+                                        duree.setAttribute("disabled", "disabled");
+                                        type_d.removeAttribute("enabled");
+                                        type_d.setAttribute("disabled", "disabled");
+                                    }
+                                }
                             </script>
                         </div>
                         
@@ -415,9 +304,22 @@
        
         </div>
         <!--/.col (right) -->
-        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                            
+                            <h3 class="card-title">Articles ajoutés</h3>
+                            </div>
+                <div class="card-body">
+            @include("forms.tableau_recap_details")
+                </div>
+            <!--TABLEAU REACP DES DETAILS AVEC LE MONTANT TOTAL EN BAS-->
+            
+        </div>
        
     </div>
+    
+
     <!-- /.row -->
 
 @endsection

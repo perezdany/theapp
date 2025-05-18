@@ -205,6 +205,7 @@ Route::middleware(['auth'])->group(function(){
 
             //MODIFIER LES LIGNES DU DEVIS
             Route::post('edit_lines', [CotationController::class, 'EditLines']);
+            Route::post('edit_lineas', [CotationController::class, 'EditLineAs']);
 
             //ALLER AU FORMULAIRE DE MODIFI DE LA COTATION
             Route::post('editcotation', [CotationController::class, 'GoEdit']);
