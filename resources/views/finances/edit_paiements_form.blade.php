@@ -42,36 +42,47 @@
                             <!-- form start -->
                             <form role="form" action="edit_paiement" method="post">
                                 @csrf
-                                <input type="text" value="{{$retrive->id}}" name="id_paiement" style="display:none;">
+                                <input type="text" value="{{$retrive->id_paiement}}" name="id_paiement" style="display:none;">
                                 <input type="text" value="{{$retrive->montant_facture}}" name="montant" style="display:none;">
                                 <input type="text" value="{{$retrive->id_facture}}" name="id_facture" style="display:none;">
+                                <input type="text" value="{{$retrive->id}}" name="id_details" style="display:none;">
                                 <div class="form-group">
-                                    <label>Entrer le montant du paiement</label>
+                                    <label>Montant du paiement</label>
                                     <input type="number" class="form-control input-lg" name="paiement" value="{{$retrive->paiement}}">
                                 </div>
+                                @if($retrive->id_mode_reglement == 1)
+                                    <div class="form-group">
+                                        <label>Date du paiement</label>
+                                        <input type="date" class="form-control input-lg" name="date_paiement" value="{{$retrive->date_paiement}}">
+                                    </div>
 
-                                <div class="form-group">
-                                    <label>Date du paiement</label>
-                                    <input type="date" class="form-control input-lg" name="date_paiement" value="{{$retrive->date_paiement}}">
-                                </div>
+                                @else
+                                    @if($retrive->id_mode_reglement == 2)
+                                        <div class="form-group">
+                                            <label>Date du paiement</label>
+                                            <input type="date" class="form-control input-lg" name="date_paiement" value="{{$retrive->date_paiement}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Date de reception</label>
+                                            <input type="date" class="form-control" name="date_reception" value="{{$retrive->date_reception}}">
+                                        </div>
+                                       
+                                    @else
+                                         <div class="form-group">
+                                            <label>Numéro de virement</label>
+                                            <input type="text" class="form-control" name="numero_virement" value="{{$retrive->numero_virement}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nom de la banque</label>
+                                            <input type="text" class="form-control" name="banque" value="{{$retrive->banque}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Date de virement</label>
+                                            <input type="date" class="form-control" name="date_virement" value="{{$retrive->date_virement}}">
+                                        </div>
+                                    @endif
+                                @endif
 
-                                <div class="form-group">
-                                    <label>Nom de la banque</label>
-                                    <input type="text" class="form-control" name="banque" value="{{$retrive->banque}}">
-                                </div>
-                                <div class="form-group">
-                                    <label>Date de virement</label>
-                                    <input type="date" class="form-control" name="date_virement" value="{{$retrive->date_virement}}">
-                                </div>
-                                <div class="form-group">
-                                    <label>Date de reception</label>
-                                    <input type="date" class="form-control" name="date_reception" value="{{$retrive->date_reception}}">
-                                </div>
-                                <div class="form-group">
-                                    <label>Numéro de virement</label>
-                                    <input type="date" class="form-control" name="numero_virement" value="{{$retrive->numero_virement}}">
-                                </div>
-                                    
                                 <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">VALIDER</button>
                                 </div>

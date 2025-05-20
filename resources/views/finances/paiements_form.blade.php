@@ -42,11 +42,11 @@
                         <thead>
                         <tr>
                             <th>Montant</th>
-                            <th>Date de paiement</th>
                             <th>Numéro de facture</th>
+                            <th>Date de paiement</th>
                             <th>Banque</th>
                             <th>Date de virement</th>
-                             <th>Numéro de virement</th>
+                            <th>Numéro de virement</th>
                             <th>Modifier</th>
                             <th>Supp</th>
                         </tr>
@@ -60,12 +60,25 @@
                                         @endphp
                                     </td>
                                     
-                                    <td>@php echo date('d/m/Y',strtotime($my_own->date_paiement)) @endphp</td>
+                                   
                                     
                                     <td>{{$my_own->numero_facture}}</td>
-                                     <td>{{$my_own->banque}}</td>
-                                      <td>{{$my_own->date_virement}}</td>
-                                       <td>{{$my_own->numero_virement}}</td>
+                                    @if($my_own->id_mode_reglement == 1)
+                                        <td>@php echo date('d/m/Y',strtotime($my_own->date_paiement)) @endphp</td>
+                                        <td colspan="3"><b>Paiement en espèce</b></td>
+                                    @else
+                                        @if($my_own->id_mode_reglement == 2)
+                                            <td>@php echo date('d/m/Y',strtotime($my_own->date_reception)) @endphp</td>
+                                             <td colspan="3"><b>Paiement Par chèque</b></td>
+                                        @else
+                                            <td></td>
+                                            <td>{{$my_own->banque}}</td>
+                                            <td>@php echo date('d/m/Y',strtotime($my_own->date_virement)) @endphp</td>
+
+                                            <td>{{$my_own->numero_virement}}</td>
+                                        @endif
+                                        
+                                    @endif
                                     
                                     <td>
                                         <form action="edit_paiement_form" method="post">
@@ -169,7 +182,7 @@
                                     </p>
                                 </div>
                             
-
+                    
                                 <div class="form-group">
                                     <label>Entrer le montant du paiement</label>
                                     <input type="number" class="form-control" name="paiement" required id="mt" onkeyup="VerifRest()">
@@ -179,62 +192,153 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Date du paiement</label>
-                                    <input type="date" class="form-control" name="date_paiement" required>
+                                    <label>Type de paiement</label>
+                                    <select class="form-control" name="mode" id="m" onchange="EnableChamps()">
+                                        @php
+                                            $t = DB::table('mode_reglements')->get();
+                                        @endphp
+                                        <option value="--">--Choisir--</option>
+                                        @foreach($t as $t)
+                                            <option value={{$t->id}}>{{$t->libele}}</option>
+                                        @endforeach
+                                        
+                                    </select>   
+                                   
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Date du paiement</label>
+                                    <input type="date" class="form-control" 
+                                    name="date_paiement" id="date_paiement" disabled required>
+                                </div>
+
                                 <div class="form-group">
                                     <label>Nom de la banque</label>
-                                    <input type="text" class="form-control" name="banque" >
+                                    <input type="text" class="form-control" name="banque" id="banque" disabled>
+                                </div>
+                               
+                                <div class="form-group">
+                                    <label>Date de reception</label>
+                                    <input type="date" class="form-control" name="date_reception" id="date_reception" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Date de virement</label>
-                                    <input type="date" class="form-control" name="date_virement" >
-                                </div>
-                                <div class="form-group">
-                                    <label>Date de reception</label>
-                                    <input type="date" class="form-control" name="date_reception" >
+                                    <input type="date" class="form-control" name="date_virement" id="date_virement" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Numéro de virement</label>
-                                    <input type="date" class="form-control" name="numero_virement" >
+                                    <input type="text" class="form-control" name="numero_virement" id="numero_virement" disabled>
                                 </div>
                                 
                             </div>
                             <!-- /.box-body -->
+                             <script>
+                                function VerifRest() {
+                                
+                                    /* ce script permet de vérifier si le montant saisi est trop élevé et l'obliger a saisir un montant plus bas*/
+                                    var val = document.getElementById("lereste").value;
+                                    var val2 = document.getElementById("mt").value;
 
+                                    var button = document.getElementById("bt")
+
+                                    var diff = val - val2;
+                                    //alert(diff)
+
+                                    if((diff < 0))
+                                    {  
+                                    
+                                        var theText = "<p style='color:red'>MONTANT SUPERIEUR AU RESTE !.</p>";
+                                        document.getElementById("message").innerHTML= theText;
+                                        button.setAttribute("disabled", "true");
+                                        
+                                    }
+                                    else
+                                    {
+                                    button.removeAttribute("disabled");
+                                    var theText = "<p style='color:red'></p>";
+                                        document.getElementById("message").innerHTML= theText;
+                                    
+                                    }
+                                
+                                }
+
+                                function EnableChamps()
+                                {
+                                    //alert('ici');
+                                    let choix =  document.getElementById("m");
+                                    //alert(choix.value);
+                                    if(choix.value == "--choisir--")
+                                    {
+                                        //dd('ici');
+                                        champ1 = document.getElementById("banque");
+                                        champ2 = document.getElementById("date_reception");  
+                                        champ3 = document.getElementById("date_virement");
+                                        champ4 = document.getElementById("numero_virement");
+                                        champ0 = document.getElementById("date_paiement");
+
+                                        champ0.setAttribute("disabled", "disabled");
+                                        champ1.setAttribute("disabled", "disabled");
+                                        champ2.setAttribute("disabled", "disabled");
+                                        champ3.setAttribute("disabled", "disabled");
+                                        champ4.setAttribute("disabled", "disabled");
+                                    }
+                                    else
+                                    {
+                                        //alert('la')
+                                        if(choix.value == 1)//espece
+                                        {
+                                            
+                                            champ0 = document.getElementById("date_paiement");
+                                            champ0.removeAttribute("disabled");
+
+                                            champ1 = document.getElementById("banque");
+                                            champ2 = document.getElementById("date_reception");  
+                                            champ3 = document.getElementById("date_virement");
+                                            champ4 = document.getElementById("numero_virement"); 
+
+                                            champ1.setAttribute("disabled", "disabled");
+                                            champ3.setAttribute("disabled", "disabled");
+                                            champ4.setAttribute("disabled", "disabled");
+                                            champ2.setAttribute("disabled", "disabled");   
+                                        }
+                                        if(choix.value == 2)//chèque
+                                        {
+                                            champ1 = document.getElementById("banque");
+                                            champ2 = document.getElementById("date_reception");  
+                                            champ3 = document.getElementById("date_virement");
+                                            champ4 = document.getElementById("numero_virement");   
+                                            champ0 = document.getElementById("date_paiement");
+                                            champ0.removeAttribute("disabled");
+
+                                            champ3.setAttribute("disabled", "disabled");
+                                            champ4.setAttribute("disabled", "disabled");
+                                            champ1.removeAttribute("disabled");
+                                            champ2.removeAttribute("disabled");
+                                        }
+
+                                        if(choix.value == 3)//virement
+                                        {
+                                            
+                                            champ3 = document.getElementById("date_virement");
+                                            champ4 = document.getElementById("numero_virement");    
+                                            champ3.removeAttribute("disabled");
+                                            champ4.removeAttribute("disabled");
+
+                                            champ0 = document.getElementById("date_paiement");
+                                            champ0.removeAttribute("disabled");
+                                            champ1 = document.getElementById("banque");
+                                            champ2 = document.getElementById("date_reception");  
+                                            champ1.setAttribute("disabled", "disabled");
+                                            champ2.setAttribute("disabled", "disabled"); 
+                                        }
+                                    }
+                                    
+                                }
+                            </script>
                             <div class="box-footer">
                             <button type="submit" class="btn btn-primary" id="bt" disabled="disabled">VALIDER</button>
                             </div>
-                            <script>
-                                function VerifRest() {
-                                
-                                        /* ce script permet de vérifier si le montant saisi est trop élevé et l'obliger a saisir un montant plus bas*/
-                                        var val = document.getElementById("lereste").value;
-                                        var val2 = document.getElementById("mt").value;
-
-                                        var button = document.getElementById("bt")
-
-                                        var diff = val - val2;
-                                        //alert(diff)
-
-                                        if((diff < 0))
-                                        {  
-                                        
-                                            var theText = "<p style='color:red'>MONTANT SUPERIEUR AU RESTE !.</p>";
-                                            document.getElementById("message").innerHTML= theText;
-                                            button.setAttribute("disabled", "true");
-                                            
-                                        }
-                                        else
-                                        {
-                                        button.removeAttribute("disabled");
-                                        var theText = "<p style='color:red'></p>";
-                                            document.getElementById("message").innerHTML= theText;
-                                        
-                                        }
-                                    
-                                    }
-                            </script>
+                           
                         </form>
 
                     @endforeach

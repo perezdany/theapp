@@ -22,7 +22,7 @@ class PaiementController extends Controller
 
     public function DoPaiement(Request $request)
     {
-        
+        //dd($request->all());
         $ch = strval($request->paiement);
         if(strlen($ch) > 13)
         {
@@ -38,13 +38,20 @@ class PaiementController extends Controller
         $Insert = Paiement::create([
             'paiement' => $request->paiement, //c'est le montant
             'id_facture' => $request->id_facture, 
-            'date_paiement' => $request->date_paiement, 
-            'date_virement' => $request->date_virement,
-            'numero_virement' => $request->numero_virement,
-            'date_reception' => $request->date_reception,
-            'banque' => $request->banque,
+            'id_mode_reglement' => $request->mode,
             'id_user' => auth()->user()->id, 
         ]);
+
+        $add_details = DB::table('details_paiements')->insert(
+            [
+                'id_paiement' => $Insert->id,
+                'date_paiement' => $request->date_paiement, 
+                'date_virement' => $request->date_virement,
+                'numero_virement' => $request->numero_virement,
+                'date_reception' => $request->date_reception,
+                'banque' => $request->banque,
+            ]
+        );
 
         //Récuper tous les anciens montants POUR DEFINIR SI LA FACTURE EST REGLEE TOTALEMENT
         $get_montants = DB::table('paiements')
@@ -96,19 +103,24 @@ class PaiementController extends Controller
 
         $total_montant_facture = 0;
 
-       $affected = DB::table('paiements')
+        $affected = DB::table('paiements')
         ->where('id', $request->id_paiement)
         ->update([
-            'paiement' => $request->paiement, 
+
             'paiement' => $request->paiement, //c'est le montant
-            'date_paiement' => $request->date_paiement, 
+            
+        ]);
+
+        $update_details = DB::table('details_paiements')
+        ->where('id', $request->id_details)
+        ->update([
+           'date_paiement' => $request->date_paiement, 
             'date_virement' => $request->date_virement,
             'numero_virement' => $request->numero_virement,
             'date_reception' => $request->date_reception,
             'banque' => $request->banque,
-            'date_paiement' => $request->date_paiement, 
-
         ]);
+
 
         //Récuper tous les anciens montants
         $get_montants = DB::table('paiements')
@@ -156,18 +168,23 @@ class PaiementController extends Controller
 
         $total_montant_facture = 0;
 
-       $affected = DB::table('paiements')
+        $affected = DB::table('paiements')
         ->where('id', $request->id_paiement)
         ->update([
-            'paiement' => $request->paiement, 
+
             'paiement' => $request->paiement, //c'est le montant
-            'date_paiement' => $request->date_paiement, 
+            
+        ]);
+
+        $update_details = DB::table('details_paiements')
+        ->where('id', $request->id_details)
+        ->update([
+           'date_paiement' => $request->date_paiement, 
             'date_virement' => $request->date_virement,
             'numero_virement' => $request->numero_virement,
             'date_reception' => $request->date_reception,
             'banque' => $request->banque,
-            'date_paiement' => $request->date_paiement, 
-
+        
         ]);
 
         //Récuper tous les anciens montants
@@ -199,20 +216,23 @@ class PaiementController extends Controller
                 'success' => 'Paiement modifié'
             ]
         );
+        //return back()->with('success', 'Paiement modifié');    
 
     } 
 
     public function GetPaimentByIdFacture($id)
     {
-        /*
-       */
-        $get = DB::table('paiements')
-            ->where('id_facture', $id)
+        /**/
+        $get = DB::table('details_paiements')
+            ->join('paiements', 'details_paiements.id_paiement', '=', 'paiements.id')
             ->join('factures', 'paiements.id_facture', '=', 'factures.id')
             ->join('cotations', 'factures.id_cotation', '=', 'cotations.id')
-            ->join('clients', 'cotations.id_client', '=', 'clients.id')  
+            ->join('clients', 'cotations.id_client', '=', 'clients.id') 
+            ->where('id_facture', $id) 
            
-            ->get( ['paiements.*', 'factures.numero_facture', 'factures.montant_facture', 'factures.date_emission',
+            ->get( ['paiements.*', 'details_paiements.date_reception',  'details_paiements.date_paiement',
+                    'details_paiements.banque',  'details_paiements.date_virement', 'details_paiements.numero_virement',
+                    'factures.numero_facture', 'factures.montant_facture', 'factures.date_emission',
                     'factures.date_reglement', 'clients.nom'
                 ]);
 
@@ -251,13 +271,16 @@ class PaiementController extends Controller
 
     public function GetById($id)
     {
-        $get = DB::table('paiements')
+        $get = DB::table('details_paiements')
+            ->join('paiements', 'details_paiements.id_paiement', '=', 'paiements.id')
             ->join('factures', 'paiements.id_facture', '=', 'factures.id')
             ->join('cotations', 'factures.id_cotation', '=', 'cotations.id')
-            ->join('clients', 'cotations.id_client', '=', 'clients.id')  
+            ->join('clients', 'cotations.id_client', '=', 'clients.id') 
             ->where('paiements.id', $id)
-            ->get(['paiements.*', 'factures.numero_facture', 'factures.montant_facture', 'factures.date_emission',
-                    'factures.date_reglement', 'clients.nom']);
+            ->get(['details_paiements.*', 'paiements.paiement', 'paiements.id_facture',
+                'paiements.id_mode_reglement',  'factures.numero_facture', 
+                'factures.montant_facture', 'factures.date_emission',
+                'factures.date_reglement', 'clients.nom']);
        
         return $get;
     }

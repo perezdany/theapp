@@ -84,13 +84,13 @@
                 <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>N°</th>
-                        <th>Date</th>
-                        <th>Montant</th>
+                        <th wire:click="setOrderField('numero_facture')"><i class="fa fa-sort" aria-hidden="true"></i>N°</th>
+                        <th wire:click="setOrderField('date_emission')"><i class="fa fa-sort" aria-hidden="true"></i>Date</th>
+                        <th wire:click="setOrderField('montant')"><i class="fa fa-sort" aria-hidden="true">Montant</th>
                         <th>Type</th>
-                        <th>Régler avant le:</th>
+                        <th wire:click="setOrderField('date_reglement')"><i class="fa fa-sort" aria-hidden="true">Régler avant le:</th>
                         <th>Etat</th>
-                        <th>Devis N°:</th>
+                        <th wire:click="setOrderField('numero_devis')"><i class="fa fa-sort" aria-hidden="true">Devis N°:</th>
                         <th>Client</th>
                         
                         <th>Ajouter le fichier</th>

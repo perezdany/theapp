@@ -33,6 +33,7 @@
     </section>
 
     <div class="row">
+   
         <div class="col-12">
             @if(isset($id_cotation))
                 @php
@@ -40,27 +41,7 @@
                     $somme = 0;
                 @endphp
                 @foreach($devis as $devis)
-                    <div>
-                        @php
-                            $tva = DB::table('taxes')->get();
-                        @endphp
-                        @foreach($tva as $tva)
-                            @if($tva->active == 0)
-                                <form action="manage_taxe" method="post">
-                                    @csrf
-                                    <input type="text" value={{$id_cotation}} style="display:none" name="id_cotation">
-                                    <button class="btn btn-danger" type="submit">Activer la TVA</button>
-                                </form>
-                            @else
-                                <form action="manage_taxe" method="post">
-                                    @csrf
-                                    <input type="text" value={{$id_cotation}} style="display:none" name="id_cotation">
-                                    <button class="btn btn-warning" type="submit">Désactiver la TVA</button>
-                                </form>
-                            @endif
-                        @endforeach
-                        
-                    </div>
+                    
                     <!-- Main content -->
                     <div class="invoice p-3 mb-3">
                     <!-- title row -->

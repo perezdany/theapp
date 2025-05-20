@@ -442,9 +442,9 @@ class CotationController extends Controller
     {
         
         //dd($request->all());
-        if($request->designation1 != null)
+        if(isset($request->idd1))
         {
-            $add = DB::table('details_cotations')->where('cotation_id', $request->id)
+            $add = DB::table('details_cotations')->where('id', $request->idd1)
             ->update([
                 'designation' => $request->designation1,
                 'prix_ht' => $request->prix1,
@@ -453,10 +453,10 @@ class CotationController extends Controller
                 
         ]);
         }
-       if($request->designation2 != null)
+       if(isset($request->idd2))
        {
             $add = DB::table('details_cotations')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd2)
             ->update([
            
                 'designation' => $request->designation2,
@@ -467,10 +467,10 @@ class CotationController extends Controller
           ]);
        }
 
-       if($request->designation3 != null)
+       if(isset($request->idd3))
        {
             $add = DB::table('details_cotations')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd3)
             ->update([
                 'designation' => $request->designation3,
                 'prix_ht' => $request->prix3,
@@ -479,10 +479,10 @@ class CotationController extends Controller
                    
           ]);
        }
-       if($request->designation4 != null)
+       if(isset($request->idd4))
        {
             $add = DB::table('details_cotations')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd4)
             ->update([
                 'designation' => $request->designation4,
                 'prix_ht' => $request->prix4,
@@ -491,10 +491,10 @@ class CotationController extends Controller
                    
           ]);
        }
-       if($request->designation5 != null)
+       if(isset($request->idd5))
        {
             $add = DB::table('details_cotations')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd5)
             ->update([
                
                 'designation' => $request->designation5,
@@ -505,10 +505,25 @@ class CotationController extends Controller
           ]);
        }
 
-       if($request->designation6 != null)
+        if(isset($request->idd6))
        {
             $add = DB::table('details_cotations')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd6)
+            ->update([
+              
+                'designation' => $request->designation6,
+                'prix_ht' => $request->prix6,
+                'duree' => $request->duree6,
+                'duree_type' => $request->duree_type6,
+                   
+          ]);
+       }
+
+
+       if(isset($request->idd7))
+       {
+            $add = DB::table('details_cotations')
+            ->where('id', $request->idd7)
             ->update([
               
                 'designation' => $request->designation7,
@@ -519,10 +534,10 @@ class CotationController extends Controller
           ]);
        }
 
-       if($request->designation8 != null)
+       if(isset($request->idd8))
        {
             $add = DB::table('details_cotations')
-            ->where('cotation_id', $request->id)
+            ->where('cotation_id', $request->idd8)
             ->update([
                 'designation' => $request->designation8,
                 'prix_ht' => $request->prix8,
@@ -531,10 +546,10 @@ class CotationController extends Controller
                    
           ]);
        }
-       if($request->designation9 != null)
+       if(isset($request->idd9))
        {
             $add = DB::table('details_cotations')
-            ->where('cotation_id', $request->id)
+            ->where('cotation_id', $request->idd9)
             ->update([
        
                 'designation' => $request->designation9,
@@ -544,10 +559,10 @@ class CotationController extends Controller
                    
           ]);
        }
-       if($request->designation10 != null)
+       if(isset($request->idd10))
        {
             $add = DB::table('details_cotations')
-            ->where('cotation_id', $request->id)
+            ->where('cotation_id', $request->idd10)
             ->update([
                 'designation' => $request->designation10,
                 'prix_ht' => $request->prix10,
@@ -565,10 +580,10 @@ class CotationController extends Controller
         dd($add);*/
        //dd($request->all());
 
-         if(isset($request->article1))
+         if(isset($request->idd1))
         {
             //dd('ici');
-            $add = DB::table('cotation_article')->where('cotation_id', $request->id)
+            $add = DB::table('cotation_article')->where('id', $request->idd1)
             ->update([
                         'article_id' => $request->article1,
                         'quantite' => $request->qte1,
@@ -577,40 +592,40 @@ class CotationController extends Controller
            //
             //dd($add);
         }
-        if(isset($request->article2))
+        if(isset($request->idd2))
         {
             $add = DB::table('cotation_article')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd2)
             ->update([
                         'article_id' => $request->article2,
                         'quantite' => $request->qte2,
                         'pu' => $request->pu2,
             ]);
         }
-        if(isset($request->article3))
+        if(isset($request->idd3))
         {
             $add = DB::table('cotation_article')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd3)
             ->update([
                         'article_id' => $request->article3,
                         'quantite' => $request->qte3,
                         'pu' => $request->pu3,
             ]);
         }
-        if(isset($request->article4))
+        if(isset($request->idd4))
         {
             $add = DB::table('cotation_article')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd4)
             ->update([
                         'article_id' => $request->article4,
                         'quantite' => $request->qte4,
                         'pu' => $request->pu4,
             ]);
         }
-        if(isset($request->article5))
+        if(isset($request->idd5))
         {
             $add = DB::table('cotation_article')
-           ->where('cotation_id', $request->id)
+           ->where('id', $request->idd5)
             ->update([
                         'article_id' => $request->article5,
                         'quantite' => $request->qte5,
@@ -620,17 +635,17 @@ class CotationController extends Controller
         if(isset($request->article6))
         {
             $add = DB::table('cotation_article')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd6)
             ->update([
                         'article_id' => $request->article6,
                         'quantite' => $request->qte6,
                         'pu' => $request->pu6,
             ]);
         }
-        if(isset($request->article7))
+        if(isset($request->idd7))
         {
             $add = DB::table('cotation_article')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd7)
             ->update([
                         'article_id' => $request->article7,
                         'quantite' => $request->qte7,
@@ -638,10 +653,10 @@ class CotationController extends Controller
             ]);
         }
 
-        if(isset($request->article8))
+        if(isset($request->idd8))
         {
             $add = DB::table('cotation_article')
-           ->where('cotation_id', $request->id)
+           ->where('id', $request->idd8)
             ->update([
                         'article_id' => $request->article8,
                         'quantite' => $request->qte8,
@@ -649,10 +664,10 @@ class CotationController extends Controller
             ]);
         }
 
-        if(isset($request->article9))
+        if(isset($request->idd9))
         {
             $add = DB::table('cotation_article')
-            ->where('cotation_id', $request->id)
+            ->where('id', $request->idd9)
             ->update([
                         'article_id' => $request->article9,
                         'quantite' => $request->qte9,
@@ -757,7 +772,7 @@ class CotationController extends Controller
                 'articles.designation', 'articles.code', 'articles.prix_unitaire',
                 'services.code', 'services.libele_service'
             ]);
-        
+        //dd($get);
         return $get;
     }
 
@@ -823,9 +838,9 @@ class CotationController extends Controller
     public function AddaService(Request $request)
     {
         //dd($request->all());
-        $add = DB::table('cotation_service')
-        ->insert(['cotation_id' => $request->id,
-                    'service_id' => $request->service,
+        $add = DB::table('details_cotations')
+        ->insert(['cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation,
                     'prix_ht' => $request->prix,
                     'duree' => $request->duree,
                     'duree_type' => $request->duree_type,
@@ -839,7 +854,8 @@ class CotationController extends Controller
         $add = DB::table('cotation_article')
         ->insert(['cotation_id' => $request->id_cotation,
                     'article_id' => $request->article,
-                    'quantite' => $request->qte
+                    'quantite' => $request->qte,
+                    'pu' => $request->pu
           ]);
           return back()->with('success', 'Opération effectuée avec succès');
     }

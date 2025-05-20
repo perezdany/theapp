@@ -51,6 +51,30 @@ class Paiements extends Component
         $this->reset();
     }
 
+    //FONCTION POUR FAIRE ORDRE DECROISSANT
+    public function setOrderField($champ)
+    {
+        
+        if($champ == $this->orderField)
+        {
+            if($this->orderDirection = 'ASC')
+            {
+                $this->orderDirection = 'DESC';
+            }
+            $this->orderDirection =  $this->orderDirection = 'DESC' ? 'ASC' : 'DESC';
+            
+        }
+        else
+        {
+  
+            $this->orderField = $champ;
+            $this->orderDirection =  $this->orderDirection = 'DESC' ? 'ASC' : 'DESC';
+            
+            $this->reset('orderDirection');
+
+        }
+        //return $la;
+    }
 
     public function render()
     {

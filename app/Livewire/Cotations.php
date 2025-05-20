@@ -26,6 +26,8 @@ class Cotations extends Component
 
     public $statut = '';
     public $user = '';
+    public $service = '';
+    public $rejete = '';
 
     public $editCotation = [];
 
@@ -38,6 +40,32 @@ class Cotations extends Component
 
         $this->dispatch('editmodal');
     }
+
+    //FONCTION POUR FAIRE ORDRE DECROISSANT
+    public function setOrderField($champ)
+    {
+        
+        if($champ == $this->orderField)
+        {
+            if($this->orderDirection = 'ASC')
+            {
+                $this->orderDirection = 'DESC';
+            }
+            $this->orderDirection =  $this->orderDirection = 'DESC' ? 'ASC' : 'DESC';
+            
+        }
+        else
+        {
+  
+            $this->orderField = $champ;
+            $this->orderDirection =  $this->orderDirection = 'DESC' ? 'ASC' : 'DESC';
+            
+            $this->reset('orderDirection');
+
+        }
+        //return $la;
+    }
+ 
 
     public function render()
     {
@@ -58,6 +86,16 @@ class Cotations extends Component
         if($this->user != "")
         {
             $cotationQuery->where("id_user", $this->user);
+        }
+
+        if($this->service != "")
+        {
+            $cotationQuery->where("id_service", $this->service);
+        }
+
+        if($this->rejete != "")
+        {
+            $cotationQuery->where("rejete", $this->rejete);
         }
 
         if($this->compare != "" AND $this->annee != "")

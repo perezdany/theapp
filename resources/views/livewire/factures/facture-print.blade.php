@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-12">
             @if(isset($id_cotation))
-                 @php
+                @php
                     $devis = $cotationcontroller->GetLinesinfoCustomer($id_cotation);
                     $somme = 0;
                     $la_facture = $facturecontroller->GetByIdCotation($id_cotation);

@@ -10,9 +10,7 @@ class Paiement extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'paiement', 'id_facture', 'date_paiement', 
-        'date_virement', 'numero_virement',
-        'banque', 'id_user'
+       'paiement', 'id_facture', 'id_mode_reglement', 'id_user'
 
     ];
 

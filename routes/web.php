@@ -228,7 +228,7 @@ Route::middleware(['auth'])->group(function(){
              //ACTIVER LA TAXE AVEC L'ID DU DEVIS
             Route::post('manage_taxes', [CotationController::class, 'EnableTVA']);
             
-            //AJOUTER UN SERVICE 
+            //AJOUTER UN SERVICE (DETAILS DU SERVICE)
             Route::post('addaservice', [CotationController::class, 'AddaService']);
 
             //SUPPRIMER LA LIGNE DU SERVICE POUR LE DEVIS
