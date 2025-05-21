@@ -21,7 +21,8 @@
                     $somme = 0;
                 @endphp
                 @foreach($devis as $devis)
-                    <div>
+                    <div class="row">
+                        <div class="col-md-2">
                         @php
                             $tva = DB::table('taxes')->get();
                         @endphp
@@ -40,7 +41,11 @@
                                 </form>
                             @endif
                         @endforeach
-                        
+                        </div>
+                        <div class="col-md-2">
+                           
+                            
+                        </div>
                     </div>
                     <!-- Main content -->
                     <div class="invoice p-3 mb-3">

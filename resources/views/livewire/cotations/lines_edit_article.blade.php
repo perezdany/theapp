@@ -1,3 +1,10 @@
+<div class="row">
+<button type="button" id="bt5" 
+    class="btn btn-warning float-right" onclick="displayTheLine('support6','bt5')">
+<i class="fa fa-plus"></i></button>
+</div>
+<div>
+
 <div  id="support6" style="display:none;">
                                     
                                     <div class="row">
@@ -140,7 +147,7 @@
                                             <div class="form-group">
                                             <label>Quantité:</label>
                                             <input type="number" name="qte9" min="1" value="1" id="qte9"
-                                            class="form-control" disabled>
+                                            class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -148,7 +155,7 @@
                                             <div class="form-group">
                                                 <label>Prix unitaire:</label>
                                                 <input type="number" name="pu9"  id="pu9"
-                                                class="form-control" disabled>
+                                                class="form-control">
                                             <!--</div> <button type="button" id="bt9" 
                                             class="btn btn-warning float-right" 
                                             onclick="displayTheLine('support9','bt8')"><i class="fa fa-plus"></i></button>-->
@@ -156,3 +163,6 @@
                                         
                                     </div>
                                 </div>
+
+
+</div>

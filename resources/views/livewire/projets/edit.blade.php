@@ -11,13 +11,50 @@
             <form wire:submit="updateProjet">
                 @csrf
                 
-                 <div class="row">
+                <div class="row">
                     <div class="col-sm-12">
                          
                         <div class="form-group">
                         <label>Titre du projet</label>
                         <input type="text"  wire:model="editProjet.nom_projet" class="form-control" placeholder="Entrer ..." >
                         </div>
+                    </div>
+                   
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                         
+                        <div class="form-group">
+                        <label>Description</label>
+                        <textarea  wire:model="editProjet.description" class="form-control" ></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label>Client</label>
+                        <select class="form-control" wire:model="editProjet.id_client" required>
+                                                
+                            @php
+                                $clients = DB::table('clients')->get();
+                            @endphp
+                            @foreach($clients as $client)
+                                <option value={{$client->id}}>{{$client->nom}}</option>
+                            @endforeach
+                            
+                        </select>   
+                    </div><br><br>
+
+                    <div class="col-sm-6">
+                         
+                        <label>Date de début</label>
+                        <input type="date"  wire:model="editProjet.date_debut" class="form-control" placeholder="Entrer ..." >
+                    </div>
+
+                    <div class="col-sm-6">
+                         
+                        <label>Date de fin</label>
+                        <input type="date"  wire:model="editProjet.date_fin" class="form-control" placeholder="Entrer ..." >
                     </div>
                    
                 </div>

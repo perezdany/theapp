@@ -116,6 +116,7 @@
                 @php
                     //dd($id);
                     $le_devis = $cotationcontroller->GetDevis($id);
+                    //dd($le_devis);
                 @endphp
                 @foreach($le_devis as $devis)
                     <div class="card card-warning">
@@ -124,6 +125,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <b><u>Cliquer sur le bouton valider en dessous</u></b>
                             <form method="post" action="add_devis">
                                 @csrf
                                 <input type="text" value="{{$id}}" name="id_cotation" style="display: none;">
@@ -156,6 +158,7 @@
                                                     @php
                                                         $clients = DB::table('clients')->get();
                                                     @endphp
+                                                    <option value="{{$devis->id_client}}">{{$devis->nom}}</option>
                                                     @foreach($clients as $client)
                                                         <option value="{{$client->id}}">{{$client->nom}}</option>
                                                     @endforeach
@@ -166,134 +169,136 @@
 
                                     
                                 </div>
+
+                                 <!--LES LIGNES DES DETAILS-->
+                                @include("forms.forms_details")
+
+                          
+                                <script type="text/javascript">
+                                    function displayLine()
+                                    {
+                                        //alert('ici');
+                                        //SCRIPT POUR AJOUTER DES LIGNES DE FACON MODULABLE.
+                                        let choix = document.getElementById('selservice').value;
+                                        let id_div = choix+choix;
+                                        let id_prix = 'prix_ht'+choix;
+                                        let duree = 'duree'+choix;
+                                        let type_d = 'duree_type'+choix;
+                                        document.getElementById(choix).setAttribute("checked", "checked");
+                                        document.getElementById(id_prix).removeAttribute("disabled");
+                                        document.getElementById(duree).removeAttribute("disabled");
+                                        document.getElementById(type_d).removeAttribute("disabled");
+                                        document.getElementById(id_div).removeAttribute("style");
+                                        
                                     
+                                    }
+
+                                    function hideLine()
+                                    {
+
+                                        //alert('ici');
+                                        //SCRIPT POUR AJOUTER DES LIGNES DE FACON MODULABLE.
+                                
+                                        let collection = document.getElementById("SUR");
+                                        if (collection.checked) {}
+                                        else{
+                                            collection.removeAttribute("checked");
+                                            document.getElementById('SURSUR').setAttribute("style", "display:none");
+                                            
+                                        }
+                                        let sec = document.getElementById("SECURINC");
+                                        if (sec.checked) {}
+                                        else{
+                                            sec.removeAttribute("checked");
+                                            document.getElementById('SECURINCSECURINC').setAttribute("style", "display:none");}
+
+                                        let am = document.getElementById("AM");
+                                        if (am.checked) {}
+                                        else{ 
+                                            am.removeAttribute("checked");
+                                            document.getElementById('AMAM').setAttribute("style", "display:none");}
+                                        let form = document.getElementById("FORM");
+                                        if (form.checked) {}
+                                        else{
+                                            form.removeAttribute("checked");
+                                            document.getElementById('FORMFORM').setAttribute("style", "display:none");}
+                                        let heb = document.getElementById("HEB");
+                                        if (heb.checked) {}
+                                        else{
+                                            heb.removeAttribute("checked");
+                                            document.getElementById('HEBHEB').setAttribute("style", "display:none");}
+                                        let mat = document.getElementById("MAT");
+                                        if (mat.checked) {}
+                                        else{
+                                            mat.removeAttribute("checked");
+                                            document.getElementById('MATMAT').setAttribute("style", "display:none");}
+                                        //console.log(collection);
+                                        /*for (let i = 0; i < collection.length; i++) {
+                                            //console.log(collection[i].getAttribute('checked'));
+                                            //collection[i].setAttribute("style", "display:none") ;
+                                            if (collection[i].getAttribute('checked') == "checked") {
+                                            
+                                            document.getElementById('SURSUR').setAttribute("style", "display:none");
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }*/
+                        
+                                    }
+
+
+                                    function displayTheLine(id, id_bt)
+                                    {
+                                        //alert(id);
+                                        let bt = document.getElementById(id_bt);
+                                        let support = document.getElementById(id);
+                                        //salert(support);
+                                        support.removeAttribute("style");
+                                        bt.setAttribute("style", "display:none");
+                                    
+                                    }
+
+                                    function EnableFields(sel, q, p, d)
+                                    {
+                                        
+                                        let designation = document.getElementById(sel);
+                                        
+                                        prix= document.getElementById(q);
+                                        duree = document.getElementById(p);
+                                        type_d = document.getElementById(d);
+                                        //alert(type_d);
+                                        if(designation.value != "")
+                                        {
+                                            //alert('ok');
+                                            prix.removeAttribute("disabled");
+                                            prix.setAttribute("enabled", "enabled");
+                                            duree.removeAttribute("disabled");
+                                            duree.setAttribute("enabled", "enabled");
+                                            type_d.removeAttribute("disabled");
+                                            type_d.setAttribute("enabled", "enabled");
+                                        }
+                                        else
+                                        {  
+                                            
+                                            prix.removeAttribute("enabled");
+                                            prix.setAttribute("disabled", "disabled");
+                                            duree.removeAttribute("enabled");
+                                            duree.setAttribute("disabled", "disabled");
+                                            type_d.removeAttribute("enabled");
+                                            type_d.setAttribute("disabled", "disabled");
+                                        }
+                                    }
+                                </script>
+                                        
                                 <div class="card-footer">
                               
                                 <button type="submit" class="btn btn-info float-right">VALIDER</button>
                                 </div>
                             </form>
                             
-                            <!--LES LIGNES DES DETAILS-->
-                            @include("forms.forms_details")
-
-                          
-                            <script type="text/javascript">
-                                function displayLine()
-                                {
-                                    //alert('ici');
-                                    //SCRIPT POUR AJOUTER DES LIGNES DE FACON MODULABLE.
-                                    let choix = document.getElementById('selservice').value;
-                                    let id_div = choix+choix;
-                                    let id_prix = 'prix_ht'+choix;
-                                    let duree = 'duree'+choix;
-                                    let type_d = 'duree_type'+choix;
-                                    document.getElementById(choix).setAttribute("checked", "checked");
-                                    document.getElementById(id_prix).removeAttribute("disabled");
-                                    document.getElementById(duree).removeAttribute("disabled");
-                                    document.getElementById(type_d).removeAttribute("disabled");
-                                    document.getElementById(id_div).removeAttribute("style");
-                                    
-                                
-                                }
-
-                                function hideLine()
-                                {
-
-                                    //alert('ici');
-                                    //SCRIPT POUR AJOUTER DES LIGNES DE FACON MODULABLE.
-                            
-                                    let collection = document.getElementById("SUR");
-                                    if (collection.checked) {}
-                                    else{
-                                        collection.removeAttribute("checked");
-                                        document.getElementById('SURSUR').setAttribute("style", "display:none");
-                                        
-                                    }
-                                    let sec = document.getElementById("SECURINC");
-                                    if (sec.checked) {}
-                                    else{
-                                        sec.removeAttribute("checked");
-                                        document.getElementById('SECURINCSECURINC').setAttribute("style", "display:none");}
-
-                                    let am = document.getElementById("AM");
-                                    if (am.checked) {}
-                                    else{ 
-                                        am.removeAttribute("checked");
-                                        document.getElementById('AMAM').setAttribute("style", "display:none");}
-                                    let form = document.getElementById("FORM");
-                                    if (form.checked) {}
-                                    else{
-                                        form.removeAttribute("checked");
-                                        document.getElementById('FORMFORM').setAttribute("style", "display:none");}
-                                    let heb = document.getElementById("HEB");
-                                    if (heb.checked) {}
-                                    else{
-                                        heb.removeAttribute("checked");
-                                        document.getElementById('HEBHEB').setAttribute("style", "display:none");}
-                                    let mat = document.getElementById("MAT");
-                                    if (mat.checked) {}
-                                    else{
-                                        mat.removeAttribute("checked");
-                                        document.getElementById('MATMAT').setAttribute("style", "display:none");}
-                                    //console.log(collection);
-                                    /*for (let i = 0; i < collection.length; i++) {
-                                        //console.log(collection[i].getAttribute('checked'));
-                                        //collection[i].setAttribute("style", "display:none") ;
-                                        if (collection[i].getAttribute('checked') == "checked") {
-                                        
-                                        document.getElementById('SURSUR').setAttribute("style", "display:none");
-                                        }
-                                        else
-                                        {
-
-                                        }
-                                    }*/
-                    
-                                }
-
-
-                                function displayTheLine(id, id_bt)
-                                {
-                                    //alert(id);
-                                    let bt = document.getElementById(id_bt);
-                                    let support = document.getElementById(id);
-                                    //salert(support);
-                                    support.removeAttribute("style");
-                                    bt.setAttribute("style", "display:none");
-                                   
-                                }
-
-                                function EnableFields(sel, q, p, d)
-                                {
-                                    
-                                    let designation = document.getElementById(sel);
-                                    
-                                    prix= document.getElementById(q);
-                                    duree = document.getElementById(p);
-                                    type_d = document.getElementById(d);
-                                    //alert(type_d);
-                                    if(designation.value != "")
-                                    {
-                                        //alert('ok');
-                                        prix.removeAttribute("disabled");
-                                        prix.setAttribute("enabled", "enabled");
-                                        duree.removeAttribute("disabled");
-                                        duree.setAttribute("enabled", "enabled");
-                                        type_d.removeAttribute("disabled");
-                                        type_d.setAttribute("enabled", "enabled");
-                                    }
-                                    else
-                                    {  
-                                        
-                                        prix.removeAttribute("enabled");
-                                        prix.setAttribute("disabled", "disabled");
-                                        duree.removeAttribute("enabled");
-                                        duree.setAttribute("disabled", "disabled");
-                                        type_d.removeAttribute("enabled");
-                                        type_d.setAttribute("disabled", "disabled");
-                                    }
-                                }
-                            </script>
+                           
                         </div>
                         
                         <!-- /.card-body -->
@@ -308,7 +313,7 @@
             <div class="card">
                 <div class="card-header">
                             
-                            <h3 class="card-title">Articles ajoutés</h3>
+                            <h3 class="card-title">Détails</h3>
                             </div>
                 <div class="card-body">
             @include("forms.tableau_recap_details")

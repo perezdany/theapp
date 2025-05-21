@@ -11,6 +11,163 @@ use DB;
 class CotationController extends Controller
 {
     //
+    /*@if($cotation->valide == 0)
+        @if($cotation->id_service == 8)
+        <button class="btn btn-success" 
+            data-toggle="modal" data-target="#serv{{$cotation->id}}" >
+            <b><i class="fa fa-plus"></i></b></button>
+        <div class="modal fade" id="serv{{$cotation->id}}"  
+            wire:ignore.self  role="dialog" aria-hidden="true" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Détails</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <!--begin::Form-->
+                    <form method="post" action="addanarticle">
+                        <!--begin::Body-->
+                        @csrf
+                    
+                        <input type="text" class="form-control" value="{{$cotation->id}}" wire-model="id" 
+                        name="id_cotation" id="{{$cotation->id}}" style="display:none;">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <!-- text input -->
+                                <div class="form-group">
+                                <label>Articles:</label>
+                                <select class="form-control" name="article" >
+                                    @php
+                                        $t = DB::table('articles')->get();
+                                    @endphp
+                                    
+                                    @foreach($t as $t)
+                                        <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                    @endforeach
+                                    
+                                </select>   
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                <label>Quantité:</label>
+                                <input type="number" name="qte" 
+                                class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label>Prix unitaire:</label>
+                                    <input type="number" name="pu" 
+                                    class="form-control">
+                                </div> 
+                            </div>
+                        
+                        </div>
+                        <div class=" row modal-footer justify-content-between" style="aling:center">
+                        
+                        <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
+                
+                        <button type="submit"  class="btn btn-success col-md-3">Enregistrer</button>
+                                
+                            
+                        </div>
+                        <!--end::Footer-->
+                        
+                    </form>
+                    <!--end::Form-->
+                </div> 
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>    
+        
+        @else
+        <button class="btn btn-success" 
+            data-toggle="modal" data-target="#serv{{$cotation->id}}" >
+            <b><i class="fa fa-plus"></i></b></button>
+        <div class="modal fade" id="serv{{$cotation->id}}"  
+            wire:ignore.self  role="dialog" aria-hidden="true" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Détails</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <!--begin::Form-->
+                    <form method="post" action="addaservice">
+                        <!--begin::Body-->
+                        @csrf
+                    
+                        <input type="text" class="form-control" value="{{$cotation->id}}" wire-model="id" 
+                        name="id_cotation" id="{{$cotation->id}}" style="display:none;">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!-- text input -->
+                                <div class="form-group">
+                                <label>Désignation:</label>
+                                    <textarea name="designation" class="form-control" >
+                                
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                <label>Prix Hors taxe:</label>
+                                <input type="number" name="prix" class="form-control" 
+                                placeholder="un nombre..." >
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label>Durée:</label>
+                                    <input type="number" name="duree" min="0" 
+                                    class="form-control" placeholder="Entrez ..."  >                                           
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                <label>Choisir:</label>
+                                <select  class="form-control" name="duree_type" >
+                                
+                                    <option value="jours">Jours</option>
+                                    <option value="mois">Mois</option>
+                                    <option value="annees">Années</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row modal-footer justify-content-between" style="aling:center">
+                        
+                        <button type="button" wire:click="close" class="btn btn-danger col-md-3" data-dismiss="modal">Fermer</button>
+                
+                        <button type="submit"  class="btn btn-success col-md-3">Enregistrer</button>
+                                
+                            
+                        </div>
+                        <!--end::Footer-->
+                        
+                    </form>
+                    <!--end::Form-->
+                </div> 
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>    
+        
+        @endif
+    @else
+    @endif*/
     public function CreateDevis(Request $request)
     {
         //dd($request->all());
@@ -93,11 +250,141 @@ class CotationController extends Controller
 
     }
 
-
     public function AddDevis(Request $request)
     {
 
         //dd($request->all());
+        
+        $up = DB::table('cotations')->where('id', $request->id_cotation)
+        ->update(
+            [ 
+                'date_creation' => $request->date_creation, 'numero_devis' => $request->numero_devis,
+                'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
+            ]
+        );
+
+        //AJOUTER LES LIGNES DETAILS
+        if($request->designation1 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation1,
+                    'prix_ht' => $request->prix1,
+                    'duree' => $request->duree1,
+                    'duree_type' => $request->duree_type1,
+                    
+            ]);
+        }
+        if($request->designation2 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation2,
+                    'prix_ht' => $request->prix2,
+                    'duree' => $request->duree2,
+                    'duree_type' => $request->duree_type2,
+                    
+            ]);
+        }
+        if($request->designation3 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation3,
+                    'prix_ht' => $request->prix3,
+                    'duree' => $request->duree3,
+                    'duree_type' => $request->duree_type3,
+                    
+            ]);
+        }
+        if($request->designation4 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation4,
+                    'prix_ht' => $request->prix4,
+                    'duree' => $request->duree4,
+                    'duree_type' => $request->duree_type4,
+                    
+            ]);
+        }
+        if($request->designation5 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation5,
+                    'prix_ht' => $request->prix5,
+                    'duree' => $request->duree5,
+                    'duree_type' => $request->duree_type5,
+                    
+            ]);
+        }
+        if($request->designation6 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation6,
+                    'prix_ht' => $request->prix6,
+                    'duree' => $request->duree6,
+                    'duree_type' => $request->duree_type6,
+                    
+            ]);
+        }
+        if($request->designation7 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation7,
+                    'prix_ht' => $request->prix7,
+                    'duree' => $request->duree7,
+                    'duree_type' => $request->duree_type7,
+                    
+            ]);
+        }
+        if($request->designation8 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation8,
+                    'prix_ht' => $request->prix8,
+                    'duree' => $request->duree8,
+                    'duree_type' => $request->duree_type8,
+                    
+            ]);
+        }
+        if($request->designation9 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation9,
+                    'prix_ht' => $request->prix9,
+                    'duree' => $request->duree9,
+                    'duree_type' => $request->duree_type9,
+                    
+            ]);
+        }
+        if($request->designation10 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation10,
+                    'prix_ht' => $request->prix10,
+                    'duree' => $request->duree10,
+                    'duree_type' => $request->duree_type10,
+                    
+            ]);
+        }
+
         //ON VA VOIR SI Y A AUCUNE LIGNE AJOUTEE ON SE RETOUR ET ON LUI DIT IL N'A QU'AJOUTER AU MOINS UNE LIGNE
         $les_articles = DB::table('details_cotations')
         ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
@@ -110,18 +397,23 @@ class CotationController extends Controller
                 'error' => 'il faut au moins renseigner une ligne pour le devis!'
             ]);
         }
-       
 
-        $up = DB::table('cotations')->where('id', $request->id_cotation)
-        ->update(
-            [ 
-                'date_creation' => $request->date_creation, 'numero_devis' => $request->numero_devis,
-                'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
-            ]
-        );
+        /*$get_devis = Cotation::where('id', $request->id_cotation)->get();
+        foreach($get_devis as $get_devis)
+        {
+            if($get_devis->id_service == 8)
+            {
+
+            }
+            else
+            {
+               
+            }
+        }*/
+
     
         return view('admins/devis')->with('success', 'Le devis a été créé!');
-       /*$create = Cotation::create(
+        /*$create = Cotation::create(
             [ 
                 'date_creation' => $request->date_creation, 
                 'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
@@ -130,7 +422,7 @@ class CotationController extends Controller
             ]
         );*/
        
-        return back()->with('success', 'Le devis a été créé!');
+        //return back()->with('success', 'Le devis a été créé!');
     }
 
     public function CreateDevisVente(Request $request)
@@ -171,6 +463,98 @@ class CotationController extends Controller
     public function SaveDevisVente(Request $request)
     {
         //dd($request->all());
+       
+        $up = DB::table('cotations')->where('id', $request->id_cotation)
+        ->update(
+            [ 
+                'date_creation' => $request->date_creation, 'numero_devis' => $request->numero_devis,
+                'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
+            ]
+        );
+
+        //AJOUTER LES LIGNES DE DETAILS
+        if($request->article1 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article1,
+                        'quantite' => $request->qte1,
+                        'pu' => $request->pu1,
+            ]);
+        }
+        if($request->article2 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article2,
+                        'quantite' => $request->qte2,
+                        'pu' => $request->pu2,
+            ]);
+        }
+        if($request->article3 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article3,
+                        'quantite' => $request->qte3,
+                        'pu' => $request->pu3,
+            ]);
+        }
+        if($request->article4 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article4,
+                        'quantite' => $request->qte4,
+                        'pu' => $request->pu4,
+            ]);
+        }
+        if($request->article5 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article5,
+                        'quantite' => $request->qte5,
+                        'pu' => $request->pu5,
+            ]);
+        }
+        if($request->article6 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article6,
+                        'quantite' => $request->qte6,
+                        'pu' => $request->pu6,
+            ]);
+        }
+        if($request->article7 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article7,
+                        'quantite' => $request->qte7,
+                        'pu' => $request->pu7,
+            ]);
+        }
+        if($request->article8 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article8,
+                        'quantite' => $request->qte8,
+                        'pu' => $request->pu8,
+            ]);
+        }
+        if($request->article9 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article9,
+                        'quantite' => $request->qte9,
+                        'pu' => $request->pu9,
+            ]);
+        }
+
         $les_articles = DB::table('cotation_article')
         ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
         ->join('articles', 'cotation_article.article_id', 'articles.id')
@@ -183,15 +567,11 @@ class CotationController extends Controller
                 'error' => 'il faut au moins renseigner une ligne pour le devis!'
             ]);
         }
-        $up = DB::table('cotations')->where('id', $request->id_cotation)
-        ->update(
-            [ 
-                'date_creation' => $request->date_creation, 'numero_devis' => $request->numero_devis,
-                'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
-            ]
-        );
 
         return view('admins/devis')->with('success', 'Le devis a été créé!');
+        /*return view('forms/devis_vente',[
+            'id' => $request->id_cotation,
+        ]);*/
 
     }
 
@@ -216,122 +596,376 @@ class CotationController extends Controller
                 'id_user' => auth()->user()->id,
             ]
         );
-        /*
-        if(isset($request->SUR))//SI IL A COCHE LA CASE DE LA PERMISSION SUPPRIMER
+        //MODIFIER LES LIGNES EXISTANTES 
+        if(isset($request->idd1))
         {
-            //dd('dd');
-            //SI Y A DEJA UNE OCCURENCE DE L'ELEMENT, ON NE FAIT RIEN 
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', $request->SUR)->count();
-            if($v == 0)
-            {
-                //Y A RIEN DONC ON PEUT AJOUTER
-                DB::table('cotation_service')->insert(['cotation_id' => $request->id, 'service_id' => $request->SUR]);
-            }else{}
-            
+            $add = DB::table('details_cotations')->where('id', $request->idd1)
+            ->update([
+                'designation' => $request->designation1,
+                'prix_ht' => $request->prix1,
+                'duree' => $request->duree1,
+                'duree_type' => $request->duree_type1,
+                
+        ]);
         }
-        else
+        if(isset($request->idd2))
         {
-            //IL PEUT AVOIR DECOCHE UN ELEMENT DANS CE CAS ON VA SUPPRIMER L'ANCIEN ENREGISTREMENT
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', 1)->delete();
+                $add = DB::table('details_cotations')
+                ->where('id', $request->idd2)
+                ->update([
             
+                    'designation' => $request->designation2,
+                    'prix_ht' => $request->prix2,
+                    'duree' => $request->duree2,
+                    'duree_type' => $request->duree_type2,
+                    
+            ]);
+        }
+
+        if(isset($request->idd3))
+        {
+                $add = DB::table('details_cotations')
+                ->where('id', $request->idd3)
+                ->update([
+                    'designation' => $request->designation3,
+                    'prix_ht' => $request->prix3,
+                    'duree' => $request->duree3,
+                    'duree_type' => $request->duree_type3,
+                    
+            ]);
+        }
+        if(isset($request->idd4))
+        {
+                $add = DB::table('details_cotations')
+                ->where('id', $request->idd4)
+                ->update([
+                    'designation' => $request->designation4,
+                    'prix_ht' => $request->prix4,
+                    'duree' => $request->duree4,
+                    'duree_type' => $request->duree_type4,
+                    
+            ]);
+        }
+        if(isset($request->idd5))
+        {
+                $add = DB::table('details_cotations')
+                ->where('id', $request->idd5)
+                ->update([
+                
+                    'designation' => $request->designation5,
+                    'prix_ht' => $request->prix5,
+                    'duree' => $request->duree5,
+                    'duree_type' => $request->duree_type5,
+                    
+            ]);
+        }
+
+        if(isset($request->idd6))
+        {
+                $add = DB::table('details_cotations')
+                ->where('id', $request->idd6)
+                ->update([
+                
+                    'designation' => $request->designation6,
+                    'prix_ht' => $request->prix6,
+                    'duree' => $request->duree6,
+                    'duree_type' => $request->duree_type6,
+                    
+            ]);
+        }
+
+        if(isset($request->idd7))
+        {
+                $add = DB::table('details_cotations')
+                ->where('id', $request->idd7)
+                ->update([
+                
+                    'designation' => $request->designation7,
+                    'prix_ht' => $request->prix7,
+                    'duree' => $request->duree7,
+                    'duree_type' => $request->duree_type7,
+                    
+            ]);
+        }
+
+        if(isset($request->idd8))
+        {
+                $add = DB::table('details_cotations')
+                ->where('cotation_id', $request->idd8)
+                ->update([
+                    'designation' => $request->designation8,
+                    'prix_ht' => $request->prix8,
+                    'duree' => $request->duree8,
+                    'duree_type' => $request->duree_type8,
+                    
+            ]);
+        }
+        if(isset($request->idd9))
+        {
+                $add = DB::table('details_cotations')
+                ->where('cotation_id', $request->idd9)
+                ->update([
+        
+                    'designation' => $request->designation9,
+                    'prix_ht' => $request->prix9,
+                    'duree' => $request->duree9,
+                    'duree_type' => $request->duree_type9,
+                    
+            ]);
+        }
+        if(isset($request->idd10))
+        {
+                $add = DB::table('details_cotations')
+                ->where('cotation_id', $request->idd10)
+                ->update([
+                    'designation' => $request->designation10,
+                    'prix_ht' => $request->prix10,
+                    'duree' => $request->duree10,
+                    'duree_type' => $request->duree_type10,
+                    
+            ]);
+        }
+
+        //SI Y A DE NOUVELLES LIGNES
+        if($request->designation6 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation6,
+                    'prix_ht' => $request->prix6,
+                    'duree' => $request->duree6,
+                    'duree_type' => $request->duree_type6,
+                    
+            ]);
+        }
+        if($request->designation7 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation7,
+                    'prix_ht' => $request->prix7,
+                    'duree' => $request->duree7,
+                    'duree_type' => $request->duree_type7,
+                    
+            ]);
+        }
+        if($request->designation8 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation8,
+                    'prix_ht' => $request->prix8,
+                    'duree' => $request->duree8,
+                    'duree_type' => $request->duree_type8,
+                    
+            ]);
+        }
+        if($request->designation9 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation9,
+                    'prix_ht' => $request->prix9,
+                    'duree' => $request->duree9,
+                    'duree_type' => $request->duree_type9,
+                    
+            ]);
+        }
+        if($request->designation10 != null)
+        {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $request->id_cotation,
+                    'designation' => $request->designation10,
+                    'prix_ht' => $request->prix10,
+                    'duree' => $request->duree10,
+                    'duree_type' => $request->duree_type10,
+                    
+            ]);
         }
         
-        if(isset($request->SECURINC))//SI IL A COCHE CETTE CASE
+        return view('livewire/cotations/edit',[
+            'id' => $request->id_cotation,
+            'success' => 'Modification effectuée'
+        ]);
+
+        /*return back()->with(
+            'success', 'Modification effectuée avec succès'
+        );*/
+     
+    }
+
+    public function EditDevisMat(Request $request)
+    {
+
+        //dd($request->all());
+        
+        $edit = DB::table('cotations')
+        ->where('id', $request->id)
+        ->update(
+            [ 
+                'date_creation' => $request->date_creation, 'numero_devis'=>$request->numero_devis,
+                'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
+                'id_service' => $request->service,
+                'id_user' => auth()->user()->id,
+            ]
+        );
+        
+       /* if(isset($request->idd1))
         {
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', $request->SECURINC)->count();
-            if($v == 0)
-            {  DB::table('cotation_service')->insert(['cotation_id' => $request->id,'service_id' => $request->SECURINC]);}else{}
+            //dd('ici');
+            $add = DB::table('cotation_article')->where('id', $request->idd1)
+            ->update([
+                        'article_id' => $request->article1,
+                        'quantite' => $request->qte1,
+                        'pu' => $request->pu1,
+            ]);
+           //
+            //dd($add);
         }
-        else
+        if(isset($request->idd2))
         {
-            //IL PEUT AVOIR DECOCHE UN ELEMENT DANS CE CAS ON VA SUPPRIMER L'ANCIEN ENREGISTREMENT
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', 3)->delete();
-            
+            $add = DB::table('cotation_article')
+            ->where('id', $request->idd2)
+            ->update([
+                        'article_id' => $request->article2,
+                        'quantite' => $request->qte2,
+                        'pu' => $request->pu2,
+            ]);
         }
-        if(isset($request->AM))
+        if(isset($request->idd3))
         {
-            
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', $request->AM)->count();
-            if($v == 0)
-            { DB::table('cotation_service')->insert(['cotation_id' => $request->id,'service_id' => $request->AM]);}else{}
+            $add = DB::table('cotation_article')
+            ->where('id', $request->idd3)
+            ->update([
+                        'article_id' => $request->article3,
+                        'quantite' => $request->qte3,
+                        'pu' => $request->pu3,
+            ]);
         }
-        else
+        if(isset($request->idd4))
         {
-            //IL PEUT AVOIR DECOCHE UN ELEMENT DANS CE CAS ON VA SUPPRIMER L'ANCIEN ENREGISTREMENT
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', 4)->delete();
-            
+            $add = DB::table('cotation_article')
+            ->where('id', $request->idd4)
+            ->update([
+                        'article_id' => $request->article4,
+                        'quantite' => $request->qte4,
+                        'pu' => $request->pu4,
+            ]);
         }
-        if(isset($request->FORM))
+        if(isset($request->idd5))
         {
-            //dd('da');
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', $request->FORM)->count();
-            if($v == 0)
-            { DB::table('cotation_service')->insert(['cotation_id' => $request->id,'service_id' => $request->FORM]);}else{}
+            $add = DB::table('cotation_article')
+           ->where('id', $request->idd5)
+            ->update([
+                        'article_id' => $request->article5,
+                        'quantite' => $request->qte5,
+                        'pu' => $request->pu5,
+            ]);
         }
-        else
+        if(isset($request->idd6))
         {
-            //IL PEUT AVOIR DECOCHE UN ELEMENT DANS CE CAS ON VA SUPPRIMER L'ANCIEN ENREGISTREMENT
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', 5)->delete();
-            
+            //dd('io');
+            $add = DB::table('cotation_article')
+            ->where('id', $request->idd6)
+            ->update([
+                        'article_id' => $request->article6,
+                        'quantite' => $request->qte6,
+                        'pu' => $request->pu6,
+            ]);
         }
-        if(isset($request->DEV))
+        if(isset($request->idd7))
         {
-            //dd('dadcv');
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', $request->DEV)->count();
-            if($v == 0)
-            { DB::table('cotation_service')->insert(['cotation_id' => $request->id,'service_id' => $request->DEV]);}else{}
+            $add = DB::table('cotation_article')
+            ->where('id', $request->idd7)
+            ->update([
+                        'article_id' => $request->article7,
+                        'quantite' => $request->qte7,
+                        'pu' => $request->pu7,
+            ]);
         }
-        else
+
+        if(isset($request->idd8))
         {
-            //IL PEUT AVOIR DECOCHE UN ELEMENT DANS CE CAS ON VA SUPPRIMER L'ANCIEN ENREGISTREMENT
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', 6)->delete();
-            
+            $add = DB::table('cotation_article')
+           ->where('id', $request->idd8)
+            ->update([
+                        'article_id' => $request->article8,
+                        'quantite' => $request->qte8,
+                        'pu' => $request->pu8,
+            ]);
         }
-        if(isset($request->HEB))
+
+        if(isset($request->idd9))
         {
-            //dd('df');
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', $request->HEB)->count();
-            if($v == 0)
-            { DB::table('cotation_service')->insert(['cotation_id' => $request->id,'service_id' => $request->HEB]);}else{}
-        }
-        else
-        {
-            //IL PEUT AVOIR DECOCHE UN ELEMENT DANS CE CAS ON VA SUPPRIMER L'ANCIEN ENREGISTREMENT
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', 7)->delete();
-            
-        }
-       
-        if(isset($request->MAT))
-        {
-            //dd('a');
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', $request->MAT)->count();
-            if($v == 0)
-            { DB::table('cotation_service')->insert(['cotation_id' => $request->id,'service_id' => $request->MAT]);}else{}
-        }
-        else
-        {
-            //IL PEUT AVOIR DECOCHE UN ELEMENT DANS CE CAS ON VA SUPPRIMER L'ANCIEN ENREGISTREMENT
-            $v = DB::table('cotation_service')->where('cotation_id', $request->id)
-            ->where('service_id', 8)->delete();
-            
+            $add = DB::table('cotation_article')
+            ->where('id', $request->idd9)
+            ->update([
+                        'article_id' => $request->article9,
+                        'quantite' => $request->qte9,
+                        'pu' => $request->pu9,
+            ]);
         }*/
 
-        return back()->with(
+        //NOUVELLES LIGNES
+        /*if($request->article5 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article5,
+                        'quantite' => $request->qte5,
+                        'pu' => $request->pu5,
+            ]);
+        }*/
+        if($request->article6 != "--")
+        {
+            //dd('id');
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article6,
+                        'quantite' => $request->qte6,
+                        'pu' => $request->pu6,
+            ]);
+        }
+       if($request->article7 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article7,
+                        'quantite' => $request->qte7,
+                        'pu' => $request->pu7,
+            ]);
+        }
+        if($request->article8 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article8,
+                        'quantite' => $request->qte8,
+                        'pu' => $request->pu8,
+            ]);
+        }
+        if($request->article9 != "--")
+        {
+            $add = DB::table('cotation_article')
+            ->insert(['cotation_id' => $request->id_cotation,
+                        'article_id' => $request->article9,
+                        'quantite' => $request->qte9,
+                        'pu' => $request->pu9,
+            ]);
+        }
+
+        return view('livewire/cotations/edit_vente',[
+            'id' => $request->id_cotation,
+            'success' => 'Modification effectuée'
+        ]);
+        /*return back()->with(
             'success', 'Modification effectuée avec succès'
-        );
+        );*/
      
     }
 
@@ -345,9 +979,23 @@ class CotationController extends Controller
     public function GoEdit(Request $request)
     {
         //dd($request->all());
-        return view('livewire/cotations/edit',[
-            'id_cotation' => $request->id_cotation,
-        ]);
+        $get_devis = Cotation::where('id', $request->id_cotation)->get();
+        foreach($get_devis as $get_devis)
+        {
+            if($get_devis->id_service == 8)
+            {
+                return view('livewire/cotations/edit_vente',[
+                    'id' => $request->id_cotation,
+                ]);
+            }
+            else
+            {
+                 return view('livewire/cotations/edit',[
+                    'id' => $request->id_cotation,
+                ]);
+            }
+        }
+        
     }
 
     public function GetById($id)
@@ -363,8 +1011,9 @@ class CotationController extends Controller
     public function GetDevis($id)
     {
         $get = DB::table('cotations')
+        ->join('clients', 'cotations.id_client', '=', 'clients.id')
         ->where('cotations.id', $id)
-        ->get(['cotations.*']);
+        ->get(['cotations.*', 'clients.nom']);
 
         return $get;
     }
@@ -580,7 +1229,7 @@ class CotationController extends Controller
         dd($add);*/
        //dd($request->all());
 
-         if(isset($request->idd1))
+        if(isset($request->idd1))
         {
             //dd('ici');
             $add = DB::table('cotation_article')->where('id', $request->idd1)
@@ -632,7 +1281,7 @@ class CotationController extends Controller
                         'pu' => $request->pu5,
             ]);
         }
-        if(isset($request->article6))
+        if(isset($request->idd6))
         {
             $add = DB::table('cotation_article')
             ->where('id', $request->idd6)
@@ -956,7 +1605,6 @@ class CotationController extends Controller
             ]);
         }
        
-
         return view('forms/devis_vente',[
             'id' => $request->id_cotation,
         ]);

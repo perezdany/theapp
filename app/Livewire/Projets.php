@@ -24,6 +24,8 @@ class Projets extends Component
     public $search = '';
 
     public $nom_projet;
+    public $description, $id_client, $date_debut, $date_fin;
+    public $client;
     public $user = '';
 
 
@@ -52,7 +54,10 @@ class Projets extends Component
     public function addProjet()
     {
         $add = Projet::create([
-            'nom_projet' => $this->nom_projet, 'id_user' => auth()->user()->id
+            'nom_projet' => $this->nom_projet, 
+            'id_client' => $this->id_client, 'description' => $this->description, 
+            'date_debut' => $this->date_debut, 'date_fin' => $this->date_fin,
+            'id_user' => auth()->user()->id
         ]);
 
         $this->dispatch('showAddSuccessMessage');
@@ -64,6 +69,8 @@ class Projets extends Component
     {
         $edit = Projet::where('id', $this->editProjet['id'])->update([
             'nom_projet' => $this->editProjet['nom_projet'], 
+             'id_client' => $this->editProjet['id_client'], 'description' => $this->editProjet['description'], 
+            'date_debut' => $this->editProjet['date_debut'], 'date_fin' => $this->editProjet['date_fin'],
         ]);
 
         $this->dispatch('showAddSuccessMessage');
@@ -82,6 +89,12 @@ class Projets extends Component
         {
             $projetQuery->where("nom_projet", "LIKE", "%".$this->search."%")
             ->orwhere("nom_prenoms", "LIKE", "%".$this->search."%");
+           
+        }
+
+        if($this->client != "")
+        {
+            $projetQuery->where("id_client", $this->client);
            
         }
 

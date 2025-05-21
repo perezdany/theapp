@@ -78,9 +78,9 @@
                                                     <!-- /.modal -->
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <button class="btn btn-primary" 
+                                                    <!--<button class="btn btn-primary" 
                                                     data-toggle="modal" data-target="#edit{{$article->id}}" >
-                                                    <b><i class="fa fa-edit"></i></b></button>
+                                                    <b><i class="fa fa-edit"></i></b></button>-->
                                                     <div class="modal fade" id="edit{{$article->id}}"  
                                                     wire:ignore.self  role="dialog" aria-hidden="true" >
                                                         <div class="modal-dialog">

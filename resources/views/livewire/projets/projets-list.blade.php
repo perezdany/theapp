@@ -6,7 +6,7 @@
 </div>
 <div class="row">
     
-    <div class="col-6">
+    <div class="col-md-8">
        
         <div class="card">
          
@@ -55,6 +55,21 @@
                         </select>   
                     </div>  
 
+                    <div class="col-md-3 input-group input-group-sm">
+                        
+                        <select class="form-control" wire:model.live.debounce.250ms="client" >
+                                                
+                            @php
+                                $clts = DB::table('clients')->get();
+                            @endphp
+                            <option value="">Clients</option>
+                            @foreach($clts as $clt)
+                                <option value={{$clt->id}}>{{$clt->nom}}</option>
+                            @endforeach
+                            
+                        </select>   
+                    </div>
+
                 </div>
 
                 <div class="card-tools">
@@ -76,6 +91,10 @@
                 <thead>
                     <tr>
                         <th>Intitulé</th>
+                        <th>Client</th>
+                        <th>Description</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
                         <th>Créé par</th>
                         
                         <th>Mod/Supp</th>
@@ -84,12 +103,16 @@
                 <tbody>
                 @forelse($projets as $projet)
                         <tr class="align-middle">
-                        <td>
-                            {{$projet->nom_projet}}
-                        </td>
-                       
-                        <td> {{$projet->nom_prenoms}}</td>    
-                     
+                        <td>{{$projet->nom_projet}}</td>
+                        
+                        <td>{{$projet->nom}}</td> 
+                        <td>{{$projet->description}}</td>
+                        <td>{{$projet->date_debut}}</td> 
+                                 
+                 
+                        <td>{{$projet->date_fin}}</td> 
+                        <td>{{$projet->nom_prenoms}}</td> 
+               
                         <td>
                         <div class="row">
                             @can("edit")

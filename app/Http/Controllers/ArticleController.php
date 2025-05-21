@@ -57,4 +57,22 @@ class ArticleController extends Controller
 
         return view('forms/devis_vente', compact('id'));
     }
+
+    public function DeleteLineArticle2(Request $request)
+    {
+        $get = DB::table('cotation_article')
+        ->where('id', $request->id)
+        ->get(['cotation_article.cotation_id']);
+        //dd($get);
+        foreach($get as $get)
+        {
+            $id = $get->cotation_id;
+        }
+       
+        $delete = DB::table('cotation_article')->where('id', $request->id)->delete();
+
+        return view('livewire/cotations/edit_vente', compact('id'));
+
+      
+    }
 }

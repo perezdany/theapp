@@ -1,6 +1,3 @@
- <form method="post" action="addarticlefordevis">
-                                
-                                @csrf
 
                                 <input type="text" value="{{$id}}" name="id_cotation" style="display: none;">
                                 <div class="card-body">
@@ -204,7 +201,8 @@
                                                 <input type="number" name="pu5" 
                                                 class="form-control" id="pu5" disabled>
                                             </div> <button type="button" id="bt5" 
-                                            class="btn btn-warning float-right" onclick="displayTheLine('support6','bt5')"><i class="fa fa-plus"></i></button>
+                                            class="btn btn-warning float-right" onclick="displayTheLine('support6','bt5')">
+                                            <i class="fa fa-plus"></i></button>
                                         </div>
                                         <div class="col-sm-4">
                                            
@@ -217,9 +215,9 @@
                                 <!--FAIRE UN INCLUDE POUR AJOUTER -->
                                 @include("forms.lignes_articles")
                                 </div>
-                               <div class="card-footer">
+                               <!--<div class="card-footer">
                                   <button type="submit" id="go" class="btn btn-warning float-right">AJOUTER LES LIGNES</button> 
-                                </div>
+                                </div>-->
                                  
-                            </form>
+                       
                             <hr>   

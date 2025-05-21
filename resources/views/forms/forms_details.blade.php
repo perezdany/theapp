@@ -1,5 +1,5 @@
-<form method="post" action="addaserviceforcreate">
- @csrf
+<!--<form method="post" action="addaserviceforcreate">-->
+
                                         <input type="text" value="{{$id}}" name="id_cotation" style="display: none;">
                                 <div class="card-body">
                                     <div id="support1">
@@ -8,7 +8,7 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation1" class="form-control" id="designation1" 
                                                         onfocus="EnableFields('designation1', 'prix1', 'duree1', 'duree_type1')">
 
@@ -55,7 +55,7 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation2" class="form-control" id="designation2"
                                                         onfocus="EnableFields('designation2', 'prix2', 'duree2', 'duree_type2')">
 
@@ -100,7 +100,7 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation3" class="form-control" id="designation3"
                                                         onfocus="EnableFields('designation3', 'prix3', 'duree3', 'duree_type3')">
 
@@ -147,7 +147,7 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation4" class="form-control" id="designation4"
                                                         onfocus="EnableFields('designation4', 'prix4', 'duree4', 'duree_type4')">
 
@@ -185,14 +185,14 @@
                                         </div>
 
                                     </div>
-                                     <div id="support5">
+                                    <div id="support5">
 
                                         <div class="content" id="support">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation5" class="form-control" id="designation5"
                                                         onfocus="EnableFields('designation5', 'prix5', 'duree5', 'duree_type5')">
 
@@ -232,14 +232,14 @@
 
                                     </div>
 
-                                     <div id="support6" style="display:none;">
+                                    <div id="support6" style="display:none;">
                                        
                                         <div class="content" id="support">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation6" class="form-control" id="designation6"
                                                         onfocus="EnableFields('designation6', 'prix6', 'duree6', 'duree_type6')">
 
@@ -285,7 +285,7 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation7" class="form-control" id="designation7"
                                                         onfocus="EnableFields('designation7', 'prix7', 'duree7', 'duree_type7')">
 
@@ -331,7 +331,7 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation8" class="form-control" id="designation8"
                                                         onfocus="EnableFields('designation8', 'prix8', 'duree8', 'duree_type8')">
 
@@ -376,7 +376,7 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation9" class="form-control" id="designation9"
                                                         onfocus="EnableFields('designation9', 'prix9', 'duree9', 'duree_type9')">
 
@@ -422,7 +422,7 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>Désignation:</label>
+                                                    <label>Description:</label>
                                                         <textarea name="designation10" class="form-control" id="designation10"
                                                         onfocus="EnableFields('designation10', 'prix10', 'duree10', 'duree_type10')">
 
@@ -461,7 +461,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer">
+                                <!--<div class="card-footer">
                                   <button type="submit" id="go" class="btn btn-warning float-right">AJOUTER LES LIGNES</button> 
-                                </div>
-                            </form>
+                                </div>-->
+                            <!--</form>-->

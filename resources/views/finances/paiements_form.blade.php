@@ -42,11 +42,11 @@
                         <thead>
                         <tr>
                             <th>Montant</th>
-                            <th>Numéro de facture</th>
                             <th>Date de paiement</th>
+                            <th>Mode de paiement</th>
                             <th>Banque</th>
-                            <th>Date de virement</th>
-                            <th>Numéro de virement</th>
+                            <th>Numéro de virement/transfert...</th>
+                            <th>Commentaire</th>
                             <th>Modifier</th>
                             <th>Supp</th>
                         </tr>
@@ -59,72 +59,58 @@
                                             echo  number_format($my_own->paiement, 2, ".", " ")." XOF";
                                         @endphp
                                     </td>
-                                    
-                                   
-                                    
-                                    <td>{{$my_own->numero_facture}}</td>
-                                    @if($my_own->id_mode_reglement == 1)
-                                        <td>@php echo date('d/m/Y',strtotime($my_own->date_paiement)) @endphp</td>
-                                        <td colspan="3"><b>Paiement en espèce</b></td>
-                                    @else
-                                        @if($my_own->id_mode_reglement == 2)
-                                            <td>@php echo date('d/m/Y',strtotime($my_own->date_reception)) @endphp</td>
-                                             <td colspan="3"><b>Paiement Par chèque</b></td>
-                                        @else
-                                            <td></td>
-                                            <td>{{$my_own->banque}}</td>
-                                            <td>@php echo date('d/m/Y',strtotime($my_own->date_virement)) @endphp</td>
 
-                                            <td>{{$my_own->numero_virement}}</td>
-                                        @endif
-                                        
-                                    @endif
-                                    
-                                    <td>
-                                        <form action="edit_paiement_form" method="post">
-                                            @csrf
-                                            <input type="text" value={{$my_own->id}} style="display:none;" name="id_paiement">
-                                            <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
-                                        </form>
-                                    </td>
-                                    <td>
-
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="@php echo "#".$my_own->id.""; @endphp">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                        <div class="modal modal-danger fade" id="@php echo "".$my_own->id.""; @endphp">
-                                            <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title">Supprimer </h4>
-                                                </div>
-                                                <form action="delete_paiement" method="post">
-                                                <div class="modal-body">
-                                                    <p>Voulez-vous supprimer le paiement du montant de {{$my_own->paiement}} XOF?</p>
-                                                    @csrf
-                                                    @csrf
-                                                    <input type="text" value="{{$id}}" style="display:none;" name="id">
-                                                    <input type="text" value={{$my_own->id}} style="display:none;" name="id_paiement">
-                                                    
-                                                </div>
-                                                
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Fermer</button>
-                                                    <button type="submit" class="btn btn-outline">Supprimer</button>
-                                                </div>
-                                                </form>
-                                            </div>
-                                            <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                        <!-- /.modal -->
-                                    </td>
+                                    <td>{{$my_own->date_paiement}}</td>
+                                    <td>{{$my_own->libele}}</td>
+                                    <td>{{$my_own->banque}}</td>
+                                    <td>{{$my_own->numero}}</td>
+                                    <td>{{$my_own->commentaire}}</td>
+                                  
                                     @can("comptable")
+                                        <td>
+                                            <form action="edit_paiement_form" method="post">
+                                                @csrf
+                                                <input type="text" value={{$my_own->id_paiement}} style="display:none;" name="id_paiement">
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                                            </form>
+                                        </td>
                                         @can("delete")
-                                          
+                                           
+                                            <td>
+
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="@php echo "#delete".$my_own->id.""; @endphp">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                                <div class="modal modal-danger fade" id="@php echo "delete".$my_own->id.""; @endphp">
+                                                    <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                   
+                                                        <h4 class="modal-title">Supprimer </h4>
+                                                        </div>
+                                                        <form action="delete_paiement" method="post">
+                                                        <div class="modal-body">
+                                                            <p>Voulez-vous supprimer le paiement du montant de {{$my_own->paiement}} XOF?</p>
+                                                            @csrf
+                                                            @csrf
+                                                            <input type="text" value="{{$id}}" style="display:none;" name="id">
+                                                            <input type="text" value="{{$my_own->id_paiement}}" style="display:none;" name="id_paiement">
+                                                            <input type="text" value={{$my_own->id}} style="display:none;" name="id_details"><!--les details-->
+                                                            <input type="text" value={{$my_own->id_facture}} style="display:none;" name="id_facture">
+                                                        </div>
+                                                        
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Fermer</button>
+                                                            <button type="submit" class="btn  btn-success">Supprimer</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+                                            </td>
                                         @endcan
                                     @endcan
 
@@ -193,7 +179,7 @@
 
                                 <div class="form-group">
                                     <label>Type de paiement</label>
-                                    <select class="form-control" name="mode" id="m" onchange="EnableChamps()">
+                                    <select class="form-control" name="mode" id="m" >
                                         @php
                                             $t = DB::table('mode_reglements')->get();
                                         @endphp
@@ -209,30 +195,27 @@
                                 <div class="form-group">
                                     <label>Date du paiement</label>
                                     <input type="date" class="form-control" 
-                                    name="date_paiement" id="date_paiement" disabled required>
+                                    name="date_paiement" id="date_paiement"  required>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Nom de la banque</label>
-                                    <input type="text" class="form-control" name="banque" id="banque" disabled>
+                                    <input type="text" class="form-control" name="banque" id="banque" >
                                 </div>
                                
                                 <div class="form-group">
-                                    <label>Date de reception</label>
-                                    <input type="date" class="form-control" name="date_reception" id="date_reception" disabled>
+                                    <label>Numéro de virement/ou de la transaction</label>
+                                    <input type="text" class="form-control" name="numero_virement" id="numero_virement">
                                 </div>
+  
                                 <div class="form-group">
-                                    <label>Date de virement</label>
-                                    <input type="date" class="form-control" name="date_virement" id="date_virement" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label>Numéro de virement</label>
-                                    <input type="text" class="form-control" name="numero_virement" id="numero_virement" disabled>
+                                    <label>Commentaire</label>
+                                    <textarea class="form-control" name="commentaire" ></textarea>
                                 </div>
                                 
                             </div>
                             <!-- /.box-body -->
-                             <script>
+                            <script>
                                 function VerifRest() {
                                 
                                     /* ce script permet de vérifier si le montant saisi est trop élevé et l'obliger a saisir un montant plus bas*/

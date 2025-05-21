@@ -46,10 +46,9 @@ class PaiementController extends Controller
             [
                 'id_paiement' => $Insert->id,
                 'date_paiement' => $request->date_paiement, 
-                'date_virement' => $request->date_virement,
-                'numero_virement' => $request->numero_virement,
-                'date_reception' => $request->date_reception,
+                'numero' => $request->numero_virement,
                 'banque' => $request->banque,
+                'commentaire' => $request->commentaire,
             ]
         );
 
@@ -114,11 +113,11 @@ class PaiementController extends Controller
         $update_details = DB::table('details_paiements')
         ->where('id', $request->id_details)
         ->update([
-           'date_paiement' => $request->date_paiement, 
-            'date_virement' => $request->date_virement,
-            'numero_virement' => $request->numero_virement,
-            'date_reception' => $request->date_reception,
+            'date_paiement' => $request->date_paiement, 
+            'numero' => $request->numero_virement,
+   
             'banque' => $request->banque,
+            'commentaire' => $request->commentaire,
         ]);
 
 
@@ -179,12 +178,11 @@ class PaiementController extends Controller
         $update_details = DB::table('details_paiements')
         ->where('id', $request->id_details)
         ->update([
-           'date_paiement' => $request->date_paiement, 
-            'date_virement' => $request->date_virement,
-            'numero_virement' => $request->numero_virement,
-            'date_reception' => $request->date_reception,
+            'date_paiement' => $request->date_paiement, 
+            'numero' => $request->numero_virement,
+   
             'banque' => $request->banque,
-        
+            'commentaire' => $request->commentaire,
         ]);
 
         //Récuper tous les anciens montants
@@ -228,12 +226,12 @@ class PaiementController extends Controller
             ->join('factures', 'paiements.id_facture', '=', 'factures.id')
             ->join('cotations', 'factures.id_cotation', '=', 'cotations.id')
             ->join('clients', 'cotations.id_client', '=', 'clients.id') 
+            ->join('mode_reglements', 'paiements.id_mode_reglement', '=', 'mode_reglements.id')
             ->where('id_facture', $id) 
            
-            ->get( ['paiements.*', 'details_paiements.date_reception',  'details_paiements.date_paiement',
-                    'details_paiements.banque',  'details_paiements.date_virement', 'details_paiements.numero_virement',
+            ->get( ['details_paiements.*', 'paiements.paiement', 'paiements.id_facture', 'paiements.id_mode_reglement',
                     'factures.numero_facture', 'factures.montant_facture', 'factures.date_emission',
-                    'factures.date_reglement', 'clients.nom'
+                    'factures.date_reglement', 'clients.nom', 'mode_reglements.libele'
                 ]);
 
         
@@ -288,8 +286,18 @@ class PaiementController extends Controller
     public function DeletePaiement(Request $request)
     {
         //dd($request->all());
-        $delete = DB::table('paiements')->where('id', '=', $request->id)->delete();
-        return back()->with('success', 'Elément supprimé');
+        //SUPPRESSION DES DETAILS
+        $delete = DB::table('details_paiements')->where('id', '=', $request->id_details)->delete();
+        //SUPRESSION DU PAIEMENT
+        $delete = DB::table('paiements')->where('id', '=', $request->id_paiement)->delete();
+        //dd($delete);
+        return view('finances/paiements_form',
+            [
+                'id' => $request->id_facture,
+                'success' => 'Elément supprimé'
+            ]
+        );
+        //return back()->with('success', 'Elément supprimé');
         
     }
 

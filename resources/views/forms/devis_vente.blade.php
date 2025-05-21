@@ -117,6 +117,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <b><u>Cliquer sur le bouton valider en dessous</u></b>
                             <form method="post" action="save_devis_vente">
                                 @csrf
                                 <div class="content" id="support">
@@ -149,6 +150,7 @@
                                                     @php
                                                         $clients = DB::table('clients')->get();
                                                     @endphp
+                                                    <option value="{{$devis->id_client}}">{{$devis->nom}}</option>
                                                     @foreach($clients as $client)
                                                         <option value="{{$client->id}}">{{$client->nom}}</option>
                                                     @endforeach
@@ -157,16 +159,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                    
+                                <!--LES FORMULAIRES DES LIGNES-->
+                                @include("forms.btn_add_lines")
+
                                 <div class="card-footer">
                                 
-                                <button type="submit" class="btn btn-info float-right">FINALISER LA CREATION</button>
+                                <button type="submit" class="btn btn-info float-right">VALIDER</button>
                                 </div>
                             </form>
                             <hr>
-                            <!--LES FORMULAIRES DES LIGNES-->
-                            @include("forms.btn_add_lines")
-
+                            
                            
                             <!-- /.table-responsive -->
                             <script type="text/javascript">

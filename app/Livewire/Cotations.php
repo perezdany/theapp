@@ -41,6 +41,12 @@ class Cotations extends Component
         $this->dispatch('editmodal');
     }
 
+    public function close()
+    {
+        $this->reset();
+    }
+
+
     //FONCTION POUR FAIRE ORDRE DECROISSANT
     public function setOrderField($champ)
     {

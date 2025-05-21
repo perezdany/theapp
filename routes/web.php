@@ -212,6 +212,7 @@ Route::middleware(['auth'])->group(function(){
 
             //MODIFIER LE DEVIS
             Route::post('edit_devis', [CotationController::class, 'EditDevis']);
+             Route::post('edit_devis_mat', [CotationController::class, 'EditDevisMat']);
 
             //ANNULER L'ACTION DE CREATION DE DEVIS
             Route::post('retour_delete', [CotationController::class, 'CancelCreation']);
@@ -233,6 +234,7 @@ Route::middleware(['auth'])->group(function(){
 
             //SUPPRIMER LA LIGNE DU SERVICE POUR LE DEVIS
             Route::post('suppserv', [ServiceController::class, 'DeleteLineService']);
+            Route::post('suppserv2', [ServiceController::class, 'DeleteLineService2']);
 
 
             //AJOUTER UNE LIGNE DE SERVICE DANS LE DEVIS
@@ -252,6 +254,7 @@ Route::middleware(['auth'])->group(function(){
 
             //SUPPRIMER UNE LIGNE D'ARTICLE dans le DEVIS
             Route::post('supp', [ArticleController::class, 'DeleteLineArticle']);
+            Route::post('supp2', [ArticleController::class, 'DeleteLineArticle2']);
 
             //IMPRIMER LE DEVIS
             Route::post('print_devis', [CotationController::class, 'PrintDevis']);
