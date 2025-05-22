@@ -71,11 +71,6 @@
                                     <label>Numéro de virement</label>
                                     <input type="text" class="form-control" name="numero_virement" value="{{$retrive->numero}}">
                                 </div>
-
-                                <div class="form-group">
-                                    <label>Nom de la banque</label>
-                                    <input type="text" class="form-control" name="banque" value="{{$retrive->banque}}">
-                                </div>
                                 
                                 <div class="box-footer">
                                 <button type="submit" class="btn btn-primary" id="bt">VALIDER</button>

@@ -23,67 +23,96 @@
                     $la_facture = $facturecontroller->GetByIdCotation($id_cotation);
                     //dd($la_facture);
                 @endphp
-                <!-- Main content -->
-                <div class="invoice p-3 mb-3">
-                <!-- title row -->
-                <div class="row">
-                    <div class="col-12">
-                    <h4>
-                        <i class="fa fa-globe"></i>{{config('app.name')}} <!--AdminLTE, Inc.-->
-                        @foreach($la_facture as $facture)
-                            <small class="float-right">
-                                @php echo date('d/m/Y',strtotime($facture->date_emission));@endphp
-                            </small>
+                 @foreach($devis as $devis)
+                    <div class="row">
+                        <div class="col-md-2">
+                        @php
+                            $tva = DB::table('taxes')->get();
+                        @endphp
+                        @foreach($tva as $tva)
+                            @if($tva->active == 0)
+                                <form action="manage_taxe" method="post">
+                                    @csrf
+                                    <input type="text" value={{$id_cotation}} style="display:none" name="id_cotation">
+                                    <button class="btn btn-danger" type="submit">Activer la TVA</button>
+                                </form>
+                            @else
+                                <form action="manage_taxe" method="post">
+                                    @csrf
+                                    <input type="text" value={{$id_cotation}} style="display:none" name="id_cotation">
+                                    <button class="btn btn-warning" type="submit">Désactiver la TVA</button>
+                                </form>
+                            @endif
                         @endforeach
+                        </div>
+                        <div class="col-md-2">
+                           
+                            
+                        </div>
+                    </div>
+                    <!-- Main content -->
+                    <div class="invoice p-3 mb-3">
+                    <!-- title row -->
+                    <div class="row">
+                        <div class="col-12">
+                        <h4>
+                            <i class="fa fa-globe"></i>{{config('app.name')}} <!--AdminLTE, Inc.-->
+                            <small class="float-right">
+                                @php echo date('d/m/Y',strtotime($devis->date_creation));@endphp
+                            </small>
+                        </h4>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- info row -->
+                    <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                            <!--De
+                            <address>
+                                <strong>Nom entreprise, Inc.</strong><br>
+                                Adresse Géo<br>
+                                Adresse postale<br>
+                                Phone: (804) 123-5432<br>
+                                Email: info@example.com
+                            </address>-->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col" style="border:solid 3px;">
+                            <address>
+                                <strong>{{$devis->nom}}</strong><br>
+                                {{$devis->adresse}}<br>
+                                <!--San Francisco, CA 94107<br>-->
+                                {{$devis->telephone}}<br>
+                                {{$devis->adresse_email}}
+                            </address>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                    <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                            <b>Devis N° {{$devis->numero_devis}}</b><br>
+                            <!--<b>Order ID:</b> 4F3S8J<br>-->
+                            <!--<b>Payment Due:</b> 2/22/2014<br>-->
+                            <b>Dossier suivi par:</b> {{$devis->nom_prenoms}}<br><br>
+                            <!--<b>A régler avant le : </b>-->
+                            @php //echo date('d/m/Y',strtotime($facture->date_reglement));
+                            @endphp
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
                        
-                    </h4>
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- info row -->
-                <div class="row invoice-info">
-                    @foreach($devis as $devis)
-                   
-                        <div class="col-sm-4 invoice-col">
-                        De
-                        <address>
-                            <strong>Nom entreprise, Inc.</strong><br>
-                            Adresse Géo<br>
-                            Adresse postale<br>
-                            Phone: (804) 123-5432<br>
-                            Email: info@example.com
-                        </address>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                        A
-                        <address>
-                            <strong>{{$devis->nom}}</strong><br>
-                            {{$devis->adresse}}<br>
-                            <!--San Francisco, CA 94107<br>-->
-                            {{$devis->telephone}}<br>
-                            {{$devis->adresse_email}}
-                        </address>
+                       
                         </div>
                         <!-- /.col -->
-                    @endforeach
-                    @php
-                        $la_facture = $facturecontroller->GetByIdCotation($id_cotation);
-                    @endphp
-                    @foreach($la_facture as $facture)
-                    <div class="col-sm-4 invoice-col">
-                    <b>Facture N° {{$facture->numero_facture}}</b><br>
-                    <br>
-                    <!--<b>Order ID:</b> 4F3S8J<br>-->
-                    <!--<b>Payment Due:</b> 2/22/2014<br>-->
-                    <b>A régler avant le : </b>@php echo date('d/m/Y',strtotime($facture->date_reglement));@endphp
-                    <!--<b>Account:</b> 968-34567-->
-                    </div>
-                    <!-- /.col -->
-                    @endforeach
-                </div>
-                <!-- /.row -->
-                
+                    </div><br>
+                @endforeach
                 @php
                     $somme = 0;
                     $compter = DB::table('details_cotations')->where('cotation_id', $id_cotation)
@@ -91,7 +120,7 @@
                     ->join('services', 'cotations.id_service', '=', 'services.id')
                     ->join('clients', 'cotations.id_client', '=', 'clients.id')
                     ->count();
-
+                     $i = 0;
                     //dd($devis->id); 
                     if($compter  == 0)//Y A PAS D'ID DE DEVIS
                     {
@@ -108,8 +137,9 @@
                     <div class="col-12 table-responsive">
                     <table class="table table-striped">
                         <thead>
-                        <tr>
-                        <th>Service/Désignation/Description</th>
+                        <tr style="background-color:#76d7c4">
+                        <th>Prestation</th>
+                        <th>Désignation/Description</th>
                         <th>Code</th>
                         <th>Durée</th>
                         <th>Qté</th>
@@ -124,11 +154,18 @@
                                 @php
                                     //dump("i");
                                     $articles = $cotationcontroller->GetArticleLines($id_cotation);
+                                    $i = 0;
                                 @endphp  
-                                <tr>
-                                    <td>{{$devis->libele_service}}</td>
-                                    <td>{{$devis->code}}</td>
+                                <tr style="background-color:#e8f8f5 ">
+                                     @if($i == 0)
+                                        <td>{{$devis->libele_service}}</td>
+                                    @else
+                                        <td></td>
+                                    @endif   
+                      
                                     <td>{{$devis->designation}}</td>
+                                    <td>{{$devis->code}}</td>
+                                    <td>N/A</td>
                                     <td>{{$devis->quantite}}</td>
                                     <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
@@ -140,8 +177,13 @@
                                     </td>
                                 <tr>
                             @else
-                                <tr>
-                                    <td>{{$devis->libele_service}}</td>
+                                <tr style="background-color:#e8f8f5 ">
+                                    @if($i == 0)
+                                        <td>{{$devis->libele_service}}</td>
+                                    @else
+                                        <td></td>
+                                    @endif   
+                                    <td>{{$devis->designation}}</td>
                                     <td>{{$devis->code}}</td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
@@ -165,11 +207,12 @@
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
-
+                <u>Conditions de paiement</u> :<br>
+                <i style="color:red">100% à la livraison</i><br><br><br>
                 <div class="row">
                     <!-- accepted payments column -->
-                    <!--<div class="col-6">
-                    <p class="lead">Payment Methods:</p>
+                    <div class="col-6">
+                    <!--<p class="lead">Payment Methods:</p>
                     <img src="../../dist/img/credit/visa.png" alt="Visa">
                     <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
                     <img src="../../dist/img/credit/american-express.png" alt="American Express">
@@ -179,8 +222,8 @@
                         Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
                         plugg
                         dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                    </p>
-                    </div>-->
+                    </p>-->
+                    </div>
                     <!-- /.col -->
                     <div class="col-6">
                     <p class="lead">Détails montant total</p>
@@ -254,7 +297,8 @@
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
-
+                <u>Conditions de paiement</u> :<br>
+                <i style="color:red">100% à la livraison</i><br><br><br>
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
                     <div class="col-12">

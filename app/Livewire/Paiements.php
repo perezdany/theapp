@@ -103,7 +103,6 @@ class Paiements extends Component
             $paiementQuery->where("numero_facture", "LIKE", "%".$this->search."%")
             ->orwhere("nom", "LIKE", "%".$this->search."%")
             ->orwhere("paiement", "LIKE", "%".$this->search."%")
-            ->orwhere("banque", "LIKE", "%".$this->search."%")
             ->orwhere("nom_prenoms", "LIKE", "%".$this->search."%");
            
         }

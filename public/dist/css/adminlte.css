@@ -10,6 +10,167 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+
+@media print {
+  /* Dimension et marges de page */
+  @page {
+    size: A4 portrait;
+    margin: 2cm 1.5cm;
+  }
+
+  .backcol {
+    background-color:#76d7c4
+  }
+
+  .sousbackcol {
+    background-color:#e8f8f5 
+  }
+
+  .invoice {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    position: relative;
+  }
+
+  .invoice {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .invoice-col {
+    float: left;
+    width: 33.3333333%;
+  }
+.invoice-title {
+  margin-top: 0;
+}
+  /* Reset général */
+  * {
+    all: unset;
+    display: revert;
+    box-sizing: border-box;
+  }
+  img {
+    max-width: 100%;
+  }
+  input,
+  textarea,
+  select {
+    all: revert;
+  }
+
+  /* On redéfinit les styles globaux (12pt = 16px) */
+  body {
+    width: auto;
+    margin: 0;
+    font-family: serif;
+    font-size: 12pt;
+    font-family: Georgia, serif;
+    line-height: 1.5;
+    color: 
+#000000 !important;
+    background-color: 
+#ffffff !important;
+  }
+
+  /* Espacements typographiques (15pt = 20px) */
+  p,
+  blockquote,
+  label,
+  ul,
+  ol {
+    margin-block: 0 15pt;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Titrages (24pt = 32px) */
+  h1 {
+    margin-block: 0 24pt;
+    font-weight: 700;
+    font-size: 18pt;
+    line-height: 1.1;
+  }
+  h2 {
+    margin-block: 0 18pt;
+    font-weight: 700;
+    font-size: 16pt;
+    line-height: 1.1;
+  }
+  h3 {
+    margin-block: 0 15pt;
+    font-weight: 700;
+    font-size: 14pt;
+  }
+  h4 {
+    margin-block: 0 12pt;
+    font-weight: 700;
+    font-size: 12pt;
+  }
+
+  /* Classes dédiées print / no-print */
+  .print {
+    display: revert;
+  }
+  .no-print {
+    display: none;
+  }
+
+  /* Pas de veuves ou orphelines (3 lignes minimum) */
+  p,
+  blockquote {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Pas de saut de page au sein de ces éléments */
+  /*blockquote,
+  ul,
+  ol,
+  figure,
+  table {
+    page-break-inside: avoid;
+  }*/
+
+  /* Pas de saut de page après ces éléments */
+  /*h1,
+  h2,
+  h3,
+  h4,
+  caption {
+    page-break-after: avoid;
+  }*/
+
+  /* Styles des liens */
+  a,
+  a:link,
+  a:visited {
+    background: 
+transparent !important;
+    color: unset;
+    font-weight: 700;
+    text-decoration: underline !important;
+  }
+
+  /* On affiche l'URL des liens externes */
+  a[href^="http"]:after,
+  a[href^="https"]:after {
+    content: " (" attr(href) ")";
+  }
+
+  /* On masque les vidéos */
+  video,
+  object,
+  iframe {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+}
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -21966,15 +22127,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   }
 }
 
-.invoice {
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  position: relative;
-}
 
-.invoice-title {
-  margin-top: 0;
-}
 
 .dark-mode .invoice {
   background-color: #343a40;
@@ -29686,16 +29839,7 @@ blockquote.quote-gray-dark h6 {
   .layout-fixed .content-wrapper {
     padding-top: 0 !important;
   }
-  .invoice {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
-  .invoice-col {
-    float: left;
-    width: 33.3333333%;
-  }
+ 
   .table-responsive {
     overflow: auto;
   }

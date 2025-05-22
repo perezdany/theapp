@@ -18,7 +18,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.css">
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -39,6 +39,7 @@
                 @php
                     $devis = $cotationcontroller->GetLinesinfoCustomer($id_cotation);
                     $somme = 0;
+                    $i = 0; 
                 @endphp
                 @foreach($devis as $devis)
                     
@@ -56,41 +57,53 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    <!-- info row -->
                     <div class="row invoice-info">
                         <div class="col-sm-4 invoice-col">
-                        De
-                        <address>
-                            <strong>Nom entreprise, Inc.</strong><br>
-                            Adresse Géo<br>
-                            Adresse postale<br>
-                            Phone: (804) 123-5432<br>
-                            Email: info@example.com
-                        </address>
+                            <!--De
+                            <address>
+                                <strong>Nom entreprise, Inc.</strong><br>
+                                Adresse Géo<br>
+                                Adresse postale<br>
+                                Phone: (804) 123-5432<br>
+                                Email: info@example.com
+                            </address>-->
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                        A
-                        <address>
-                            <strong>{{$devis->nom}}</strong><br>
-                            {{$devis->adresse}}<br>
-                            <!--San Francisco, CA 94107<br>-->
-                            {{$devis->telephone}}<br>
-                            {{$devis->adresse_email}}
-                        </address>
                         </div>
                         <!-- /.col -->
-                        <div class="col-sm-4 invoice-col">
-                        <b>Devis N° {{$devis->numero_devis}}</b><br>
-                        <br>
-                        <!--<b>Order ID:</b> 4F3S8J<br>-->
-                        <!--<b>Payment Due:</b> 2/22/2014<br>-->
-                        <b>Valide jusqu'au: </b>@php echo date('d/m/Y',strtotime($devis->date_validite));@endphp
-                        <!--<b>Account:</b> 968-34567-->
+                        <div class="col-sm-4 invoice-col" style="border:solid 3px;">
+                            <address>
+                                <strong>{{$devis->nom}}</strong><br>
+                                {{$devis->adresse}}<br>
+                                <!--San Francisco, CA 94107<br>-->
+                                {{$devis->telephone}}<br>
+                                {{$devis->adresse_email}}
+                            </address>
                         </div>
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
+                    <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                            <b>Devis N° {{$devis->numero_devis}}</b><br>
+                            <!--<b>Order ID:</b> 4F3S8J<br>-->
+                            <!--<b>Payment Due:</b> 2/22/2014<br>-->
+                            <b>Dossier suivi par:</b> {{$devis->nom_prenoms}}<br><br>
+                            <!--<b>A régler avant le : </b>-->
+                            @php //echo date('d/m/Y',strtotime($facture->date_reglement));
+                            @endphp
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                       
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                       
+                        </div>
+                        <!-- /.col -->
+                    </div><br>
                 @endforeach
                 @php
                     $somme = 0;
@@ -116,8 +129,9 @@
                     <div class="col-12 table-responsive">
                     <table class="table table-striped">
                         <thead>
-                        <tr>
-                        <th>Service/Désignation/Description</th>
+                        <tr class="backcol">
+                        <th>Prestation</th>
+                        <th>Désignation/Description</th>
                         <th>Code</th>
                         <th>Durée</th>
                         <th>Qté</th>
@@ -132,11 +146,16 @@
                                 @php
                                     //dump("i");
                                     $articles = $cotationcontroller->GetArticleLines($id_cotation);
+                                    $i = 0;
                                 @endphp  
-                                <tr>
-                                    <td>{{$devis->libele_service}}</td>
+                                <tr class="sousbackcol">
+                                    @if($i == 0)
+                                        <td>{{$devis->libele_service}}</td>
+                                    @else
+                                    @endif 
+                                    <td>{{$devis->designation}}</td>  
                                     <td>{{$devis->code}}</td>
-                                    <td>{{$devis->designation}}</td>
+                                    
                                     <td>{{$devis->quantite}}</td>
                                     <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
@@ -148,8 +167,12 @@
                                     </td>
                                 <tr>
                             @else
-                                <tr>
-                                    <td>{{$devis->designation}}</td>
+                                <tr class="sousbackcol">
+                                    @if($i == 0)
+                                        <td>{{$devis->libele_service}}</td>
+                                    @else
+                                    @endif 
+                                    <td>{{$devis->designation}}</td>  
                                     <td>{{$devis->code}}</td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
@@ -176,8 +199,8 @@
 
                 <div class="row">
                     <!-- accepted payments column -->
-                    <!--<div class="col-6">
-                    <p class="lead">Payment Methods:</p>
+                    <div class="col-6">
+                    <!--<p class="lead">Payment Methods:</p>
                     <img src="../../dist/img/credit/visa.png" alt="Visa">
                     <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
                     <img src="../../dist/img/credit/american-express.png" alt="American Express">
@@ -187,8 +210,8 @@
                         Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
                         plugg
                         dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                    </p>
-                    </div>-->
+                    </p>-->
+                    </div>
                     <!-- /.col -->
                     <div class="col-6">
                     <p class="lead">Détails montant total</p>

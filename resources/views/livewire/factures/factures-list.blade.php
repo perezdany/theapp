@@ -49,7 +49,16 @@
                             <option value="0">PAS ANNULEE</option>
 
                         </select>   
-                    </div>    
+                    </div>   
+
+                    <div class="col-md-2 input-group input-group-sm">
+                        <select class="form-control" id="departement" wire:model.live.debounce.250ms="t_reglee">
+                            <option value="">Facture réglée</option>
+                            <option value="1">OUI</option>
+                            <option value="0">NON</option>
+
+                        </select>   
+                    </div> 
 
                     <div class="col-md-2 input-group input-group-sm">
                         <select class="form-control" id="departement" wire:model.live.debounce.250ms="user">
@@ -101,7 +110,7 @@
                 </thead>
                 <tbody>
                 @forelse($factures as $facture)
-                        <tr class="align-middle">
+                    <tr class="align-middle">
                         <td>
                             @if($facture->numero_facture == NULL)
                                 {{$facture->numero_avoir}}
@@ -121,10 +130,16 @@
                         </td>
                         <td>@php echo date('d/m/Y',strtotime($facture->date_reglement));@endphp</td>
                         <td>
-                            @if($facture->annuelee == 0)
-                               <span class="bg-success">Pas annulée</span>
+                            @if($facture->annulee == 0)
+                               <!--<span class="bg-success">Pas annulée</span>-->
+                                @if($facture->reglee == 0)
+                                    <span class="bg-danger">Non réglée</span>
+                                @else
+                                    <span class="bg-success">Réglée</span>
+                                @endif
                             @else
-                               <span class="bg-danger">Annulée</span>
+                                
+                                <span class="bg-danger">Annulée</span>
                             @endif
                         </td>
                         <td>{{$facture->numero_devis}}</td>

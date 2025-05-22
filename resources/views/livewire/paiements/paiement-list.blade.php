@@ -117,7 +117,6 @@
                         <th wire:click="setOrderField('paiement')"><i class="fa fa-sort" aria-hidden="true"></i>Montant</th>
                         <th wire:click="setOrderField('numero_facture')"><i class="fa fa-sort" aria-hidden="true"></i>N° de la facture</th>
                         <th>N° de virement/de transfert</th>
-                        <th>Banque</th>
                         <th wire:click="setOrderField('date_paiement')"><i class="fa fa-sort" aria-hidden="true"></i>Date de paiemennt</th>
                         <th>Enregistré par:</th>
                         <th>Client</th>
@@ -130,7 +129,6 @@
                         <td>{{$paiement->paiement}}</td>
                         <td>{{$paiement->numero_facture}}</td>
                         <td>{{$paiement->numero}}</td>
-                        <td>{{$paiement->banque}}</td>
                         <td>{{$paiement->date_paiement}}</td>
                         <td> {{$paiement->nom_prenoms}}</td>    
                         <td>{{$paiement->nom}}</td>

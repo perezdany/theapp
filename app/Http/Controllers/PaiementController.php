@@ -47,7 +47,6 @@ class PaiementController extends Controller
                 'id_paiement' => $Insert->id,
                 'date_paiement' => $request->date_paiement, 
                 'numero' => $request->numero_virement,
-                'banque' => $request->banque,
                 'commentaire' => $request->commentaire,
             ]
         );
@@ -115,8 +114,6 @@ class PaiementController extends Controller
         ->update([
             'date_paiement' => $request->date_paiement, 
             'numero' => $request->numero_virement,
-   
-            'banque' => $request->banque,
             'commentaire' => $request->commentaire,
         ]);
 
@@ -180,8 +177,6 @@ class PaiementController extends Controller
         ->update([
             'date_paiement' => $request->date_paiement, 
             'numero' => $request->numero_virement,
-   
-            'banque' => $request->banque,
             'commentaire' => $request->commentaire,
         ]);
 

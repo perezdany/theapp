@@ -14,7 +14,7 @@
                                                 @endphp
                                                 <option value="--">--Choisir--</option>
                                                 @foreach($t as $t)
-                                                    <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                    <option value={{$t->id}}>{{$t->designation}}</option>
                                                 @endforeach
                                                 
                                             </select>   
@@ -55,7 +55,7 @@
                                                 @endphp
                                                 <option value="--">--Choisir--</option>
                                                 @foreach($t as $t)
-                                                    <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                    <option value={{$t->id}}>{{$t->designation}}</option>
                                                 @endforeach
                                                 
                                             </select>   
@@ -97,7 +97,7 @@
                                                 @endphp
                                                 <option value="--">--Choisir--</option>
                                                 @foreach($t as $t)
-                                                    <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                    <option value={{$t->id}}>{{$t->designation}}</option>
                                                 @endforeach
                                                 
                                             </select>   
@@ -139,7 +139,7 @@
                                                 @endphp
                                                 <option value="--">--Choisir--</option>
                                                 @foreach($t as $t)
-                                                    <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                    <option value={{$t->id}}>{{$t->designation}}</option>
                                                 @endforeach
                                                 
                                             </select>   
@@ -181,7 +181,7 @@
                                                 @endphp
                                                 <option value="--">--Choisir--</option>
                                                 @foreach($t as $t)
-                                                    <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                    <option value={{$t->id}}>{{$t->designation}}</option>
                                                 @endforeach
                                                 
                                             </select>   

@@ -20,6 +20,7 @@ class Factures extends Component
 
     public $compare = '';
     public $annee = '';
+    public $t_reglee = '';
 
     public $search = '';
 
@@ -136,6 +137,11 @@ class Factures extends Component
         if($this->user != "")
         {
             $factureQuery->where("id_user", $this->user);
+        }
+
+        if($this->t_reglee != "")
+        {
+            $factureQuery->where("reglee", $this->t_reglee);
         }
 
         if($this->compare != "" AND $this->annee != "")

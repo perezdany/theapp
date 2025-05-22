@@ -4,7 +4,7 @@
                                 ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                                 ->join('articles', 'cotation_article.article_id', 'articles.id')
                                 ->where('cotation_article.cotation_id', $id)
-                                ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
+                                ->get(['cotation_article.*', 'articles.designation', ]);
                             @endphp
                             <div class="table-responsive">
                                 <table class="table m-0">

@@ -575,10 +575,10 @@ class CotationController extends Controller
 
     }
 
-    public function CancelCreation(Request $request)
+    public function CancelCreation($id)
     {
-        $delete = DB::table('cotations')->where('id', $request->id)->delete();
-        return view('admins/devis');
+        $delete = DB::table('cotations')->where('id', $id)->delete();
+        return redirect('devis');
     }
 
     public function EditDevis(Request $request)
@@ -815,7 +815,7 @@ class CotationController extends Controller
             ]
         );
         
-       /* if(isset($request->idd1))
+        if(isset($request->idd1))
         {
             //dd('ici');
             $add = DB::table('cotation_article')->where('id', $request->idd1)
@@ -909,7 +909,7 @@ class CotationController extends Controller
                         'quantite' => $request->qte9,
                         'pu' => $request->pu9,
             ]);
-        }*/
+        }
 
         //NOUVELLES LIGNES
         /*if($request->article5 != "--")
@@ -920,7 +920,7 @@ class CotationController extends Controller
                         'quantite' => $request->qte5,
                         'pu' => $request->pu5,
             ]);
-        }*/
+        }
         if($request->article6 != "--")
         {
             //dd('id');
@@ -1012,8 +1012,9 @@ class CotationController extends Controller
     {
         $get = DB::table('cotations')
         ->join('clients', 'cotations.id_client', '=', 'clients.id')
+        ->join('services', 'cotations.id_service', '=', 'services.id')
         ->where('cotations.id', $id)
-        ->get(['cotations.*', 'clients.nom']);
+        ->get(['cotations.*', 'clients.nom', 'services.libele_service']);
 
         return $get;
     }
@@ -1381,7 +1382,7 @@ class CotationController extends Controller
     public function GetLinesinfoCustomer($id)
     {
         $get = DB::table('cotations')->where('cotations.id', $id)
-        //->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
+        ->join('users', 'cotations.id_user', '=', 'users.id')
         ->join('services', 'cotations.id_service', '=', 'services.id')
         ->join('clients', 'cotations.id_client', '=', 'clients.id')
         ->limit(1)
@@ -1389,7 +1390,7 @@ class CotationController extends Controller
                 'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
                 'clients.nom', 'clients.adresse', 'clients.telephone', 'clients.activite',
                 'clients.adresse_email', 'adresse_facturation', 'clients.numero_contribuable',
-                'services.libele_service', 'services.code'
+                'services.libele_service', 'services.code', 'users.nom_prenoms'
             ]);
 
         //dd($get);
@@ -1425,8 +1426,8 @@ class CotationController extends Controller
         ->join('services', 'cotations.id_service', '=', 'services.id')
         ->get(['cotation_article.*', 'cotations.date_creation', 'cotations.numero_devis',
                 'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
-                'articles.designation', 'articles.code', 'articles.prix_unitaire',
-                'services.code', 'services.libele_service'
+                'articles.designation', 'articles.code',
+                'services.code',  'services.libele_service'
             ]);
         //dd($get);
         return $get;
@@ -1665,7 +1666,7 @@ class CotationController extends Controller
                 ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                 ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
                 ->get(['cotation_article.*',
-                        'articles.designation', 'articles.code', 'articles.prix_unitaire',
+                        'articles.designation', 'articles.code',
                 ]);
 
                 foreach($a as $a)

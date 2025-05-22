@@ -216,7 +216,7 @@ Route::middleware(['auth'])->group(function(){
              Route::post('edit_devis_mat', [CotationController::class, 'EditDevisMat']);
 
             //ANNULER L'ACTION DE CREATION DE DEVIS
-            Route::post('retour_delete', [CotationController::class, 'CancelCreation']);
+            Route::get('retour_delete/{id}', [CotationController::class, 'CancelCreation']);
 
             //SUPPRIMER LE DEVIS
             Route::post('deletedevis', [CotationController::class, 'TryDelete']);

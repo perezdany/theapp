@@ -105,11 +105,7 @@
                       <div class="col-sm-3"></div>
                     <div class="col-sm-3">
                         
-                        <form action="retour_delete" method="post">
-                            @csrf   
-                            <input type="text" value="{{$id}}" name="id" style="display:none;">
-                            <button class="btn btn-danger"><i class="fa fa-times"></i>ANNULER</button>
-                        </form>
+                       
                         
                     </div>
                 </div>
@@ -129,8 +125,10 @@
                             <form method="post" action="add_devis">
                                 @csrf
                                 <input type="text" value="{{$id}}" name="id_cotation" style="display: none;">
+                               
                                 <div class="content" id="support">
                                     <div class="row">
+                                      
                                         <div class="col-sm-3">
                                             <!-- text input -->
                                             <div class="form-group">
@@ -169,7 +167,8 @@
 
                                     
                                 </div>
-
+                                <h4><b><i>Service: </i></b>{{$devis->libele_service}}</h4>
+                                Veuillez renseigner les détails
                                  <!--LES LIGNES DES DETAILS-->
                                 @include("forms.forms_details")
 
@@ -293,7 +292,13 @@
                                 </script>
                                         
                                 <div class="card-footer">
-                              
+                                 <!--<form action="retour_delete" method="post">
+                                -->  
+                                    <!--<input type="text" value="{{$id}}" name="id" style="display:none;">-->
+                                    <a href="retour_delete/{{$id}}" class="btn btn-danger">
+                                    <i class="fa fa-times"></i>ANNULER
+                                    </a>
+                                <!--</form>-->
                                 <button type="submit" class="btn btn-info float-right">VALIDER</button>
                                 </div>
                             </form>

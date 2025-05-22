@@ -63,7 +63,7 @@
                                                 $t = DB::table('articles')->get();
                                             @endphp
                                             @foreach($t as $t)
-                                                <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                <option value={{$t->id}}>{{$t->designation}}</option>
                                             @endforeach
                                             
                                         </select>   
@@ -167,7 +167,7 @@
                                     ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                                     ->join('articles', 'cotation_article.article_id', 'articles.id')
                                     ->where('cotation_article.cotation_id', $devis->id)
-                                    ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
+                                    ->get(['cotation_article.*', 'articles.designation', ]);
                                     
                                     $i = 1;
                                 
@@ -185,9 +185,9 @@
                                                 @php
                                                     $t = DB::table('articles')->get();
                                                 @endphp
-                                                <option value={{$a->article_id}}>{{$a->designation}}/Prix:{{$a->prix_unitaire}}XOF</option>
+                                                <option value={{$a->article_id}}>{{$a->designation}}</option>
                                                 @foreach($t as $t)
-                                                    <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                    <option value={{$t->id}}>{{$t->designation}}</option>
                                                 @endforeach
                                                 
                                             </select>   
@@ -363,7 +363,7 @@
                     ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                     ->join('articles', 'cotation_article.article_id', 'articles.id')
                     ->where('cotation_article.cotation_id', $id)
-                    ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
+                    ->get(['cotation_article.*', 'articles.designation', ]);
                 @endphp
                 <div class="table-responsive">
                     <table class="table m-0">
@@ -464,7 +464,7 @@
                                                                     $t = DB::table('articles')->get();
                                                                 @endphp
                                                                 @foreach($t as $t)
-                                                                    <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                                    <option value={{$t->id}}>{{$t->designation}}</option>
                                                                 @endforeach
                                                                 
                                                             </select>   

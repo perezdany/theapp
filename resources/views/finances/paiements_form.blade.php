@@ -44,7 +44,7 @@
                             <th>Montant</th>
                             <th>Date de paiement</th>
                             <th>Mode de paiement</th>
-                            <th>Banque</th>
+                           
                             <th>Numéro de virement/transfert...</th>
                             <th>Commentaire</th>
                             <th>Modifier</th>
@@ -62,7 +62,7 @@
 
                                     <td>{{$my_own->date_paiement}}</td>
                                     <td>{{$my_own->libele}}</td>
-                                    <td>{{$my_own->banque}}</td>
+                              
                                     <td>{{$my_own->numero}}</td>
                                     <td>{{$my_own->commentaire}}</td>
                                   
@@ -198,11 +198,6 @@
                                     name="date_paiement" id="date_paiement"  required>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Nom de la banque</label>
-                                    <input type="text" class="form-control" name="banque" id="banque" >
-                                </div>
-                               
                                 <div class="form-group">
                                     <label>Numéro de virement/ou de la transaction</label>
                                     <input type="text" class="form-control" name="numero_virement" id="numero_virement">
