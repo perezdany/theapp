@@ -5,6 +5,10 @@
 
     $paiementcontroller = new PaiementController();
 
+    use App\Http\Controllers\Calculator;
+
+    $calculator = new Calculator();
+
 @endphp
 
 @section('content')
@@ -43,50 +47,38 @@
                             <!-- form start -->
                             <form role="form" action="updatepaiement" method="post">
                                 @csrf
-                                <input type="text" value="{{$retrive->id}}" name="id_paiement" style="display:none;">
+                                <input type="text" value="{{$retrive->id_paiement}}" name="id_paiement" style="display:none;">
                                 <input type="text" value="{{$retrive->montant_facture}}" name="montant" style="display:none;">
                                 <input type="text" value="{{$retrive->id_facture}}" name="id_facture" style="display:none;">
                                 <input type="text" value="{{$retrive->id}}" name="id_details" style="display:none;">
+                                @php
+                                    $rest  = $calculator->RetrunMontantRest($retrive->id_paiement, $retrive->montant_facture);
+                                @endphp
+                                <input type="text" class="form-control"  value="{{$rest}}"  id="lereste" disabled style="display:none;">
                                 <div class="form-group">
                                     <label>Montant du paiement</label>
-                                    <input type="number" class="form-control input-lg" name="paiement" value="{{$retrive->paiement}}">
+                                    <input type="number" class="form-control input-lg" name="paiement" value="{{$retrive->paiement}}"
+                                    id="mt" onkeyup="VerifRest()">
+                                </div>
+                                <div class="form-group" id="message">
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label>Date du paiement/Virement/reception du chèque</label>
+                                    <input type="date" class="form-control input-lg" name="date_paiement" value="{{$retrive->date_paiement}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Numéro de virement</label>
+                                    <input type="text" class="form-control" name="numero_virement" value="{{$retrive->numero}}">
                                 </div>
 
-                               @if($retrive->id_mode_reglement == 1)
-                                    <div class="form-group">
-                                        <label>Date du paiement</label>
-                                        <input type="date" class="form-control input-lg" name="date_paiement" value="{{$retrive->date_paiement}}">
-                                    </div>
-
-                                @else
-                                    @if($retrive->id_mode_reglement == 2)
-                                        <div class="form-group">
-                                        <label>Date du paiement</label>
-                                        <input type="date" class="form-control input-lg" name="date_paiement" value="{{$retrive->date_paiement}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Date de reception</label>
-                                            <input type="date" class="form-control" name="date_reception" value="{{$retrive->date_reception}}">
-                                        </div>
-                                        
-                                    @else
-                                        <div class="form-group">
-                                            <label>Numéro de virement</label>
-                                            <input type="text" class="form-control" name="numero_virement" value="{{$retrive->numero_virement}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Nom de la banque</label>
-                                            <input type="text" class="form-control" name="banque" value="{{$retrive->banque}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Date de virement</label>
-                                            <input type="date" class="form-control" name="date_virement" value="{{$retrive->date_virement}}">
-                                        </div>
-                                    @endif
-                                @endif
-                                    
+                                <div class="form-group">
+                                    <label>Nom de la banque</label>
+                                    <input type="text" class="form-control" name="banque" value="{{$retrive->banque}}">
+                                </div>
+                                
                                 <div class="box-footer">
-                                <button type="submit" class="btn btn-primary">VALIDER</button>
+                                <button type="submit" class="btn btn-primary" id="bt">VALIDER</button>
                                 </div>
                             </form>
 
@@ -94,6 +86,39 @@
                         
                      	
                     @endif
+
+                    <script>
+                        function VerifRest() {
+                        
+                            /* ce script permet de vérifier si le montant saisi est trop élevé et l'obliger a saisir un montant plus bas*/
+                            var val = document.getElementById("lereste").value;
+                            var val2 = document.getElementById("mt").value;
+
+                            var button = document.getElementById("bt")
+
+                            var diff = val - val2;
+                            //alert(diff)
+
+                            if((diff < 0))
+                            {  
+                            
+                                var theText = "<p style='color:red'>MONTANT SUPERIEUR AU RESTE !.</p>";
+                                document.getElementById("message").innerHTML= theText;
+                                button.setAttribute("disabled", "true");
+                                
+                            }
+                            else
+                            {
+                            button.removeAttribute("disabled");
+                            var theText = "<p style='color:red'></p>";
+                                document.getElementById("message").innerHTML= theText;
+                            
+                            }
+                        
+                        }
+
+                        
+                    </script>
                 </div>
                    <!-- /.card-body -->
             </div>

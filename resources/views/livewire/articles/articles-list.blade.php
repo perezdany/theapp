@@ -67,7 +67,6 @@
                     <tr>
                         <th>Désignation</th>
                         <th>Code</th>
-                        <th>Prix unitaire</th>
                         <th>Type d'article</th>
                         <th>Ajouté le:</th>
                         <th>Ajouté par:</th>
@@ -79,7 +78,6 @@
                         <tr class="align-middle">
                         <td>{{$article->designation}}</td>
                         <td>{{$article->code}}</td>
-                        <td>{{$article->prix_unitaire}}</td>
                         <td>{{$article->libele}}</td>
                         <td>@php echo date('d/m/Y',strtotime($article->created_at));@endphp</td>
                         <td>

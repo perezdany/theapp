@@ -186,6 +186,7 @@ Route::middleware(['auth'])->group(function(){
 
             //AJOUTER UN DEVIS
             Route::post('add_devis', [CotationController::class, 'AddDevis']);
+            //Route::post('add_devis', [CotationController::class, 'AddDevis']);
 
             //DEVIS DE VENTE
             Route::get('add_devis_vente', [CotationController::class, 'CreateDevisVente']);

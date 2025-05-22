@@ -116,10 +116,9 @@
                     <tr>
                         <th wire:click="setOrderField('paiement')"><i class="fa fa-sort" aria-hidden="true"></i>Montant</th>
                         <th wire:click="setOrderField('numero_facture')"><i class="fa fa-sort" aria-hidden="true"></i>N° de la facture</th>
-                        <th wire:click="setOrderField('date_paiement')"><i class="fa fa-sort" aria-hidden="true"></i>Date/Date de virement</th>
-                        <th>N° de virement</th>
+                        <th>N° de virement/de transfert</th>
                         <th>Banque</th>
-                        <th wire:click="setOrderField('date_paiement')"><i class="fa fa-sort" aria-hidden="true"></i>Date de reception chèque</th>
+                        <th wire:click="setOrderField('date_paiement')"><i class="fa fa-sort" aria-hidden="true"></i>Date de paiemennt</th>
                         <th>Enregistré par:</th>
                         <th>Client</th>
                         <th>Mod/Supp</th>
@@ -128,27 +127,11 @@
                 <tbody>
                 @forelse($paiements as $paiement)
                         <tr class="align-middle">
-                        <td>
-                            {{$paiement->paiement}}
-                        </td>
-                        
+                        <td>{{$paiement->paiement}}</td>
                         <td>{{$paiement->numero_facture}}</td>
-                        @if($paiement->id_mode_reglement == 1)
-                           <td>@php echo date('d/m/Y',strtotime($paiement->date_paiement));@endphp</td>
-                            <td colspan="3">Paiement en espèce</td>
-                        @else
-                            @if($paiement->id_mode_reglement == 2)
-                                <td>@php echo date('d/m/Y',strtotime($paiement->date_reception));@endphp</td>
-                                <td></td>
-                                <td></td>
-                                <td>{{$paiement->date_reception}}</td>
-                            @else
-                                <td>@php echo date('d/m/Y',strtotime($paiement->date_virement));@endphp</td>
-                                <td>{{$paiement->numero_virement}}</td>
-                                <td>{{$paiement->banque}}</td>
-                                <td></td>
-                            @endif
-                        @endif
+                        <td>{{$paiement->numero}}</td>
+                        <td>{{$paiement->banque}}</td>
+                        <td>{{$paiement->date_paiement}}</td>
                         <td> {{$paiement->nom_prenoms}}</td>    
                         <td>{{$paiement->nom}}</td>
         
@@ -158,7 +141,7 @@
                             <div class="col-sm-6">
                                 <form action="p_edit" method="post" target="blank">
                                     @csrf
-                                    <input type="text" value={{$paiement->id}} style="display:none;" name="id_paiement">
+                                    <input type="text" value={{$paiement->id_paiement}} style="display:none;" name="id_paiement">
                                     <button type="submit" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                 </form>
                             </div>

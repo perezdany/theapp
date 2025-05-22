@@ -124,9 +124,9 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                        <th>Service</th>
+                        <th>Service/Désignation/Description</th>
                         <th>Code</th>
-                        <th>Durée/Désignation</th>
+                        <th>Durée</th>
                         <th>Qté</th>
                         <th>Prix (Unitaire)</th>
                         <th>Total</th>

@@ -21,7 +21,7 @@ class Articles extends Component
 
     public $designation = '';
     public $code =  '';
-    public $prix_unitaire, $id_typearticle;
+    public $id_typearticle;
     public $search = '';
     public $id_user = '';
     public $id_type = '';
@@ -58,7 +58,6 @@ class Articles extends Component
             [ 
                 'designation' => $this->designation,
                 'code' => $this->code,
-                'prix_unitaire' => $this->prix_unitaire,
                 'id_typearticle' => $this->id_typearticle,
                 'id_user' => auth()->user()->id,
             ]
@@ -77,7 +76,6 @@ class Articles extends Component
         ->update([
             'designation' => $this->editArticle['designation'],
             'code' => $this->editArticle['code'],
-            'prix_unitaire' => $this->editArticle['prix_unitaire'],
             'id_typearticle' => $this->editArticle['id_typearticle'],
             
         ]);
@@ -96,7 +94,6 @@ class Articles extends Component
         {
             $articleQuery->where("designation", "LIKE", "%".$this->search."%")
             ->orwhere("code", "LIKE", "%".$this->search."%")
-            ->orwhere("prix_unitaire", "LIKE", "%".$this->search."%")
             ->orwhere("libele", "LIKE", "%".$this->search."%")
             ->orwhere("nom_prenoms", "LIKE", "%".$this->search."%");
            

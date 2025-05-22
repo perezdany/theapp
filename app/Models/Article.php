@@ -11,7 +11,6 @@ class Article extends Model
     protected $fillable = [
         'designation',
         'code',
-        'prix_unitaire',
         'id_typearticle',
         'id_user',
     ];

@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                        <label>Numéro avoir</label>
+                        <label>Anulée?</label>
                         <select class="form-control" wire:model="editFacture.annulee">
                             <option value="0">Non</option>
                             <option value="1">Oui</option>

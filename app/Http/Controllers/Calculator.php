@@ -685,7 +685,7 @@ class Calculator extends Controller
         
         }
 
-    //AFFICHER LES GRAPHES PAR PRESTATIONS, PAR SERVICES
+        //AFFICHER LES GRAPHES PAR PRESTATIONS, PAR SERVICES
 
         //Prendre touts les services et pour chaque service recupérer le total des contrats dans l'année en questions
     
@@ -916,7 +916,7 @@ class Calculator extends Controller
         
         }
 
-    //AFFICHER LES GRAPHES PAR PRESTATIONS, PAR SERVICES
+        //AFFICHER LES GRAPHES PAR PRESTATIONS, PAR SERVICES
 
         //Prendre touts les services et pour chaque service recupérer le total des contrats dans l'année en questions
     

@@ -46,14 +46,6 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label  class="col-sm-4 col-form-label">Prix unitaire(*) </label>
-                        <div class="col-sm-8">
-                        <input type="number" class="form-control" maxlength="10" wire:model="editArticle.prix_unitaire" 
-                        required onkeyup='this.value=this.value.toUpperCase()' />
-                        </div>
-                    </div>
-
-                     <div class="row mb-3">
                         <label  class="col-sm-4 col-form-label">Type d'article(*) </label>
                         <div class="col-sm-8">
                         <select class="form-control" maxlength="10" wire:model="editArticle.id_typearticle" >

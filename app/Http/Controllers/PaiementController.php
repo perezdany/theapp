@@ -269,6 +269,7 @@ class PaiementController extends Controller
 
     public function GetById($id)
     {
+        //dd($id);
         $get = DB::table('details_paiements')
             ->join('paiements', 'details_paiements.id_paiement', '=', 'paiements.id')
             ->join('factures', 'paiements.id_facture', '=', 'factures.id')
@@ -276,10 +277,11 @@ class PaiementController extends Controller
             ->join('clients', 'cotations.id_client', '=', 'clients.id') 
             ->where('paiements.id', $id)
             ->get(['details_paiements.*', 'paiements.paiement', 'paiements.id_facture',
-                'paiements.id_mode_reglement',  'factures.numero_facture', 
+                'paiements.id_mode_reglement',  'factures.numero_facture', 'paiements.id_facture',
                 'factures.montant_facture', 'factures.date_emission',
                 'factures.date_reglement', 'clients.nom']);
        
+        //dd($get);
         return $get;
     }
 

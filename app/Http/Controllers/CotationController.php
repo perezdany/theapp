@@ -1335,26 +1335,33 @@ class CotationController extends Controller
         $v = DB::table('factures')->where('id_cotation', $request->id)->count();
         if($v == 0)
         {
+            //dd('ici');
+            //SUPPRIMER TOUS SES FILS
+            $l = DB::table('details_cotations')->where('cotation_id', $request->id)->get();
+            foreach($l as $l)
+            {
+                $delete = DB::table('cotation_service')->where('id', $l->id)->delete();
+            }
+            $l = DB::table('cotation_service')->where('cotation_id', $request->id)->get();
+            foreach($l as $l)
+            {
+                $delete = DB::table('cotation_service')->where('id', $l->id)->delete();
+            }
+            $b = DB::table('cotation_article')->where('cotation_id', $request->id)->get();
+            foreach($b as $b)
+            {
+                $delete = DB::table('cotation_article')->where('id', $b->id)->delete();
+            }
             //ON PEUT SUPPRIMER TRANQUIELLEMENT
             Cotation::destroy($request->id);
 
-            return back()->with('success', 'Elément supprimé');
+            return view('admins.devis')->with('success', 'Elément supprimé');
         }
         else
         {
-            return back()->with('error', 'Ce devis ne peut être supprimé car il y a des factures associées');
+            return view('admins.devis')->with('error', 'Ce devis ne peut être supprimé car il y a des factures associées');
         }
-        //SUPPRIMER TOUS SES FILS
-        $l = DB::table('cotation_service')->where('cotation_id', $request->id)->get();
-        foreach($l as $l)
-        {
-            $delete = DB::table('cotation_service')->where('id', $l->id)->delete();
-        }
-        $b = DB::table('cotation_article')->where('cotation_id', $request->id)->get();
-        foreach($b as $b)
-        {
-            $delete = DB::table('cotation_article')->where('id', $b->id)->delete();
-        }
+        
     }
 
     public function GoDetails(Request $request)
