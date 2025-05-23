@@ -10,6 +10,8 @@ use DB;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+ 
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FactureController extends Controller
 {
@@ -112,10 +114,21 @@ class FactureController extends Controller
 
     public function PrintInvoice(Request $request)
     {
-        //dd($request->all());
-        return view('livewire/factures/facture-print',[
+         $data = [
             'id_cotation' => $request->id_cotation,
-        ]);
+        ];
+        foreach($a = Facture::where('id_cotation', $request->id_cotation)->get() as $a)
+        {
+            $file = strval("FACTURE-".$a->numero_facture).".pdf";
+        }
+      
+        $pdf = Pdf::loadView('livewire/factures/facture-print', $data);
+      
+        //return response()->file($pdf);
+        return $pdf->stream($file);
+        /*return view('livewire/factures/facture-print',[
+            'id_cotation' => $request->id_cotation,
+        ]);*/
     }
 
     public function upload(Request $request)

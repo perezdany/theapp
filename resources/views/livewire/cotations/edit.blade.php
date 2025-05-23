@@ -59,7 +59,7 @@
                                             name="id_cotation" id="{{$id}}" style="display:none;">
                                         
                                             <div class="form-group">
-                                                <label>Désignation:</label>
+                                                <label>Description de la prestation:</label>
                                                 <textarea name="designation" class="form-control" required>
 
                                                 </textarea>
@@ -241,7 +241,7 @@
                                         <div class="col-sm-12">
                                             
                                             <div class="form-group">
-                                            <label>Désignation:</label>
+                                            <label>Description de la prestation:</label>
                                                 <textarea name="@php echo 'designation'.$i @endphp" class="form-control" 
                                                 id="@php echo 'designation'.$i @endphp">
                                                 {{$a->designation}}
@@ -442,7 +442,7 @@
                         <table class="table m-0">
                             <thead>
                             <tr>
-                                <th>Désignation</th>
+                                <th>Description de la prestation</th>
                                 <th>Durée</th>
                                 <th>Montant HT (F CFA)</th>  
                             </tr>
@@ -533,7 +533,7 @@
                                                             name="id_cotation" id="{{$id}}" style="display:none;">
                                                         
                                                             <div class="form-group">
-                                                                <label>Désignation:</label>
+                                                                <label>Description de la prestation:</label>
                                                                 <textarea name="designation" class="form-control" >
                                                                     {{$article->designation}}
                                                                 </textarea>

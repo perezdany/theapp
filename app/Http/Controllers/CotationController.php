@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Cotation;
 use App\Models\Facture;
 use DB;
+//use PDF;
+ use Barryvdh\DomPDF\Facade\Pdf;
 
 class CotationController extends Controller
 {
@@ -1374,9 +1376,18 @@ class CotationController extends Controller
 
     public function PrintDevis(Request $request)
     {
-        return view('livewire/cotations/devis-print',[
+        $data = [
             'id_cotation' => $request->id_cotation,
-        ]);
+        ];
+        foreach($a = Cotation::where('id', $request->id_cotation)->get() as $a)
+        {
+            $file = strval($a->numero_devis).".pdf";
+        }
+      
+        $pdf = Pdf::loadView('livewire/cotations/devis-print', $data);
+        
+        //return response()->file($pdf);
+        return $pdf->stream($file);
     }
 
     public function GetLinesinfoCustomer($id)

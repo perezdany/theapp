@@ -27,25 +27,7 @@
     background-color:#e8f8f5 
   }
 
-  .invoice {
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    position: relative;
-  }
-
-  .invoice {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
-  .invoice-col {
-    float: left;
-    width: 33.3333333%;
-  }
-.invoice-title {
-  margin-top: 0;
-}
+  
   /* Reset général */
   * {
     all: unset;
@@ -171,6 +153,7 @@ transparent !important;
     overflow: hidden !important;
   }
 }
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -353,6 +336,26 @@ pre {
   margin-bottom: 1rem;
   overflow: auto;
   -ms-overflow-style: scrollbar;
+}
+
+.invoice {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    position: relative;
+  }
+
+  .invoice {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .invoice-col {
+    float: left;
+    width: 33.3333333%;
+  }
+.invoice-title {
+  margin-top: 0;
 }
 
 figure {

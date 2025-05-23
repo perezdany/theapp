@@ -207,12 +207,11 @@
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
-                <u>Conditions de paiement</u> :<br>
-                <i style="color:red">100% à la livraison</i><br><br><br>
+        
                 <div class="row">
                     <!-- accepted payments column -->
                     <div class="col-6">
-                    <!--<p class="lead">Payment Methods:</p>
+                   <!-- <p class="lead">Payment Methods:</p>
                     <img src="../../dist/img/credit/visa.png" alt="Visa">
                     <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
                     <img src="../../dist/img/credit/american-express.png" alt="American Express">
@@ -231,7 +230,7 @@
                     <div class="table-responsive">
                         <table class="table">
                         <tr>
-                            <th style="width:50%">Sous-total:</th>
+                            <th style="width:50%; background-color:#969696">Sous-total:</th>
                             <td>@php echo number_format($somme, 2, ".", " ")."F CFA"; @endphp</td>
                         </tr>
 
@@ -240,9 +239,9 @@
                         @endphp
                         @foreach($tva as $tva)
                             @if($tva->active == 0)
-                        
-                                <tr>
-                                    <th>Total:</th>
+                          
+                                <tr >
+                                    <th style="background-color:#969696">Total:</th>
                                     <td>
                                     @php 
                                         echo number_format($somme, 2, ".", " ")."F CFA"; 
@@ -250,16 +249,15 @@
                                     @endphp</td>
                                 </tr>
                             @else
+                               
                                 @php
                                     $v = DB::table('cotations')->where('id', $id_cotation)->get(['date_creation']);
                                     foreach($v as $verif)
                                     {
                                         if($verif->date_creation >= $tva->date_activation)
                                         {
-                                            echo' <tr><th>Tax (18%)</th>
+                                            echo' <tr><th style="background-color:#969696">Tax (18%)</th>
                                             <td>';
-                                                
-                                           
                                             $m = $somme * (18/100);
                                             echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
                                         }
@@ -267,26 +265,21 @@
                                         {
                                             $m = 0;
                                             //echo number_format($somme, 2, ".", " ")."F CFA"; 
-                                            
                                             $pour_facture = $somme;
                                         }
-                                    }
-                                       
-                                @endphp 
-                            <tr>
-                                <th>Livraison:</th>
-                                <td>A définir</td>
-                            </tr>
-                            <tr>
-                                <th>Total:</th>
-                                <td>
-                                    @php
-                                        $l = $somme + $m;
-                                        echo number_format($l, 2, ".", " ")."F CFA";
-                                        $pour_facture = $l;
-                                    @endphp
-                                </td>
-                            </tr>
+                                    } 
+                                @endphp
+
+                                <tr>
+                                    <th style="background-color:#969696">Total:</th>
+                                    <td>
+                                        @php
+                                            $l = $somme + $m;
+                                            echo number_format($l, 2, ".", " ")."F CFA";
+                                            $pour_facture = $l;
+                                        @endphp
+                                    </td>
+                                </tr>
                             @endif
                         @endforeach
                       

@@ -1,8 +1,7 @@
 @php
     use App\Http\Controllers\CotationController;
-    use App\Http\Controllers\FactureController;
+
     $cotationcontroller = new CotationController();
-    $facturecontroller =  new FactureController();
 @endphp
 <!DOCTYPE html>
 <html>
@@ -19,12 +18,12 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
 
   <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!--<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">-->
 </head>
-<body onload="window.print();">
+<body style="font-size:9px">
 <div class="wrapper">
  <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -34,17 +33,18 @@
     </section>
 
     <div class="row">
+   
         <div class="col-12">
             @if(isset($id_cotation))
                 @php
+                    //dd($id_cotation);
                     $devis = $cotationcontroller->GetLinesinfoCustomer($id_cotation);
-                   
+                    //dd($devis);
                     $somme = 0;
-                    $la_facture = $facturecontroller->GetByIdCotation($id_cotation);
-                    //dd($la_facture);
+                    $i = 0; 
                 @endphp
-               @foreach($devis as $devis)
-             
+                @foreach($devis as $devis)
+                    
                     <!-- Main content -->
                     <div class="invoice p-3 mb-3">
                     <!-- title row -->
@@ -59,9 +59,9 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    <!-- info row -->
-                    <div class="row invoice-info">
-                        <div class="col-sm-4 invoice-col">
+                    <table width="100%">
+                    <tr class="invoice-info">
+                        <td class="col-sm-4 invoice-col">
                             <!--De
                             <address>
                                 <strong>Nom entreprise, Inc.</strong><br>
@@ -70,23 +70,24 @@
                                 Phone: (804) 123-5432<br>
                                 Email: info@example.com
                             </address>-->
-                        </div>
+                        </td>
                         <!-- /.col -->
-                        <div class="col-sm-4 invoice-col">
-                        </div>
+                        <td class="col-sm-4 invoice-col">
+                        </td>
                         <!-- /.col -->
-                        <div class="col-sm-4 invoice-col" style="border:solid 3px;">
-                            <address>
+                        <td class="col-sm-4 invoice-col" style="border:solid 3px;">
+                            <address >
                                 <strong>{{$devis->nom}}</strong><br>
                                 {{$devis->adresse}}<br>
                                 <!--San Francisco, CA 94107<br>-->
                                 {{$devis->telephone}}<br>
                                 {{$devis->adresse_email}}
                             </address>
-                        </div>
+                        </td>
                         <!-- /.col -->
-                    </div>
+                    </tr>
                     <!-- /.row -->
+                    </table>
                     <div class="row invoice-info">
                         <div class="col-sm-4 invoice-col">
                             <b>Devis N° {{$devis->numero_devis}}</b><br>
@@ -109,14 +110,13 @@
                     </div><br>
                 @endforeach
                 @php
-                    //dd('ici');
-                     $somme = 0;
+                    $somme = 0;
                     $compter = DB::table('details_cotations')->where('cotation_id', $id_cotation)
                     ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
                     ->join('services', 'cotations.id_service', '=', 'services.id')
                     ->join('clients', 'cotations.id_client', '=', 'clients.id')
                     ->count();
-                    $i = 0;
+
                     //dd($devis->id); 
                     if($compter  == 0)//Y A PAS D'ID DE DEVIS
                     {
@@ -146,21 +146,21 @@
                         <tbody>
                         @foreach($devis as $devis)
                             @if($devis->code == "MAT")
+
                                 @php
                                     //dump("i");
                                     $articles = $cotationcontroller->GetArticleLines($id_cotation);
                                     $i = 0;
                                 @endphp  
                                 <tr style="background-color:#e8f8f5 ">
-                                     @if($i == 0)
+                                    @if($i == 0)
                                         <td>{{$devis->libele_service}}</td>
                                     @else
-                                        <td></td>
-                                    @endif   
-                      
-                                    <td>{{$devis->designation}}</td>
+                                    <td></td>
+                                    @endif 
+                                    <td>{{$devis->designation}}</td>  
                                     <td>{{$devis->code}}</td>
-                                    <td>N/A</td>
+                                    
                                     <td>{{$devis->quantite}}</td>
                                     <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
@@ -172,16 +172,16 @@
                                     </td>
                                 <tr>
                                 @php
-                                    $i = $i + 1 ;
+                                    $i = $i+1;
                                 @endphp
                             @else
                                 <tr style="background-color:#e8f8f5 ">
                                     @if($i == 0)
                                         <td>{{$devis->libele_service}}</td>
                                     @else
-                                        <td></td>
-                                    @endif   
-                                    <td>{{$devis->designation}}</td>
+                                    <td></td>
+                                    @endif 
+                                    <td>{{$devis->designation}}</td>  
                                     <td>{{$devis->code}}</td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
@@ -195,7 +195,7 @@
                                 @php
                                     //dump("oi");
                                     $somme = $somme + ($devis->prix_ht);
-                                    $i = $i + 1 ;
+                                    $i  = $i + 1;
                                 @endphp
                             @endif 
                         @endforeach
@@ -207,10 +207,12 @@
                 </div>
                 <!-- /.row -->
 
-                <div class="row">
+                <table width="100%">
                     <!-- accepted payments column -->
-                   <div class="col-6">
-                     <!--<p class="lead">Payment Methods:</p>
+                    <tr>
+                   
+                    <td>
+                    <!--<p class="lead">Payment Methods:</p>
                     <img src="../../dist/img/credit/visa.png" alt="Visa">
                     <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
                     <img src="../../dist/img/credit/american-express.png" alt="American Express">
@@ -221,99 +223,118 @@
                         plugg
                         dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
                     </p>-->
-                    </div>
+                    </td>
                     <!-- /.col -->
-                    <div class="col-6">
-                    <p class="lead">Détails montant total</p>
+                    <td width="50%">
+                        <p class="lead">Détails montant total</p>
 
-                    <div class="table-responsive">
-                        <table class="table">
-                        <tr>
-                            <th style="width:50%">Sous-total:</th>
-                            <td>@php echo number_format($somme, 2, ".", " ")."F CFA"; @endphp</td>
-                        </tr>
+                        <div class="table-responsive">
+                            <table class="table" width="50%">
+                            <tr>
+                                <th style="width:50%; background-color:#969696 ">Sous-total:</th>
+                                <td>@php echo number_format($somme, 2, ".", " ")."F CFA"; @endphp</td>
+                            </tr>
 
-                        @php
-                            $tva = DB::table('taxes')->get();
-                        @endphp
-                        @foreach($tva as $tva)
-                            @if($tva->active == 0)
-                          
-                                <tr>
-                                    <th>Total:</th>
-                                    <td>
-                                    @php 
-                                        echo number_format($somme, 2, ".", " ")."F CFA"; 
-                                        $pour_facture = $somme;
-                                    @endphp</td>
-                                </tr>
-                            @else
-                                @php
-                                    $v = DB::table('cotations')->where('id', $id_cotation)->get(['date_creation']);
-                                    foreach($v as $verif)
-                                    {
-                                        if($verif->date_creation >= $tva->date_activation)
-                                        {
-                                            echo' <tr><th>Tax (18%)</th>
-                                            <td>';
-                                                
-                                           
-                                            $m = $somme * (18/100);
-                                            echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
-                                        }
-                                        else
-                                        {
-                                            $m = 0;
-                                            //echo number_format($somme, 2, ".", " ")."F CFA"; 
-                                            
+                            @php
+                                $tva = DB::table('taxes')->get();
+                            @endphp
+                            @foreach($tva as $tva)
+                                @if($tva->active == 0)
+                                
+                                    <tr>
+                                        <th style="background-color:#969696">Total:</th>
+                                        <td>
+                                        @php 
+                                            echo number_format($somme, 2, ".", " ")."F CFA"; 
                                             $pour_facture = $somme;
-                                        }
-                                    }
-                                       
-                                @endphp 
-                            <tr>
-                                <th>Livraison:</th>
-                                <td>A définir</td>
-                            </tr>
-                            <tr>
-                                <th>Total:</th>
-                                <td>
+                                        @endphp</td>
+                                    </tr>
+                                @else
                                     @php
-                                        $l = $somme + $m;
-                                        echo number_format($l, 2, ".", " ")."F CFA";
-                                        $pour_facture = $l;
+                                        $v = DB::table('cotations')->where('id', $id_cotation)->get(['date_creation']);
+                                        foreach($v as $verif)
+                                        {
+                                            if($verif->date_creation >= $tva->date_activation)
+                                            {
+                                                echo' <tr><th style="background-color:#969696">Tax (18%)</th>
+                                                <td>';
+                                                    
+                                                $m = $somme * (18/100);
+                                                echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
+                                            }
+                                            else
+                                            {
+                                                $m = 0;
+                                                //echo number_format($somme, 2, ".", " ")."F CFA"; 
+                                                
+                                                $pour_facture = $somme;
+                                            }
+                                        }
+                                        
                                     @endphp
-                                </td>
-                            </tr>
-                            @endif
-                        @endforeach
-                      
-                        
-                        </table>
-                    </div>
-                    </div>
+                                <tr>
+                                    <th style="background-color:#969696">Total:</th>
+                                    <td>
+                                        @php
+                                            $l = $somme + $m;
+                                            echo number_format($l, 2, ".", " ")."F CFA";
+                                            $pour_facture = $l;
+                                        @endphp
+                                    </td>
+                                </tr>
+                                @endif
+                            @endforeach
+
+                            </table>
+                        </div>
+                    </td>
                     <!-- /.col -->
-                </div>
+                    </tr>
+                </table>
                 <!-- /.row -->
                 <u>Conditions de paiement</u> :<br>
                 <i style="color:red">100% à la livraison</i><br><br><br>
                 <!-- this row will not appear when printing -->
-                <div class="row no-print">
+                <!--<div class="row no-print">
                     <div class="col-12">
                         <div class="col-md-12">
-                        <form action="print_invoice" method="post" target="blank">
+                        <form action="print_devis" method="post" target="blank">
                             @csrf
-                            <input type="text" style="display:none;" value="{{$id_cotation}}" name="id_cotation">
-                            <input type="text" style="display:none;" value="{{$pour_facture}}" name="montant_facture">
+                            <input style="display:none;" value="{{$id_cotation}}" name="id_cotation">
                             <button target="blank" class="btn btn-default float-left"><i class="fa fa-print"></i> Imprimer/télécharger</button>
 
                         </form>
                         </div>
-                        
+                        <div class="col-md-12">
+                        @php
+                            $voir_valider = DB::table('cotations')->where('id', $id_cotation)->get();
+                        @endphp
+                        @foreach($voir_valider as $voir_valider)
+                            @if($voir_valider->valide == 0)
+                                 <form action="gocreateinvoice" method="post">
+                                    @csrf
+                                    <input type="text" style="display:none;" value="{{$id_cotation}}" name="id_cotation">
+                                    <input type="text" style="display:none;" value="{{$pour_facture}}" name="montant_facture">
+                                    <button type="submit" class="btn btn-primary float-right">
+                                    <i class="fa fa-file"></i> Créer une facture
+                                    </button>
+                                </form>
+                            @else
+                                <form action="print_invoice" method="post" target="blank">
+                                    @csrf
+                                    <input type="text" style="display:none;" value="{{$id_cotation}}" name="id_cotation">
+                                    <button target="blank" class="btn btn-success float-right"><i class="fa fa-print"></i> Imprimer la facture</button>
+
+                                </form>
+                            @endif
+                        @endforeach
+                       
+                        </div>
                     </div>
                 </div>
-                </div>
+                </div>-->
                 <!-- /.invoice -->
+        
             
             @endif
            
