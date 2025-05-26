@@ -58,7 +58,7 @@ class FactureController extends Controller
         $departtime1 = strtotime('+15 days', $timestamp);
         $result_date = date("Y-m-d", $departtime1 );
         $insert = Facture::create([
-                'numero_facture' => $numero, 
+                'numero_facture' => "FACTURE-".$numero, 
                 'date_reglement' => $result_date, 'date_emission' => $today, 
                 'montant_facture' => $request->montant_facture , 'id_cotation' => $request->id_cotation, 
                 'reglee' => 0, 'annulee' => 0, 'id_user' => auth()->user()->id,

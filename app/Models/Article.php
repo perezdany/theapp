@@ -11,6 +11,7 @@ class Article extends Model
     protected $fillable = [
         'designation',
         'code',
+        'description_article',
         'id_typearticle',
         'id_user',
     ];

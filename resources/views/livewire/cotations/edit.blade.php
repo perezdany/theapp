@@ -57,7 +57,7 @@
                                            
                                             <input type="text" class="form-control" value="{{$id}}" wire-model="id" 
                                             name="id_cotation" id="{{$id}}" style="display:none;">
-                                        
+                                            
                                             <div class="form-group">
                                                 <label>Description de la prestation:</label>
                                                 <textarea name="designation" class="form-control" required>
@@ -168,124 +168,135 @@
 
                                     
                                 </div>
-
-                                 <!--LES LIGNES DES DETAILS-->
-                                @if($devis->id_service == 8)
-                                  
-                                    @php
-                                        $les_articles = DB::table('cotation_article')
-                                        ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
-                                        ->join('articles', 'cotation_article.article_id', 'articles.id')
-                                        ->where('cotation_article.cotation_id', $devis->id)
-                                        ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
-                                        
-                                        $i = 1;
+                                @if($devis->valide == 0)
+                                    <!--LES LIGNES DES DETAILS-->
+                                    @if($devis->id_service == 8)
                                     
-                                    @endphp
-                                    
-                                    @foreach($les_articles as $a)
-                                            <input type="text" class="form-control" value="{{$a->id}}"  
-                                        name="idd{{$i}}"  style="display:none;">
-                                        <div class="row">
-                                            <div class="col-sm-4">
+                                        @php
+                                            $les_articles = DB::table('cotation_article')
+                                            ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+                                            ->join('articles', 'cotation_article.article_id', 'articles.id')
+                                            ->where('cotation_article.cotation_id', $devis->id)
+                                            ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
+                                            
+                                            $i = 1;
                                         
-                                                <div class="form-group">
-                                                <label>Articles:</label>
-                                                <select class="form-control" name="@php echo 'article'.$i @endphp" id="@php echo 'article'.$i @endphp" >
-                                                    @php
-                                                        $t = DB::table('articles')->get();
-                                                    @endphp
-                                                    <option value={{$a->article_id}}>{{$a->designation}}/Prix:{{$a->prix_unitaire}}XOF</option>
-                                                    @foreach($t as $t)
-                                                        <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
-                                                    @endforeach
+                                        @endphp
+                                        
+                                        @foreach($les_articles as $a)
+                                                <input type="text" class="form-control" value="{{$a->id}}"  
+                                            name="idd{{$i}}"  style="display:none;">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                            
+                                                    <div class="form-group">
+                                                    <label>Articles:</label>
+                                                    <select class="form-control" name="@php echo 'article'.$i @endphp" id="@php echo 'article'.$i @endphp" >
+                                                        @php
+                                                            $t = DB::table('articles')->get();
+                                                        @endphp
+                                                        <option value={{$a->article_id}}>{{$a->designation}}/Prix:{{$a->prix_unitaire}}XOF</option>
+                                                        @foreach($t as $t)
+                                                            <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Quantité:</label>
+                                                    <input type="number" name="@php echo 'qte'.$i @endphp" min="1" 
+                                                    class="form-control" id="@php echo 'qte'.$i @endphp" value="{{$a->quantite}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
                                                     
-                                                </select>   
+                                                    <div class="form-group">
+                                                        <label>Prix unitaire:</label>
+                                                        <input type="number" name="@php echo 'pu'.$i @endphp" 
+                                                        class="form-control" id="@php echo 'pu'.$i @endphp" value="{{$a->pu}}">
+                                                    </div> 
                                                 </div>
+                                            
                                             </div>
-                                            <div class="col-sm-4">
+                                            @php
+                                                $i = $i+ 1;
+                                            @endphp
+                                        @endforeach
+                                        
+                                    @else
+                                        
+                                        @php
+                                            $i = 1;
+                                            $les_articles = DB::table('details_cotations')
+                                            ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                                            ->where('details_cotations.cotation_id', $devis->id)
+                                            ->get(['details_cotations.*',]);
+                                        @endphp
+                                        @foreach($les_articles as $a)
+                                            <input type="text" class="form-control" value="{{$a->id}}"  
+                                            name="idd{{$i}}"  style="display:none;">  
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- text input -->
                                                 <div class="form-group">
-                                                <label>Quantité:</label>
-                                                <input type="number" name="@php echo 'qte'.$i @endphp" min="1" 
-                                                class="form-control" id="@php echo 'qte'.$i @endphp" value="{{$a->quantite}}">
+                                                <label>--Prestation:</label>
+                                                    <input type="text" name="@php echo 'prest'.$i @endphp" class="form-control"
+                                                        id="@php echo 'prest'.$i @endphp" value="{{$a->designation}}"
+                                                    >
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
+                                        </div>     
+                                        <div class="row">
+                                            <div class="col-sm-12">
                                                 
                                                 <div class="form-group">
-                                                    <label>Prix unitaire:</label>
-                                                    <input type="number" name="@php echo 'pu'.$i @endphp" 
-                                                    class="form-control" id="@php echo 'pu'.$i @endphp" value="{{$a->pu}}">
-                                                </div> 
+                                                <label>Description de la prestation:</label>
+                                                    <textarea name="@php echo 'designation'.$i @endphp" class="form-control" 
+                                                    id="@php echo 'designation'.$i @endphp">
+                                                    {{$a->descrpt}}
+                                                    </textarea>
+                                                </div>
                                             </div>
-                                        
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                <label>Prix Hors taxe:</label>
+                                                <input type="number" name="@php echo 'prix'.$i @endphp" class="form-control" 
+                                                placeholder="un nombre..." id="@php echo 'prix'.$i @endphp" value="{{$a->prix_ht}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                            
+                                                <div class="form-group">
+                                                    <label>Durée:</label>
+                                                    <input type="number" name="@php echo 'duree'.$i @endphp" min="0" 
+                                                    class="form-control" placeholder="Entrez ..."  
+                                                    id="@php echo 'duree'.$i @endphp" value="{{$a->duree}}">                                            </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                <label>Choisir:</label>
+                                                <select  class="form-control" name="@php echo 'duree_type'.$i @endphp" 
+                                                id="@php echo 'duree_type'.$i @endphp">
+                                                <option value="{{$a->duree_type}}">{{$a->duree_type}}</option>
+                                                    <option value="jours">Jours</option>
+                                                    <option value="mois">Mois</option>
+                                                    <option value="annees">Années</option>
+                                                </select>
+                                                </div>
+                                            </div>
                                         </div>
                                         @php
-                                            $i = $i+ 1;
+                                            $i = $i + 1;
                                         @endphp
-                                    @endforeach
-                                    
+                                        @endforeach
+                                        @include("livewire.cotations.lines_edit")
+                                    @endif
                                 @else
-                                    
-                                    @php
-                                        $i = 1;
-                                        $les_articles = DB::table('details_cotations')
-                                        ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-                                        ->where('details_cotations.cotation_id', $devis->id)
-                                        ->get(['details_cotations.*',]);
-                                    @endphp
-                                    @foreach($les_articles as $a)
-                                        <input type="text" class="form-control" value="{{$a->id}}"  
-                                        name="idd{{$i}}"  style="display:none;">       
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            
-                                            <div class="form-group">
-                                            <label>Description de la prestation:</label>
-                                                <textarea name="@php echo 'designation'.$i @endphp" class="form-control" 
-                                                id="@php echo 'designation'.$i @endphp">
-                                                {{$a->designation}}
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                            <label>Prix Hors taxe:</label>
-                                            <input type="number" name="@php echo 'prix'.$i @endphp" class="form-control" 
-                                            placeholder="un nombre..." id="@php echo 'prix'.$i @endphp" value="{{$a->prix_ht}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                        
-                                            <div class="form-group">
-                                                <label>Durée:</label>
-                                                <input type="number" name="@php echo 'duree'.$i @endphp" min="0" 
-                                                class="form-control" placeholder="Entrez ..."  
-                                                id="@php echo 'duree'.$i @endphp" value="{{$a->duree}}">                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                            <label>Choisir:</label>
-                                            <select  class="form-control" name="@php echo 'duree_type'.$i @endphp" 
-                                            id="@php echo 'duree_type'.$i @endphp">
-                                            <option value="{{$a->duree_type}}">{{$a->duree_type}}</option>
-                                                <option value="jours">Jours</option>
-                                                <option value="mois">Mois</option>
-                                                <option value="annees">Années</option>
-                                            </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @php
-                                        $i = $i + 1;
-                                    @endphp
-                                    @endforeach
-                                    @include("livewire.cotations.lines_edit")
                                 @endif
-                               
-
                           
                                 <script type="text/javascript">
                                     function displayLine()
@@ -373,7 +384,7 @@
                                     
                                     }
 
-                                    function EnableFields(sel, q, p, d)
+                                    function EnableFields(sel, t, q, p, d)
                                     {
                                         
                                         let designation = document.getElementById(sel);
@@ -381,6 +392,7 @@
                                         prix= document.getElementById(q);
                                         duree = document.getElementById(p);
                                         type_d = document.getElementById(d);
+                                        desi = document.getElementById(t);
                                         //alert(type_d);
                                         if(designation.value != "")
                                         {
@@ -391,6 +403,8 @@
                                             duree.setAttribute("enabled", "enabled");
                                             type_d.removeAttribute("disabled");
                                             type_d.setAttribute("enabled", "enabled");
+                                            desi.removeAttribute("disabled");
+                                            desi.setAttribute("enabled", "enabled");
                                         }
                                         else
                                         {  
@@ -401,17 +415,20 @@
                                             duree.setAttribute("disabled", "disabled");
                                             type_d.removeAttribute("enabled");
                                             type_d.setAttribute("disabled", "disabled");
+                                            desi.removeAttribute("enabled");
+                                            desi.setAttribute("disabled", "disabled");
                                         }
                                     }
                                 </script>
                                         
                                 <div class="card-footer">
-                              
-                                <button type="submit" class="btn btn-info float-right">VALIDER</button>
+                                @if($devis->valide == 0)
+                                    <button type="submit" class="btn btn-info float-right">VALIDER</button>
+                                @else
+                                @endif
+                                
                                 </div>
                             </form>
-                            
-                           
                         </div>
                         
                         <!-- /.card-body -->

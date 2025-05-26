@@ -162,6 +162,7 @@
                                     </div>
                                 </div>
                                 <hr>
+                                @if($devis->valide == 0)
                                 @php
                                     $les_articles = DB::table('cotation_article')
                                     ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
@@ -216,9 +217,14 @@
                                 @endforeach 
                              
                                 @include('livewire.cotations.lines_edit_article')
+                                @else
+                                @endif
                                 <div class="card-footer">
                                 
-                                <button type="submit" class="btn btn-info float-right">VALIDER</button>
+                                @if($devis->valide == 0)
+                                    <button type="submit" class="btn btn-info float-right">VALIDER</button>
+                                @else
+                                @endif
                                 </div>
                             </form>
                             

@@ -24,9 +24,10 @@ class Projets extends Component
     public $search = '';
 
     public $nom_projet;
-    public $description, $id_client, $date_debut, $date_fin;
+    public $description, $id_client, $date_debut, $date_fin, $cloture;
     public $client;
     public $user = '';
+    public $statut = '';
 
 
     public $editProjet = [];
@@ -57,6 +58,7 @@ class Projets extends Component
             'nom_projet' => $this->nom_projet, 
             'id_client' => $this->id_client, 'description' => $this->description, 
             'date_debut' => $this->date_debut, 'date_fin' => $this->date_fin,
+            'cloture' => 0,
             'id_user' => auth()->user()->id
         ]);
 
@@ -71,6 +73,7 @@ class Projets extends Component
             'nom_projet' => $this->editProjet['nom_projet'], 
              'id_client' => $this->editProjet['id_client'], 'description' => $this->editProjet['description'], 
             'date_debut' => $this->editProjet['date_debut'], 'date_fin' => $this->editProjet['date_fin'],
+            'cloture' => $this->editProjet['cloture'],
         ]);
 
         $this->dispatch('showAddSuccessMessage');
@@ -95,6 +98,12 @@ class Projets extends Component
         if($this->client != "")
         {
             $projetQuery->where("id_client", $this->client);
+           
+        }
+
+        if($this->statut != "")
+        {
+            $projetQuery->where("cloture", $this->statut);
            
         }
 

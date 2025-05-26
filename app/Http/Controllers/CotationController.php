@@ -248,8 +248,6 @@ class CotationController extends Controller
             ]);
         }
 
-       
-
     }
 
     public function AddDevis(Request $request)
@@ -266,120 +264,130 @@ class CotationController extends Controller
         );
 
         //AJOUTER LES LIGNES DETAILS
-        if($request->designation1 != null)
+        if($request->prest1 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation1,
+                    'designation' => $request->prest1,
+                    'descrpt' => $request->designation1,
                     'prix_ht' => $request->prix1,
                     'duree' => $request->duree1,
                     'duree_type' => $request->duree_type1,
                     
             ]);
         }
-        if($request->designation2 != null)
+        if($request->prest2 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation2,
+                    'designation' => $request->prest2,
+                    'descrpt' => $request->designation2,
                     'prix_ht' => $request->prix2,
                     'duree' => $request->duree2,
                     'duree_type' => $request->duree_type2,
                     
             ]);
         }
-        if($request->designation3 != null)
+        if($request->prest3 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation3,
+                    'designation' => $request->prest3,
+                    'descrpt' => $request->designation3,
                     'prix_ht' => $request->prix3,
                     'duree' => $request->duree3,
                     'duree_type' => $request->duree_type3,
                     
             ]);
         }
-        if($request->designation4 != null)
+        if($request->prest4 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation4,
+                    'designation' => $request->prest4,
+                    'descrpt' => $request->designation4,
                     'prix_ht' => $request->prix4,
                     'duree' => $request->duree4,
                     'duree_type' => $request->duree_type4,
                     
             ]);
         }
-        if($request->designation5 != null)
+        if($request->prest5 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation5,
+                    'designation' => $request->prest5,
+                    'descrpt' => $request->designation5,
                     'prix_ht' => $request->prix5,
                     'duree' => $request->duree5,
                     'duree_type' => $request->duree_type5,
                     
             ]);
         }
-        if($request->designation6 != null)
+        if($request->prest6 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation6,
+                    'designation' => $request->prest6,
+                    'descrpt' => $request->designation6,
                     'prix_ht' => $request->prix6,
                     'duree' => $request->duree6,
                     'duree_type' => $request->duree_type6,
                     
             ]);
         }
-        if($request->designation7 != null)
+        if($request->prest7 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation7,
+                    'designation' => $request->prest7,
+                    'descrpt' => $request->designation7,
                     'prix_ht' => $request->prix7,
                     'duree' => $request->duree7,
                     'duree_type' => $request->duree_type7,
                     
             ]);
         }
-        if($request->designation8 != null)
+        if($request->prest8 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation8,
+                    'designation' => $request->prest8,
+                    'descrpt' => $request->designation8,
                     'prix_ht' => $request->prix8,
                     'duree' => $request->duree8,
                     'duree_type' => $request->duree_type8,
                     
             ]);
         }
-        if($request->designation9 != null)
+        if($request->prest9 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation9,
+                    'designation' => $request->prest9,
+                    'descrpt' => $request->designation9,
                     'prix_ht' => $request->prix9,
                     'duree' => $request->duree9,
                     'duree_type' => $request->duree_type9,
                     
             ]);
         }
-        if($request->designation10 != null)
+        if($request->prest10 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation10,
+                    'designation' => $request->prest10,
+                    'descrpt' => $request->designation10,
                     'prix_ht' => $request->prix10,
                     'duree' => $request->duree10,
                     'duree_type' => $request->duree_type10,
@@ -729,7 +737,7 @@ class CotationController extends Controller
         }
 
         //SI Y A DE NOUVELLES LIGNES
-        if($request->designation6 != null)
+        if($request->prest6 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
@@ -741,7 +749,7 @@ class CotationController extends Controller
                     
             ]);
         }
-        if($request->designation7 != null)
+        if($request->prest7 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
@@ -753,7 +761,7 @@ class CotationController extends Controller
                     
             ]);
         }
-        if($request->designation8 != null)
+        if($request->prest8 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
@@ -765,7 +773,7 @@ class CotationController extends Controller
                     
             ]);
         }
-        if($request->designation9 != null)
+        if($request->prest9 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
@@ -777,7 +785,7 @@ class CotationController extends Controller
                     
             ]);
         }
-        if($request->designation10 != null)
+        if($request->prest10 != null)
         {
                 $add = DB::table('details_cotations')
                 ->insert([
@@ -1437,7 +1445,7 @@ class CotationController extends Controller
         ->join('services', 'cotations.id_service', '=', 'services.id')
         ->get(['cotation_article.*', 'cotations.date_creation', 'cotations.numero_devis',
                 'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
-                'articles.designation', 'articles.code',
+                'articles.designation', 'articles.code', 'articles.description_article',
                 'services.code',  'services.libele_service'
             ]);
         //dd($get);
@@ -1658,79 +1666,142 @@ class CotationController extends Controller
 
     public function ValideCotation(Request $request)
     {
-        //dd($request->all());
+    
+        $date = Date('Y-m-d');
         $somme = 0;
-        $services = DB::table('cotation_service')->where('cotation_id', $request->id)
-        ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-        ->join('services', 'cotation_service.service_id', '=', 'services.id')
-        ->get(['cotation_service.*', 'cotations.date_creation', 'cotations.numero_devis',
-                'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
-                'services.libele_service', 'services.code'
-            ]);
+        $count_services = DB::table('details_cotations')->where('cotation_id', $request->id)
+        ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+        ->join('services', 'cotations.id_service', '=', 'services.id')
+        ->count();
+       
         //dd($services);
-        foreach($services as $services)
+        if($count_services == 0)//C'est un devis article
         {
-            if($services->code == "MAT")
-            {
-                //dd('i');
-                $a = DB::table('cotation_article')->where('cotation_id', $request->id)
+            $a = DB::table('cotation_article')->where('cotation_id', $request->id)
                 ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                 ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
                 ->get(['cotation_article.*',
                         'articles.designation', 'articles.code',
                 ]);
 
-                foreach($a as $a)
-                {
-                    $total = $a->quantite * $a->prix_unitaire;
-                    $somme = $somme + $total;
-                }
-
-            }
-            else{
-                //dd('ip');
-                $somme = $somme + $services->prix_ht;
-            }
-        }
-        //dd($somme);
-
-      
-        $count = Facture::count();
-        //dd($count);
-        if($count != 0)
-        {
-            $last = Facture::orderBy('created_at', 'DESC')->limit(1)->get();
-            foreach($last as $last)
+            foreach($a as $a)
             {
-                $number = $last->id + 1;
-                $num = 'INV'.$number;
-                $today = date('Y-m-d');
-                $timestamp = strtotime($today);
-                $departtime1 = strtotime('+15 days', $timestamp);
-                $result_date = date("Y-m-d", $departtime1 );
+                $total = $a->quantite * $a->prix_unitaire;
+                $somme = $somme + $total;
             }
-            $insert = Facture::create([
-                'numero_facture' => $num, 
-                'date_reglement' => $result_date, 'date_emission' => $today, 
-                'montant_facture' => $somme , 'id_cotation' => $request->id, 
-                'reglee' => 0, 'annulee' => 0, 'id_user' => auth()->user()->id,
-            ]);
+
+            //CALCUL AVEC LA TVA SI Y EN A
+              
+            $tva = DB::table('taxes')->get();
+                        
+            foreach($tva as $tva)
+            {
+                if($tva->active == 0 )   
+                {
+                    $pour_facture = $somme;
+                }   
+                else
+                {    
+                    
+                    $v = DB::table('cotations')->where('id', $request->id)->get(['date_creation']);
+                    foreach($v as $verif)
+                    {
+                        if($verif->date_creation >= $tva->date_activation)
+                        {
+                            
+                            $m = $somme * (18/100);
+                            
+                        }
+                        else
+                        {
+                            $m = 0;
+                            //echo number_format($somme, 2, ".", " ")."F CFA"; 
+                            $pour_facture = $somme;
+                        }
+                    } 
+            
+
+                
+                    $l = $somme + $m;
+                    $pour_facture = $l;
+                }
+            }
+
         }
         else
         {
-            $num = 'INV1';
-            $today = date('Y-m-d');
-            $timestamp = strtotime($today);
-            $departtime1 = strtotime('+15 days', $timestamp);
-            $result_date = date("Y-m-d", $departtime1 );
-            //dd($depart);
-            $insert = Facture::create([
-                'numero_facture' => $num, 
-                'date_reglement' => $result_date, 'date_emission' => $today, 
-                'montant_facture' => $somme , 'id_cotation' => $request->id, 
-                'reglee' => 0, 'annulee' => 0, 'id_user' => auth()->user()->id,
-            ]);
+            $s = DB::table('details_cotations')->where('cotation_id', $request->id)
+            ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+            ->join('services', 'cotations.id_service', '=', 'services.id')
+            ->get(['details_cotations.prix_ht', 'details_cotations.cotation_id', 
+                'cotations.date_creation', 'cotations.numero_devis',
+                'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
+                'services.libele_service', 'services.code'
+                ]);
+            foreach($s as $s)
+            {
+                $somme = $somme + $s->prix_ht;
+            }
+
+            //CALCUL AVEC LA TVA SI Y EN A
+              
+            $tva = DB::table('taxes')->get();
+                        
+            foreach($tva as $tva)
+            {
+                if($tva->active == 0 )   
+                {
+                    $pour_facture = $somme;
+                }   
+                else
+                {    
+                    
+                    $v = DB::table('cotations')->where('id', $request->id)->get(['date_creation']);
+                    foreach($v as $verif)
+                    {
+                        if($verif->date_creation >= $tva->date_activation)
+                        {
+                            
+                            $m = $somme * (18/100);
+                            
+                        }
+                        else
+                        {
+                            $m = 0;
+                            //echo number_format($somme, 2, ".", " ")."F CFA"; 
+                            $pour_facture = $somme;
+                        }
+                    } 
+            
+
+                
+                    $l = $somme + $m;
+                    $pour_facture = $l;
+                }
+            }
+
         }
+        
+        //CREER LE NUMERO DE FACTURE
+        //POUR LE NUMERO DEVIS RECUPER L'ID DU SERVICE DANS LE DEVIs
+        $id_service = Cotation::where('id', $request->id)->get();
+        foreach($id_service as $id_service)
+        {
+            $numero_devis = (new Calculator())-> GenerateNumDevis($date, $id_service->id_service);
+        }
+
+        $today = date('Y-m-d');
+        $timestamp = strtotime($today);
+        $departtime1 = strtotime('+15 days', $timestamp);
+        $result_date = date("Y-m-d", $departtime1 );
+        $num = "FACTURE-".$numero_devis;
+
+        $insert = Facture::create([
+            'numero_facture' => $num, 
+            'date_reglement' => $result_date, 'date_emission' => $today, 
+            'montant_facture' => $pour_facture , 'id_cotation' => $request->id, 
+            'reglee' => 0, 'annulee' => 0, 'id_user' => auth()->user()->id,
+        ]);
         //Ne pas oublier de valider le devis
         $valider_devis = DB::table('cotations')->where('id', $request->id)
         ->update(['valide' => 1]);
@@ -1768,65 +1839,65 @@ class CotationController extends Controller
         </div>
     </div>
     <hr>
-                                        <p><b><i>Décocher pour supprimer le service</i></b></p>
-                                        @php
-                                            $services = DB::table('services')->get();
-                                        @endphp
-                                    
-                                        @foreach($services as $services)
-                                            <div class="row" id="{{$services->code}}{{$services->code}}"  
-                                            name="{{$services->code}}" style="display:none">
-                                                @php
-                                                /*$roles_u = DB::table('cotation_service')->where('i', $user->id)
-                                                ->where('role_id', $services->id)->count();
-                                                @endphp
+        <p><b><i>Décocher pour supprimer le service</i></b></p>
+        @php
+            $services = DB::table('services')->get();
+        @endphp
+    
+        @foreach($services as $services)
+            <div class="row" id="{{$services->code}}{{$services->code}}"  
+            name="{{$services->code}}" style="display:none">
+                @php
+                /*$roles_u = DB::table('cotation_service')->where('i', $user->id)
+                ->where('role_id', $services->id)->count();
+                @endphp
 
-                                                <!--<div class="col-sm-2">
-                                                <button class="btn btn-danger" onclick="hideLine();" id="{{$services->code}}">
-                                                    <span class="fa fa-times"></span>
-                                                    </button>
-                                                </div>-->
-                                                
-                                                <div class="col-sm-3">
-                                                    <div class="form-check" >
-                                                    <input class="form-check-input" type="checkbox"
-                                                        value="{{$services->id}}" name="{{$services->code}}" 
-                                                        id="{{$services->code}}" onchange="hideLine();">
-                                                    <label class="form-check-label"><b>{{$services->libele_service}}</b></label>
-                                                    
-                                                    </div>
-                                                </div>
+                <!--<div class="col-sm-2">
+                <button class="btn btn-danger" onclick="hideLine();" id="{{$services->code}}">
+                    <span class="fa fa-times"></span>
+                    </button>
+                </div>-->
+                
+                <div class="col-sm-3">
+                    <div class="form-check" >
+                    <input class="form-check-input" type="checkbox"
+                        value="{{$services->id}}" name="{{$services->code}}" 
+                        id="{{$services->code}}" onchange="hideLine();">
+                    <label class="form-check-label"><b>{{$services->libele_service}}</b></label>
+                    
+                    </div>
+                </div>
 
-                                                <div class="col-sm-3">
-                                                    <div class="form-group">
-                                                    <label>Prix Hors taxe:</label>
-                                                    <input type="number" name="prix_ht{{$services->code}}"
-                                                    class="form-control" placeholder="Ex:1500000" id="prix_ht{{$services->code}}" disabled>
-                                                    </div>
-                                                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                    <label>Prix Hors taxe:</label>
+                    <input type="number" name="prix_ht{{$services->code}}"
+                    class="form-control" placeholder="Ex:1500000" id="prix_ht{{$services->code}}" disabled>
+                    </div>
+                </div>
 
-                                                <div class="col-sm-2">
-                                                    <div class="form-group">
-                                                    <label>Durée:</label>
-                                                    <input type="number" name="duree{{$services->code}}" min="0" value="0"
-                                                    class="form-control" placeholder="Entrez ..." id="duree{{$services->code}}" disabled>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="form-group">
-                                                    <label>Choisir:</label>
-                                                    <select  class="form-control" name="duree_type{{$services->code}}" disabled id="duree_type{{$services->code}}">
-                                                        <option value="jours">Jours</option>
-                                                        <option value="mois">Mois</option>
-                                                        <option value="annees">Années</option>
-                                                    </select>
-                                                    
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                            </div>
-                                        
-                                        @endforeach
-                                        */
+                <div class="col-sm-2">
+                    <div class="form-group">
+                    <label>Durée:</label>
+                    <input type="number" name="duree{{$services->code}}" min="0" value="0"
+                    class="form-control" placeholder="Entrez ..." id="duree{{$services->code}}" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                    <label>Choisir:</label>
+                    <select  class="form-control" name="duree_type{{$services->code}}" disabled id="duree_type{{$services->code}}">
+                        <option value="jours">Jours</option>
+                        <option value="mois">Mois</option>
+                        <option value="annees">Années</option>
+                    </select>
+                    
+                    </div>
+                </div>
+                <hr>
+            </div>
+        
+        @endforeach
+     */
     
 }

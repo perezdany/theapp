@@ -226,8 +226,7 @@
                     </td>
                     <!-- /.col -->
                     <td width="50%">
-                        <p class="lead">Détails montant total</p>
-
+                        
                         <div class="table-responsive">
                             <table class="table" width="50%">
                             <tr>
@@ -240,7 +239,9 @@
                             @endphp
                             @foreach($tva as $tva)
                                 @if($tva->active == 0)
-                                
+                                     <tr><th style="background-color:#969696">Tax (18%)</th>
+                                        <td> 0 F CFA</td>
+                                    </tr>
                                     <tr>
                                         <th style="background-color:#969696">Total:</th>
                                         <td>
@@ -272,9 +273,10 @@
                                         }
                                         
                                     @endphp
+                                
                                 <tr>
                                     <th style="background-color:#969696">Total:</th>
-                                    <td>
+                                   
                                         @php
                                             $l = $somme + $m;
                                             echo number_format($l, 2, ".", " ")."F CFA";

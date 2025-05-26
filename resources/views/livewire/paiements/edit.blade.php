@@ -71,6 +71,12 @@
                                     <label>Numéro de virement</label>
                                     <input type="text" class="form-control" name="numero_virement" value="{{$retrive->numero}}">
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Commentaire</label>
+                                    <textarea class="form-control" name="commentaire" value="{{$retrive->commentaire}}">
+                                    </textarea>
+                                </div>
                                 
                                 <div class="box-footer">
                                 <button type="submit" class="btn btn-primary" id="bt">VALIDER</button>

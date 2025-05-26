@@ -67,6 +67,7 @@
                     <tr>
                         <th>Désignation</th>
                         <th>Code</th>
+                        <th>Description</th>
                         <th>Type d'article</th>
                         <th>Ajouté le:</th>
                         <th>Ajouté par:</th>
@@ -78,6 +79,7 @@
                         <tr class="align-middle">
                         <td>{{$article->designation}}</td>
                         <td>{{$article->code}}</td>
+                        <td>{{$article->description_article}}</td>
                         <td>{{$article->libele}}</td>
                         <td>@php echo date('d/m/Y',strtotime($article->created_at));@endphp</td>
                         <td>

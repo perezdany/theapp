@@ -167,7 +167,7 @@
 
                                     
                                 </div>
-                                <h4><b><i>Service: </i></b>{{$devis->libele_service}}</h4>
+                                <!--<h4><b><i>Service: </i></b>{{$devis->libele_service}}</h4>-->
                                 Veuillez renseigner les détails
                                  <!--LES LIGNES DES DETAILS-->
                                 @include("forms.forms_details")
@@ -259,7 +259,7 @@
                                     
                                     }
 
-                                    function EnableFields(sel, q, p, d)
+                                    function EnableFields(sel, t, q, p, d)
                                     {
                                         
                                         let designation = document.getElementById(sel);
@@ -267,6 +267,7 @@
                                         prix= document.getElementById(q);
                                         duree = document.getElementById(p);
                                         type_d = document.getElementById(d);
+                                        desi = document.getElementById(t);
                                         //alert(type_d);
                                         if(designation.value != "")
                                         {
@@ -277,6 +278,8 @@
                                             duree.setAttribute("enabled", "enabled");
                                             type_d.removeAttribute("disabled");
                                             type_d.setAttribute("enabled", "enabled");
+                                            desi.removeAttribute("disabled");
+                                            desi.setAttribute("enabled", "enabled");
                                         }
                                         else
                                         {  
@@ -287,6 +290,8 @@
                                             duree.setAttribute("disabled", "disabled");
                                             type_d.removeAttribute("enabled");
                                             type_d.setAttribute("disabled", "disabled");
+                                            desi.removeAttribute("enabled");
+                                            desi.setAttribute("disabled", "disabled");
                                         }
                                     }
                                 </script>

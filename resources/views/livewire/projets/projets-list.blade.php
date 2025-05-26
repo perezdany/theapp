@@ -6,7 +6,7 @@
 </div>
 <div class="row">
     
-    <div class="col-md-8">
+    <div class="col-md-12">
        
         <div class="card">
          
@@ -42,7 +42,7 @@
                 </div><br>
                 <div class="row">
 
-                    <div class="col-md-3 input-group input-group-sm">
+                    <div class="col-md-2 input-group input-group-sm">
                         <select class="form-control" id="departement" wire:model.live.debounce.250ms="user">
                             <option value="">Utilisateurs</option>
                             @php
@@ -55,7 +55,7 @@
                         </select>   
                     </div>  
 
-                    <div class="col-md-3 input-group input-group-sm">
+                    <div class="col-md-2 input-group input-group-sm">
                         
                         <select class="form-control" wire:model.live.debounce.250ms="client" >
                                                 
@@ -66,6 +66,16 @@
                             @foreach($clts as $clt)
                                 <option value={{$clt->id}}>{{$clt->nom}}</option>
                             @endforeach
+                            
+                        </select>   
+                    </div>
+
+                    <div class="col-md-2 input-group input-group-sm">
+                        
+                        <select class="form-control" wire:model.live.debounce.250ms="statut" >
+                            <option value="">Statut</option>
+                            <option value="0">EN COURS</option>
+                            <option value="1">CLOTURE</option>
                             
                         </select>   
                     </div>
@@ -95,6 +105,7 @@
                         <th>Description</th>
                         <th>Date de début</th>
                         <th>Date de fin</th>
+                        <th>Statut</th>
                         <th>Créé par</th>
                         
                         <th>Mod/Supp</th>
@@ -108,9 +119,14 @@
                         <td>{{$projet->nom}}</td> 
                         <td>{{$projet->description}}</td>
                         <td>{{$projet->date_debut}}</td> 
-                                 
-                 
                         <td>{{$projet->date_fin}}</td> 
+                        <td>
+                            @if($projet->cloture == 0)
+                                <span class="bg-warning">En cours</span>
+                            @else
+                                <span class="bg-success">Cloturé</span>
+                            @endif
+                        </td> 
                         <td>{{$projet->nom_prenoms}}</td> 
                
                         <td>

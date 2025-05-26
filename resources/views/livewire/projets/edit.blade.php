@@ -56,6 +56,17 @@
                         <label>Date de fin</label>
                         <input type="date"  wire:model="editProjet.date_fin" class="form-control" placeholder="Entrer ..." >
                     </div>
+
+                    <div class="col-sm-6">
+                         
+                        <label>Statut</label>
+                        <select class="form-control" wire:model="editProjet.cloture" >
+                          
+                            <option value="0">EN COURS</option>
+                            <option value="1">CLOTURE</option>
+                            
+                        </select>   
+                    </div>
                    
                 </div>
                  

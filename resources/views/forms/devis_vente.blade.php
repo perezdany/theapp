@@ -159,7 +159,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h4><b><i>Service: </i></b>{{$devis->libele_service}}</h4>
+                                <!--<h4><b><i>Service: </i></b>{{$devis->libele_service}}</h4>-->
                                  Veuillez renseigner les détails
                                 <!--LES FORMULAIRES DES LIGNES-->
                                 @include("forms.btn_add_lines")

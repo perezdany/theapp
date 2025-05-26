@@ -120,83 +120,100 @@
                     ->count();
                     $i = 0;
                     //dd($devis->id); 
-                    if($compter  == 0)//Y A PAS D'ID DE DEVIS
-                    {
-                        //dd('ok');
-                       $devis = $cotationcontroller->GetArticleLines($id_cotation);
-                    }
-                    else
-                    {
-                        $devis = $cotationcontroller->GetLines($id_cotation);
-                    }
+                    
                     //dd($devis);
                 @endphp
                 <!-- Table row -->
                 <div class="row">
                     <div class="col-12 table-responsive">
                     <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr style="background-color:#76d7c4">
-                        <th>Prestation</th>
-                        <th>Désignation/Description</th>
-                        <th>Code</th>
-                        <th>Durée</th>
-                        <th>Qté</th>
-                        <th>Prix (Unitaire)</th>
-                        <th>Total</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($devis as $devis)
-                            @if($devis->code == "MAT")
-
-                                @php
-                                   //dd('i');
-                                    $articles = $cotationcontroller->GetArticleLines($id_cotation);
-                                   // dd($articles);
-                                   $i = 0;
-                                @endphp  
-                                <tr style="background-color:#e8f8f5 ">
-                                    @if($i == 0)
-                                        <td>{{$devis->libele_service}}</td>
-                                    @else
-                                        <td></td>
-                                    @endif   
-                                    <td>{{$devis->designation}}</td>
-                                    <td>{{$devis->code}}</td>
-                                    <td>N/A</td>
-                                    <td>{{$devis->quantite}}</td>
-                                    <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
-                                    <td>
-                                        @php
-                                            $total = $devis->quantite * $devis->pu;
-                                            echo number_format($total, 2, ".", " ")."F CFA";
-                                            $somme = $somme + $total;
-                                        @endphp
-                                    </td>
+                        @if($compter  == 0)<!--Y A PAS D'ID DE DEVIS-->
+                            @php
+                                $devis = $cotationcontroller->GetArticleLines($id_cotation);
+                            @endphp
+                            <thead>
+                                <tr style="background-color:#76d7c4">
+                                <th>Code</th>
+                                <th>Désignation</th>
+                                <th>Description</th>
+                                <th>Durée</th>
+                                <th>Qté</th>
+                                <th>Prix (Unitaire)</th>
+                                <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($devis as $devis)
                                     @php
-                                        $i = $i+1;
-                                    @endphp
-                                <tr>
-                                @foreach($articles as $article)
-                                   
-                                @endforeach
-                            @else
+                                        $articles = $cotationcontroller->GetArticleLines($id_cotation);
+                                    @endphp  
+                                    <tr style="background-color:#e8f8f5 ">
+                                        @if($i == 0)
+                                            
+                                            <td>{{$devis->code}}</td>
+                                        @else
+                                            <td></td>
+                                        @endif   
+                                        <td>{{$devis->designation}}</td>
+                                        <td>{{$devis->description_article}}</td>
+                                        <td>N/A</td>
+                                        <td>{{$devis->quantite}}</td>
+                                        <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
+                                        <td>
+                                            @php
+                                                $total = $devis->quantite * $devis->pu;
+                                                echo number_format($total, 2, ".", " ")."F CFA";
+                                                $somme = $somme + $total;
+                                            @endphp
+                                        </td>
+                                        @php
+                                            $i = $i+1;
+                                        @endphp
+                                    <tr>    
+                                @if($devis->code == "MAT")
+
+
+                                    @foreach($articles as $article)
+                                    
+                                    @endforeach
+                                @else
+                                 
+                                @endif 
+                            @endforeach  
+                            </tbody>                  
+                        @else
+                            <thead>
+                                <tr style="background-color:#76d7c4">
+                                <th>Code</th>
+                                <th>Prestation</th>
+                                <th>Description</th>
+                                
+                                <th>Durée</th>
+                                <th>Qté</th>
+                                <th>Prix (Unitaire)</th>
+                                <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @php
+                                $devis = $cotationcontroller->GetLines($id_cotation);
+                            @endphp
+                            @foreach($devis as $devis)
                                 <tr style="background-color:#e8f8f5 ">
                                     @if($i == 0)
-                                        <td syle="border:0px;">{{$devis->libele_service}}</td>
+                                        <td syle="border:0px;">{{$devis->code}}</td>
                                     @else
-                                         <td syle="border:0px;"></td>
+                                        <td syle="border:0px;"></td>
                                     @endif   
-                                    <td>{{$devis->designation}}</td>
-                                    <td>{{$devis->code}}</td>
+                                    <td><b>{{$devis->designation}}</b></td>
+                                    <td>{{$devis->descrpt}}</td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
                                     <td>N/A</td>
                                     <td>@php echo number_format($devis->prix_ht, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
                                     @php echo number_format(($devis->prix_ht), 2, ".", " ")."F CFA"; @endphp
-                              
+                            
                                     </td>
                                 <tr>
                                 @php
@@ -204,10 +221,10 @@
                                     $somme = $somme + ($devis->prix_ht);
                                     $i = $i+1;
                                 @endphp
-                            @endif 
-                        @endforeach
-                          
-                        </tbody>
+                            @endforeach               
+                            </tbody>
+                        @endif
+
                     </table>
                     </div>
                     <!-- /.col -->
@@ -231,7 +248,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-6">
-                    <p class="lead">Détails montant total</p>
+                     <!--<p class="lead">Détails montant total</p>-->
 
                     <div class="table-responsive">
                         <table class="table">
@@ -245,7 +262,9 @@
                         @endphp
                         @foreach($tva as $tva)
                             @if($tva->active == 0)
-                          
+                               <tr><th style="background-color:#969696">Tax (18%)</th>
+                                    <td> 0 F CFA</td>
+                                </tr>
                                 <tr >
                                     <th style="background-color:#969696">Total:</th>
                                     <td>

@@ -225,7 +225,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-6">
-                    <p class="lead">Détails montant total</p>
+                    <!--<p class="lead">Détails montant total</p>-->
 
                     <div class="table-responsive">
                         <table class="table">
@@ -239,7 +239,9 @@
                         @endphp
                         @foreach($tva as $tva)
                             @if($tva->active == 0)
-                          
+                                <tr><th style="background-color:#969696">Tax (18%)</th>
+                                    <td> 0 F CFA</td>
+                                </tr>
                                 <tr >
                                     <th style="background-color:#969696">Total:</th>
                                     <td>

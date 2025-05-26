@@ -10,6 +10,6 @@ class Projet extends Model
     public $timestamps = true;
     
     protected $fillable = [
-        'nom_projet', 'id_user', 'id_client', 'description', 'date_debut', 'date_fin',
+        'nom_projet', 'id_user', 'id_client', 'description', 'date_debut', 'date_fin', 'cloture',
     ];
 }

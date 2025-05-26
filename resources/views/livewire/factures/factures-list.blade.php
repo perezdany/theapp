@@ -99,7 +99,7 @@
                         <th>Type</th>
                         <th wire:click="setOrderField('date_reglement')"><i class="fa fa-sort" aria-hidden="true"></i>Régler avant le:</th>
                         <th>Etat</th>
-                        <th wire:click="setOrderField('numero_devis')"><i class="fa fa-sort" aria-hidden="true"></i>Devis N°:</th>
+                        <!--<th wire:click="setOrderField('numero_devis')"><i class="fa fa-sort" aria-hidden="true"></i>Devis N°:</th>-->
                         <th>Client</th>
                         
                         <th>Ajouter le fichier</th>
@@ -142,7 +142,7 @@
                                 <span class="bg-danger">Annulée</span>
                             @endif
                         </td>
-                        <td>{{$facture->numero_devis}}</td>
+                        <!--<td>{{$facture->numero_devis}}</td>-->
                         
                         <td>{{$facture->nom}}</td>
                         <td>

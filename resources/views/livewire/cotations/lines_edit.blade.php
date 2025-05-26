@@ -8,10 +8,19 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
+                                                    <label>--Prestation:</label>
+                                                        <input type="text" name="prest6" class="form-control" id="prest6" 
+                                                        onkeyup="EnableFields('prest6', 'designation6', 'prix6', 'duree6', 'duree_type6')">
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation6" class="form-control" id="designation6"
-                                                        onfocus="EnableFields('designation6', 'prix6', 'duree6', 'duree_type6')">
-
+                                                            disabled>
                                                         </textarea>
                                                     </div>
                                                 </div>
@@ -54,10 +63,19 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
+                                                    <label>--Prestation:</label>
+                                                        <input type="text" name="pres7" class="form-control" id="prest7" 
+                                                        onkeyup="EnableFields('prest7', 'designation7', 'prix7', 'duree7', 'duree_type7')">
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation7" class="form-control" id="designation7"
-                                                        onfocus="EnableFields('designation7', 'prix7', 'duree7', 'duree_type7')">
-
+                                                        disabled>
                                                         </textarea>
                                                     </div>
                                                 </div>
@@ -100,9 +118,19 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
+                                                    <label>--Prestation:</label>
+                                                        <input type="text" name="prest8" class="form-control" id="prest8" 
+                                                        onkeyup="EnableFields('prest8', 'designation8', 'prix8', 'duree8', 'duree_type8')">
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation8" class="form-control" id="designation8"
-                                                        onfocus="EnableFields('designation8', 'prix8', 'duree8', 'duree_type8')">
+                                                       disabled>
 
                                                         </textarea>
                                                     </div>
@@ -141,13 +169,23 @@
                                     </div>
                                     <div id="support9" style="display:none;">
                                         <div class="content" id="support">
+                                             <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>--Prestation:</label>
+                                                        <input type="text" name="prest6" class="form-control" id="prest6" 
+                                                        onkeyup="EnableFields('prest9', 'designation9', 'prix9', 'duree9', 'duree_type9')">
+                                                    </div>
+                                                </div>
+                                            </div>     
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation9" class="form-control" id="designation9"
-                                                        onfocus="EnableFields('designation9', 'prix9', 'duree9', 'duree_type9')">
+                                                       disabled>
 
                                                         </textarea>
                                                     </div>
@@ -191,9 +229,19 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
+                                                    <label>--Prestation:</label>
+                                                        <input type="text" name="prest10" class="form-control" id="prest10" 
+                                                        onkeyup="EnableFields('prest10', 'designation10', 'prix10', 'duree10', 'duree_type10')">
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation10" class="form-control" id="designation10"
-                                                        onfocus="EnableFields('designation10', 'prix10', 'duree10', 'duree_type10')">
+                                                        disabled>
 
                                                         </textarea>
                                                     </div>
