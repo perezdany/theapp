@@ -55,6 +55,10 @@ class AuthController extends Controller
                     {
                         //dd('ici');
                         $request->session()->regenerate();//regeneger la session
+
+                        $request->session()->regenerate();//regeneger la session
+      
+                         return redirect()->route('home');
         
                         //return redirect()->route('home'); 
                         //ON le deconnecte 

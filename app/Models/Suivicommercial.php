@@ -12,8 +12,7 @@ class Suivicommercial extends Model
     protected $fillable = [
         'id', 'title', 'color', 
         'start', 'end', 
-        'id_projet', 'id_fournisseur', 
-        'id_client',  'id_user'
+        'id_projet', 'id_fournisseur',   'id_user'
     ];
 
    

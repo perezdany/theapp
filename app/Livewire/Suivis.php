@@ -71,7 +71,6 @@ class Suivis extends Component
                     'end' => $event->end,
                     'id_projet' => $event->id_projet,
                     'id_fournisseur' => $event->id_fournisseur,
-                    'id_client' => $event->id_client,
                     'id_user' => $event->id_user,
                     
                 ];
@@ -91,7 +90,7 @@ class Suivis extends Component
                     'end' => $event->end,
                     'id_projet' => $event->id_projet,
                     'id_fournisseur' => $event->id_fournisseur,
-                    'id_client' => $event->id_client,
+              
                     'id_user' => $event->id_user,
                     
                 ];

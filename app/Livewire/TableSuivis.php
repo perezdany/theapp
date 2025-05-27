@@ -47,7 +47,7 @@ class Tablesuivis extends Component
                 'title' => $this->editSuivi['title'], 
                 'start' => $this->editSuivi['start'], 'end' => $this->editSuivi['end'], 
                 'id_projet' => $this->editSuivi['id_projet'], 'id_fournisseur' => $this->editSuivi['id_fournisseur'], 
-                'id_client' => $this->editSuivi['id_client'],  
+                  
             ]
         );
 

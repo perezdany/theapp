@@ -9,8 +9,6 @@
         <div class="modal-body">
             <!--begin::Form wire:submit="addEvent"-->
             <form >
-              
-                
                 <div class="row">
                     <div class="col-sm-12">
                          
@@ -54,24 +52,7 @@
                     </div>
                    
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                         
-                        <div class="form-group">
-                        <label>Client</label>
-                        <select wire:model="id_client" class="form-control" id="id_client">
-                            @php
-                                $g = DB::table('clients')->get();
-                            @endphp
-                            <option value="">--Choisir--</option>
-                            @foreach($g as $g)
-                               <option value="{{$g->id}}">{{$g->nom}}</option> 
-                            @endforeach
-                        </select>
-                        </div>
-                    </div>
-                   
-                </div>
+                
                 <div class="row">
                     <div class="col-sm-6">
                          
@@ -79,7 +60,7 @@
                         <label>Projet</label>
                         <select wire:model="id_projet" class="form-control" id="id_projet">
                             @php
-                                $get_projet = DB::table('projets')->get();
+                                $get_projet = DB::table('projets')->where('cloture', "0")->get();
                             @endphp
                             <option value="">--Choisir--</option>
                             @foreach($get_projet as $get_projet)

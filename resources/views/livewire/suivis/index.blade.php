@@ -59,7 +59,7 @@
                     $("#savebtn").click(function(){
                         var title = $("#title").val();
                         var end = $("#end").val().replace("T", " ");
-                        var id_client = $("#id_client").val();
+                       // var id_client = $("#id_client").val();
                         var id_projet = $("#id_projet").val();
                         var id_fournisseur = $("#id_fournisseur").val();
                         var startime = $("#startime").val();
@@ -74,7 +74,7 @@
                             type:"POST",
                             dataType: "json",
                             data:{ 
-                                    title, start, end, id_client, 
+                                    title, start, end, 
                                     id_projet, id_fournisseur, startime},
                             success:function(response)
                             {

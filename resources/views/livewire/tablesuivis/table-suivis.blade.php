@@ -157,16 +157,7 @@
                             @endif
                         </td>
                         <td>
-                            @if($suivi->id_client == NULL)
-                                @php
-                                    $c = DB::table('clients')->where('id', $suivi->id_client)->get();
-                                @endphp
-                                @foreach($c as $c)
-                                    {{$c->nom}}
-                                @endforeach
-                            @else
-                            N/A
-                            @endif
+                            {{$suivi->nom}}
                         </td>
                        
                         <td>

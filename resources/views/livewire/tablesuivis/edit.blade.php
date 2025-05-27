@@ -55,24 +55,7 @@
                     </div>
                    
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                         
-                        <div class="form-group">
-                        <label>Client</label>
-                        <select wire:model="editSuivi.id_client" class="form-control" id="id_client">
-                            @php
-                                $g = DB::table('clients')->get();
-                            @endphp
-                            <option value="">--Choisir--</option>
-                            @foreach($g as $g)
-                               <option value="{{$g->id}}">{{$g->nom}}</option> 
-                            @endforeach
-                        </select>
-                        </div>
-                    </div>
-                   
-                </div>
+             
                 <div class="row">
                     <div class="col-sm-6">
                          
