@@ -41,13 +41,6 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Nom du bénéficiaire</label>
-                            <div class="col-sm-12">
-                            <input type="text" class="form-control" maxlength="150" wire:model="nom_beneficiaire"/>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
                             <label  class="col-sm-12 col-form-label">Montant(*) </label>
                             <div class="col-sm-12">
                             <input type="number" class="form-control" maxlength="15" wire:model="montant" 
@@ -57,37 +50,14 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Numéro de chèque(*) </label>
+                            <label  class="col-sm-12 col-form-label">Numéro(*) </label>
                             <div class="col-sm-12">
-                            <input type="text" class="form-control" maxlength="15" wire:model="numero_cheque" 
+                            <input type="text" class="form-control" maxlength="100" wire:model="numero_cheque" 
                                 />
                             </div>
                         
                         </div>
-                        
-                        <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Nom de la banque(*) </label>
-                            <div class="col-sm-12">
-                            <input type="text" class="form-control" maxlength="15" wire:model="banque"/>
-                            </div>
-                        
-                        </div>
-
-                        <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Numéro de virement </label>
-                            <div class="col-sm-12">
-                            <input type="text" class="form-control" maxlength="15" wire:model="numero_virement" />
-                            </div>
                     
-                        </div>
-
-                        <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Date de virement </label>
-                            <div class="col-sm-12">
-                            <input type="date" class="form-control" wire:model="date_virement" />
-                            </div>
-                    
-                        </div>
                     </div>
                     <!--end::Body-->
                     <!--begin::Footer-->

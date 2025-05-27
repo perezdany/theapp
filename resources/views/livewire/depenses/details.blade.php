@@ -58,43 +58,17 @@
                             <label  class="col-sm-12 col-form-label">Montant(*) </label>
                             <div class="col-sm-12">
                             <input type="number" class="form-control" maxlength="15" wire:model="Details.montant" 
-                            required  disabled="disabled" />
+                            required />
                             </div>
                     
                         </div>
 
                         <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Numéro de chèque(*) </label>
+                            <label  class="col-sm-12 col-form-label">Numéro </label>
                             <div class="col-sm-12">
-                            <input type="text" class="form-control" maxlength="15" wire:model="Details.numero_cheque" disabled="disabled"/>
+                            <input type="text" class="form-control" maxlength="100" wire:model="Details.numero_cheque"/>
                             </div>
                         
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Nom de la banque(*) </label>
-                            <div class="col-sm-12">
-                            <input type="text" class="form-control" maxlength="15" wire:model="Details.banque" 
-                                disabled="disabled" />
-                            </div>
-                        
-                        </div>
-
-                        <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Numéro de virement </label>
-                            <div class="col-sm-12">
-                            <input type="text" class="form-control" maxlength="15" wire:model="Details.numero_virement" 
-                            disabled="disabled" />
-                            </div>
-                    
-                        </div>
-
-                        <div class="row mb-3">
-                            <label  class="col-sm-12 col-form-label">Date de virement </label>
-                            <div class="col-sm-12">
-                            <input type="date" class="form-control" wire:model="Details.date_virement" disabled="disabled" />
-                            </div>
-                    
                         </div>
                     </div>
                     <!--end::Body-->

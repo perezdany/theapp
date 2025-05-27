@@ -111,7 +111,7 @@
                 </div>
                 @php
                     //dd($id);
-                    $le_devis = $cotationcontroller->GetDevis($id);
+                    $le_devis = $cotationcontroller->GetById($id);
                     //dd($le_devis);
                 @endphp
                 @foreach($le_devis as $devis)
@@ -167,7 +167,7 @@
 
                                     
                                 </div>
-                                <!--<h4><b><i>Service: </i></b>{{$devis->libele_service}}</h4>-->
+                             
                                 Veuillez renseigner les détails
                                  <!--LES LIGNES DES DETAILS-->
                                 @include("forms.forms_details")
@@ -259,7 +259,7 @@
                                     
                                     }
 
-                                    function EnableFields(sel, t, q, p, d)
+                                    function EnableFields(sel, m, t, q, p, d)
                                     {
                                         
                                         let designation = document.getElementById(sel);
@@ -268,10 +268,11 @@
                                         duree = document.getElementById(p);
                                         type_d = document.getElementById(d);
                                         desi = document.getElementById(t);
+                                        letexte = document.getElementById(m);
                                         //alert(type_d);
                                         if(designation.value != "")
                                         {
-                                            //alert('ok');
+                                            
                                             prix.removeAttribute("disabled");
                                             prix.setAttribute("enabled", "enabled");
                                             duree.removeAttribute("disabled");
@@ -280,6 +281,9 @@
                                             type_d.setAttribute("enabled", "enabled");
                                             desi.removeAttribute("disabled");
                                             desi.setAttribute("enabled", "enabled");
+                                            letexte.removeAttribute("disabled");
+                                            letexte.setAttribute("enabled", "enabled");
+                                            //letexte.setAttribute("value",)
                                         }
                                         else
                                         {  
@@ -292,6 +296,8 @@
                                             type_d.setAttribute("disabled", "disabled");
                                             desi.removeAttribute("enabled");
                                             desi.setAttribute("disabled", "disabled");
+                                            letexte.removeAttribute("enabled");
+                                            letexte.setAttribute("disabled", "disabled");
                                         }
                                     }
                                 </script>

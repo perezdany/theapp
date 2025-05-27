@@ -109,7 +109,7 @@
                 </div>
                 @php
                     //dd($id);
-                    $le_devis = $cotationcontroller->GetDevis($id);
+                    $le_devis = $cotationcontroller->GetDevisArticle($id);
                 @endphp
                 @foreach($le_devis as $devis)
                     
@@ -575,20 +575,44 @@
         
         </div>                
     </div>
-    <div class="row">                
-        <!--/.col (left) -->
-        <!-- right column -->
 
-        <div class="col-md-8">
- 
-            
+   
+    <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                            
+                    <h3 class="card-title">Conditions de paiement</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="update_conditionv">
+                        @csrf
+                        <input type="text" value="{{$id}}" name="id_cotation" style="display: none;">
+                        @php
+                            $condition = DB::table('cotations')
+                            ->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
+                            ->where('cotations.id', $id)
+                            ->get(['cotations.id_condition', 'conditions_paiements.*']);
+                        @endphp
+                        <select class="form-control" name="condition">
+                            @foreach($condition as $condition)
+                                <option value="{{$condition->id_condition}}">{{$condition->libele}}</option>
+                            @endforeach
+                            @php
+                                $g = DB::table('conditions_paiements')->get();
+                            @endphp
+                            @foreach($g as $g)
+                                <option value="{{$g->id}}">{{$g->libele}}</option>
+                            @endforeach
+                        </select>
+                        
+                        <div class="card-footer">
+                        
+                            <button type="submit" class="btn btn-primary float-right">VALIDER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>                
         </div>
-        <!--/.col (right) -->
-        <div class="col-md-4">
-           
-        </div>       
-    </div>
-    <!-- /.row -->
 
 @endsection
     

@@ -83,12 +83,9 @@
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Objet</th>
+                        <th>Objet/Commentaire</th>
                         <th>Montant</th>
-                        <th>Bénéficiaire</th>
-                        <th>Numéro de chèque</th>
-                        <th>Banque</th>
-                        <th>Plus de détails</th>
+                        <th>Numéro de transaction</th>
                         <th>Mod/Supp</th>
                     </tr>
                 </thead>
@@ -98,13 +95,7 @@
                         <td>@php echo date('d/m/Y',strtotime($depense->date_sortie));@endphp</td>
                         <td>{{$depense->objet}}</td>
                         <td>{{$depense->montant}}</td>
-                        <td>{{$depense->nom_beneficiaire}}</td>
-                        <td>{{$depense->numero_cheque}}</td>
-                        <td>{{$depense->banque}}</td>
-                        <td>
-                            <button wire:click="detailsmodal('{{$depense->id}}')"
-                               class="btn btn-primary"><i class="fa fa-eye"></i></button>
-                        </td>
+                        <td>{{$depense->numero}}</td>
                         <td>
                         <div class="row">
                             @can("edit")

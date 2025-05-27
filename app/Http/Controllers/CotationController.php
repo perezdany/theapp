@@ -232,7 +232,7 @@ class CotationController extends Controller
                     'date_creation' => $date, 
                     'date_validite' =>  $date_valide, 
                     'id_client' => $request->client,
-                    'id_service' => $request->service,
+                    //'id_service' => $request->service,
                     'valide' => 0,
                     'rejete' => 0,
                     'id_user' => auth()->user()->id,
@@ -269,7 +269,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest1,
+                    'id_service' => $request->prest1,
+                    'designation' => $request->peutmodif1,
                     'descrpt' => $request->designation1,
                     'prix_ht' => $request->prix1,
                     'duree' => $request->duree1,
@@ -282,7 +283,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest2,
+                    'id_service' => $request->prest2,
+                    'designation' => $request->peutmodif2,
                     'descrpt' => $request->designation2,
                     'prix_ht' => $request->prix2,
                     'duree' => $request->duree2,
@@ -295,7 +297,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest3,
+                    'id_service' => $request->prest3,
+                    'designation' => $request->peutmodif3,
                     'descrpt' => $request->designation3,
                     'prix_ht' => $request->prix3,
                     'duree' => $request->duree3,
@@ -308,7 +311,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest4,
+                    'id_service' => $request->prest4,
+                    'designation' => $request->peutmodif4,
                     'descrpt' => $request->designation4,
                     'prix_ht' => $request->prix4,
                     'duree' => $request->duree4,
@@ -321,7 +325,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest5,
+                    'id_service' => $request->prest5,
+                    'designation' => $request->peutmodif5,
                     'descrpt' => $request->designation5,
                     'prix_ht' => $request->prix5,
                     'duree' => $request->duree5,
@@ -334,7 +339,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest6,
+                   'id_service' => $request->prest6,
+                    'designation' => $request->peutmodif6,
                     'descrpt' => $request->designation6,
                     'prix_ht' => $request->prix6,
                     'duree' => $request->duree6,
@@ -347,7 +353,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest7,
+                   'id_service' => $request->prest7,
+                    'designation' => $request->peutmodif7,
                     'descrpt' => $request->designation7,
                     'prix_ht' => $request->prix7,
                     'duree' => $request->duree7,
@@ -360,7 +367,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest8,
+                  'id_service' => $request->prest8,
+                    'designation' => $request->peutmodif8,
                     'descrpt' => $request->designation8,
                     'prix_ht' => $request->prix8,
                     'duree' => $request->duree8,
@@ -373,7 +381,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest9,
+                   'id_service' => $request->prest9,
+                    'designation' => $request->peutmodif9,
                     'descrpt' => $request->designation9,
                     'prix_ht' => $request->prix9,
                     'duree' => $request->duree9,
@@ -386,7 +395,8 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->prest10,
+                  'id_service' => $request->prest10,
+                    'designation' => $request->peutmodif10,
                     'descrpt' => $request->designation10,
                     'prix_ht' => $request->prix10,
                     'duree' => $request->duree10,
@@ -611,7 +621,9 @@ class CotationController extends Controller
         {
             $add = DB::table('details_cotations')->where('id', $request->idd1)
             ->update([
-                'designation' => $request->designation1,
+                'id_service' => $request->prest1,
+                'designation' => $request->peutmodif1,
+                'descrpt' => $request->designation1,
                 'prix_ht' => $request->prix1,
                 'duree' => $request->duree1,
                 'duree_type' => $request->duree_type1,
@@ -623,8 +635,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('id', $request->idd2)
                 ->update([
-            
-                    'designation' => $request->designation2,
+                    'id_service' => $request->prest2,
+                    'designation' => $request->peutmodif2,
+                    'descrpt' => $request->designation2,
                     'prix_ht' => $request->prix2,
                     'duree' => $request->duree2,
                     'duree_type' => $request->duree_type2,
@@ -637,7 +650,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('id', $request->idd3)
                 ->update([
-                    'designation' => $request->designation3,
+                    'id_service' => $request->prest3,
+                    'designation' => $request->peutmodif3,
+                    'descrpt' => $request->designation3,
                     'prix_ht' => $request->prix3,
                     'duree' => $request->duree3,
                     'duree_type' => $request->duree_type3,
@@ -649,7 +664,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('id', $request->idd4)
                 ->update([
-                    'designation' => $request->designation4,
+                    'id_service' => $request->prest4,
+                    'designation' => $request->peutmodif4,
+                    'descrpt' => $request->designation4,
                     'prix_ht' => $request->prix4,
                     'duree' => $request->duree4,
                     'duree_type' => $request->duree_type4,
@@ -661,8 +678,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('id', $request->idd5)
                 ->update([
-                
-                    'designation' => $request->designation5,
+                    'id_service' => $request->prest5,
+                    'designation' => $request->peutmodif5,
+                    'descrpt' => $request->designation5,
                     'prix_ht' => $request->prix5,
                     'duree' => $request->duree5,
                     'duree_type' => $request->duree_type5,
@@ -675,8 +693,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('id', $request->idd6)
                 ->update([
-                
-                    'designation' => $request->designation6,
+                    'id_service' => $request->prest6,
+                    'designation' => $request->peutmodif6,
+                    'descrpt' => $request->designation6,
                     'prix_ht' => $request->prix6,
                     'duree' => $request->duree6,
                     'duree_type' => $request->duree_type6,
@@ -689,8 +708,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('id', $request->idd7)
                 ->update([
-                
-                    'designation' => $request->designation7,
+                   'id_service' => $request->pres71,
+                    'designation' => $request->peutmodif7,
+                    'descrpt' => $request->designation7,
                     'prix_ht' => $request->prix7,
                     'duree' => $request->duree7,
                     'duree_type' => $request->duree_type7,
@@ -703,7 +723,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('cotation_id', $request->idd8)
                 ->update([
-                    'designation' => $request->designation8,
+                    'id_service' => $request->prest8,
+                    'designation' => $request->peutmodif8,
+                    'descrpt' => $request->designation8,
                     'prix_ht' => $request->prix8,
                     'duree' => $request->duree8,
                     'duree_type' => $request->duree_type8,
@@ -715,8 +737,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('cotation_id', $request->idd9)
                 ->update([
-        
-                    'designation' => $request->designation9,
+                    'id_service' => $request->prest9,
+                    'designation' => $request->peutmodif9,
+                    'descrpt' => $request->designation9,
                     'prix_ht' => $request->prix9,
                     'duree' => $request->duree9,
                     'duree_type' => $request->duree_type9,
@@ -728,7 +751,9 @@ class CotationController extends Controller
                 $add = DB::table('details_cotations')
                 ->where('cotation_id', $request->idd10)
                 ->update([
-                    'designation' => $request->designation10,
+                    'id_service' => $request->prest10,
+                    'designation' => $request->peutmodif10,
+                    'descrpt' => $request->designation10,
                     'prix_ht' => $request->prix10,
                     'duree' => $request->duree10,
                     'duree_type' => $request->duree_type10,
@@ -737,60 +762,70 @@ class CotationController extends Controller
         }
 
         //SI Y A DE NOUVELLES LIGNES
-        if($request->prest6 != null)
+        if($request->prest6 != "")
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation6,
+                    'id_service' => $request->prest6,
+                    'designation' => $request->peutmodif6,
+                    'descrpt' => $request->designation6,
                     'prix_ht' => $request->prix6,
                     'duree' => $request->duree6,
                     'duree_type' => $request->duree_type6,
                     
             ]);
         }
-        if($request->prest7 != null)
+        if($request->prest7 != "")
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation7,
+                    'id_service' => $request->prest7,
+                    'designation' => $request->peutmodif7,
+                    'descrpt' => $request->designation7,
                     'prix_ht' => $request->prix7,
                     'duree' => $request->duree7,
                     'duree_type' => $request->duree_type7,
                     
             ]);
         }
-        if($request->prest8 != null)
+        if($request->prest8 != "")
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation8,
+                    'id_service' => $request->prest8,
+                    'designation' => $request->peutmodif8,
+                    'descrpt' => $request->designation8,
                     'prix_ht' => $request->prix8,
                     'duree' => $request->duree8,
                     'duree_type' => $request->duree_type8,
                     
             ]);
         }
-        if($request->prest9 != null)
+        if($request->prest9 != "")
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation9,
+                    'id_service' => $request->prest9,
+                    'designation' => $request->peutmodif9,
+                    'descrpt' => $request->designation9,
                     'prix_ht' => $request->prix9,
                     'duree' => $request->duree9,
                     'duree_type' => $request->duree_type9,
                     
             ]);
         }
-        if($request->prest10 != null)
+        if($request->prest10 != "")
         {
                 $add = DB::table('details_cotations')
                 ->insert([
                     'cotation_id' => $request->id_cotation,
-                    'designation' => $request->designation10,
+                    'id_service' => $request->prest10,
+                    'designation' => $request->peutmodif10,
+                    'descrpt' => $request->designation10,
                     'prix_ht' => $request->prix10,
                     'duree' => $request->duree10,
                     'duree_type' => $request->duree_type10,
@@ -922,7 +957,7 @@ class CotationController extends Controller
         }
 
         //NOUVELLES LIGNES
-        /*if($request->article5 != "--")
+        if($request->article5 != "--")
         {
             $add = DB::table('cotation_article')
             ->insert(['cotation_id' => $request->id_cotation,
@@ -973,10 +1008,51 @@ class CotationController extends Controller
             'id' => $request->id_cotation,
             'success' => 'Modification effectuée'
         ]);
+
         /*return back()->with(
             'success', 'Modification effectuée avec succès'
         );*/
      
+    }
+
+    public function UpdateCondition(Request $request)
+    {
+        //dd($request->all());
+        $edit = DB::table('cotations')
+        ->where('id', $request->id_cotation)
+        ->update(
+            [ 
+                
+                'id_condition' => $request->condition,
+                'id_user' => auth()->user()->id,
+            ]
+        );
+
+        return view('livewire/cotations/edit',[
+            'id' => $request->id_cotation,
+            'success' => 'Modification effectuée'
+        ]);
+        
+    }
+    
+    public function UpdateConditionv(Request $request)
+    {
+        //dd($request->all());
+        $edit = DB::table('cotations')
+        ->where('id', $request->id_cotation)
+        ->update(
+            [ 
+                
+                'id_condition' => $request->condition,
+                'id_user' => auth()->user()->id,
+            ]
+        );
+
+        return view('livewire/cotations/edit_vente',[
+            'id' => $request->id_cotation,
+            'success' => 'Modification effectuée'
+        ]);
+        
     }
 
     public function GoFormLines(Request $request)
@@ -1020,15 +1096,31 @@ class CotationController extends Controller
 
     public function GetDevis($id)
     {
-        $get = DB::table('cotations')
+        $get = DB::table('details_cotations')
+        ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
         ->join('clients', 'cotations.id_client', '=', 'clients.id')
-        ->join('services', 'cotations.id_service', '=', 'services.id')
+        ->join('services', 'details_cotations.id_service', '=', 'services.id')
         ->where('cotations.id', $id)
+        ->limit(1)
         ->get(['cotations.*', 'clients.nom', 'services.libele_service']);
-
+        //dd($get);
         return $get;
     }
 
+    public function GetDevisArticle($id)
+    {
+        $get = DB::table('cotations')
+        //->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+        ->join('clients', 'cotations.id_client', '=', 'clients.id')
+        ->join('services', 'cotations.id_service', '=', 'services.id')
+        ->where('cotations.id', $id)
+        ->limit(1)
+        ->get(['cotations.*', 'clients.nom', 'services.libele_service']);
+        //dd($get);
+        return $get;
+    }
+
+    
     public function AddLines(Request $request)
     {
         //dd($request->all());
@@ -1384,14 +1476,16 @@ class CotationController extends Controller
 
     public function PrintDevis(Request $request)
     {
+        //dd($request->all());;
         $data = [
             'id_cotation' => $request->id_cotation,
         ];
-        foreach($a = Cotation::where('id', $request->id_cotation)->get() as $a)
+        $a = Cotation::where('id', $request->id_cotation)->get();
+        foreach($a as $a)
         {
             $file = strval($a->numero_devis).".pdf";
         }
-      
+        //dd($file) ;
         $pdf = Pdf::loadView('livewire/cotations/devis-print', $data);
         
         //return response()->file($pdf);
@@ -1421,7 +1515,7 @@ class CotationController extends Controller
     {
         $get = DB::table('details_cotations')->where('cotation_id', $id)
         ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-        ->join('services', 'cotations.id_service', '=', 'services.id')
+        ->join('services', 'details_cotations.id_service', '=', 'services.id')
         ->join('clients', 'cotations.id_client', '=', 'clients.id')
         ->get(['details_cotations.*', 'cotations.date_creation', 'cotations.numero_devis',
                 'cotations.date_validite', 'cotations.id_client', 'cotations.valide',
@@ -1671,22 +1765,23 @@ class CotationController extends Controller
         $somme = 0;
         $count_services = DB::table('details_cotations')->where('cotation_id', $request->id)
         ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-        ->join('services', 'cotations.id_service', '=', 'services.id')
+        ->join('services', 'details_cotations.id_service', '=', 'services.id')
         ->count();
        
-        //dd($services);
+        //dd($request->id);
         if($count_services == 0)//C'est un devis article
         {
-            $a = DB::table('cotation_article')->where('cotation_id', $request->id)
+            $a = DB::table('cotation_article')
                 ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                 ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
+                ->where('cotation_article.cotation_id', $request->id)
                 ->get(['cotation_article.*',
                         'articles.designation', 'articles.code',
                 ]);
-
+            //dd($a);
             foreach($a as $a)
             {
-                $total = $a->quantite * $a->prix_unitaire;
+                $total = $a->quantite * $a->pu;
                 $somme = $somme + $total;
             }
 
@@ -1732,7 +1827,7 @@ class CotationController extends Controller
         {
             $s = DB::table('details_cotations')->where('cotation_id', $request->id)
             ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-            ->join('services', 'cotations.id_service', '=', 'services.id')
+            ->join('services', 'details_cotations.id_service', '=', 'services.id')
             ->get(['details_cotations.prix_ht', 'details_cotations.cotation_id', 
                 'cotations.date_creation', 'cotations.numero_devis',
                 'cotations.date_validite', 'cotations.id_client', 'cotations.valide',

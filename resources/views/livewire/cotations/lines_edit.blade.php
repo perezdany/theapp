@@ -8,9 +8,22 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>--Prestation:</label>
-                                                        <input type="text" name="prest6" class="form-control" id="prest6" 
-                                                        onkeyup="EnableFields('prest6', 'designation6', 'prix6', 'duree6', 'duree_type6')">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest6" class="form-control" id="prest6" 
+                                                            onkeyup="EnableFields('prest6', 'peutmodif6', 
+                                                            'designation6', 'prix6', 'duree6', 'duree_type6')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    
+                                                        <input type="text" name="peutmodif6" class="form-control" id="peutmodif6">
                                                     </div>
                                                 </div>
                                             </div>     
@@ -62,10 +75,23 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
-                                                    <div class="form-group">
-                                                    <label>--Prestation:</label>
-                                                        <input type="text" name="pres7" class="form-control" id="prest7" 
-                                                        onkeyup="EnableFields('prest7', 'designation7', 'prix7', 'duree7', 'duree_type7')">
+                                                     <div class="form-group">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest7" class="form-control" id="prest7" 
+                                                            onkeyup="EnableFields('prest7', 'peutmodif7', 
+                                                            'designation7', 'prix7', 'duree7', 'duree_type7')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    
+                                                        <input type="text" name="peutmodif7" class="form-control" id="peutmodif7">
                                                     </div>
                                                 </div>
                                             </div>     
@@ -118,9 +144,22 @@
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
-                                                    <label>--Prestation:</label>
-                                                        <input type="text" name="prest8" class="form-control" id="prest8" 
-                                                        onkeyup="EnableFields('prest8', 'designation8', 'prix8', 'duree8', 'duree_type8')">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest8" class="form-control" id="prest8" 
+                                                            onkeyup="EnableFields('prest8', 'peutmodif8', 
+                                                            'designation8', 'prix8', 'duree8', 'duree_type8')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    
+                                                        <input type="text" name="peutmodif8" class="form-control" id="peutmodif8">
                                                     </div>
                                                 </div>
                                             </div>     
@@ -172,10 +211,23 @@
                                              <div class="row">
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
-                                                    <div class="form-group">
-                                                    <label>--Prestation:</label>
-                                                        <input type="text" name="prest6" class="form-control" id="prest6" 
-                                                        onkeyup="EnableFields('prest9', 'designation9', 'prix9', 'duree9', 'duree_type9')">
+                                                     <div class="form-group">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest9" class="form-control" id="prest9" 
+                                                            onkeyup="EnableFields('prest9', 'peutmodif9', 
+                                                            'designation9', 'prix9', 'duree9', 'duree_type9')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    
+                                                        <input type="text" name="peutmodif9" class="form-control" id="peutmodif9">
                                                     </div>
                                                 </div>
                                             </div>     
@@ -228,10 +280,23 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
-                                                    <div class="form-group">
-                                                    <label>--Prestation:</label>
-                                                        <input type="text" name="prest10" class="form-control" id="prest10" 
-                                                        onkeyup="EnableFields('prest10', 'designation10', 'prix10', 'duree10', 'duree_type10')">
+                                                     <div class="form-group">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest10" class="form-control" id="prest10" 
+                                                            onkeyup="EnableFields('prest10', 'peutmodif10', 
+                                                            'designation10', 'prix10', 'duree10', 'duree_type10')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    
+                                                        <input type="text" name="peutmodif10" class="form-control" id="peutmodif10">
                                                     </div>
                                                 </div>
                                             </div>     

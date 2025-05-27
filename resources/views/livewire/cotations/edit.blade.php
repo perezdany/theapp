@@ -171,7 +171,7 @@
                                 @if($devis->valide == 0)
                                     <!--LES LIGNES DES DETAILS-->
                                     @if($devis->id_service == 8)
-                                    
+
                                         @php
                                             $les_articles = DB::table('cotation_article')
                                             ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
@@ -230,23 +230,45 @@
                                         @php
                                             $i = 1;
                                             $les_articles = DB::table('details_cotations')
+                                            ->join('services', 'details_cotations.id_service', '=', 'services.id')
                                             ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
                                             ->where('details_cotations.cotation_id', $devis->id)
-                                            ->get(['details_cotations.*',]);
+                                            ->get(['details_cotations.*', 'services.code', 'services.libele_service']);
+                                            
                                         @endphp
                                         @foreach($les_articles as $a)
                                             <input type="text" class="form-control" value="{{$a->id}}"  
                                             name="idd{{$i}}"  style="display:none;">  
                                         <div class="row">
-                                            <div class="col-sm-12">
+                                      
+                                              
+                                                <div class="col-sm-4 form-group">
+                                                  <label>--Prestation:</label>
                                                 <!-- text input -->
-                                                <div class="form-group">
-                                                <label>--Prestation:</label>
-                                                    <input type="text" name="@php echo 'prest'.$i @endphp" class="form-control"
-                                                        id="@php echo 'prest'.$i @endphp" value="{{$a->designation}}"
-                                                    >
+                                                    <!--<input type="text" name="@php echo 'prest'.$i @endphp" class="form-control"
+                                                        id="@php echo 'prest'.$i @endphp" >-->
+
+                                                    <select class="form-control" name="@php echo 'prest'.$i @endphp" 
+                                                        id="@php echo 'prest'.$i @endphp">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value={{$a->id_service}}>({{$a->code}})-{{$a->libele_service}}</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                   
                                                 </div>
-                                            </div>
+                                                <div class="col-sm-8 form-group">
+                                                     <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="@php echo 'peutmodif'.$i @endphp" class="form-control"
+                                                     id="@php echo 'peutmodif'.$i @endphp" value="{{$a->designation}}">
+                                                </div>
+                                                
+                                   
                                         </div>     
                                         <div class="row">
                                             <div class="col-sm-12">
@@ -384,7 +406,7 @@
                                     
                                     }
 
-                                    function EnableFields(sel, t, q, p, d)
+                                    function EnableFields(sel, m, t, q, p, d)
                                     {
                                         
                                         let designation = document.getElementById(sel);
@@ -393,6 +415,7 @@
                                         duree = document.getElementById(p);
                                         type_d = document.getElementById(d);
                                         desi = document.getElementById(t);
+                                        letexte = document.getElementById(m);
                                         //alert(type_d);
                                         if(designation.value != "")
                                         {
@@ -405,6 +428,8 @@
                                             type_d.setAttribute("enabled", "enabled");
                                             desi.removeAttribute("disabled");
                                             desi.setAttribute("enabled", "enabled");
+                                            letexte.removeAttribute("disabled");
+                                            letexte.setAttribute("enabled", "enabled");
                                         }
                                         else
                                         {  
@@ -417,6 +442,8 @@
                                             type_d.setAttribute("disabled", "disabled");
                                             desi.removeAttribute("enabled");
                                             desi.setAttribute("disabled", "disabled");
+                                            letexte.removeAttribute("enabled");
+                                            letexte.setAttribute("disabled", "disabled");
                                         }
                                     }
                                 </script>
@@ -666,6 +693,44 @@
             
         </div>
     </div>
+
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                            
+                    <h3 class="card-title">Conditions de paiement</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="update_condition">
+                        @csrf
+                        <input type="text" value="{{$id}}" name="id_cotation" style="display: none;">
+                        @php
+                            $condition = DB::table('cotations')
+                            ->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
+                            ->where('cotations.id', $id)
+                            ->get(['cotations.id_condition', 'conditions_paiements.*']);
+                        @endphp
+                        <select class="form-control" name="condition">
+                            @foreach($condition as $condition)
+                                <option value="{{$condition->id_condition}}">{{$condition->libele}}</option>
+                            @endforeach
+                            @php
+                                $g = DB::table('conditions_paiements')->get();
+                            @endphp
+                            @foreach($g as $g)
+                                <option value="{{$g->id}}">{{$g->libele}}</option>
+                            @endforeach
+                        </select>
+                        
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info float-right">VALIDER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>                
+        </div>
+
    
        
 

@@ -20,7 +20,7 @@ class Depenses extends Component
 
     public $date_sortie;
     public $montant = '';
-    public $nom_beneficiaire, $numero_cheque, $banque,  $numero_virement, $objet;
+    public $numero_cheque, $objet;
     public $date_virement;
     public $search = '';
     public $id_user;
@@ -68,11 +68,7 @@ class Depenses extends Component
             [ 
                 'date_sortie' => $this->date_sortie,
                 'montant' => $this->montant,
-                'nom_beneficiaire' => $this->nom_beneficiaire,
-                'numero_cheque' => $this->numero_cheque,
-                'banque' => $this->banque,
-                'date_virement' => $this->date_virement,
-                'numero_virement' => $this->numero_virement,
+                'numero' => $this->numero_cheque,
                 'objet' => $this->objet,
                 'id_user' => auth()->user()->id,
             ]
@@ -91,11 +87,7 @@ class Depenses extends Component
         ->update([
                 'date_sortie' => $this->editDepense['date_sortie'],
                 'montant' => $this->editDepense['montant'],
-                'nom_beneficiaire' => $this->editDepense['nom_beneficiaire'],
-                'numero_cheque' => $this->editDepense['numero_cheque'],
-                'banque' => $this->editDepense['banque'],
-                'date_virement' => $this->editDepense['date_virement'],
-                'numero_virement' => $this->editDepense['numero_virement'],
+                'numero' => $this->editDepense['numero'],
                 'objet' => $this->editDepense['objet'],
             
         ]);

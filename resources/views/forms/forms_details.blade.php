@@ -5,15 +5,40 @@
                                     <div id="support1">
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                               
+                                                <!-- text input -->
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                        <input type="text" name="prest1" class="form-control" id="prest1" 
-                                                        onkeyup="EnableFields('prest1', 'designation1', 'prix1', 'duree1', 'duree_type1')">
-
-                                                    </div>
+                                                    <select name="prest1" class="form-control" id="prest1" 
+                                                        onchange="EnableFields('prest1', 'peutmodif1', 
+                                                        'designation1', 'prix1', 'duree1', 'duree_type1',)">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>(({{$s->code}}))-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    <select id="cache1" style="display:none;">
+                                            
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
                                                 </div>
+                                                <div class="form-group col-sm-8">
+                                                    <label>&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif1" class="form-control" id="peutmodif1" disabled>
+                                                </div>
+                                            
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -63,13 +88,39 @@
                                      <div id="support2">
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                             
+                                                <!-- text input -->
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                        <input type="text" name="prest2" class="form-control" id="prest2" 
-                                                        onkeyup="EnableFields('prest2', 'designation2', 'prix2', 'duree2', 'duree_type2')">
-                                                    </div>
+                                                    <select name="prest2" class="form-control" id="prest2" 
+                                                        onchange="EnableFields('prest2', 'peutmodif2', 
+                                                        'designation2', 'prix2', 'duree2', 'duree_type2', )">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    <select id="cache2" style="display:none;">
+                                                
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+
+                                                </div>
+                                                <div class="form-group col-sm-8">
+                                                     <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif2" class="form-control" id="peutmodif2" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -118,13 +169,38 @@
                         
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                             
+                                                <!-- text input -->
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                        <input type="text" name="prest3" class="form-control" id="prest3" 
-                                                        onkeyup="EnableFields('prest3', 'designation3', 'prix3', 'duree3', 'duree_type3')">
-                                                    </div>
+                                                    <select name="prest3" class="form-control" id="prest3" 
+                                                        onchange="EnableFields('prest3', 'peutmodif3', 
+                                                        'designation3', 'prix3', 'duree3', 'duree_type3', )">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>  
+                                                    <select id="cache3" style="display:none;">
+                                            
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>    
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif3" class="form-control" id="peutmodif3" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -173,13 +249,37 @@
                                     <div id="support4">
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                                 <!-- text input -->
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                        <input type="text" name="prest4" class="form-control" id="prest4" 
-                                                        onkeyup="EnableFields('prest4', 'designation4', 'prix4', 'duree4', 'duree_type4')">
-                                                    </div>
+                                                    <select name="prest4" class="form-control" id="prest4" 
+                                                        onchange="EnableFields('prest4', 'peutmodif4', 
+                                                        'designation4', 'prix4', 'duree4', 'duree_type4', )">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    <select id="cache4" style="display:none;">
+                                            
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif4" class="form-control" id="peutmodif4" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -228,14 +328,38 @@
 
                                         <div class="content" id="support">
                                              <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                               
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                        <input type="text" name="prest5" class="form-control" id="prest3" 
-                                                        onkeyup="EnableFields('prest5', 'designation5', 'prix5', 'duree5', 'duree_type5')">
-
-                                                    </div>
+                                                    <select name="prest5" class="form-control" id="prest5" 
+                                                        onchange="EnableFields('prest5', 'peutmodif5', 
+                                                        'designation5', 'prix5', 'duree5', 'duree_type5', )">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    <select id="cache5" style="display:none;">
+                                                
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif5" class="form-control" id="peutmodif5" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -286,13 +410,37 @@
                                        
                                         <div class="content" id="support">
                                              <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                               
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                        <input type="text" name="prest6" class="form-control" id="prest3" 
-                                                        onkeyup="EnableFields('prest6', 'designation6', 'prix6', 'duree6', 'duree_type6')">
-                                                    </div>
+                                                    <select name="prest6" class="form-control" id="prest6" 
+                                                        onchange="EnableFields('prest6', 'peutmodif6', 
+                                                        'designation6', 'prix6', 'duree6', 'duree_type6', )">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    <select id="cache6" style="display:none;">
+                                            
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label>&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif6" class="form-control" id="peutmodif6" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -342,13 +490,37 @@
                                      <div id="support7"  style="display:none;">
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                               
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                        <input type="text" name="prest7" class="form-control" id="prest3" 
-                                                        onkeyup="EnableFields('prest7', 'designation7', 'prix7', 'duree7', 'duree_type7')">
-                                                    </div>
+                                                    <select name="prest7" class="form-control" id="prest7" 
+                                                        onchange="EnableFields('prest7', 'peutmodif7', 
+                                                        'designation7', 'prix7', 'duree7', 'duree_type7')">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select> 
+                                                    <select id="cache7" style="display:none;">
+                                            
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>     
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label>&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif7" class="form-control" id="peutmodif7" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -357,7 +529,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation7" class="form-control" id="designation7"
-                                                        onfocus="EnableFields('designation7', 'prix7', 'duree7', 'duree_type7')">
+                                                       disabled>
 
                                                         </textarea>
                                                     </div>
@@ -399,13 +571,37 @@
 
                                         <div class="content" id="support">
                                              <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                                
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                       <input type="text" name="prest8" class="form-control" id="prest8" 
-                                                        onkeyup="EnableFields('prest8', 'designation8', 'prix8', 'duree8', 'duree_type8')">
-                                                    </div>
+                                                    <select name="prest8" class="form-control" id="prest8" 
+                                                        onchange="EnableFields('prest8', 'peutmodif8', 
+                                                        'designation8', 'prix8', 'duree8', 'duree_type8', )">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    <select id="cache8" style="display:none;">
+                                            
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label>&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif8" class="form-control" id="peutmodif8" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -414,7 +610,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation8" class="form-control" id="designation8"
-                                                        onfocus="EnableFields('designation8', 'prix8', 'duree8', 'duree_type8')">
+                                                        disabled>
 
                                                         </textarea>
                                                     </div>
@@ -454,13 +650,37 @@
                                     </div>
                                     <div id="support9" style="display:none;">
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <!-- text input -->
-                                                <div class="form-group">
+                                            <!-- text input -->
+                                            <div class="form-group col-sm-4">
                                                 <label>--Prestation:</label>
-                                                    <input type="text" name="prest9" class="form-control" id="prest9" 
-                                                    onkeyup="EnableFields('prest9', 'designation9', 'prix9', 'duree9', 'duree_type9')">
-                                                </div>
+                                                <select name="prest9" class="form-control" id="prest9" 
+                                                    onchange="EnableFields('prest9', 'peutmodif9', 
+                                                    'designation9', 'prix9', 'duree9', 'duree_type9', )">
+                                            
+                                                    @php
+                                                        $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                    @endphp
+                                                    <option value="">--Choisir le Code--</option>
+                                                    @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                    @endforeach
+                                                    
+                                                </select>   
+                                                <select id="cache9" style="display:none;">
+                                            
+                                                    @php
+                                                        $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                    @endphp
+                                                   
+                                                    @foreach($cache as $c)
+                                                        <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                    @endforeach
+                                                    
+                                                </select>   
+                                            </div>
+                                            <div class="col-sm-8 form-group">
+                                                <label>&nbsp;&nbsp;</label>
+                                                <input type="text" name="peutmodif9" class="form-control" id="peutmodif9" disabled>
                                             </div>
                                         </div>
                                         <div class="content" id="support">
@@ -469,8 +689,7 @@
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                     <label>Description:</label>
-                                                        <textarea name="designation9" class="form-control" id="designation9"
-                                                        onfocus="EnableFields('designation9', 'prix9', 'duree9', 'duree_type9')">
+                                                        <textarea name="designation9" class="form-control" id="designation9" disabled>
 
                                                         </textarea>
                                                     </div>
@@ -511,35 +730,46 @@
                                     <div id="support10" style="display:none;">
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
+                                              
+                                                <!-- text input -->
+                                                <div class="form-group col-sm-4">
                                                     <label>--Prestation:</label>
-                                                        <input type="text" name="prest10" class="form-control" id="prest10" 
-                                                        onkeyup="EnableFields('prest10', 'designation10', 'prix10', 'duree10', 'duree_type10')">
-                                                    </div>
+                                                    <select name="prest10" class="form-control" id="prest10" 
+                                                        onchange="EnableFields('prest10', 'peutmodif10', 
+                                                        'designation10', 'prix10', 'duree10', 'duree_type10', )">
+                                                
+                                                        @php
+                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                        <option value="">--Choisir le Code--</option>
+                                                        @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                        @endforeach     
+                                                    </select>   
+                                                    <select id="cache10" style="display:none;">
+                                                        @php
+                                                            $cache = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                        @endphp
+                                                    
+                                                        @foreach($cache as $c)
+                                                            <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                </div>
+                                                <div class="col-sm-8 form-group">  
+                                                    <label>&nbsp;&nbsp;</label> 
+                                                    <input type="text" name="peutmodif10" class="form-control" id="peutmodif10" disabled>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
-                                                    <label>Description:</label>
-                                                        <input type="text" name="prest0" class="form-control" id="designation10"
-                                                        onfocus="EnableFields('prest10', 'prix10', 'duree10', 'duree_type10')">
-
-                                                        </textarea>
-                                                    </div>
-                                                </div>
-
-                                            </div>
+                                          
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation10" class="form-control" id="designation10"
-                                                        onfocus="EnableFields('designation10', 'prix10', 'duree10', 'duree_type10')">
+                                                        disabled>
 
                                                         </textarea>
                                                     </div>

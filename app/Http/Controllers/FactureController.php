@@ -114,16 +114,16 @@ class FactureController extends Controller
 
     public function PrintInvoice(Request $request)
     {
-         $data = [
+        $data = [
             'id_cotation' => $request->id_cotation,
         ];
         foreach($a = Facture::where('id_cotation', $request->id_cotation)->get() as $a)
         {
             $file = strval("FACTURE-".$a->numero_facture).".pdf";
         }
-      
+       
         $pdf = Pdf::loadView('livewire/factures/facture-print', $data);
-      
+        
         //return response()->file($pdf);
         return $pdf->stream($file);
         /*return view('livewire/factures/facture-print',[

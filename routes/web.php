@@ -184,6 +184,9 @@ Route::middleware(['auth'])->group(function(){
             //REJETER UN DEVIS
             Route::post('updaterejeter', [CotationController::class, 'UpdateRejeter']);
 
+            //LES CONDITIONS DE PAIEMENT
+            Route::post('update_condition', [CotationController::class, 'UpdateCondition']);
+               Route::post('update_conditionv', [CotationController::class, 'UpdateConditionv']);
             //AJOUTER UN DEVIS
             Route::post('add_devis', [CotationController::class, 'AddDevis']);
             //Route::post('add_devis', [CotationController::class, 'AddDevis']);

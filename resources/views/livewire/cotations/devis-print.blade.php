@@ -109,24 +109,18 @@
                         <!-- /.col -->
                     </div><br>
                 @endforeach
-                @php
+               @php
+                   
                     $somme = 0;
                     $compter = DB::table('details_cotations')->where('cotation_id', $id_cotation)
                     ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-                    ->join('services', 'cotations.id_service', '=', 'services.id')
+                    ->join('services', 'details_cotations.id_service', '=', 'services.id')
                     ->join('clients', 'cotations.id_client', '=', 'clients.id')
                     ->count();
-
+                    $i = 0;
                     //dd($devis->id); 
-                    if($compter  == 0)//Y A PAS D'ID DE DEVIS
-                    {
-                        //dd('ok');
-                       $devis = $cotationcontroller->GetArticleLines($id_cotation);
-                    }
-                    else
-                    {
-                        $devis = $cotationcontroller->GetLines($id_cotation);
-                    }
+                    
+                    //dd($devis);
                 @endphp
                 <!-- Table row -->
                 <div class="row">
@@ -141,7 +135,7 @@
                                 <th>Code</th>
                                 <th>Désignation</th>
                                 <th>Description</th>
-                                <th>Durée</th>
+                                <th>Garantie</th>
                                 <th>Qté</th>
                                 <th>Prix (Unitaire)</th>
                                 <th>Total</th>
@@ -161,7 +155,7 @@
                                         @endif   
                                         <td>{{$devis->designation}}</td>
                                         <td>{{$devis->description_article}}</td>
-                                        <td>N/A</td>
+                                        <td>1 ans</td>
                                         <td>{{$devis->quantite}}</td>
                                         <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
                                         <td>
@@ -192,7 +186,6 @@
                                 <th>Code</th>
                                 <th>Prestation</th>
                                 <th>Description</th>
-                                
                                 <th>Durée</th>
                                 <th>Qté</th>
                                 <th>Prix (Unitaire)</th>
@@ -205,16 +198,13 @@
                             @endphp
                             @foreach($devis as $devis)
                                 <tr style="background-color:#e8f8f5 ">
-                                    @if($i == 0)
-                                        <td syle="border:0px;">{{$devis->code}}</td>
-                                    @else
-                                        <td syle="border:0px;"></td>
-                                    @endif   
+                               
+                                    <td syle="border:0px;">{{$devis->code}}</td>
                                     <td><b>{{$devis->designation}}</b></td>
                                     <td>{{$devis->descrpt}}</td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
-                                    <td>N/A</td>
+                                    <td>1</td>
                                     <td>@php echo number_format($devis->prix_ht, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
                                     @php echo number_format(($devis->prix_ht), 2, ".", " ")."F CFA"; @endphp
@@ -224,7 +214,7 @@
                                 @php
                                     //dump("oi");
                                     $somme = $somme + ($devis->prix_ht);
-                                    $i = $i+1;
+                                    //$i = $i+1;
                                 @endphp
                             @endforeach               
                             </tbody>
@@ -235,7 +225,6 @@
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
-
                 <table width="100%">
                     <!-- accepted payments column -->
                     <tr>
@@ -324,7 +313,15 @@
                 </table>
                 <!-- /.row -->
                 <u>Conditions de paiement</u> :<br>
-                <i style="color:red">100% à la livraison</i><br><br><br>
+                @php
+                    $condition = DB::table('cotations')
+                    ->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
+                    ->where('cotations.id', $id_cotation)
+                    ->get(['cotations.id_condition', 'conditions_paiements.*']);
+                @endphp
+                @foreach($condition as $condition)
+                    <i style="color:red">{{$condition->libele}}</i><br><br><br>
+                @endforeach
                 <!-- this row will not appear when printing -->
                 <!--<div class="row no-print">
                     <div class="col-12">

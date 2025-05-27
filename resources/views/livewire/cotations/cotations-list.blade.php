@@ -158,18 +158,13 @@
                             
                         </select>   
                     </div> 
-                    <div class="col-md-2 input-group input-group-sm">
+                    <!--<div class="col-md-2 input-group input-group-sm">
                         <select class="form-control" id="service" wire:model.live.debounce.250ms="service">
                             <option value="">Par service</option>
-                            @php
-                                $s = DB::table('services')->get();
-                            @endphp
-                            @foreach($s as $s)
-                                <option value={{$s->id}}>{{$s->libele_service}}</option>
-                            @endforeach
+                           
                             
                         </select>   
-                    </div>
+                    </div>-->
 
                     <div class="col-md-2 input-group input-group-sm">
                         <select class="form-control" id="rejete" wire:model.live.debounce.250ms="rejete">
@@ -359,6 +354,7 @@
                             </div>
                             @endcan
                             <div class="col-sm-4">
+                                
                                 @if($cotation->valide == 0)
                                     <form action="validecotation" method="post">  
                                     @csrf
