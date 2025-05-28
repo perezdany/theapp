@@ -329,11 +329,12 @@
             <div class="card">
                 <div class="card-header">
                             
-                            <h3 class="card-title">Détails</h3>
-                            </div>
-                <div class="card-body">
-            @include("forms.tableau_recap_details")
+                    <h3 class="card-title">Détails</h3>
                 </div>
+                <div class="card-body">
+                    @include("forms.tableau_recap_details")
+                </div>
+            </div>
             <!--TABLEAU REACP DES DETAILS AVEC LE MONTANT TOTAL EN BAS-->
             
         </div>

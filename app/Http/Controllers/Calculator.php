@@ -230,7 +230,7 @@ class Calculator extends Controller
 
         //Prendre touts les services et pour chaque service recupérer le total des contrats dans le mois en questions
         
-        //TABKEAU QUI VA RECUPERER LES SERVICES
+        //TABLEAU QUI VA RECUPERER LES SERVICES
         $serv = [];
         //TABLEAU QUI VA RECUPER LE TOTAL DES PRESTATIONS
         $data_serv = [];
@@ -246,34 +246,48 @@ class Calculator extends Controller
         foreach($all_services as $all_services)
         {    
             $compte_prestations  = 0; 
-            //TOUTES LES FACTURES EMISES NON ANNULEES DU MOIS
-            $toutes_reglees =  DB::table('cotation_service')
-            ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-            ->join('services', 'services.id', '=', 'cotation_service.service_id')
+            //LES DETAILS DES DEVIS. ON VA RECUPER LES SERVICES AVEC CA
+            $toutes_reglees =  DB::table('cotations')
             ->where('cotations.date_creation', '>=', $first_date)
             ->where('cotations.date_creation', '<=', $last_date)
             ->get();
            
             foreach($toutes_reglees as $toutes_reglee)
             {   
-                
-                //pour récupérer le nombre total de la prestation spécifique ce mois ci
-                $compte_prestations_service =  DB::table('cotation_service')
-                ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-                ->join('services', 'services.id', '=', 'cotation_service.service_id')
-                ->where('cotation_service.cotation_id', $toutes_reglee->cotation_id)
-                ->where('cotation_service.service_id', '=', $all_services->id)
-                //->where('cotations.valide', 1)
-                ->count();
-                //dump($compte_prestations_service );
-                //->get(['prestation_services.*', 'services.libele_service', 'contrats.id']);
-            
-                if($compte_prestations_service != 0)
-                {   
-                    $compte_prestations++;
+                //QUAND IL S'AGIT DE VENTE DE MATERIEL
+                if($all_services->code = "MAT")
+                {
+                    $compte_prestations_service =  DB::table('cotation_article')
+                    ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'services.id', '=', 'cotations.id_service')
+                    ->where('cotation_article.cotation_id', $toutes_reglee->id)
+                    ->where('cotations.id_service', '=', $all_services->id)
+                    ->count();
+
+                    if($compte_prestations_service != 0)
+                    {   
+                        $compte_prestations++;
+                    }
+
                 }
-                
+                else
+                {
+                     //pour récupérer le nombre total de la prestation spécifique ce mois ci
+                    $compte_prestations_service =  DB::table('details_cotations')
+                    ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'services.id', '=', 'details_cotations.id_service')
+                    ->where('details_cotations.cotation_id', $toutes_reglee->cotation_id)
+                    ->where('details_cotations.service_id', '=', $all_services->id)
+                    //->where('cotations.valide', 1)
+                    ->count();
+                    if($compte_prestations_service != 0)
+                    {   
+                        $compte_prestations++;
+                    }
+                }
+            
             }
+
             if($compte_prestations != 0)
             {
                 //ON VA METTRE LE NOM DU SERVICE DANS LE TABLEAU
@@ -472,34 +486,48 @@ class Calculator extends Controller
         foreach($all_services as $all_services)
         {    
             $compte_prestations  = 0; 
-            //TOUTES LES FACTURES EMISES NON ANNULEES DU MOIS
-            $toutes_reglees =  DB::table('cotation_service')
-            ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-            ->join('services', 'services.id', '=', 'cotation_service.service_id')
+            //LES DETAILS DES DEVIS. ON VA RECUPER LES SERVICES AVEC CA
+            $toutes_reglees =  DB::table('cotations')
             ->where('cotations.date_creation', '>=', $first_date)
             ->where('cotations.date_creation', '<=', $last_date)
             ->get();
-        
+           
             foreach($toutes_reglees as $toutes_reglee)
             {   
-                
-                //pour récupérer le nombre total de la prestation spécifique ce mois ci
-                $compte_prestations_service =  DB::table('cotation_service')
-                ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-                ->join('services', 'services.id', '=', 'cotation_service.service_id')
-                ->where('cotation_service.cotation_id', $toutes_reglee->cotation_id)
-                ->where('cotation_service.service_id', '=', $all_services->id)
-                //->where('cotations.valide', 1)
-                ->count();
-                //dump($compte_prestations_service );
-                //->get(['prestation_services.*', 'services.libele_service', 'contrats.id']);
-            
-                if($compte_prestations_service != 0)
-                {   
-                    $compte_prestations++;
+                //QUAND IL S'AGIT DE VENTE DE MATERIEL
+                if($all_services->code = "MAT")
+                {
+                    $compte_prestations_service =  DB::table('cotation_article')
+                    ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'services.id', '=', 'cotations.id_service')
+                    ->where('cotation_article.cotation_id', $toutes_reglee->id)
+                    ->where('cotations.id_service', '=', $all_services->id)
+                    ->count();
+
+                    if($compte_prestations_service != 0)
+                    {   
+                        $compte_prestations++;
+                    }
+
                 }
-                
+                else
+                {
+                     //pour récupérer le nombre total de la prestation spécifique ce mois ci
+                    $compte_prestations_service =  DB::table('details_cotations')
+                    ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'services.id', '=', 'details_cotations.id_service')
+                    ->where('details_cotations.cotation_id', $toutes_reglee->cotation_id)
+                    ->where('details_cotations.service_id', '=', $all_services->id)
+                    //->where('cotations.valide', 1)
+                    ->count();
+                    if($compte_prestations_service != 0)
+                    {   
+                        $compte_prestations++;
+                    }
+                }
+            
             }
+
             if($compte_prestations != 0)
             {
                 //ON VA METTRE LE NOM DU SERVICE DANS LE TABLEAU
@@ -518,8 +546,8 @@ class Calculator extends Controller
                 }
                 array_push($data_serv, $compte_prestations);    
             }
-        
-        
+          
+           
         }
         //dd($data_serv);
         
@@ -705,32 +733,48 @@ class Calculator extends Controller
         foreach($all_services as $all_services)
         {    
             $compte_prestations  = 0; 
-            $toutes_reglees =  DB::table('factures')
-            ->join('cotations', 'factures.id_cotation', '=', 'cotations.id')
-            ->where('factures.annulee', 0)
-            ->where('factures.date_emission', '>=', $first_date)
-            ->where('factures.date_emission', '<=', $last_date)
+            //LES DETAILS DES DEVIS. ON VA RECUPER LES SERVICES AVEC CA
+            $toutes_reglees =  DB::table('cotations')
+            ->where('cotations.date_creation', '>=', $first_date)
+            ->where('cotations.date_creation', '<=', $last_date)
             ->get();
-            //dd($toutes_reglees);
+           
             foreach($toutes_reglees as $toutes_reglee)
             {   
-                //echo "contrat:".$toutes_reglee->id_contrat."<br>";
-                //pour récupérer le nombre total de la prestation spécifique ce mois ci
-                $compte_cotation_service =  DB::table('cotation_service')
-                ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-                ->join('services', 'services.id', '=', 'cotation_service.service_id')
-                ->where('cotation_service.cotation_id', $toutes_reglee->id_cotation)
-                ->where('cotation_service.service_id', '=', $all_services->id)
-                ->count();
-                //->get(['prestation_services.*', 'services.libele_service', 'contrats.id']);
-                //dump($toutes_reglees);
-                
-                if($compte_cotation_service != 0)
-                {   
-                    $compte_prestations++;
+                //QUAND IL S'AGIT DE VENTE DE MATERIEL
+                if($all_services->code = "MAT")
+                {
+                    $compte_prestations_service =  DB::table('cotation_article')
+                    ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'services.id', '=', 'cotations.id_service')
+                    ->where('cotation_article.cotation_id', $toutes_reglee->id)
+                    ->where('cotations.id_service', '=', $all_services->id)
+                    ->count();
+
+                    if($compte_prestations_service != 0)
+                    {   
+                        $compte_prestations++;
+                    }
+
                 }
-                
+                else
+                {
+                     //pour récupérer le nombre total de la prestation spécifique ce mois ci
+                    $compte_prestations_service =  DB::table('details_cotations')
+                    ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'services.id', '=', 'details_cotations.id_service')
+                    ->where('details_cotations.cotation_id', $toutes_reglee->cotation_id)
+                    ->where('details_cotations.service_id', '=', $all_services->id)
+                    //->where('cotations.valide', 1)
+                    ->count();
+                    if($compte_prestations_service != 0)
+                    {   
+                        $compte_prestations++;
+                    }
+                }
+            
             }
+
             if($compte_prestations != 0)
             {
                 //ON VA METTRE LE NOM DU SERVICE DANS LE TABLEAU
@@ -747,11 +791,11 @@ class Calculator extends Controller
                     }   
                     
                 }
-                array_push($data_serv, $compte_prestations);
+                array_push($data_serv, $compte_prestations);    
             }
-
+          
+           
         }
-       
         return view('graphs/yearly', compact('data', 'mois_francais', 'percent', 'company', 'serv', 'data_serv', 'colors', 'total_annuel'));
     }
 
@@ -936,32 +980,48 @@ class Calculator extends Controller
         foreach($all_services as $all_services)
         {    
             $compte_prestations  = 0; 
-            $toutes_reglees =  DB::table('factures')
-            ->join('cotations', 'factures.id_cotation', '=', 'cotations.id')
-            ->where('factures.annulee', 0)
-            ->where('factures.date_emission', '>=', $first_date)
-            ->where('factures.date_emission', '<=', $last_date)
+            //LES DETAILS DES DEVIS. ON VA RECUPER LES SERVICES AVEC CA
+            $toutes_reglees =  DB::table('cotations')
+            ->where('cotations.date_creation', '>=', $first_date)
+            ->where('cotations.date_creation', '<=', $last_date)
             ->get();
-            //dd($toutes_reglees);
+           
             foreach($toutes_reglees as $toutes_reglee)
             {   
-                //echo "contrat:".$toutes_reglee->id_contrat."<br>";
-                //pour récupérer le nombre total de la prestation spécifique ce mois ci
-                $compte_cotation_service =  DB::table('cotation_service')
-                ->join('cotations', 'cotation_service.cotation_id', '=', 'cotations.id')
-                ->join('services', 'services.id', '=', 'cotation_service.service_id')
-                ->where('cotation_service.cotation_id', $toutes_reglee->id_cotation)
-                ->where('cotation_service.service_id', '=', $all_services->id)
-                ->count();
-                //->get(['prestation_services.*', 'services.libele_service', 'contrats.id']);
-                //dump($toutes_reglees);
-                
-                if($compte_cotation_service != 0)
-                {   
-                    $compte_prestations++;
+                //QUAND IL S'AGIT DE VENTE DE MATERIEL
+                if($all_services->code = "MAT")
+                {
+                    $compte_prestations_service =  DB::table('cotation_article')
+                    ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'services.id', '=', 'cotations.id_service')
+                    ->where('cotation_article.cotation_id', $toutes_reglee->id)
+                    ->where('cotations.id_service', '=', $all_services->id)
+                    ->count();
+
+                    if($compte_prestations_service != 0)
+                    {   
+                        $compte_prestations++;
+                    }
+
                 }
-                
+                else
+                {
+                     //pour récupérer le nombre total de la prestation spécifique ce mois ci
+                    $compte_prestations_service =  DB::table('details_cotations')
+                    ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                    ->join('services', 'services.id', '=', 'details_cotations.id_service')
+                    ->where('details_cotations.cotation_id', $toutes_reglee->cotation_id)
+                    ->where('details_cotations.service_id', '=', $all_services->id)
+                    //->where('cotations.valide', 1)
+                    ->count();
+                    if($compte_prestations_service != 0)
+                    {   
+                        $compte_prestations++;
+                    }
+                }
+            
             }
+
             if($compte_prestations != 0)
             {
                 //ON VA METTRE LE NOM DU SERVICE DANS LE TABLEAU
@@ -978,9 +1038,10 @@ class Calculator extends Controller
                     }   
                     
                 }
-                array_push($data_serv, $compte_prestations);
+                array_push($data_serv, $compte_prestations);    
             }
-
+          
+           
         }
         
         return view('graphs/search_yearly', compact('data', 'mois_francais', 'percent', 'company', 'data_serv', 'serv', 'year', 'colors', 'total_annuel'));

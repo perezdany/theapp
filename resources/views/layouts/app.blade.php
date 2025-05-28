@@ -70,7 +70,7 @@
                   @endif
               </div>
             </div>
-              @yield('content')
+            @yield('content')
           </div><!--/. container-fluid -->
         </section>
         <!-- /.content -->

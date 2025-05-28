@@ -26,7 +26,6 @@
         <!--/.col (left) -->
         <!-- right column -->
         <div class="col-md-6">
- 
             <!-- general form elements disabled -->
             @if(isset($id))
                 <div class="row">
@@ -184,7 +183,7 @@
                                         @endphp
                                         
                                         @foreach($les_articles as $a)
-                                                <input type="text" class="form-control" value="{{$a->id}}"  
+                                            <input type="text" class="form-control" value="{{$a->id}}"  
                                             name="idd{{$i}}"  style="display:none;">
                                             <div class="row">
                                                 <div class="col-sm-4">
@@ -237,38 +236,34 @@
                                             
                                         @endphp
                                         @foreach($les_articles as $a)
-                                            <input type="text" class="form-control" value="{{$a->id}}"  
+                                        <input type="text" class="form-control" value="{{$a->id}}"  
                                             name="idd{{$i}}"  style="display:none;">  
                                         <div class="row">
-                                      
-                                              
-                                                <div class="col-sm-4 form-group">
-                                                  <label>--Prestation:</label>
-                                                <!-- text input -->
-                                                    <!--<input type="text" name="@php echo 'prest'.$i @endphp" class="form-control"
-                                                        id="@php echo 'prest'.$i @endphp" >-->
+                                            <div class="col-sm-4 form-group">
+                                                <label>--Prestation:</label>
+                                            <!-- text input -->
+                                                <!--<input type="text" name="@php echo 'prest'.$i @endphp" class="form-control"
+                                                    id="@php echo 'prest'.$i @endphp" >-->
 
-                                                    <select class="form-control" name="@php echo 'prest'.$i @endphp" 
-                                                        id="@php echo 'prest'.$i @endphp">
+                                                <select class="form-control" name="@php echo 'prest'.$i @endphp" 
+                                                    id="@php echo 'prest'.$i @endphp">
+                                            
+                                                    @php
+                                                        $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                    @endphp
+                                                    <option value={{$a->id_service}}>({{$a->code}})-{{$a->libele_service}}</option>
+                                                    @foreach($s as $s)
+                                                    <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                    @endforeach
+                                                    
+                                                </select>   
                                                 
-                                                        @php
-                                                            $s = DB::table('services')->where('code','<>', 'MAT')->get();
-                                                        @endphp
-                                                        <option value={{$a->id_service}}>({{$a->code}})-{{$a->libele_service}}</option>
-                                                        @foreach($s as $s)
-                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
-                                                        @endforeach
-                                                        
-                                                    </select>   
-                                                   
-                                                </div>
-                                                <div class="col-sm-8 form-group">
-                                                     <label>&nbsp;&nbsp;&nbsp;</label>
-                                                    <input type="text" name="@php echo 'peutmodif'.$i @endphp" class="form-control"
-                                                     id="@php echo 'peutmodif'.$i @endphp" value="{{$a->designation}}">
-                                                </div>
-                                                
-                                   
+                                            </div>
+                                            <div class="col-sm-8 form-group">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                <input type="text" name="@php echo 'peutmodif'.$i @endphp" class="form-control"
+                                                    id="@php echo 'peutmodif'.$i @endphp" value="{{$a->designation}}">
+                                            </div>
                                         </div>     
                                         <div class="row">
                                             <div class="col-sm-12">
@@ -449,15 +444,14 @@
                                 </script>
                                         
                                 <div class="card-footer">
-                                @if($devis->valide == 0)
-                                    <button type="submit" class="btn btn-info float-right">VALIDER</button>
-                                @else
-                                @endif
-                                
+                                    @if($devis->valide == 0)
+                                        <button type="submit" class="btn btn-info float-right">VALIDER</button>
+                                    @else
+                                    @endif
                                 </div>
                             </form>
                         </div>
-                        
+                    
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
@@ -468,10 +462,8 @@
          <!--/.col (right) -->
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">
-                            
-                    <h3 class="card-title">Détails</h3>
-                            
+                <div class="card-header"> 
+                    <h3 class="card-title">Détails</h3>      
                 </div>
                 <div class="card-body">
                     @php
@@ -689,13 +681,10 @@
                     </div>
                     <!-- /.table-responsive -->
                 </div>
+                <hr>
+                 
+            </div>
             <!--TABLEAU REACP DES DETAILS AVEC LE MONTANT TOTAL EN BAS-->
-            
-        </div>
-    </div>
-
-
-        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                             
@@ -728,9 +717,17 @@
                         </div>
                     </form>
                 </div>
-            </div>                
+            </div>       
         </div>
+    </div>
 
+    <div class="row">      
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+                
+        </div>
+    </div>
    
        
 
