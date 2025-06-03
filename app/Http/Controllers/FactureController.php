@@ -22,9 +22,13 @@ class FactureController extends Controller
         //dd($request->all());
          //PRENDRE TOUS LES MONTANTS DES DETAILS ET AJOUTER DANS LE DEVIS 
         $somme = 0;
+        $sommea = 0;
         $count_lines = DB::table('details_cotations')
         ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
         ->where('details_cotations.cotation_id', $request->id_cotation)->count();
+         $count_articles = DB::table('cotation_article')
+            ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+            ->where('cotation_article.cotation_id', $request->id_cotation)->count();
         if($count_lines != 0)//C'EST SERVICE PAS VENTE
         {
             $lines = DB::table('details_cotations')
@@ -38,7 +42,8 @@ class FactureController extends Controller
                 $somme = $somme + $line->prix_ht;
             }
         }
-        else
+
+        if($count_articles != 0)
         {
             $lines = DB::table('cotation_article')
             ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
@@ -48,10 +53,10 @@ class FactureController extends Controller
             foreach($lines as $line)
             {
                 $numero = $line->numero_devis;
-                $somme = $somme + $line->pu;
+                $sommea = $sommea + $line->pu;
             }
         }
-        
+        $tout = $somme + $sommea;
         
         $today = date('Y-m-d');
         $timestamp = strtotime($today);

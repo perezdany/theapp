@@ -24,7 +24,7 @@
     <!-- /.content-header -->
     <div class="row">
         <div class="col-md-6">
-        <!-- general form elements disabled -->
+            <!-- general form elements disabled -->
             
             @if(isset($id))
                 <div class="row">
@@ -307,13 +307,12 @@
         <div class="card">
             <div class="card-header">
                         
-                        <h3 class="card-title">Articles ajoutés</h3>
-                        </div>
+                <h3 class="card-title">Articles ajoutés</h3>
+            </div>
             <div class="card-body">
-            @include("forms.tableau_lignes_articles")
+                @include("forms.tableau_lignes_articles")
             </div>
 
-          
         </div>                
     </div>
     <div class="row">                

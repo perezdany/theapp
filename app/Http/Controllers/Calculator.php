@@ -1118,8 +1118,9 @@ class Calculator extends Controller
         return view('graph/newcustomery', compact('data', 'mois_francais',  'company' , 'year', 'customers'));
     }
 
-    public function GenerateNumDevis($date, $service)
+    public function GenerateNumDevis($date)
     {
+        //$service
         $recup_les_devis = Cotation::where('date_creation', $date)->count();
         if($recup_les_devis != 0 )
         {
@@ -1143,25 +1144,27 @@ class Calculator extends Controller
             //dd($id);
             $recup_les_devis = Cotation::where('date_creation', $date)->orderBy('id', 'DESC')->get('id', 'numero_devis');
             
-            foreach($recup_les_devis as $recup)
+            /*foreach($recup_les_devis as $recup)
             {
-                $serv = DB::table('services')->where('id', $service)->get(['code']);
+                //$serv = DB::table('services')->where('id', $service)->get(['code']);
                 foreach($serv as $serv)
                 {
-                    $numero_devis = $serv->code."-".Date('dmY')."-".$id;
+                    
                 }
-            }
+            }*/
+            $numero_devis = "DEVIS-".Date('dmY')."-".$id;
 
             //dd($numero_devis);
         }
         else
         {
-            $serv = DB::table('services')->where('id', $service)->get(['code']);
-            foreach($serv as $serv)
+            //$serv = DB::table('services')->where('id', $service)->get(['code']);
+            /*foreach($serv as $serv)
             {
-                $numero_devis = $serv->code."-".Date('dmY')."-001";
-            }
+                $numero_devis = "DEVIS-".Date('dmY')."-001";
+            }*/
             //dd($numero_devis);
+            $numero_devis = "DEVIS-".Date('dmY')."-001";
            
         }
 

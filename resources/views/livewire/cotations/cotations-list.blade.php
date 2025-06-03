@@ -34,12 +34,12 @@
             <div class="card-header"><h3 class="card-title">Liste des devis</h3><br>
                 <div class="row">
                     <div  class="col-xs-3">
-                        <!--<a href=""><button class="btn btn-primary">
-                         <b><i class="fa fa-plus"></i></b></button><br></a>-->
+                      <a href="go_form_add_devis"><button class="btn btn-primary">
+                         <b><i class="fa fa-plus"></i></b></button><br></a>
 
-                        <button class="btn btn-primary" 
+                          <!--<button class="btn btn-primary" 
                         data-toggle="modal" data-target="#createds" >
-                            <b><i class="fa fa-plus"></i>DEVIS</b></button>
+                            <b><i class="fa fa-plus"></i>DEVIS</b></button>-->
                         <div class="modal fade" id="createds"  
                             wire:ignore.self  role="dialog" aria-hidden="true" >
                             <div class="modal-dialog">

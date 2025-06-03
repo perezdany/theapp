@@ -1,11 +1,13 @@
- @php
-                                $total_ht = 0;
-                                $les_articles = DB::table('details_cotations')
-                                ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-                                ->where('details_cotations.cotation_id', $id)
-                                ->get(['details_cotations.*',]);
-                                //dd($les_articles);
-                            @endphp
+ @if( isset($id))
+        @php
+                        $total_ht = 0;
+                    
+                            $les_articles = DB::table('details_cotations')
+                            ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                            ->where('details_cotations.cotation_id', $id)
+                            ->get(['details_cotations.*',]);
+                    @endphp
+                       
                             <div class="table-responsive">
                                 <table class="table m-0">
                                     <thead>
@@ -212,3 +214,4 @@
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
+@endif

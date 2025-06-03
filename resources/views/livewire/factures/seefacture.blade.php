@@ -23,7 +23,7 @@
                     $la_facture = $facturecontroller->GetByIdCotation($id_cotation);
                     //dd($la_facture);
                 @endphp
-                 @foreach($devis as $devis)
+                @foreach($devis as $devis)
                     <div class="row">
                         <div class="col-md-2">
                         @php
@@ -113,24 +113,26 @@
                         <!-- /.col -->
                     </div><br>
                 @endforeach
-                @php
+                 @php
                    
+                    $sommea = 0;
                     $somme = 0;
                     $compter = DB::table('details_cotations')->where('cotation_id', $id_cotation)
                     ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
                     ->join('services', 'details_cotations.id_service', '=', 'services.id')
                     ->join('clients', 'cotations.id_client', '=', 'clients.id')
                     ->count();
+                    $compter_article = DB::table('cotation_article')->where('cotation_id', $id_cotation)
+                    ->count();
                     $i = 0;
-                    //dd($devis->id); 
-                    
-                    //dd($devis);
+                    //dd($compter); 
+
                 @endphp
                 <!-- Table row -->
                 <div class="row">
                     <div class="col-12 table-responsive">
                     <table class="table table-bordered table-striped">
-                        @if($compter  == 0)<!--Y A PAS D'ID DE DEVIS-->
+                        @if($compter_article != 0)<!--Y A ARTICLE -->
                             @php
                                 $devis = $cotationcontroller->GetArticleLines($id_cotation);
                             @endphp
@@ -153,7 +155,7 @@
                                     <tr style="background-color:#e8f8f5 ">
                                         @if($i == 0)
                                             
-                                            <td>{{$devis->code}}</td>
+                                            <td>MAT</td>
                                         @else
                                             <td></td>
                                         @endif   
@@ -166,7 +168,7 @@
                                             @php
                                                 $total = $devis->quantite * $devis->pu;
                                                 echo number_format($total, 2, ".", " ")."F CFA";
-                                                $somme = $somme + $total;
+                                                $sommea = $sommea + $total;
                                             @endphp
                                         </td>
                                         @php
@@ -174,8 +176,6 @@
                                         @endphp
                                     <tr>    
                                 @if($devis->code == "MAT")
-
-
                                     @foreach($articles as $article)
                                     
                                     @endforeach
@@ -184,13 +184,13 @@
                                 @endif 
                             @endforeach  
                             </tbody>                  
-                        @else
+                        @endif
+                        @if($compter  != 0)
                             <thead>
                                 <tr style="background-color:#76d7c4">
                                 <th>Code</th>
                                 <th>Prestation</th>
                                 <th>Description</th>
-                                
                                 <th>Durée</th>
                                 <th>Qté</th>
                                 <th>Prix (Unitaire)</th>
@@ -200,6 +200,7 @@
                             <tbody>
                             @php
                                 $devis = $cotationcontroller->GetLines($id_cotation);
+                                //dd($devis);
                             @endphp
                             @foreach($devis as $devis)
                                 <tr style="background-color:#e8f8f5 ">
@@ -220,7 +221,7 @@
                                 @php
                                     //dump("oi");
                                     $somme = $somme + ($devis->prix_ht);
-                                    $i = $i+1;
+                                    //$i = $i+1;
                                 @endphp
                             @endforeach               
                             </tbody>
@@ -252,27 +253,29 @@
                     <div class="col-6">
                     <!--<p class="lead">Détails montant total</p>-->
 
+                    @php
+                        $tva = DB::table('taxes')->get();
+                        $tout = $somme + $sommea;
+                    @endphp
                     <div class="table-responsive">
                         <table class="table">
                         <tr>
                             <th style="width:50%; background-color:#969696">Sous-total:</th>
-                            <td>@php echo number_format($somme, 2, ".", " ")."F CFA"; @endphp</td>
+                            <td>@php echo number_format($tout, 2, ".", " ")."F CFA"; @endphp</td>
                         </tr>
 
-                        @php
-                            $tva = DB::table('taxes')->get();
-                        @endphp
+                        
                         @foreach($tva as $tva)
                             @if($tva->active == 0)
-                                <tr><th style="background-color:#969696">Tax (18%)</th>
+                               <tr><th style="background-color:#969696">Tax (18%)</th>
                                     <td> 0 F CFA</td>
                                 </tr>
                                 <tr >
                                     <th style="background-color:#969696">Total:</th>
                                     <td>
                                     @php 
-                                        echo number_format($somme, 2, ".", " ")."F CFA"; 
-                                        $pour_facture = $somme;
+                                        echo number_format($tout, 2, ".", " ")."F CFA"; 
+                                        $pour_facture = $tout;
                                     @endphp</td>
                                 </tr>
                             @else
@@ -285,14 +288,14 @@
                                         {
                                             echo' <tr><th style="background-color:#969696">Tax (18%)</th>
                                             <td>';
-                                            $m = $somme * (18/100);
+                                            $m = $tout * (18/100);
                                             echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
                                         }
                                         else
                                         {
                                             $m = 0;
                                             //echo number_format($somme, 2, ".", " ")."F CFA"; 
-                                            $pour_facture = $somme;
+                                            $pour_facture = $tout;
                                         }
                                     } 
                                 @endphp
@@ -301,7 +304,7 @@
                                     <th style="background-color:#969696">Total:</th>
                                     <td>
                                         @php
-                                            $l = $somme + $m;
+                                            $l = $tout + $m;
                                             echo number_format($l, 2, ".", " ")."F CFA";
                                             $pour_facture = $l;
                                         @endphp

@@ -1,3 +1,4 @@
+<div>
  <div class="row"><button type="button" id="bt5" 
                                     class="btn btn-warning float-right" 
                                     onclick="displayTheLine('support6','bt5')"><i class="fa fa-plus"></i></button></div>
@@ -5,12 +6,12 @@
                                        
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-4">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>--Prestation:</label>
                                                         <select name="prest6" class="form-control" id="prest6" 
-                                                            onkeyup="EnableFields('prest6', 'peutmodif6', 
+                                                            onchange="EnableFields('prest6', 'peutmodif6', 
                                                             'designation6', 'prix6', 'duree6', 'duree_type6')">
                                                     
                                                             @php
@@ -23,8 +24,12 @@
                                                             
                                                         </select>   
                                                     
-                                                        <input type="text" name="peutmodif6" class="form-control" id="peutmodif6">
                                                     </div>
+                                                    
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif6" class="form-control" id="peutmodif6">
                                                 </div>
                                             </div>     
                                             <div class="row">
@@ -73,12 +78,12 @@
                                     <div id="support7"  style="display:none;">
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-4">
                                                     <!-- text input -->
                                                      <div class="form-group">
                                                         <label>--Prestation:</label>
                                                         <select name="prest7" class="form-control" id="prest7" 
-                                                            onkeyup="EnableFields('prest7', 'peutmodif7', 
+                                                            onchange="EnableFields('prest7', 'peutmodif7', 
                                                             'designation7', 'prix7', 'duree7', 'duree_type7')">
                                                     
                                                             @php
@@ -90,9 +95,12 @@
                                                             @endforeach
                                                             
                                                         </select>   
-                                                    
-                                                        <input type="text" name="peutmodif7" class="form-control" id="peutmodif7">
                                                     </div>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif7" class="form-control" id="peutmodif7">
                                                 </div>
                                             </div>     
                                             <div class="row">
@@ -141,12 +149,12 @@
 
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-4">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>--Prestation:</label>
                                                         <select name="prest8" class="form-control" id="prest8" 
-                                                            onkeyup="EnableFields('prest8', 'peutmodif8', 
+                                                            onchange="EnableFields('prest8', 'peutmodif8', 
                                                             'designation8', 'prix8', 'duree8', 'duree_type8')">
                                                     
                                                             @php
@@ -158,9 +166,12 @@
                                                             @endforeach
                                                             
                                                         </select>   
-                                                    
-                                                        <input type="text" name="peutmodif8" class="form-control" id="peutmodif8">
                                                     </div>
+                                                    
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif8" class="form-control" id="peutmodif8">
                                                 </div>
                                             </div>     
                                             <div class="row">
@@ -208,13 +219,13 @@
                                     </div>
                                     <div id="support9" style="display:none;">
                                         <div class="content" id="support">
-                                             <div class="row">
-                                                <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-4">
                                                     <!-- text input -->
-                                                     <div class="form-group">
+                                                    <div class="form-group">
                                                         <label>--Prestation:</label>
                                                         <select name="prest9" class="form-control" id="prest9" 
-                                                            onkeyup="EnableFields('prest9', 'peutmodif9', 
+                                                            onchange="EnableFields('prest9', 'peutmodif9', 
                                                             'designation9', 'prix9', 'duree9', 'duree_type9')">
                                                     
                                                             @php
@@ -226,9 +237,12 @@
                                                             @endforeach
                                                             
                                                         </select>   
-                                                    
-                                                        <input type="text" name="peutmodif9" class="form-control" id="peutmodif9">
                                                     </div>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif9" class="form-control" id="peutmodif9">
                                                 </div>
                                             </div>     
                                             <div class="row">
@@ -278,12 +292,12 @@
                                     <div id="support10" style="display:none;">
                                         <div class="content" id="support">
                                             <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-4">
                                                     <!-- text input -->
-                                                     <div class="form-group">
+                                                    <div class="form-group">
                                                         <label>--Prestation:</label>
                                                         <select name="prest10" class="form-control" id="prest10" 
-                                                            onkeyup="EnableFields('prest10', 'peutmodif10', 
+                                                            onchange="EnableFields('prest10', 'peutmodif10', 
                                                             'designation10', 'prix10', 'duree10', 'duree_type10')">
                                                     
                                                             @php
@@ -295,9 +309,12 @@
                                                             @endforeach
                                                             
                                                         </select>   
-                                                    
-                                                        <input type="text" name="peutmodif10" class="form-control" id="peutmodif10">
                                                     </div>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif10" class="form-control" id="peutmodif10">
                                                 </div>
                                             </div>     
                                             <div class="row">
@@ -342,3 +359,146 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                     <div id="support11" style="display:none;">
+                                        <div class="content" id="support">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest10" class="form-control" id="prest10" 
+                                                            onchange="EnableFields('prest11', 'peutmodif11', 
+                                                            'designation11', 'prix11', 'duree11', 'duree_type11')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif11" class="form-control" id="peutmodif11">
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Description:</label>
+                                                        <textarea name="designation11" class="form-control" id="designation11"
+                                                        disabled>
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Prix Hors taxe:</label>
+                                                    <input type="number" name="prix11" class="form-control" 
+                                                    placeholder="un nombre..." id='prix11' disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Durée:</label>
+                                                        <input type="number" name="duree11" min="0" value="0"
+                                                        class="form-control" placeholder="Entrez ..."  id='duree11' disabled>                                            </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Choisir:</label>
+                                                    <select  class="form-control" name="duree_type11" 
+                                                    id="duree_type11" disabled>
+                                                        <option value="jours">Jours</option>
+                                                        <option value="mois">Mois</option>
+                                                        <option value="annees">Années</option>
+                                                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div id="support12" style="display:none;">
+                                        <div class="content" id="support">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest12" class="form-control" id="prest12" 
+                                                            onchange="EnableFields('prest12', 'peutmodif12', 
+                                                            'designation10', 'prix12', 'duree12', 'duree_type12')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif12" class="form-control" id="peutmodif12">
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Description:</label>
+                                                        <textarea name="designation12" class="form-control" id="designation12"
+                                                        disabled>
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Prix Hors taxe:</label>
+                                                    <input type="number" name="prix12" class="form-control" 
+                                                    placeholder="un nombre..." id='prix12' disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Durée:</label>
+                                                        <input type="number" name="duree12" min="0" value="0"
+                                                        class="form-control" placeholder="Entrez ..."  id='duree12' disabled>                                            </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Choisir:</label>
+                                                    <select  class="form-control" name="duree_type12" 
+                                                    id="duree_type12" disabled>
+                                                        <option value="jours">Jours</option>
+                                                        <option value="mois">Mois</option>
+                                                        <option value="annees">Années</option>
+                                                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+</div>

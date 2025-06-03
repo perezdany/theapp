@@ -15,10 +15,12 @@
 
     <div class="row">
         <div class="col-12">
+            <div class="card">
+            <div class="card-body">
             @if(isset($id_cotation))
+        
                 @php
                     $devis = $cotationcontroller->GetLinesinfoCustomer($id_cotation);
-                    $somme = 0;
                 @endphp
                 @foreach($devis as $devis)
                     <div class="row">
@@ -112,22 +114,24 @@
                 @endforeach
                 @php
                    
+                    $sommea = 0;
                     $somme = 0;
                     $compter = DB::table('details_cotations')->where('cotation_id', $id_cotation)
                     ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
                     ->join('services', 'details_cotations.id_service', '=', 'services.id')
                     ->join('clients', 'cotations.id_client', '=', 'clients.id')
                     ->count();
+                    $compter_article = DB::table('cotation_article')->where('cotation_id', $id_cotation)
+                    ->count();
                     $i = 0;
                     //dd($compter); 
-                    
-                    //dd($devis);
+
                 @endphp
                 <!-- Table row -->
                 <div class="row">
                     <div class="col-12 table-responsive">
                     <table class="table table-bordered table-striped">
-                        @if($compter  == 0)<!--Y A PAS D'ID DE DEVIS-->
+                        @if($compter_article != 0)<!--Y A ARTICLE -->
                             @php
                                 $devis = $cotationcontroller->GetArticleLines($id_cotation);
                             @endphp
@@ -150,7 +154,7 @@
                                     <tr style="background-color:#e8f8f5 ">
                                         @if($i == 0)
                                             
-                                            <td>{{$devis->code}}</td>
+                                            <td>MAT</td>
                                         @else
                                             <td></td>
                                         @endif   
@@ -163,7 +167,7 @@
                                             @php
                                                 $total = $devis->quantite * $devis->pu;
                                                 echo number_format($total, 2, ".", " ")."F CFA";
-                                                $somme = $somme + $total;
+                                                $sommea = $sommea + $total;
                                             @endphp
                                         </td>
                                         @php
@@ -179,7 +183,8 @@
                                 @endif 
                             @endforeach  
                             </tbody>                  
-                        @else
+                        @endif
+                        @if($compter  != 0)
                             <thead>
                                 <tr style="background-color:#76d7c4">
                                 <th>Code</th>
@@ -245,68 +250,69 @@
                     <!-- /.col -->
                     <div class="col-6">
                      <!--<p class="lead">Détails montant total</p>-->
-
-                    <div class="table-responsive">
-                        <table class="table">
-                        <tr>
-                            <th style="width:50%; background-color:#969696">Sous-total:</th>
-                            <td>@php echo number_format($somme, 2, ".", " ")."F CFA"; @endphp</td>
-                        </tr>
-
                         @php
                             $tva = DB::table('taxes')->get();
+                            $tout = $somme + $sommea;
                         @endphp
-                        @foreach($tva as $tva)
-                            @if($tva->active == 0)
-                               <tr><th style="background-color:#969696">Tax (18%)</th>
-                                    <td> 0 F CFA</td>
-                                </tr>
-                                <tr >
-                                    <th style="background-color:#969696">Total:</th>
-                                    <td>
-                                    @php 
-                                        echo number_format($somme, 2, ".", " ")."F CFA"; 
-                                        $pour_facture = $somme;
-                                    @endphp</td>
-                                </tr>
-                            @else
-                               
-                                @php
-                                    $v = DB::table('cotations')->where('id', $id_cotation)->get(['date_creation']);
-                                    foreach($v as $verif)
-                                    {
-                                        if($verif->date_creation >= $tva->date_activation)
-                                        {
-                                            echo' <tr><th style="background-color:#969696">Tax (18%)</th>
-                                            <td>';
-                                            $m = $somme * (18/100);
-                                            echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
-                                        }
-                                        else
-                                        {
-                                            $m = 0;
-                                            //echo number_format($somme, 2, ".", " ")."F CFA"; 
-                                            $pour_facture = $somme;
-                                        }
-                                    } 
-                                @endphp
+                        <div class="table-responsive">
+                            <table class="table">
+                            <tr>
+                                <th style="width:50%; background-color:#969696">Sous-total:</th>
+                                <td>@php echo number_format($tout, 2, ".", " ")."F CFA"; @endphp</td>
+                            </tr>
 
-                                <tr>
-                                    <th style="background-color:#969696">Total:</th>
-                                    <td>
-                                        @php
-                                            $l = $somme + $m;
-                                            echo number_format($l, 2, ".", " ")."F CFA";
-                                            $pour_facture = $l;
-                                        @endphp
-                                    </td>
-                                </tr>
-                            @endif
-                        @endforeach
-                      
+                            
+                            @foreach($tva as $tva)
+                                @if($tva->active == 0)
+                                <tr><th style="background-color:#969696">Tax (18%)</th>
+                                        <td> 0 F CFA</td>
+                                    </tr>
+                                    <tr >
+                                        <th style="background-color:#969696">Total:</th>
+                                        <td>
+                                        @php 
+                                            echo number_format($tout, 2, ".", " ")."F CFA"; 
+                                            $pour_facture = $tout;
+                                        @endphp</td>
+                                    </tr>
+                                @else
+                                
+                                    @php
+                                        $v = DB::table('cotations')->where('id', $id_cotation)->get(['date_creation']);
+                                        foreach($v as $verif)
+                                        {
+                                            if($verif->date_creation >= $tva->date_activation)
+                                            {
+                                                echo' <tr><th style="background-color:#969696">Tax (18%)</th>
+                                                <td>';
+                                                $m = $tout * (18/100);
+                                                echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
+                                            }
+                                            else
+                                            {
+                                                $m = 0;
+                                                //echo number_format($somme, 2, ".", " ")."F CFA"; 
+                                                $pour_facture = $tout;
+                                            }
+                                        } 
+                                    @endphp
+
+                                    <tr>
+                                        <th style="background-color:#969696">Total:</th>
+                                        <td>
+                                            @php
+                                                $l = $tout + $m;
+                                                echo number_format($l, 2, ".", " ")."F CFA";
+                                                $pour_facture = $l;
+                                            @endphp
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
                         
-                        </table>
-                    </div>
+                            
+                            </table>
+                        </div>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -367,7 +373,8 @@
         
             
             @endif
-           
+            </div>
+            </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
        

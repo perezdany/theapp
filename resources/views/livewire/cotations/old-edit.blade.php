@@ -1,3 +1,4 @@
+
 @php
     use App\Http\Controllers\CotationController;
     use App\Http\Controllers\ServiceController;
@@ -27,19 +28,6 @@
         <!-- right column -->
         <div class="col-md-6">
             <!-- general form elements disabled -->
-           
-       
-        </div>
-        
-
-        <!--/.col (right) -->
-        
-    </div>
-    <!-- /.row -->
-    
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
             @if(isset($id))
                 <div class="row">
                     <div class="col-sm-3">
@@ -181,21 +169,14 @@
                                 </div>
                                 @if($devis->valide == 0)
                                     <!--LES LIGNES DES DETAILS-->
-                                    <!--VOIR SI Y A DES LIGNES POUR ARTICLES-->
-                                    @php
-                                        $get_a = DB::table('cotation_article')
-                                            ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
-                                            ->join('articles', 'cotation_article.article_id', 'articles.id')
-                                            ->where('cotation_article.cotation_id', $devis->id)->count();
-                                    @endphp
-                                    @if($get_a != 0)
+                                    @if($devis->id_service == 8)
 
                                         @php
                                             $les_articles = DB::table('cotation_article')
                                             ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                                             ->join('articles', 'cotation_article.article_id', 'articles.id')
                                             ->where('cotation_article.cotation_id', $devis->id)
-                                            ->get(['cotation_article.*', 'articles.designation',]);
+                                            ->get(['cotation_article.*', 'articles.designation', 'articles.prix_unitaire']);
                                             
                                             $i = 1;
                                         
@@ -203,23 +184,22 @@
                                         
                                         @foreach($les_articles as $a)
                                             <input type="text" class="form-control" value="{{$a->id}}"  
-                                            name="idda{{$i}}"  style="display:none;">
+                                            name="idd{{$i}}"  style="display:none;">
                                             <div class="row">
                                                 <div class="col-sm-4">
                                             
                                                     <div class="form-group">
-                                                        <label>Articles:</label>
-                                                        <select class="form-control" name="@php echo 'article'.$i @endphp"
-                                                         id="@php echo 'article'.$i @endphp" >
-                                                            @php
-                                                                $t = DB::table('articles')->get();
-                                                            @endphp
-                                                            <option value={{$a->article_id}}>{{$a->designation}}</option>
-                                                            @foreach($t as $t)
-                                                                <option value={{$t->id}}>{{$t->designation}}</option>
-                                                            @endforeach
-                                                            
-                                                        </select>   
+                                                    <label>Articles:</label>
+                                                    <select class="form-control" name="@php echo 'article'.$i @endphp" id="@php echo 'article'.$i @endphp" >
+                                                        @php
+                                                            $t = DB::table('articles')->get();
+                                                        @endphp
+                                                        <option value={{$a->article_id}}>{{$a->designation}}/Prix:{{$a->prix_unitaire}}XOF</option>
+                                                        @foreach($t as $t)
+                                                            <option value={{$t->id}}>{{$t->designation}}/Prix:{{$t->prix_unitaire}}XOF</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -243,16 +223,9 @@
                                                 $i = $i+ 1;
                                             @endphp
                                         @endforeach
-                                        @include("livewire.cotations.lines_edit_article")
+                                        
                                     @else
-                                    @endif
-                                    @php
-                                        $les_elmnts = DB::table('details_cotations')
-                                            ->join('services', 'details_cotations.id_service', '=', 'services.id')
-                                            ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
-                                            ->where('details_cotations.cotation_id', $devis->id)->count();
-                                    @endphp
-                                    @if($les_elmnts != 0)
+                                        
                                         @php
                                             $i = 1;
                                             $les_articles = DB::table('details_cotations')
@@ -296,7 +269,7 @@
                                             <div class="col-sm-12">
                                                 
                                                 <div class="form-group">
-                                                    <label>Description de la prestation:</label>
+                                                <label>Description de la prestation:</label>
                                                     <textarea name="@php echo 'designation'.$i @endphp" class="form-control" 
                                                     id="@php echo 'designation'.$i @endphp">
                                                     {{$a->descrpt}}
@@ -318,20 +291,18 @@
                                                     <label>Durée:</label>
                                                     <input type="number" name="@php echo 'duree'.$i @endphp" min="0" 
                                                     class="form-control" placeholder="Entrez ..."  
-                                                    id="@php echo 'duree'.$i @endphp" value="{{$a->duree}}">  
-                                                    
-                                                </div>
+                                                    id="@php echo 'duree'.$i @endphp" value="{{$a->duree}}">                                            </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Choisir:</label>
-                                                    <select  class="form-control" name="@php echo 'duree_type'.$i @endphp" 
-                                                    id="@php echo 'duree_type'.$i @endphp">
-                                                    <option value="{{$a->duree_type}}">{{$a->duree_type}}</option>
-                                                        <option value="jours">Jours</option>
-                                                        <option value="mois">Mois</option>
-                                                        <option value="annees">Années</option>
-                                                    </select>
+                                                <label>Choisir:</label>
+                                                <select  class="form-control" name="@php echo 'duree_type'.$i @endphp" 
+                                                id="@php echo 'duree_type'.$i @endphp">
+                                                <option value="{{$a->duree_type}}">{{$a->duree_type}}</option>
+                                                    <option value="jours">Jours</option>
+                                                    <option value="mois">Mois</option>
+                                                    <option value="annees">Années</option>
+                                                </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -432,9 +403,9 @@
 
                                     function EnableFields(sel, m, t, q, p, d)
                                     {
-                                       
+                                        
                                         let designation = document.getElementById(sel);
-                                       
+                                        
                                         prix= document.getElementById(q);
                                         duree = document.getElementById(p);
                                         type_d = document.getElementById(d);
@@ -470,32 +441,6 @@
                                             letexte.setAttribute("disabled", "disabled");
                                         }
                                     }
-
-                                    function EnableFieldsA(sel, q, p)
-                                    {
-                                        let article = document.getElementById(sel);
-                                        
-                                        quantite = document.getElementById(q);
-                                        prix = document.getElementById(p);
-                                        if(article.value != "--")
-                                        {
-                                        
-                                            quantite.removeAttribute("disabled");
-                                            quantite.setAttribute("enabled", "enabled");
-                                            prix.removeAttribute("disabled");
-                                            prix.setAttribute("enabled", "enabled");
-                                        }
-                                        else
-                                        {  
-                                            quantite.removeAttribute("enabled");
-                                            quantite.setAttribute("disabled", "disabled");
-                                            prix.removeAttribute("enabled");
-                                        
-                                            prix.setAttribute("disabled", "disabled");
-                                        }
-
-                                        
-                                    }
                                 </script>
                                         
                                 <div class="card-footer">
@@ -512,29 +457,22 @@
                     <!-- /.card -->
                 @endforeach
             @endif
+       
         </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-2"></div>
-        <div class="col-md">
+         <!--/.col (right) -->
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header"> 
-                    <h3 class="card-title">Récap Détails</h3>      
+                    <h3 class="card-title">Détails</h3>      
                 </div>
                 <div class="card-body">
                     @php
                         $total_ht = 0;
-                        $les_elements = DB::table('details_cotations')
+                        $les_articles = DB::table('details_cotations')
                         ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
                         ->where('details_cotations.cotation_id', $id)
                         ->get(['details_cotations.*',]);
                         //dd($les_articles);
-
-                        $total_hta = 0;
-                        $les_articles = DB::table('cotation_article')
-                        ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
-                        ->join('articles', 'cotation_article.article_id', 'articles.id')
-                        ->where('cotation_article.cotation_id', $id)
-                        ->get(['cotation_article.*', 'articles.designation', ]);
                     @endphp
                     <div class="table-responsive">
                         <table class="table m-0">
@@ -547,14 +485,15 @@
                             </thead>
                             <tbody>
 
-                                @foreach($les_elements as $element)
+                                @foreach($les_articles as $article)
+                                
                                     <tr>
-                                        <td>{{$element->designation}}</td>
-                                        <td>{{$element->duree}} {{$element->duree_type}}</td>
+                                        <td><b>{{$article->designation}}</b> </td>
+                                        <td>{{$article->duree}} {{$article->duree_type}}</td>
                                         
                                         <td>
                                             @php
-                                                $p = $element->prix_ht;
+                                                $p = $article->prix_ht;
                                                 $total_ht = $total_ht + $p;
                                                 echo number_format($p, 2, ".", " ")."F CFA"; 
                                             @endphp
@@ -564,9 +503,9 @@
                                         <div class="row">
                                         <div class="col-sm-6">
                                             <button class="btn btn-danger" 
-                                            data-toggle="modal" data-target="#delete{{$element->id}}" >
+                                            data-toggle="modal" data-target="#delete{{$article->id}}" >
                                             <b><i class="fa fa-trash"></i></b></button>
-                                            <div class="modal fade" id="delete{{$element->id}}"  
+                                            <div class="modal fade" id="delete{{$article->id}}"  
                                             wire:ignore.self  role="dialog" aria-hidden="true" >
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -582,8 +521,8 @@
                                                             @csrf
                                                             <label style="text-align:center; color:red">
                                                             Voulez vous vraiment supprimer cette ligne ?</label>
-                                                            <input type="text" class="form-control" value="{{$element->id}}" wire-model="id" 
-                                                            name="id" id="{{$element->id}}" style="display:none;">
+                                                            <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
+                                                            name="id" id="{{$article->id}}" style="display:none;">
 
                                                             <!--end::Body-->
                                                             <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
@@ -608,9 +547,9 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <!--<button class="btn btn-primary" 
-                                            data-toggle="modal" data-target="#edit{{$element->id}}" >
+                                            data-toggle="modal" data-target="#edit{{$article->id}}" >
                                             <b><i class="fa fa-edit"></i></b></button>-->
-                                            <div class="modal fade" id="edit{{$element->id}}"  
+                                            <div class="modal fade" id="edit{{$article->id}}"  
                                             wire:ignore.self  role="dialog" aria-hidden="true" >
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -624,15 +563,15 @@
                                                         <form method="post" action="editlinescreating">
                                                             <!--begin::Body-->
                                                             @csrf
-                                                            <input type="text" class="form-control" value="{{$element->id}}" wire-model="id" 
-                                                            name="id" id="{{$element->id}}" style="display:none;">
+                                                            <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
+                                                            name="id" id="{{$article->id}}" style="display:none;">
                                                             <input type="text" class="form-control" value="{{$id}}" wire-model="id" 
                                                             name="id_cotation" id="{{$id}}" style="display:none;">
                                                         
                                                             <div class="form-group">
                                                                 <label>Description de la prestation:</label>
                                                                 <textarea name="designation" class="form-control" >
-                                                                    {{$element->designation}}
+                                                                    {{$article->designation}}
                                                                 </textarea>
                                                         
                                                             </div>
@@ -640,19 +579,19 @@
                                                             <div class="form-group">
                                                             <label>Prix Hors taxe:</label>
                                                             <input type="number" name="prix" class="form-control" 
-                                                            value="{{$element->prix_ht}}">
+                                                            value="{{$article->prix_ht}}">
                                                             </div>
 
                                                             <div class="form-group">
                                                             <label>Durée:</label>
                                                             <input type="number" name="duree"
-                                                            class="form-control" value="{{$element->duree}}">
+                                                            class="form-control" value="{{$article->duree}}">
                                                             </div>
 
                                                             <div class="form-group">
                                                             <label>Choisir:</label>
                                                             <select  class="form-control" name="duree_type" id="duree_type">
-                                                                <option value="{{$element->duree_type}}">{{$element->duree_type}}</option>
+                                                                <option value="{{$article->duree_type}}">{{$article->duree_type}}</option>
                                                                 <option value="jours">Jours</option>
                                                                 <option value="mois">Mois</option>
                                                                 <option value="annees">Années</option>
@@ -688,156 +627,8 @@
                                     <th >Sous-total:</th>
                                     <td colspan="2">@php echo number_format($total_ht, 2, ".", " ")."F CFA"; @endphp</td>
                                 </tr>
-                                <!--ARTICLES-->
-                                @foreach($les_articles as $article)
-                                    
-                                    <tr>
-                                        <td>{{$article->designation}} </td>
-                                        <td>{{$article->quantite}}</td>
-                                        <td>
-                                            @php
-                                                $p = $article->pu * $article->quantite;
-                                                $total_hta = $total_hta + $p;
-                                                echo number_format($p, 2, ".", " ")."F CFA"; 
-                                            @endphp
-                                            
-                                        </td>
-                                        <td>
-                                        <div class="row">
-                                        <div class="col-sm-6">
-                                            <button class="btn btn-danger" 
-                                            data-toggle="modal" data-target="#deletea{{$article->id}}" >
-                                            <b><i class="fa fa-trash"></i></b></button>
-                                            <div class="modal fade" id="deletea{{$article->id}}"  
-                                            wire:ignore.self  role="dialog" aria-hidden="true" >
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <!--begin::Form-->
-                                                        <form method="post" action="supp2">
-                                                            <!--begin::Body-->
-                                                            @csrf
-                                                            <label style="text-align:center; color:red">
-                                                            Voulez vous vraiment supprimer cette ligne ?</label>
-                                                            <input type="text" class="form-control" value="{{$article->id}}" wire-model="id" 
-                                                            name="id" id="{{$article->id}}" style="display:none;">
-
-                                                            <!--end::Body-->
-                                                            <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
-                                                            <div class=" row modal-footer justify-content-between" style="aling:center">
-                                                            
-                                                            <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
-                                                            data-dismiss="modal">NON</button>
-                                                    
-                                                            <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
-                                                                                                                    
-                                                            </div>
-                                                            <!--end::Footer-->
-                                                        </form>
-                                                        <!--end::Form-->
-                                                    </div> 
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>    
-                                            <!-- /.modal -->
-                                        </div>
-                                        <div clas="col-sm-6">
-                                            <!--<button class="btn btn-primary" 
-                                            data-toggle="modal" data-target="#edit{{$article->id}}" >
-                                            <b><i class="fa fa-edit"></i></b></button>-->
-                                            <div class="modal fade" id="edita{{$article->id}}"  
-                                            wire:ignore.self  role="dialog" aria-hidden="true" >
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h4 class="modal-title">Modification <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <!--begin::Form-->
-                                                        <form method="post" action="editarticleforcreating">
-                                                            <!--begin::Body-->
-                                                            @csrf
-                                                                <input type="text" class="form-control" value="{{$id}}"
-                                                                name="id_cotation" style="display:none;">
-                                                            <input type="text" class="form-control" value="{{$article->id}}" 
-                                                            name="id" id="{{$article->id}}" style="display:none;">
-                                                                <div class="form-group">
-                                                                <label>Articles:</label>
-                                                                <select class="form-control" name="article">
-                                                                    @php
-                                                                        $t = DB::table('articles')->get();
-                                                                    @endphp
-                                                                    @foreach($t as $t)
-                                                                        <option value={{$t->id}}>{{$t->designation}}</option>
-                                                                    @endforeach
-                                                                    
-                                                                </select>   
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                <label>Quantité:</label>
-                                                                <input type="number" name="qte" min="1" value="{{$article->quantite}}"
-                                                                class="form-control">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                <label>Prix unitaire:</label>
-                                                                <input type="number" name="pu"  value="{{$article->pu}}"
-                                                                class="form-control">
-                                                                </div>
-                                                            <!--end::Body-->
-                                                            
-                                                            <div class=" row modal-footer justify-content-between" style="aling:center">
-                                                            
-                                                            <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" 
-                                                            data-dismiss="modal">FERMER</button>
-                                                    
-                                                            <button type="submit"  class="btn btn-success btn-lg col-md-3">VALIDER</button>
-                                                                                                                    
-                                                            </div>
-                                                            <!--end::Footer-->
-                                                        </form>
-                                                        <!--end::Form-->
-                                                    </div> 
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>    
-                                            <!-- /.modal -->
-                                        </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                
-                                @endforeach
                                 @php
-                                    $count_articles = DB::table('cotation_article')
-                                    ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
-                                    ->join('articles', 'cotation_article.article_id', 'articles.id')
-                                    ->where('cotation_article.cotation_id', $id)->count();
-                                @endphp
-                                @if($count_articles != 0)
-                                    <tr>
-                                        <th >Sous-total Articles:</th>
-                                        <td colspan="2">@php echo number_format($total_hta, 2, ".", " ")."F CFA"; @endphp</td>
-                                    </tr>
-                                @endif
-                                
-
-                                <!--Résumé avec les TVA-->
-                                @php
-                                    $tout = $total_ht + $total_hta;
                                     $tva = DB::table('taxes')->get();
-
                                 @endphp
                                 @foreach($tva as $tva)
                                     @if($tva->active == 0)
@@ -846,8 +637,7 @@
                                             <th>Total:</th>
                                             <td colspan="2">
                                             @php 
-                                                
-                                                echo number_format($tout, 2, ".", " ")."F CFA"; 
+                                                echo number_format($total_ht, 2, ".", " ")."F CFA"; 
                                                 
                                             @endphp</td>
                                         </tr>
@@ -862,7 +652,7 @@
                                                     echo' <tr><th>Tax (18%)</th>
                                                     <td>';
                                                         
-                                                    $m = $tout * (18/100);
+                                                    $m = $total_ht * (18/100);
                                                     echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
                                                 }
                                                 else
@@ -872,16 +662,18 @@
                                             }
                                             
                                         @endphp
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td colspan="2">
-                                                @php
-                                                    $l = $tout + $m;
-                                                    echo number_format($l, 2, ".", " ")."F CFA";
-                                                    
-                                                @endphp
-                                            </td>
-                                        </tr>
+
+                                    
+                                    <tr>
+                                        <th>Total:</th>
+                                        <td colspan="2">
+                                            @php
+                                                $l = $total_ht + $m;
+                                                echo number_format($l, 2, ".", " ")."F CFA";
+                                                
+                                            @endphp
+                                        </td>
+                                    </tr>
                                     @endif
                                 @endforeach
                             </tbody>
@@ -890,7 +682,7 @@
                     <!-- /.table-responsive -->
                 </div>
                 <hr>
-                    
+                 
             </div>
             <!--TABLEAU REACP DES DETAILS AVEC LE MONTANT TOTAL EN BAS-->
             <div class="card">
@@ -927,11 +719,19 @@
                 </div>
             </div>       
         </div>
-        <div class="col-md-2"></div>
-
-    
     </div>
 
+    <div class="row">      
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+                
+        </div>
+    </div>
+   
+       
+
+    <!-- /.row -->
 
 @endsection
     

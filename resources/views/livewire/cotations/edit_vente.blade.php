@@ -22,9 +22,11 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-    <div class="row">
+    <div class="row">                
+        <!--/.col (left) -->
+        <!-- right column -->
         <div class="col-md-6">
-            <!-- general form elements disabled -->
+           <!-- general form elements disabled -->
             
             @if(isset($id))
                 <div class="row">
@@ -115,7 +117,8 @@
                     
                     <div class="card card-warning">
                         <div class="card-header">
-                            <h3 class="card-title">{{$devis->numero_devis}}</h3>
+                        
+                        <h3 class="card-title">{{$devis->numero_devis}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -226,6 +229,9 @@
                                 @endif
                                 </div>
                             </form>
+                            
+                           
+                           
                             <!-- /.table-responsive -->
                             <script type="text/javascript">
                                 function displayLine()
@@ -349,10 +355,14 @@
             <!-- /.card -->
        
         </div>
-        
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">      
+         <!--/.col (right) -->
+       
+    </div>
+
+     <div class="col-md-6">
+           <div class="card">
+                <div class="card-header">
+                            
                     <h3 class="card-title">Articles ajoutés</h3>
                 </div>
                 <div class="card-body">
@@ -564,9 +574,7 @@
                         </table>
                     </div>
                 </div>
-            </div>   
-
-            <div class="card">
+                <hr>
                 <div class="card-header">
                             
                     <h3 class="card-title">Conditions de paiement</h3>
@@ -599,16 +607,10 @@
                         </div>
                     </form>
                 </div>
-            </div>                       
-        </div>
-        
-    </div>
-   
-
-   
-    <div class="col-md-6">
-                  
+            </div>    
         </div>
 
 @endsection
+    
+
     

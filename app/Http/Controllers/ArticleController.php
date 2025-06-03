@@ -71,7 +71,7 @@ class ArticleController extends Controller
        
         $delete = DB::table('cotation_article')->where('id', $request->id)->delete();
 
-        return view('livewire/cotations/edit_vente', compact('id'));
+        return view('livewire/cotations/edit', compact('id'));
 
       
     }
