@@ -260,6 +260,7 @@
                                             ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
                                             ->where('details_cotations.cotation_id', $devis->id)
                                             ->get(['details_cotations.*', 'services.code', 'services.libele_service']);
+                                            //dd($les_articles);
                                             
                                         @endphp
                                         @foreach($les_articles as $a)
@@ -527,7 +528,7 @@
                         ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
                         ->where('details_cotations.cotation_id', $id)
                         ->get(['details_cotations.*',]);
-                        //dd($les_articles);
+                        //dd($les_elements);
 
                         $total_hta = 0;
                         $les_articles = DB::table('cotation_article')

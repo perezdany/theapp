@@ -1,7 +1,8 @@
 @php
     use App\Http\Controllers\CotationController;
-
+    use App\Http\Controllers\Convertisseur;
     $cotationcontroller = new CotationController();
+    $convertisseur =  new Convertisseur();
 @endphp
 <!DOCTYPE html>
 <html>
@@ -317,16 +318,26 @@
                     </tr>
                 </table>
                 <!-- /.row -->
-                <u>Conditions de paiement</u> :<br>
+                  <p>Arrêter de la présente  facture a somme de :<br>
+                <b>
+                    @php
+                        $result = $convertisseur->Conversion($pour_facture);
+                        echo $result;
+                    @endphp
+                </b></p>
+                <p><u>Conditions de paiement</u> :<br>
                 @php
                     $condition = DB::table('cotations')
                     ->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
                     ->where('cotations.id', $id_cotation)
                     ->get(['cotations.id_condition', 'conditions_paiements.*']);
+
+                    //$result = $convertisseur->Conversion($tout);
+                    //echo $result;
                 @endphp
                 @foreach($condition as $condition)
                     <i style="color:red">{{$condition->libele}}</i><br><br><br>
-                @endforeach
+                @endforeach</p>
                 <!-- this row will not appear when printing -->
                 <!--<div class="row no-print">
                     <div class="col-12">

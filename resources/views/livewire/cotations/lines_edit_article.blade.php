@@ -124,7 +124,7 @@
             
         </div>
     </div>
-    <div id="support9" style="display:none;">
+    <div id="supporta9" style="display:none;">
         
         <div class="row">
             <div class="col-sm-4">
@@ -156,15 +156,15 @@
                     <label>Prix unitaire:</label>
                     <input type="number" name="pu9"  id="pu9"
                     class="form-control" disabled>
-                <!--</div> <button type="button" id="bta9" 
+                </div> <button type="button" id="bta9" 
                 class="btn btn-warning float-right" 
-                onclick="displayTheLine('supporta9','bta8')"><i class="fa fa-plus"></i></button>-->
+                onclick="displayTheLine('supporta10','bta9')"><i class="fa fa-plus"></i></button>
             </div>
             
         </div>
     </div>
 
-    <div id="support10" style="display:none;">
+    <div id="supporta10" style="display:none;">
         
         <div class="row">
             <div class="col-sm-4">
@@ -196,15 +196,15 @@
                     <label>Prix unitaire:</label>
                     <input type="number" name="pu10"  id="pu10"
                     class="form-control" disabled>
-                <!--</div> <button type="button" id="bta9" 
+                </div> <button type="button" id="bta10" 
                 class="btn btn-warning float-right" 
-                onclick="displayTheLine('supporta9','bta8')"><i class="fa fa-plus"></i></button>-->
+                onclick="displayTheLine('supporta11','bta10')"><i class="fa fa-plus"></i></button>
             </div>
             
         </div>
     </div>
 
-    <div id="support11" style="display:none;">
+    <div id="supporta11" style="display:none;">
         
         <div class="row">
             <div class="col-sm-4">
@@ -236,14 +236,14 @@
                     <label>Prix unitaire:</label>
                     <input type="number" name="pu11"  id="pu11"
                     class="form-control" disabled>
-                <!--</div> <button type="button" id="bta9" 
+                </div> <button type="button" id="bta11" 
                 class="btn btn-warning float-right" 
-                onclick="displayTheLine('supporta9','bta8')"><i class="fa fa-plus"></i></button>-->
+                onclick="displayTheLine('supporta12','bta11')"><i class="fa fa-plus"></i></button>
             </div>
             
         </div>
     </div>
-    <div id="support12" style="display:none;">
+    <div id="supporta12" style="display:none;">
         
         <div class="row">
             <div class="col-sm-4">
