@@ -134,6 +134,7 @@
                         <h3 class="card-title">DEVIS N°{{$devis->numero_devis}}</h3>
                         </div>
                         <!-- /.card-header -->
+
                         <div class="card-body">
                             <b><u>Cliquer sur le bouton valider en dessous</u></b>
                             <form method="post" action="edit_devis">
@@ -175,8 +176,31 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
 
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                            <label>Conditions de paiement</label>
+                                            <select class="form-control" name="condition">
+                                                
+                                                @php
+                                                    $g = DB::table('conditions_paiements')->get();
+                                                @endphp
+                                                <option value={{$devis->id_condition}}>{{$devis->libele}}</option>
+                                                @foreach($g as $g)
+                                                    <option value="{{$g->id}}">{{$g->libele}}</option>
+                                                @endforeach
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Délais de livraisons</label>
+                                                <input type="text" name="delais_livraison" class="form-control" 
+                                                value="{{$devis->delais_livraison}}">
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
                                     
                                 </div>
                                 @if($devis->valide == 0)
@@ -187,30 +211,44 @@
                                             ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                                             ->join('articles', 'cotation_article.article_id', 'articles.id')
                                             ->where('cotation_article.cotation_id', $devis->id)->count();
+                                       
                                     @endphp
-                                    @if($get_a != 0)
-
+                                    <hr>
+                                    <div class="card-body">
+                                    @if($get_a != 0)<!--Y A QUE DES LIGNES ARTICLES-->
+                                        @php
+                                            $les_elmnts = DB::table('details_cotations')
+                                                ->join('services', 'details_cotations.id_service', '=', 'services.id')
+                                                ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+                                                ->where('details_cotations.cotation_id', $devis->id)->count();
+                                        @endphp
+                                        @if($les_elmnts == 0)
+                                            <label>Pour un service</label>
+                                            @include("livewire.cotations.lines_edit")
+                                        @endif
+                                    
                                         @php
                                             $les_articles = DB::table('cotation_article')
                                             ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
-                                            ->join('articles', 'cotation_article.article_id', 'articles.id')
+                                            ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
+                                            ->join('disponibilites', 'cotation_article.id_disponibilite', '=', 'disponibilites.id')
                                             ->where('cotation_article.cotation_id', $devis->id)
-                                            ->get(['cotation_article.*', 'articles.designation',]);
-                                            
+                                            ->get(['cotation_article.*', 'articles.designation', 'disponibilites.libele']);
+                                            //dd($les_articles);  @include("livewire.cotations.lines_edit_article")
                                             $i = 1;
-                                        
+                                           
                                         @endphp
                                         
                                         @foreach($les_articles as $a)
                                             <input type="text" class="form-control" value="{{$a->id}}"  
                                             name="idda{{$i}}"  style="display:none;">
                                             <div class="row">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                             
                                                     <div class="form-group">
                                                         <label>Articles:</label>
                                                         <select class="form-control" name="@php echo 'article'.$i @endphp"
-                                                         id="@php echo 'article'.$i @endphp" >
+                                                          >
                                                             @php
                                                                 $t = DB::table('articles')->get();
                                                             @endphp
@@ -222,20 +260,39 @@
                                                         </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="@php echo 'qte'.$i @endphp" min="1" 
                                                     class="form-control" id="@php echo 'qte'.$i @endphp" value="{{$a->quantite}}">
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
                                                         <input type="number" name="@php echo 'pu'.$i @endphp" 
                                                         class="form-control" id="@php echo 'pu'.$i @endphp" value="{{$a->pu}}">
                                                     </div> 
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="@php echo 'disponibilite'.$i @endphp" 
+                                                        id="@php echo 'disponibilite'.$i @endphp" >
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            <option value={{$a->id_disponibilite}}>{{$a->libele}}</option>
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
                                             
                                             </div>
@@ -245,14 +302,31 @@
                                         @endforeach
                                         @include("livewire.cotations.lines_edit_article")
                                     @else
+                                     
                                     @endif
+                                    <hr>
+                                    <!--VERIFICATION A PARTIR DE LIGNES SRVICES-->
+                                    
                                     @php
                                         $les_elmnts = DB::table('details_cotations')
                                             ->join('services', 'details_cotations.id_service', '=', 'services.id')
                                             ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
                                             ->where('details_cotations.cotation_id', $devis->id)->count();
                                     @endphp
-                                    @if($les_elmnts != 0)
+    
+                                    @if($les_elmnts != 0)<!--Y A QUE DES LIGNES SERVICES-->
+                                        @php
+                                            $get_a = DB::table('cotation_article')
+                                            ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+                                            ->join('articles', 'cotation_article.article_id', 'articles.id')
+                                            ->where('cotation_article.cotation_id', $devis->id)->count();
+                                        @endphp
+                                        @if($get_a == 0)
+                                            <label>Pour un article</label>
+                                            
+                                            @include("livewire.cotations.lines_edit_article")
+                                        @endif
+
                                         @php
                                             $i = 1;
                                             $les_articles = DB::table('details_cotations')
@@ -341,7 +415,12 @@
                                         @endphp
                                         @endforeach
                                         @include("livewire.cotations.lines_edit")
+                                    @else
+                                       
                                     @endif
+
+                                    </div>
+                                    
                                 @else
                                 @endif
                           
@@ -475,10 +554,10 @@
                                     function EnableFieldsA(sel, q, p)
                                     {
                                         let article = document.getElementById(sel);
-                                        
+                                        alert (article.value)
                                         quantite = document.getElementById(q);
                                         prix = document.getElementById(p);
-                                        if(article.value != "--")
+                                        if(article.value != "")
                                         {
                                         
                                             quantite.removeAttribute("disabled");
@@ -516,7 +595,7 @@
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-2"></div>
-        <div class="col-md">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header"> 
                     <h3 class="card-title">Récap Détails</h3>      
@@ -894,7 +973,7 @@
                     
             </div>
             <!--TABLEAU REACP DES DETAILS AVEC LE MONTANT TOTAL EN BAS-->
-            <div class="card">
+            <!--<div class="card">
                 <div class="card-header">
                             
                     <h3 class="card-title">Conditions de paiement</h3>
@@ -926,7 +1005,7 @@
                         </div>
                     </form>
                 </div>
-            </div>       
+            </div>-->
         </div>
         <div class="col-md-2"></div>
 

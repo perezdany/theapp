@@ -1121,9 +1121,14 @@ class Calculator extends Controller
     public function GenerateNumDevis($date)
     {
         //$service
-        $recup_les_devis = Cotation::where('date_creation', $date)->count();
+        //dd($date);
+         $date_aujourdhui = Date('Y-m-d');
+         //dd($date_aujourdhui);
+        $recup_les_devis = Cotation::where('date_creation', $date_aujourdhui)->count();
+        //dd($recup_les_devis);
         if($recup_les_devis != 0 )
         {
+           
             //IL EXISTE DES FACTURES
             //ON INCREMENTE LE DERNIER ID
             $nouveau_id = $recup_les_devis + 1;
@@ -1142,8 +1147,8 @@ class Calculator extends Controller
             }
             $id = $id."".$nouveau_id;
             //dd($id);
-            $recup_les_devis = Cotation::where('date_creation', $date)->orderBy('id', 'DESC')->get('id', 'numero_devis');
-            
+            $recup_les_devis = Cotation::where('date_creation', $date_aujourdhui)->orderBy('id', 'DESC')->get('id', 'numero_devis');
+             
             /*foreach($recup_les_devis as $recup)
             {
                 //$serv = DB::table('services')->where('id', $service)->get(['code']);
@@ -1152,9 +1157,13 @@ class Calculator extends Controller
                     
                 }
             }*/
-            $numero_devis = "DEVIS-".Date('dmY')."-".$id;
+
+            $timestamp = strtotime($date);
+            $date_f = date("Ymd",  $timestamp);
+            $numero_devis = "DEVIS-".$date_f."-".$id;
 
             //dd($numero_devis);
+           
         }
         else
         {
@@ -1164,7 +1173,9 @@ class Calculator extends Controller
                 $numero_devis = "DEVIS-".Date('dmY')."-001";
             }*/
             //dd($numero_devis);
-            $numero_devis = "DEVIS-".Date('dmY')."-001";
+              $timestamp = strtotime($date);
+            $date_f = date("Ymd",  $timestamp);
+            $numero_devis = "DEVIS-".$date_f."-001";
            
         }
 

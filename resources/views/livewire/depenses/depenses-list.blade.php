@@ -94,7 +94,11 @@
                     <tr class="align-middle">
                         <td>@php echo date('d/m/Y',strtotime($depense->date_sortie));@endphp</td>
                         <td>{{$depense->objet}}</td>
-                        <td>{{$depense->montant}}</td>
+                        <td>
+                            @php
+                                echo number_format($depense->montant, 2, ',', ' ')." XOF";
+                            @endphp
+                        </td>
                         <td>{{$depense->numero}}</td>
                         <td>
                         <div class="row">

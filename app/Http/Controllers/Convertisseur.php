@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 
 class Convertisseur extends Controller
 {
-    //
-    //NE GERE PAS TOUT (les pluriels...)
+   //NE GERE PAS TOUT (les pluriels...)
 #Variables
 public $leChiffreSaisi;
 public $enLettre='';
@@ -97,7 +96,7 @@ $this->Million($nombre,$unite,$dizaine,$centaine,$mille,$million);
 break;
 
 #cas des milliards
-case ($nb>9 and $nb<=12):
+/*case ($nb>9 and $nb<=12):
 $unite=substr($nombre,$nb-1);
 $dizaine=substr($nombre,($nb-2),1);
 $centaine=substr($nombre,($nb-3),1);
@@ -105,7 +104,7 @@ $mille=substr($nombre,-6);
 $million=substr($nombre,-9);
 $milliard=substr($nombre,0,$nb-9);
 Milliard($nombre,$unite,$dizaine,$centaine,$mille,$million,$milliard);
-break;
+break;*/
 
 }
 if (!empty($this->enLettre))
@@ -443,6 +442,7 @@ function Unite($unite)
 {
 $this->enLettre.=($this->chiffre[$unite]).' ';
 }
+
 
 
 }

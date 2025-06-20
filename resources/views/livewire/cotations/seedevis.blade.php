@@ -160,7 +160,7 @@
                                         @else
                                             <td></td>
                                         @endif   
-                                        <td>{{$devis->designation}}</td>
+                                        <td>{{$devis->designation}}<br><b>Disponibilité:</b>{{$devis->libele}}</td>
                                         <td>{{$devis->description_article}}</td>
                                         <td>1 ans</td>
                                         <td>{{$devis->quantite}}</td>
@@ -337,7 +337,19 @@
                     //echo $result;
                 @endphp
                 @foreach($condition as $condition)
-                    <i style="color:red">{{$condition->libele}}</i><br><br><br>
+                    <i style="color:red">{{$condition->libele}}</i><br>
+                @endforeach</p>
+                <p><u>Délais de livraison</u> :<br>
+                @php
+                    $condition = DB::table('cotations')
+                    ->where('cotations.id', $id_cotation)
+                    ->get(['cotations.*',]);
+
+                    //$result = $convertisseur->Conversion($tout);
+                    //echo $result;
+                @endphp
+                @foreach($condition as $condition)
+                    <i style="color:red">{{$condition->delais_livraison}}</i><br><br><br>
                 @endforeach</p>
                 
                 <!-- this row will not appear when printing -->

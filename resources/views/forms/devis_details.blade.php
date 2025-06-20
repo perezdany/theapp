@@ -97,19 +97,37 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte1" min="1" value="1" id="qte1"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
                                                         <input type="number" name="pu1"  id="pu1"
                                                         class="form-control" disabled>
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite1" id="disponibilite1">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
                                                     </div> <!--<button type="button" id="bt1" 
                                                     class="btn btn-warning float-right" 
                                                     onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
@@ -216,14 +234,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte2" min="1" value="1" id="qte2"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -233,7 +251,24 @@
                                                     class="btn btn-warning float-right" 
                                                     onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
-                                                
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite2" id="disponibilite2">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
                                             </div>
                                         </div>
 
@@ -320,7 +355,8 @@
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                     <label>Articles:</label>
-                                                    <select class="form-control" name="article3" id="article3" onchange="EnableFieldsA('article3', 'qte3', 'pu3')">
+                                                    <select class="form-control" name="article3" id="article3" 
+                                                    onchange="EnableFieldsA('article3', 'qte3', 'pu3')">
                                                         @php
                                                             $t = DB::table('articles')->get();
                                                         @endphp
@@ -332,14 +368,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte3" min="1" value="1" id="qte3"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -349,7 +385,24 @@
                                                     class="btn btn-warning float-right" 
                                                     onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
-                                                
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite3" id="disponibilite3">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
                                             </div>
                                         </div>
 
@@ -451,14 +504,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte4" min="1" value="1" id="qte4"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -468,7 +521,24 @@
                                                     class="btn btn-warning float-right" 
                                                     onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
-                                                
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite4" id="disponibilite4">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
                                             </div>
                                         </div>
 
@@ -571,14 +641,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte5" min="1" value="1" id="qte5"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -587,7 +657,24 @@
                                                     </div>
                                                     
                                                 </div>
-                                               
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite5" id="disponibilite5">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
                                             </div>
                                         </div>
                                         <button type="button" id="bt5" 
@@ -672,6 +759,7 @@
                                                     </select>
                                                     </div>
                                                 </div>
+                                               
                                             </div>
                                         </div>
                                         <div class="content" id="contenta6" style="display:none;">
@@ -692,14 +780,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte6" min="1" value="1" id="qte6"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -708,7 +796,24 @@
                                                     </div>
                                                     
                                                 </div>
-                                                
+                                                 <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite6" id="disponibilite6">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
                                             </div>
                                         </div>
                                         <button type="button" id="bt6" 
@@ -811,14 +916,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte7" min="1" value="1" id="qte7"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -827,7 +932,24 @@
                                                     </div>
                                                    
                                                 </div>
-                                                
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite7" id="disponibilite7">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
                                             </div>
                                         </div>
                                         <button type="button" id="bt7" 
@@ -929,14 +1051,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte8" min="1" value="1" id="qte8"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -944,6 +1066,24 @@
                                                         class="form-control" disabled>
                                                     </div>
                                                     
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite8" id="disponibilite8">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
                                                 
                                             </div>
@@ -1001,7 +1141,6 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                     <label>Prix Hors taxe:</label>
@@ -1026,8 +1165,8 @@
                                                         <option value="mois">Mois</option>
                                                         <option value="annees">Années</option>
                                                     </select>
-                                                    </div>
                                                 </div>
+                                            </div>
                                             </div>
                                         </div>
                                         <div class="content" id="contenta9" style="display:none;">
@@ -1048,14 +1187,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte9" min="1" value="1" id="qte9"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -1063,6 +1202,24 @@
                                                         class="form-control" disabled>
                                                     </div>
                                                    
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite9" id="disponibilite9">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
                                                 
                                             </div>
@@ -1104,8 +1261,7 @@
                                                 <label>&nbsp;&nbsp;</label> 
                                                 <input type="text" name="peutmodif10" class="form-control" id="peutmodif10" disabled>
                                             </div>
-                                        </div>
-                                          
+                                        </div>   
                                         <div class="content" id="contents10" style="display:none;">
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -1167,14 +1323,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte10" min="1" value="1" id="qte10"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -1185,9 +1341,29 @@
                                                     class="btn btn-warning float-right" 
                                                     onclick="displayTheLine('support10','bt9')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
-                                                
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite10" id="disponibilite10">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
                                             </div>
                                         </div>
+                                         <button type="button" id="bt10" 
+                                            class="btn btn-warning float-right" 
+                                            onclick="displayTheLine('support11','bt10')"><i class="fa fa-plus"></i></button>
                                     </div>
 
                                     <div id="support11" style="display:none;">
@@ -1284,14 +1460,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte11" min="1" value="1" id="qte11"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -1300,7 +1476,24 @@
                                                     </div>
                                                     <!---->
                                                 </div>
-                                                
+                                                <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite11" id="disponibilite11">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
                                             </div>
                                         </div>
                                         <button type="button" id="bt11" 
@@ -1402,14 +1595,14 @@
                                                     </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="qte12" min="1" value="1" id="qte12"
                                                     class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
@@ -1420,6 +1613,26 @@
                                                     class="btn btn-warning float-right" 
                                                     onclick="displayTheLine('support10','bt9')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
+
+                                                 <div class="col-sm-3">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Disponlibité:</label>
+                                                        <select class="form-control" name="disponibilite12" id="disponibilite12">
+                                                            @php
+                                                                $dispo = DB::table('disponibilites')->get();
+                                                            @endphp
+                                                            
+                                                            @foreach($dispo as $dispo)
+                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div> <!--<button type="button" id="bt1" 
+                                                    class="btn btn-warning float-right" 
+                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
+                                                </div>
+                                                
                                                 
                                             </div>
                                         </div>
