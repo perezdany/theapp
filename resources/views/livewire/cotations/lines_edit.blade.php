@@ -3,7 +3,6 @@
                                     class="btn btn-warning float-right" 
                                     onclick="displayTheLine('support6','bt5')"><i class="fa fa-plus"></i></button></div>
                                     <div id="support6" style="display:none;">
-                                       
                                         <div class="content" id="support">
                                             <div class="row">
                                                 <div class="col-sm-4">
@@ -38,7 +37,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation6" class="form-control" id="designation6"
-                                                            disabled>
+                                                            disabled wrap="hard">
                                                         </textarea>
                                                     </div>
                                                 </div>
@@ -73,7 +72,6 @@
                                             </div>
 
                                         </div>
-
                                     </div>
                                     <div id="support7"  style="display:none;">
                                         <div class="content" id="support">
@@ -109,7 +107,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation7" class="form-control" id="designation7"
-                                                        disabled>
+                                                        disabled wrap="hard">
                                                         </textarea>
                                                     </div>
                                                 </div>
@@ -180,7 +178,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation8" class="form-control" id="designation8"
-                                                       disabled>
+                                                       disabled wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -251,7 +249,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation9" class="form-control" id="designation9"
-                                                       disabled>
+                                                       disabled wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -323,7 +321,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation10" class="form-control" id="designation10"
-                                                        disabled>
+                                                        disabled wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -394,7 +392,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation11" class="form-control" id="designation11"
-                                                        disabled>
+                                                        disabled wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -464,7 +462,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation12" class="form-control" id="designation12"
-                                                        disabled>
+                                                        disabled wrap="hard">
 
                                                         </textarea>
                                                     </div>

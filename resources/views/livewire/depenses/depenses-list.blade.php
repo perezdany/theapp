@@ -12,11 +12,12 @@
             <div class="card-header"><h3 class="card-title">Les dépenses</h3><br>
                 <button class="btn btn-primary" wire:click="addmodal" ><b><i class="fa fa-plus"></i></b></button> <br>
                 <a href="depenses" style="color:blue"><u>Rétablir<i class="fa fa-retweet" aria-hidden="true"></i></u></a> &emsp;&emsp; <label>Filtrer par:</label>
-                
-                <div class="row">
-                    Date de création:
+
+                <form action="filter_depense_date_crea"  class="row"method="post">
+                @csrf
+                 Date de création:<br>
                     <div class="col-xs-2">
-                        <select class="" id="compare" wire:model.live.debounce.250ms="compare">
+                        <select class="form-control" id="compare" name="compare">
                             <option value="">Choisir</option>
                             <option value="<"><</option> 
                             <option value=">">></option>
@@ -24,7 +25,7 @@
                         </select>   
                     </div>
                     <div class="col-xs-2">
-                        <select class="" id="anne_depuis" wire:model.live.debounce.250ms="annee">
+                        <select class="form-control" id="anne_depuis" name="annee">
                             <option value="">Choisir</option>
                             @php
                                 $annee_fin = "2050";
@@ -36,21 +37,21 @@
                             
                         </select>   
                     </div>
-                </div><br>
+                    <div class="input-group-append pull-right col-sx-2">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+                <br>
                 <div class="row">
                 
-                    <!--<div class="col-md-2 input-group input-group-sm">
-                        <select class="form-control" id="departement" wire:model.live.debounce.250ms="susp">
-                            <option value="">Suspendu</option>
-                            
-                            <option value="1">OUI</option>
-                                <option value="0">NON</option>
-                            
-                        </select>   
-                    </div>-->
+                    <!--wire:model.live.debounce.250ms="user"-->
            
                     <div class="col-md-3 input-group input-group-sm">
-                        <select class="form-control" id="departement" wire:model.live.debounce.250ms="user">
+                    <form method="post" action="filter_user_depenses" class="row">
+                        @csrf
+                        <select class="form-control col-sm-10" id="user" name ="user">
                             <option value="">Utilisateurs</option>
                             @php
                                 $t = DB::table('users')->get();
@@ -60,26 +61,32 @@
                             @endforeach
                             
                         </select>   
+                        <div class="input-group-append pull-right col-sm-2">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
                     </div>    
                    
                 </div>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 250px;">
-                    <input type="text" wire:model.live.debounce.250ms="search" class="form-control float-right" placeholder="Search">
+                    <!--<input type="text" wire:model.live.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default">
                         <i class="fas fa-search"></i>
                       </button>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
   
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-bordered table-hover">
+                <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Date</th>

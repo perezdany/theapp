@@ -15,7 +15,7 @@ class Depenses extends Component
     use WithPagination; //POUR LA PAGINATION
     protected $paginationTheme = "bootstrap";
 
-    public $orderField = 'created_at';
+    public $orderField = 'updated_at';
     public $orderDirection = 'DESC';
 
     public $date_sortie;
@@ -76,7 +76,7 @@ class Depenses extends Component
         //session()->flash('success', 'Enregistrement effectué');
         $this->dispatch('showAddSuccessMessage');
         $this->dispatch('closeAddModal');
-        //return $this->redirect('/depenses');
+        return $this->redirect('/depenses');
     }
 
     public function updateDepense()
@@ -94,7 +94,7 @@ class Depenses extends Component
         //session()->flash('success', 'Modification effectuée');
         $this->dispatch('showUpdSuccessMessage');
         $this->dispatch('closeUpdateModal');
-       
+        return $this->redirect('/depenses');
         
         //$this->reset();
         //return back()->with('success', 'Modification effectuée');
@@ -108,11 +108,10 @@ class Depenses extends Component
         if($this->search != "")
         {
            $depenseQuery->where("montant", "LIKE", "%".$this->search."%")
-            ->orwhere("nom_beneficiaire", "LIKE", "%".$this->search."%")
-            ->orwhere("numero_cheque", "LIKE", "%".$this->search."%")
-            ->orwhere("banque", "LIKE", "%".$this->search."%")
-            ->orwhere("numero_virement", "LIKE", "%".$this->search."%")
-            ->orwhere("objet", "LIKE", "%".$this->search."%");
+            ->orwhere("numero", "LIKE", "%".$this->search."%")
+            ->orwhere("objet", "LIKE", "%".$this->search."%")
+            ->orwhere("date_sortie", "LIKE", "%".$this->search."%")
+            ->orwhere("nom_prenoms", "LIKE", "%".$this->search."%");
         }
 
         if($this->user != "")

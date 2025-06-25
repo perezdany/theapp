@@ -118,8 +118,18 @@
                         
                         <td>{{$projet->nom}}</td> 
                         <td>{{$projet->description}}</td>
-                        <td>{{$projet->date_debut}}</td> 
-                        <td>{{$projet->date_fin}}</td> 
+                        <td>
+                            @if($projet->date_debut == null)
+                            @else
+                                @php echo date('d/m/Y',strtotime($projet->date_debut));@endphp
+                            @endif
+                        </td> 
+                        <td>
+                            @if($projet->date_fin == null)
+                            @else
+                                @php echo date('d/m/Y',strtotime($projet->date_fin));@endphp
+                            @endif
+                        </td> 
                         <td>
                             @if($projet->cloture == 0)
                                 <span class="bg-warning">En cours</span>

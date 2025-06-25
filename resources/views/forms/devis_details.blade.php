@@ -44,7 +44,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation1" class="form-control" id="designation1" 
-                                                       onfocus = "EnableFields('designation1', 'prix1', 'duree1', 'duree_type1')">
+                                                       onfocus = "EnableFields('designation1', 'prix1', 'duree1', 'duree_type1')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -64,7 +64,8 @@
                                                     <div class="form-group">
                                                         <label>Durée:</label>
                                                         <input type="number" name="duree1" min="0" value="0"
-                                                        class="form-control" placeholder="Entrez ..."  id='duree1' disabled>                                            </div>
+                                                        class="form-control" placeholder="Entrez ..."  id='duree1' disabled>                                            
+                                                    </div>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
@@ -181,7 +182,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation2" class="form-control" id="designation2" 
-                                                         onfocus = "EnableFields('designation2', 'prix2', 'duree2', 'duree_type2')">
+                                                         onfocus = "EnableFields('designation2', 'prix2', 'duree2', 'duree_type2')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -314,7 +315,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation3" class="form-control" id="designation3" 
-                                                      onfocus = "EnableFields('designation3', 'prix3', 'duree3', 'duree_type3')">
+                                                      onfocus = "EnableFields('designation3', 'prix3', 'duree3', 'duree_type3')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -450,7 +451,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation4" class="form-control" id="designation4" 
-                                                       onfocus = "EnableFields('designation4', 'prix4', 'duree4', 'duree_type4')">
+                                                       onfocus = "EnableFields('designation4', 'prix4', 'duree4', 'duree_type4')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -587,7 +588,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation5" class="form-control" id="designation5" 
-                                                       onfocus = "EnableFields('designation5', 'prix5', 'duree5', 'duree_type5')">
+                                                       onfocus = "EnableFields('designation5', 'prix5', 'duree5', 'duree_type5')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -725,7 +726,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation6" class="form-control" id="designation6" 
-                                                      onfocus = "EnableFields('designation6', 'prix6', 'duree6', 'duree_type6')">
+                                                      onfocus = "EnableFields('designation6', 'prix6', 'duree6', 'duree_type6')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -862,7 +863,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation7" class="form-control" id="designation7" 
-                                                        onfocus = "EnableFields('designation7', 'prix7', 'duree7', 'duree_type7')">
+                                                        onfocus = "EnableFields('designation7', 'prix7', 'duree7', 'duree_type7')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -997,7 +998,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation8" class="form-control" id="designation8" 
-                                                     onfocus = "EnableFields('designation8', 'prix8', 'duree8', 'duree_type8')">
+                                                     onfocus = "EnableFields('designation8', 'prix8', 'duree8', 'duree_type8')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -1134,8 +1135,8 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation9" class="form-control" id="designation9" 
-                                                     onfocus = "EnableFields('designation9', 'prix9', 'duree9', 'duree_type9')">
-
+                                                     onfocus = "EnableFields('designation9', 'prix9', 'duree9', 'duree_type9')" wrap="hard">
+ 
                                                         </textarea>
                                                     </div>
                                                 </div>
@@ -1269,7 +1270,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation10" class="form-control" id="designation10" 
-                                                     onfocus = "EnableFields('designation10', 'prix10', 'duree10', 'duree_type10')">
+                                                     onfocus = "EnableFields('designation10', 'prix10', 'duree10', 'duree_type10')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -1407,7 +1408,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation11" class="form-control" id="designation11" 
-                                                     onfocus = "EnableFields('designation11', 'prix11', 'duree11', 'duree_type11')">
+                                                     onfocus = "EnableFields('designation11', 'prix11', 'duree11', 'duree_type11')" wrap="hard">
 
                                                         </textarea>
                                                     </div>
@@ -1541,7 +1542,7 @@
                                                     <div class="form-group">
                                                     <label>Description:</label>
                                                         <textarea name="designation12" class="form-control" id="designation12" 
-                                                     onfocus = "EnableFields('designation12', 'prix12', 'duree12', 'duree_type12')">
+                                                     onfocus = "EnableFields('designation12', 'prix12', 'duree12', 'duree_type12')" wrap="hard">
 
                                                         </textarea>
                                                     </div>

@@ -373,7 +373,7 @@
                                                 <div class="form-group">
                                                     <label>Description de la prestation:</label>
                                                     <textarea name="@php echo 'designation'.$i @endphp" class="form-control" 
-                                                    id="@php echo 'designation'.$i @endphp">
+                                                    id="@php echo 'designation'.$i @endphp" wrap="hard">
                                                     {{$a->descrpt}}
                                                     </textarea>
                                                 </div>
