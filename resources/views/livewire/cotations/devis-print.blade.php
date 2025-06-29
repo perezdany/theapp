@@ -328,15 +328,15 @@
                 <p><u>Conditions de paiement</u> :<br>
                 @php
                     $condition = DB::table('cotations')
-                    ->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
+                    //->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
                     ->where('cotations.id', $id_cotation)
-                    ->get(['cotations.id_condition', 'conditions_paiements.*']);
+                    ->get(['cotations.id_condition']);
 
                     //$result = $convertisseur->Conversion($tout);
                     //echo $result;
                 @endphp
                 @foreach($condition as $condition)
-                    <i style="color:red">{{$condition->libele}}</i><br>
+                    <i style="color:red">{{$condition->id_condition}}</i><br>
                 @endforeach</p>
                    <p><u>Délais de livraison</u> :<br>
                 @php

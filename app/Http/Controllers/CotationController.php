@@ -1653,10 +1653,10 @@ class CotationController extends Controller
         $get = DB::table('cotations')
        // ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
         ->join('clients', 'cotations.id_client', '=', 'clients.id')
-        ->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
+        //->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
         ->where('cotations.id', $id)
         ->limit(1)
-        ->get(['cotations.*', 'clients.nom', 'conditions_paiements.libele']);
+        ->get(['cotations.*', 'clients.nom',]);
         //dd($get);
         return $get;
     }

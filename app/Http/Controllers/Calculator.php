@@ -1124,7 +1124,7 @@ class Calculator extends Controller
         //dd($date);
          $date_aujourdhui = Date('Y-m-d');
          //dd($date_aujourdhui);
-        $recup_les_devis = Cotation::where('date_creation', $date_aujourdhui)->count();
+        $recup_les_devis = Cotation::where('date_creation', $date)->count();
         //dd($recup_les_devis);
         if($recup_les_devis != 0 )
         {
@@ -1147,7 +1147,7 @@ class Calculator extends Controller
             }
             $id = $id."".$nouveau_id;
             //dd($id);
-            $recup_les_devis = Cotation::where('date_creation', $date_aujourdhui)->orderBy('id', 'DESC')->get('id', 'numero_devis');
+            $recup_les_devis = Cotation::where('date_creation', $date)->orderBy('id', 'DESC')->get('id', 'numero_devis');
              
             /*foreach($recup_les_devis as $recup)
             {
@@ -1173,7 +1173,7 @@ class Calculator extends Controller
                 $numero_devis = "DEVIS-".Date('dmY')."-001";
             }*/
             //dd($numero_devis);
-              $timestamp = strtotime($date);
+            $timestamp = strtotime($date);
             $date_f = date("Ymd",  $timestamp);
             $numero_devis = "DEVIS-".$date_f."-001";
            

@@ -180,16 +180,16 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                             <label>Conditions de paiement</label>
-                                            <select class="form-control" name="condition">
+                                           <input type="text" class="form-control" name="condition" value="{{$devis->id_condition}}">
+                                            <!--<select class="form-control" name="condition">
                                                 
                                                 @php
                                                     $g = DB::table('conditions_paiements')->get();
                                                 @endphp
-                                                <option value={{$devis->id_condition}}>{{$devis->libele}}</option>
                                                 @foreach($g as $g)
                                                     <option value="{{$g->id}}">{{$g->libele}}</option>
                                                 @endforeach
-                                            </select>
+                                            </select>-->
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
