@@ -28,8 +28,8 @@ class DepenseController extends Controller
     public function FilterByDateCrea(Request $request)
     {
         //dd($request->all());
-        $annee = $request->annee;
-        $compare = $request->compare;
+        $annee = $request->debut;
+        $compare = $request->fin;
         return view('livewire.depenses.date_creation_filter', compact('compare', 'annee'));
 
     }

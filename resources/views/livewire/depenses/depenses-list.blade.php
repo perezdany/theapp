@@ -15,17 +15,19 @@
 
                 <form action="filter_depense_date_crea"  class="row"method="post">
                 @csrf
-                 Date de création:<br>
+                 Date du-au:<br>
                     <div class="col-xs-2">
-                        <select class="form-control" id="compare" name="compare">
+                        <input type="date" class="form-control" name="debut">
+                        <!--<select class="form-control" id="compare" name="compare">
                             <option value="">Choisir</option>
                             <option value="<"><</option> 
                             <option value=">">></option>
                             <option value="=">=</option>                              
-                        </select>   
+                        </select>-->
                     </div>
                     <div class="col-xs-2">
-                        <select class="form-control" id="anne_depuis" name="annee">
+                        <input type="date" class="form-control" name="fin">
+                        <!--<select class="form-control" id="anne_depuis" name="annee">
                             <option value="">Choisir</option>
                             @php
                                 $annee_fin = "2050";
@@ -34,8 +36,7 @@
                                     echo'<option value='.$annee.'>'.$annee.'</option>';
                                 }
                             @endphp
-                            
-                        </select>   
+                        </select>   -->
                     </div>
                     <div class="input-group-append pull-right col-sx-2">
                         <button type="submit" class="btn btn-default">

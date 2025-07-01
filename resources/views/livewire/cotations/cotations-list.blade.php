@@ -213,16 +213,15 @@
                         <tr class="align-middle">
                         <td>@php echo date('d/m/Y',strtotime($cotation->created_at));@endphp</td>
                         <td>{{$cotation->numero_devis}}</td>
-                        <td>{{$cotation->date_validite}}</td>
+                        <td>@php echo date('d/m/Y',strtotime($cotation->date_validite));@endphp</td>
                         <td>{{$cotation->nom}}</td>
                         <td>
                             @if($cotation->valide == 1)
-                               <span class="bg-success">Validé</span>
+                                <span class="bg-success">Validé</span>
                             @elseif($cotation->rejete == 1)
                                 <span class="bg-danger">Rejeté</span>
                             @else
                                 <span class="bg-danger">Pas validé</span>
-                                
                             @endif
                         </td>
                         <td>
@@ -296,7 +295,19 @@
                         <div class="row">
                             @can("edit")
                           
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+                                <form action="duplicate-devis" method="post" target="blank">
+                                    @csrf
+                                    <input type="text" value="{{$cotation->id}}" name="id_cotation" style="display:none">
+                                    <button class="btn btn-primary"><i class="fa fa-clone"></i></button>
+                                </form>
+                            
+                            </div>
+                         
+                            @endcan
+                            @can("edit")
+                          
+                            <div class="col-sm-3">
                                 <form action="editcotation" method="post" target="blank">
                                     @csrf
                                     <input type="text" value="{{$cotation->id}}" name="id_cotation" style="display:none">
@@ -307,7 +318,7 @@
                          
                             @endcan
                             @can("delete")
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <button class="btn btn-danger" 
                                 data-toggle="modal" data-target="#delete{{$cotation->id}}" >
                                  <b><i class="fa fa-trash"></i></b></button>
@@ -353,7 +364,7 @@
                                
                             </div>
                             @endcan
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 
                                 @if($cotation->valide == 0)
                                     <form action="validecotation" method="post">  

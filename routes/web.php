@@ -220,8 +220,11 @@ Route::middleware(['auth'])->group(function(){
             Route::post('edit_lines', [CotationController::class, 'EditLines']);
             Route::post('edit_lineas', [CotationController::class, 'EditLineAs']);
 
-            //ALLER AU FORMULAIRE DE MODIFI DE LA COTATION
+            //ALLER AU FORMULAIRE DE MODIFICATION DE LA COTATION
             Route::post('editcotation', [CotationController::class, 'GoEdit']);
+
+            //DUPLIQUER LE DEVIS EN GARDANT LES MÊME INFOS D'ENTÊTE
+            Route::post('duplicate-devis', [CotationController::class, 'DuplicateDevis']);
 
             //MODIFIER LE DEVIS
             Route::post('edit_devis', [CotationController::class, 'EditDevis']);
@@ -277,6 +280,8 @@ Route::middleware(['auth'])->group(function(){
 
             //IMPRIMER LA FACTURE
             Route::post('print_invoice', [FactureController::class, 'PrintInvoice']);
+            //VOIR LA FACTURE QUI ETAIT AVANT IMPRESSION ER GENERATION DU FICHIER
+            Route::post('go_see', [FactureController::class, 'DisplayFacture']);
 
             //TABLEAU DES FACTURES
             Route::get('factures', function () {

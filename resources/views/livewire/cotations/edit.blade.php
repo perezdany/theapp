@@ -176,28 +176,30 @@
                                                 </select>
                                             </div>
                                         </div>
-
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                            <label>Disponibilité</label>
+                                            <textarea class="form-control" name="dispo" wrap="hard" sentences maxlength="150">
+                                            {{$devis->dispo}}
+                                            </textarea>
+                                            </div>
+                                        </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                             <label>Conditions de paiement</label>
-                                           <input type="text" class="form-control" name="condition" value="{{$devis->id_condition}}">
-                                            <!--<select class="form-control" name="condition">
-                                                
-                                                @php
-                                                    $g = DB::table('conditions_paiements')->get();
-                                                @endphp
-                                                @foreach($g as $g)
-                                                    <option value="{{$g->id}}">{{$g->libele}}</option>
-                                                @endforeach
-                                            </select>-->
+                                            <textarea class="form-control" name="condition" wrap="hard" sentences maxlength="150">
+                                                {{$devis->id_condition}}
+                                            </textarea>
+                                           
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Délais de livraisons</label>
-                                                <input type="text" name="delais_livraison" class="form-control" 
-                                                value="{{$devis->delais_livraison}}">
-                                             
+                                                <textarea type="text" name="delais_livraison" class="form-control" wrap="hard"
+                                                 sentences maxlength="150">
+                                                    {{$devis->delais_livraison}}
+                                                </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -231,9 +233,9 @@
                                             $les_articles = DB::table('cotation_article')
                                             ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
                                             ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
-                                            ->join('disponibilites', 'cotation_article.id_disponibilite', '=', 'disponibilites.id')
+                                            //->join('disponibilites', 'cotation_article.id_disponibilite', '=', 'disponibilites.id')
                                             ->where('cotation_article.cotation_id', $devis->id)
-                                            ->get(['cotation_article.*', 'articles.designation', 'disponibilites.libele']);
+                                            ->get(['cotation_article.*', 'articles.designation',]);
                                             //dd($les_articles);  @include("livewire.cotations.lines_edit_article")
                                             $i = 1;
                                            
@@ -243,7 +245,7 @@
                                             <input type="text" class="form-control" value="{{$a->id}}"  
                                             name="idda{{$i}}"  style="display:none;">
                                             <div class="row">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-6">
                                             
                                                     <div class="form-group">
                                                         <label>Articles:</label>
@@ -260,39 +262,20 @@
                                                         </select>   
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <div class="form-group">
                                                     <label>Quantité:</label>
                                                     <input type="number" name="@php echo 'qte'.$i @endphp" min="1" 
                                                     class="form-control" id="@php echo 'qte'.$i @endphp" value="{{$a->quantite}}">
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4">
                                                     
                                                     <div class="form-group">
                                                         <label>Prix unitaire:</label>
                                                         <input type="number" name="@php echo 'pu'.$i @endphp" 
                                                         class="form-control" id="@php echo 'pu'.$i @endphp" value="{{$a->pu}}">
                                                     </div> 
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
-                                                        <label>Disponlibité:</label>
-                                                        <select class="form-control" name="@php echo 'disponibilite'.$i @endphp" 
-                                                        id="@php echo 'disponibilite'.$i @endphp" >
-                                                            @php
-                                                                $dispo = DB::table('disponibilites')->get();
-                                                            @endphp
-                                                            <option value={{$a->id_disponibilite}}>{{$a->libele}}</option>
-                                                            @foreach($dispo as $dispo)
-                                                                <option value={{$dispo->id}}>{{$dispo->libele}}</option>
-                                                            @endforeach
-                                                            
-                                                        </select>   
-                                                    </div> <!--<button type="button" id="bt1" 
-                                                    class="btn btn-warning float-right" 
-                                                    onclick="displayTheLine('support2','bt1')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
                                             
                                             </div>

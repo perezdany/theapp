@@ -393,24 +393,27 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
+                                        <label>Disponibilité</label>
+                                        <textarea type="text" class="form-control" name="dispo" wrap="hard" sentences maxlength="150">
+                                        </textarea>
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
                                         <label>Conditions de paiement</label>
-                                        <input type="text" class="form-control" name="condition">
-                                        <!--<select class="form-control" name="condition">
-                                            
-                                            @php
-                                                $g = DB::table('conditions_paiements')->get();
-                                            @endphp
-                                            @foreach($g as $g)
-                                                <option value="{{$g->id}}">{{$g->libele}}</option>
-                                            @endforeach
-                                        </select>-->
+                                        <textarea type="text" class="form-control" name="condition" wrap="hard"
+                                        sentences maxlength="150"></textarea>
+                                       
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Délais de livraison</label>
-                                            <input type="text" name="delais_livraison" class="form-control"
-                                             placeholder="5 jours, 10 jours, 1 mois etc...">
+                                            <textarea type="text" name="delais_livraison" class="form-control"
+                                                placeholder="5 jours, 10 jours, 1 mois etc..." wrap="hard" 
+                                                sentences maxlength="150">
+                                            </textarea>
                                             
                                         </div>
                                     </div>

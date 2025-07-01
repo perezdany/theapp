@@ -101,9 +101,8 @@
                         <th>Etat</th>
                         <!--<th wire:click="setOrderField('numero_devis')"><i class="fa fa-sort" aria-hidden="true"></i>Devis N°:</th>-->
                         <th>Client</th>
-                        
-                        <th>Ajouter le fichier</th>
-                        <th>Aperçu du fichier</th>
+                        <th>Ajouter/télécharger fichier</th>
+                        <th>Détails</th>
                         <th>Paiements</th>
                         <th>Mod/Supp</th>
                     </tr>
@@ -146,6 +145,8 @@
                         
                         <td>{{$facture->nom}}</td>
                         <td>
+                            <div class="row">
+                            <div class="col-sm-6">
                             @can("edit")
                         
                             <button class="btn btn-primary" 
@@ -192,14 +193,24 @@
                             </div>    
                             <!-- /.modal -->
                             @endcan
-                        </td>
-                        <td>
+                            </div>
+                            <div class="col-sm-6">
                             <form action="dld_invoice" method="post" target="blank" enctype="multipart/form-data">
                                 @csrf
                                 <input type="text" style="display:none;" value="{{$facture->id}}">
                                 <input type="text" style="display:none;" class="form-control" name="file" value="{{$facture->file_path}}">
                                 <button class="btn btn-warning" type="submit"><i class="fa fa-download"></i></button>
-                            </form>    
+                            </form> 
+                            </div>   
+                        </td>
+                        <td>
+                            <form action="go_see" method="post" target="blank" enctype="multipart/form-data">
+                                @csrf
+                                <input type="text" style="display:none;" value="{{$facture->id}}" name="id">
+                                <input type="text" style="display:none;" value="{{$facture->id_cotation}}" name="id_cotation">
+                                <input type="text" style="display:none;" class="form-control" name="file" value="{{$facture->file_path}}">
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-eye"></i></button>
+                            </form> 
                         </td>
                          <td>
                             @if($facture->numero_facture != NULL)

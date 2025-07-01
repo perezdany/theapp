@@ -11,7 +11,7 @@ class Cotation extends Model
     
     protected $fillable = [
         'date_creation', 'numero_devis', 'date_validite', 
-        'id_client', 'id_service', 'id_condition', 'delais_livraison', 'valide', 'rejete', 'motif', 'id_user', 
+        'id_client', 'id_condition', 'delais_livraison', 'dispo', 'valide', 'rejete', 'motif', 'id_user', 
     ];
 
     public function services()

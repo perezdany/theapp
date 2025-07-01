@@ -121,12 +121,12 @@ class Depenses extends Component
 
         if($this->compare != "" AND $this->annee != "")
         {
-            
-            if($this->compare == "=")
+            $depenseQuery->where("date_sortie", '>=', $this->annee)->where("date_sortie", '<=', $this->compare);
+            /*if($this->compare == "=")
             {
                 $annee = $this->annee."-01-01";
                 $annee_f = $this->annee."-12-31";
-                $depenseQuery->where("date_sortie", '<', $annee_f)->where("date_sortie", '>', $annee);
+                
             }
             elseif($this->compare == "<")
             {
@@ -137,7 +137,7 @@ class Depenses extends Component
             {
                 $annee = $this->annee."-12-31";
                 $depenseQuery->where("date_sortie", $this->compare,  $annee);
-            }
+            }*/
             
         }
 

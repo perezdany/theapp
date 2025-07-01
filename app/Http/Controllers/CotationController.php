@@ -250,6 +250,74 @@ class CotationController extends Controller
 
     }
 
+    public function DuplicateDevis(Request $request)
+    {
+        //dd($request->all());
+        //ON RECUPERE LE DEVIS EN FONCTION DE L'ID
+        $le_devis = Cotation::where('id', $request->id_cotation)->get();
+        //dd($le_devis);
+        foreach($le_devis as $devis)
+        {
+            $numero_devis = (new Calculator())->GenerateNumDevis($devis->date_creation);
+           
+            //ON CREE UN AUTRE DEVIS
+            $create = Cotation::create(
+                [ 
+                    'numero_devis' => $numero_devis,
+                    'date_creation' => $devis->date_creation, 
+                    'date_validite' =>  $devis->date_validite, 
+                    'id_client' => $devis->id_client,
+                    'id_condition' => $devis->Iid_condition,
+                    'delais_livraison' => $devis->delais_livraison,
+                    'dispo' => $devis->dispo,
+                    'valide' => 0,
+                    'rejete' => 0,
+                    'id_user' => auth()->user()->id,
+                ]
+            );
+            //CREER MAINTENANT LES DETAILS DU DEVIS IDENTIQUES AU PRECEDENTS
+            //dd('ici');
+            $get_a = DB::table('cotation_article')
+                ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+                ->join('articles', 'cotation_article.article_id', 'articles.id')
+                ->where('cotation_article.cotation_id', $request->id_cotation)->get();
+            //dd($get_a);
+            foreach($get_a as $article)
+            {
+                $add = DB::table('cotation_article')
+                ->insert(['cotation_id' => $create->id,
+                    'article_id' => $article->article_id,
+                    'quantite' => $article->quantite,
+                    'pu' => $article->pu,
+                    //'id_disponibilite' => $article->id_disponibilite,
+                ]);
+            }
+            $les_elmnts = DB::table('details_cotations')
+            ->join('services', 'details_cotations.id_service', '=', 'services.id')
+            ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+            ->where('details_cotations.cotation_id', $request->id_cotation)->get();
+            foreach($les_elmnts as $details)
+            {
+                $add = DB::table('details_cotations')
+                ->insert([
+                    'cotation_id' => $create->id,
+                    'id_service' => $details->id_service,
+                    'designation' => $details->designation,
+                    'descrpt' => $details->descrpt,
+                    'prix_ht' => $details->prix_ht,
+                    'duree' => $details->duree,
+                    'duree_type' => $details->duree_type,
+                    
+                ]);
+            }
+        }
+
+        return view('livewire/cotations/edit',[
+            'id' => $create->id,
+        ]);
+
+    }
+
     public function AddDevis(Request $request)
     {
         //dd($request->all());
@@ -281,6 +349,7 @@ class CotationController extends Controller
                 'date_validite' =>  $request->date_validite, 
                 'id_client' => $request->id_client,
                 'id_condition' => $request->condition,
+                'dispo' => $request->dispo,
                 'delais_livraison' => $request->delais_livraison,
                 'valide' => 0,
                 'rejete' => 0,
@@ -325,7 +394,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article1,
                                 'quantite' => $request->qte1,
                                 'pu' => $request->pu1,
-                                'id_disponibilite' => $request->disponibilite1,
                     ]);
                 }
             }
@@ -357,7 +425,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article2,
                                 'quantite' => $request->qte2,
                                 'pu' => $request->pu2,
-                                'id_disponibilite' => $request->disponibilite2,
                     ]);
                 }
             }
@@ -388,7 +455,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article3,
                                 'quantite' => $request->qte3,
                                 'pu' => $request->pu3,
-                                'id_disponibilite' => $request->disponibilite3,
                     ]);
                 }
             }
@@ -419,7 +485,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article4,
                                 'quantite' => $request->qte4,
                                 'pu' => $request->pu4,
-                                'id_disponibilite' => $request->disponibilite4,
                     ]);
                 }
             }
@@ -450,7 +515,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article5,
                                 'quantite' => $request->qte5,
                                 'pu' => $request->pu5,
-                                'id_disponibilite' => $request->disponibilite5,
                     ]);
                 }
             }
@@ -481,7 +545,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article6,
                                 'quantite' => $request->qte6,
                                 'pu' => $request->pu6,
-                                'id_disponibilite' => $request->disponibilite6,
                     ]);
                 }
             }
@@ -512,7 +575,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article7,
                                 'quantite' => $request->qte7,
                                 'pu' => $request->pu7,
-                                'id_disponibilite' => $request->disponibilite7,
                     ]);
                 }
             }
@@ -543,7 +605,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article8,
                                 'quantite' => $request->qte8,
                                 'pu' => $request->pu8,
-                                'id_disponibilite' => $request->disponibilite8,
                     ]);
                 }
             }
@@ -574,7 +635,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article9,
                                 'quantite' => $request->qte9,
                                 'pu' => $request->pu9,
-                                'id_disponibilite' => $request->disponibilite9,
                     ]);
                 }
             }
@@ -605,7 +665,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article10,
                                 'quantite' => $request->qte10,
                                 'pu' => $request->pu10,
-                                'id_disponibilite' => $request->disponibilite10,
                     ]);
                 }
             }
@@ -636,7 +695,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article11,
                                 'quantite' => $request->qte11,
                                 'pu' => $request->pu11,
-                                'id_disponibilite' => $request->disponibilite11,
                     ]);
                 }
             }
@@ -668,7 +726,6 @@ class CotationController extends Controller
                                 'article_id' => $request->article12,
                                 'quantite' => $request->qte12,
                                 'pu' => $request->pu12,
-                                'id_disponibilite' => $request->disponibilite12,
                     ]);
                 }
             }
@@ -874,8 +931,8 @@ class CotationController extends Controller
             [ 
                 'date_creation' => $request->date_creation, 'numero_devis'=>$request->numero_devis,
                 'date_validite' => $request->date_validite, 'id_client' => $request->id_client,
-                'id_service' => $request->service,  'id_condition' => $request->condition,
-                'delais_livraison' => $request->delais_livraison,
+                'id_condition' => $request->condition,
+                'delais_livraison' => $request->delais_livraison, 'dispo' => $request->dispo,
                 'id_user' => auth()->user()->id,
             ]
         );
@@ -1159,35 +1216,31 @@ class CotationController extends Controller
         
             $add = DB::table('cotation_article')->where('id', $request->idda1)
             ->update([
-                        'article_id' => $request->article1,
-                        'quantite' => $request->qte1,
-                        'pu' => $request->pu1,
-                        'id_disponibilite' => $request->disponibilite1,
+                'article_id' => $request->article1,
+                'quantite' => $request->qte1,
+                'pu' => $request->pu1,
+                        
             ]);
-           //
-            //dd($add);
+           
         }
         if(isset($request->idda2) AND $request->idda2 != null)
         {
             $add = DB::table('cotation_article')
             ->where('id', $request->idda2)
             ->update([
-                        'article_id' => $request->article2,
-                        'quantite' => $request->qte2,
-                        'pu' => $request->pu2,
-                        'id_disponibilite' => $request->disponibilite2,
+                'article_id' => $request->article2,
+                'quantite' => $request->qte2,
+                'pu' => $request->pu2,
             ]);
         }
         if(isset($request->idda3) AND $request->idda3 != null)
         {
-             
             $add = DB::table('cotation_article')
             ->where('id', $request->idda3)
             ->update([
-                        'article_id' => $request->article3,
-                        'quantite' => $request->qte3,
-                        'pu' => $request->pu3,
-                        'id_disponibilite' => $request->disponibilite3,
+                'article_id' => $request->article3,
+                'quantite' => $request->qte3,
+                'pu' => $request->pu3,
             ]);
         }
         if(isset($request->idda4) AND $request->idda4 != null)
@@ -1195,10 +1248,9 @@ class CotationController extends Controller
             $add = DB::table('cotation_article')
             ->where('id', $request->idda4 )
             ->update([
-                        'article_id' => $request->article4,
-                        'quantite' => $request->qte4,
-                        'pu' => $request->pu4,
-                        'id_disponibilite' => $request->disponibilite4,
+                'article_id' => $request->article4,
+                'quantite' => $request->qte4,
+                'pu' => $request->pu4,
             ]);
         }
         if(isset($request->idda5) AND $request->idda5 != null)
@@ -1206,10 +1258,9 @@ class CotationController extends Controller
             $add = DB::table('cotation_article')
            ->where('id', $request->idda5)
             ->update([
-                        'article_id' => $request->article5,
-                        'quantite' => $request->qte5,
-                        'pu' => $request->pu5,
-                        'id_disponibilite' => $request->disponibilite5,
+                'article_id' => $request->article5,
+                'quantite' => $request->qte5,
+                'pu' => $request->pu5,
             ]);
         }
         if(isset($request->idda6) AND $request->idda6 != null)
@@ -1218,10 +1269,9 @@ class CotationController extends Controller
             $add = DB::table('cotation_article')
             ->where('id', $request->idda6)
             ->update([
-                        'article_id' => $request->article6,
-                        'quantite' => $request->qte6,
-                        'pu' => $request->pu6,
-                        'id_disponibilite' => $request->disponibilite6,
+                'article_id' => $request->article6,
+                'quantite' => $request->qte6,
+                'pu' => $request->pu6,
             ]);
         }
         if(isset($request->idda7) AND $request->idda7  != null)
@@ -1229,10 +1279,9 @@ class CotationController extends Controller
             $add = DB::table('cotation_article')
             ->where('id', $request->idda7)
             ->update([
-                        'article_id' => $request->article7,
-                        'quantite' => $request->qte7,
-                        'pu' => $request->pu7,
-                        'id_disponibilite' => $request->disponibilite7,
+                'article_id' => $request->article7,
+                'quantite' => $request->qte7,
+                'pu' => $request->pu7,
             ]);
         }
 
@@ -1241,10 +1290,9 @@ class CotationController extends Controller
             $add = DB::table('cotation_article')
            ->where('id', $request->idda8)
             ->update([
-                        'article_id' => $request->article8,
-                        'quantite' => $request->qte8,
-                        'pu' => $request->pu8,
-                        'id_disponibilite' => $request->disponibilite8,
+                'article_id' => $request->article8,
+                'quantite' => $request->qte8,
+                'pu' => $request->pu8,
             ]);
         }
 
@@ -1253,10 +1301,9 @@ class CotationController extends Controller
             $add = DB::table('cotation_article')
             ->where('id', $request->idda9)
             ->update([
-                        'article_id' => $request->article9,
-                        'quantite' => $request->qte9,
-                        'pu' => $request->pu9,
-                        'id_disponibilite' => $request->disponibilite9,
+                'article_id' => $request->article9,
+                'quantite' => $request->qte9,
+                'pu' => $request->pu9,
             ]);
         }
         if(isset($request->idda10) AND $request->idda10 != null)
@@ -1264,21 +1311,19 @@ class CotationController extends Controller
             $add = DB::table('cotation_article')
             ->where('id', $request->idda10)
             ->update([
-                        'article_id' => $request->article10,
-                        'quantite' => $request->qte10,
-                        'pu' => $request->pu10,
-                        'id_disponibilite' => $request->disponibilite10,
+                'article_id' => $request->article10,
+                'quantite' => $request->qte10,
+                'pu' => $request->pu10,
             ]);
         }
-         if(isset($request->idda11) AND $request->idda11 != null)
+        if(isset($request->idda11) AND $request->idda11 != null)
         {
             $add = DB::table('cotation_article')
             ->where('id', $request->idda11)
             ->update([
-                        'article_id' => $request->article11,
-                        'quantite' => $request->qte11,
-                        'pu' => $request->pu11,
-                        'id_disponibilite' => $request->disponibilite11,
+                'article_id' => $request->article11,
+                'quantite' => $request->qte11,
+                'pu' => $request->pu11,
             ]);
         }
         if(isset($request->idda12) AND $request->idda12 != null)
@@ -1286,10 +1331,9 @@ class CotationController extends Controller
             $add = DB::table('cotation_article')
             ->where('id', $request->idda12)
             ->update([
-                        'article_id' => $request->article12,
-                        'quantite' => $request->qte12,
-                        'pu' => $request->pu12,
-                        'id_disponibilite' => $request->disponibilite12,
+                'article_id' => $request->article12,
+                'quantite' => $request->qte12,
+                'pu' => $request->pu12,
             ]);
         }
        
@@ -1312,7 +1356,7 @@ class CotationController extends Controller
                         'article_id' => $request->article6,
                         'quantite' => $request->qte6,
                         'pu' => $request->pu6,
-                        'id_disponibilite' => $request->disponibilite6,
+                       
             ]);
         }
         if(isset($request->article7) AND $request->article7 != null)
@@ -1323,7 +1367,7 @@ class CotationController extends Controller
                         'article_id' => $request->article7,
                         'quantite' => $request->qte7,
                         'pu' => $request->pu7,
-                        'id_disponibilite' => $request->disponibilite7,
+     
             ]);
         }
         if(isset($request->article8) AND $request->article8 != null)
@@ -1334,7 +1378,6 @@ class CotationController extends Controller
                         'article_id' => $request->article8,
                         'quantite' => $request->qte8,
                         'pu' => $request->pu8,
-                        'id_disponibilite' => $request->disponibilit8,
             ]);
         }
         if(isset($request->article9) AND $request->article9 != null)
@@ -1345,7 +1388,6 @@ class CotationController extends Controller
                         'article_id' => $request->article9,
                         'quantite' => $request->qte9,
                         'pu' => $request->pu9,
-                        'id_disponibilite' => $request->disponibilite9,
             ]);
         }
         if(isset($request->article10) AND $request->article10 != null)
@@ -1356,7 +1398,6 @@ class CotationController extends Controller
                         'article_id' => $request->article10,
                         'quantite' => $request->qte10,
                         'pu' => $request->pu10,
-                        'id_disponibilite' => $request->disponibilite10,
             ]);
         }
         
@@ -1368,7 +1409,6 @@ class CotationController extends Controller
                         'article_id' => $request->article11,
                         'quantite' => $request->qte11,
                         'pu' => $request->pu11,
-                        'id_disponibilite' => $request->disponibilite11,
             ]);
         }
         if(isset($request->article12) AND $request->article12 != null)
@@ -1379,7 +1419,6 @@ class CotationController extends Controller
                         'article_id' => $request->article12,
                         'quantite' => $request->qte12,
                         'pu' => $request->pu12,
-                        'id_disponibilite' => $request->disponibilite12,
             ]);
         }
         
@@ -1620,7 +1659,10 @@ class CotationController extends Controller
     {
         //dd($request->all());
         $get_devis = Cotation::where('id', $request->id_cotation)->get();
-        foreach($get_devis as $get_devis)
+        return view('livewire/cotations/edit',[
+            'id' => $request->id_cotation,
+        ]);
+        /*foreach($get_devis as $get_devis)
         {
             if($get_devis->id_service == 8)
             {
@@ -1630,11 +1672,9 @@ class CotationController extends Controller
             }
             else
             {
-                 return view('livewire/cotations/edit',[
-                    'id' => $request->id_cotation,
-                ]);
+                
             }
-        }
+        }*/
         
     }
 

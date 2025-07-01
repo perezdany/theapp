@@ -1,8 +1,10 @@
 @php
     use App\Http\Controllers\CotationController;
     use App\Http\Controllers\Convertisseur;
+    use App\Http\Controllers\FactureController;
     $cotationcontroller = new CotationController();
     $convertisseur =  new Convertisseur();
+    $facturecontroller =  new FactureController();
 @endphp
 <!DOCTYPE html>
 <html>
@@ -40,6 +42,7 @@
                 @php
                     //dd($id_cotation);
                     $devis = $cotationcontroller->GetLinesinfoCustomer($id_cotation);
+                    $la_facture = $facturecontroller->GetByIdCotation($id_cotation, $id_facture);
                     //dd($devis);
                     $somme = 0;
                     $i = 0; 
@@ -52,11 +55,21 @@
                     <div class="row">
                         <div class="col-12">
                         <h4>
-                            <i class="fa fa-globe"></i>{{config('app.name')}} <!--AdminLTE, Inc.-->
+                            <i></i><!--AdminLTE, Inc.-->
                             <small class="float-right">
-                                @php echo date('d/m/Y',strtotime($devis->date_creation));@endphp
+                                @php 
+                                    $tableau_jour = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+                                    $jour = intval(date('w', strtotime($devis->date_creation)));
+                                    $tableau_mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 
+                                    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+                                    $mois = intval(date('n', strtotime($devis->date_creation)));
+                                    
+                                    $annee = date('Y',strtotime($devis->date_creation));
+                                    //ON VA CONCATENER LES VALEURS MAINTEANT
+                                    echo $tableau_jour[$jour]." ".$jour." ".$tableau_mois[($mois-1)]." ".$annee;
+                                @endphp
                             </small>
-                        </h4>
+                        </h4><br><br><br>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -91,7 +104,9 @@
                     </table>
                     <div class="row invoice-info">
                         <div class="col-sm-4 invoice-col">
-                            <b>Devis N° {{$devis->numero_devis}}</b><br>
+                            @foreach($la_facture as $facture)
+                                <b>Facture N°</b> {{$facture->numero_facture}}<br>
+                            @endforeach
                             <!--<b>Order ID:</b> 4F3S8J<br>-->
                             <!--<b>Payment Due:</b> 2/22/2014<br>-->
                             <b>Dossier suivi par:</b> {{$devis->nom_prenoms}}<br><br>
@@ -137,8 +152,6 @@
                                 <tr style="background-color:#76d7c4">
                                 <th>Code</th>
                                 <th>Désignation</th>
-                                <th>Description</th>
-                                <th>Garantie</th>
                                 <th>Qté</th>
                                 <th>Prix (Unitaire)</th>
                                 <th>Total</th>
@@ -156,9 +169,7 @@
                                         @else
                                             <td></td>
                                         @endif   
-                                        <td>{{$devis->designation}}</td>
-                                        <td>{{$devis->description_article}}</td>
-                                        <td>1 ans</td>
+                                        <td><b>{{$devis->designation}}</b><br><i><u>Description:</u><br>{{$devis->description_article}}</i></td>
                                         <td>{{$devis->quantite}}</td>
                                         <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
                                         <td>
@@ -187,7 +198,6 @@
                                 <tr style="background-color:#76d7c4">
                                 <th>Code</th>
                                 <th>Prestation</th>
-                                <th>Description</th>
                                 <th>Durée</th>
                                 <th>Qté</th>
                                 <th>Prix (Unitaire)</th>
@@ -204,8 +214,7 @@
                                    
                                     <td syle="border:0px;">{{$devis->code}}</td>
                                    
-                                    <td><b>{{$devis->designation}}</b></td>
-                                    <td>{{$devis->descrpt}}</td>
+                                    <td><b>{{$devis->designation}}</b><br><i><u>Description:</u><br>{{$devis->descrpt}}</i></td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
                                     <td>1</td>
@@ -325,18 +334,20 @@
                         echo $result;
                     @endphp
                 </b></p>
-                <p><u>Conditions de paiement</u> :<br>
                 @php
                     $condition = DB::table('cotations')
-                    ->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
+                    //->join('conditions_paiements', 'cotations.id_condition', '=', 'conditions_paiements.id')
                     ->where('cotations.id', $id_cotation)
-                    ->get(['cotations.id_condition', 'conditions_paiements.*']);
-
-                    //$result = $convertisseur->Conversion($tout);
-                    //echo $result;
+                    ->get(['cotations.id_condition', 'cotations.delais_livraison', 'cotations.dispo']);
                 @endphp
+                
                 @foreach($condition as $condition)
-                    <i style="color:red">{{$condition->libele}}</i><br><br><br>
+                    <p><u>Conditions de paiement</u> :<br>
+                    <i style="color:red">{{$condition->id_condition}}</i><br>
+                    <p><u>Délais de livraison</u> :<br>
+                    <i style="color:red">{{$condition->delais_livraison}}</i><br>
+                    <p><u>Disponibilité</u> :<br>
+                    <i style="color:red">{{$condition->dispo}}</i><br><br><br>
                 @endforeach</p>
                 <!-- this row will not appear when printing -->
                 <!--<div class="row no-print">

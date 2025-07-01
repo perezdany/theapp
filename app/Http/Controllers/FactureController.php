@@ -34,11 +34,11 @@ class FactureController extends Controller
             $lines = DB::table('details_cotations')
             ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
             ->where('details_cotations.cotation_id', $request->id_cotation)
-            ->get(['details_cotations.*', 'cotations.numero_devis']);
+            ->get(['details_cotations.*', 'cotations.date_creation', 'cotations.numero_devis']);
 
             foreach($lines as $line)
             {
-                $numero = $line->numero_devis;
+                $partie = explode("-", $line->numero_devis);
                 $somme = $somme + $line->prix_ht;
             }
         }
@@ -48,14 +48,17 @@ class FactureController extends Controller
             $lines = DB::table('cotation_article')
             ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
             ->where('cotation_article.cotation_id', $request->id_cotation)
-            ->get(['cotation_article.*', 'cotations.numero_devis']);
+            ->get(['cotation_article.*', 'cotations.date_creation', 'cotations.numero_devis']);
 
             foreach($lines as $line)
             {
-                $numero = $line->numero_devis;
+                $partie = explode("-", $line->numero_devis);
                 $sommea = $sommea + $line->pu;
             }
         }
+  
+        $numero = "FACT-".$partie[1]."-".$partie[2];
+        //dd($numero);
         $tout = $somme + $sommea;
         
         $today = date('Y-m-d');
@@ -63,7 +66,7 @@ class FactureController extends Controller
         $departtime1 = strtotime('+15 days', $timestamp);
         $result_date = date("Y-m-d", $departtime1 );
         $insert = Facture::create([
-                'numero_facture' => "FACTURE-".$numero, 
+                'numero_facture' => $numero, 
                 'date_reglement' => $result_date, 'date_emission' => $today, 
                 'montant_facture' => $request->montant_facture , 'id_cotation' => $request->id_cotation, 
                 'reglee' => 0, 'annulee' => 0, 'id_user' => auth()->user()->id,
@@ -111,9 +114,19 @@ class FactureController extends Controller
         ]);
     }
 
-    public function GetByIdCotation($id)
+    public function DisplayFacture(Request $request)
     {
-        $get = Facture::where('id_cotation', $id)->limit(1)->get();
+         return view('livewire/factures/seefacture',[
+            'id_cotation' => $request->id_cotation,
+            'id_facture' => $request->id
+        ]);
+    }
+
+    public function GetByIdCotation($id, $id_facture)
+    {
+        $get = Facture::where('id_cotation', $id)->where('id', $id_facture)
+        ->get();
+        //sdd($get);
         return $get;
     }
 
@@ -121,6 +134,7 @@ class FactureController extends Controller
     {
         $data = [
             'id_cotation' => $request->id_cotation,
+            'id_facture' => $request->id
         ];
         foreach($a = Facture::where('id_cotation', $request->id_cotation)->get() as $a)
         {
