@@ -39,86 +39,117 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Montant</th>
-                            <th>Date de paiement</th>
-                            <th>Mode de paiement</th>
-                           
-                            <th>Numéro de virement/transfert...</th>
-                            <th>Commentaire</th>
-                            <th>Modifier</th>
-                            <th>Supp</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($my_own as $my_own)
-                                <tr>
-                                    <td>
-                                        @php
-                                            echo  number_format($my_own->paiement, 2, ".", " ")." XOF";
-                                        @endphp
-                                    </td>
-
-                                    <td>{{$my_own->date_paiement}}</td>
-                                    <td>{{$my_own->libele}}</td>
-                              
-                                    <td>{{$my_own->numero}}</td>
-                                    <td>{{$my_own->commentaire}}</td>
-                                  
-                                    @can("comptable")
-                                        <td>
-                                            <form action="edit_paiement_form" method="post">
-                                                @csrf
-                                                <input type="text" value={{$my_own->id_paiement}} style="display:none;" name="id_paiement">
-                                                <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
-                                            </form>
-                                        </td>
-                                        @can("delete")
-                                           
-                                            <td>
-
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="@php echo "#delete".$my_own->id.""; @endphp">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                                <div class="modal modal-danger fade" id="@php echo "delete".$my_own->id.""; @endphp">
-                                                    <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                   
-                                                        <h4 class="modal-title">Supprimer </h4>
-                                                        </div>
-                                                        <form action="delete_paiement" method="post">
-                                                        <div class="modal-body">
-                                                            <p>Voulez-vous supprimer le paiement du montant de {{$my_own->paiement}} XOF?</p>
-                                                            @csrf
-                                                            @csrf
-                                                            <input type="text" value="{{$id}}" style="display:none;" name="id">
-                                                            <input type="text" value="{{$my_own->id_paiement}}" style="display:none;" name="id_paiement">
-                                                            <input type="text" value={{$my_own->id}} style="display:none;" name="id_details"><!--les details-->
-                                                            <input type="text" value={{$my_own->id_facture}} style="display:none;" name="id_facture">
-                                                        </div>
-                                                        
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Fermer</button>
-                                                            <button type="submit" class="btn  btn-success">Supprimer</button>
-                                                        </div>
-                                                        </form>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
-                                                <!-- /.modal -->
-                                            </td>
-                                        @endcan
-                                    @endcan
-
-                                </tr>
-                            @endforeach
-                        </tbody>
+                            <thead style="display:none;">
+                            <tr>
+                                <th>Montant</th>
+                                <th>Date de paiement</th>
+                                <th>Mode de paiement</th>
+                            
+                                <th>Numéro de virement/transfert...</th>
+                                <th>Commentaire</th>
                         
-                    </table>
+                            </tr>
+                            </thead>
+                            <tbody style="display:none;">
+                                @foreach($my_own as $my_own)
+                                    <tr>
+                                        <td>
+                                            @php
+                                                echo  number_format($my_own->paiement, 2, ".", " ")." XOF";
+                                            @endphp
+                                        </td>
+
+                                        <td>{{$my_own->date_paiement}}</td>
+                                        <td>{{$my_own->libele}}</td>
+                                
+                                        <td>{{$my_own->numero}}</td>
+                                        <td>{{$my_own->commentaire}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            
+                        </table>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>Montant</th>
+                                <th>Date de paiement</th>
+                                <th>Mode de paiement</th>
+                            
+                                <th>Numéro de virement/transfert...</th>
+                                <th>Commentaire</th>
+                                <th>Modifier</th>
+                                <th>Supp</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($my_own as $my_own)
+                                    <tr>
+                                        <td>
+                                            @php
+                                                echo  number_format($my_own->paiement, 2, ".", " ")." XOF";
+                                            @endphp
+                                        </td>
+
+                                        <td>{{$my_own->date_paiement}}</td>
+                                        <td>{{$my_own->libele}}</td>
+                                
+                                        <td>{{$my_own->numero}}</td>
+                                        <td>{{$my_own->commentaire}}</td>
+                                    
+                                        @can("comptable")
+                                            <td>
+                                                <form action="edit_paiement_form" method="post">
+                                                    @csrf
+                                                    <input type="text" value={{$my_own->id_paiement}} style="display:none;" name="id_paiement">
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                                                </form>
+                                            </td>
+                                            @can("delete")
+                                            
+                                                <td>
+
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="@php echo "#delete".$my_own->id.""; @endphp">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                    <div class="modal modal-danger fade" id="@php echo "delete".$my_own->id.""; @endphp">
+                                                        <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                    
+                                                            <h4 class="modal-title">Supprimer </h4>
+                                                            </div>
+                                                            <form action="delete_paiement" method="post">
+                                                            <div class="modal-body">
+                                                                <p>Voulez-vous supprimer le paiement du montant de {{$my_own->paiement}} XOF?</p>
+                                                                @csrf
+                                                                @csrf
+                                                                <input type="text" value="{{$id}}" style="display:none;" name="id">
+                                                                <input type="text" value="{{$my_own->id_paiement}}" style="display:none;" name="id_paiement">
+                                                                <input type="text" value={{$my_own->id}} style="display:none;" name="id_details"><!--les details-->
+                                                                <input type="text" value={{$my_own->id_facture}} style="display:none;" name="id_facture">
+                                                            </div>
+                                                            
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Fermer</button>
+                                                                <button type="submit" class="btn  btn-success">Supprimer</button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                        </div>
+                                                        <!-- /.modal-dialog -->
+                                                    </div>
+                                                    <!-- /.modal -->
+                                                </td>
+                                            @endcan
+                                        @endcan
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            
+                        </table>
                     </div>
                     <!-- /.box-body -->
                 </div>

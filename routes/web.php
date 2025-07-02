@@ -164,9 +164,11 @@ Route::middleware(['auth'])->group(function(){
 
             //FAIRE UNE RECHERCHE PAR UTILISATEURS QUI A AJOUTE LA DEPSENSE
             Route::post('filter_user_depenses', [DepenseController::class, 'FilterByUser']);
+            Route::get('filter_user_depenses', [DepenseController::class, 'FilterByUser']);
 
             //FILTRE POUR LA DATE DE CREATION DES DEPENSES
             Route::post('filter_depense_date_crea', [DepenseController::class, 'FilterByDateCrea']);
+            Route::get('filter_depense_date_crea', [DepenseController::class, 'FilterByDateCrea']);
 
             //SUPPRIMER LA DEPENSE
             Route::post('deletedepense', [DepenseController::class, 'TryDelete']);

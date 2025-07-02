@@ -63,7 +63,7 @@
                                     
                                     $annee = date('Y',strtotime($devis->date_creation));
                                     //ON VA CONCATENER LES VALEURS MAINTEANT
-                                    echo $tableau_jour[$jour]." ".$jour." ".$tableau_mois[($mois-1)]." ".$annee;
+                                    echo $tableau_jour[$jour]." ".(date('m', strtotime($devis->date_creation)))." ".$tableau_mois[($mois-1)]." ".$annee;
                                 @endphp
                             </small>
                         </h4>

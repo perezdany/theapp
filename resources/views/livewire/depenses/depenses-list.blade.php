@@ -88,13 +88,44 @@
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
                 <table id="example1" class="table table-bordered table-striped">
+                <thead style="display:none">
+                    <tr>
+                        <th>Date</th>
+                        <th>Objet/Commentaire</th>
+                        <th>Montant</th>
+                        <th>Numéro de transaction</th>
+           
+                    </tr>
+                </thead>
+                <tbody style="display:none">
+                @forelse($depenses as $depense)
+                    <tr class="align-middle">
+                        <td>@php echo date('d/m/Y',strtotime($depense->date_sortie));@endphp</td>
+                        <td>{{$depense->objet}}</td>
+                        <td>
+                            @php
+                                echo number_format($depense->montant, 2, ',', ' ')." XOF";
+                            @endphp
+                        </td>
+                        <td>{{$depense->numero}}</td>
+                   
+                    </tr>
+                @empty
+                  
+                @endforelse
+                    
+                </tbody>
+                </table>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Date</th>
                         <th>Objet/Commentaire</th>
                         <th>Montant</th>
                         <th>Numéro de transaction</th>
-                        <th>Mod/Supp</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,63 +140,7 @@
                         </td>
                         <td>{{$depense->numero}}</td>
                         <td>
-                        <div class="row">
-                            @can("edit")
-                            <div class="col-sm-6">
-                              <button wire:click="editmodal('{{$depense->id}}')"
-                               class="btn btn-info"><i class="fa fa-edit"></i></button>
-                            </div>
-                            @endcan
-                            @can("delete")
-                            <div class="col-sm-6">
-                                <button class="btn btn-danger" 
-                               data-toggle="modal" data-target="#delete{{$depense->id}}" >
-                                 <b><i class="fa fa-trash"></i></b></button>
-                                <div class="modal fade" id="delete{{$depense->id}}"  wire:ignore.self  depense="dialog" aria-hidden="true" >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        
-                                        </div>
-                                        <div class="modal-body">
-                                          
-                                            <!--begin::Form-->
-                                            <form method="post" action="deletedepense">
-                                                <!--begin::Body-->
-                                                @csrf
-                                                <label style="text-align:center; color:red">Voulez vous vraiment supprimer cette dépense?</label>
-                                                <input type="text" class="form-control" value="{{$depense->id}}" wire-model="id" 
-                                                name="id" id="{{$depense->id}}" style="display:none;">
-
-                                                <!--end::Body-->
-                                                 <!--begin::Footer delete($depense->id)  wire:click="confirmDelete(' $depense->nom_prenoms ', '$depense->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
-                                                <div class=" row modal-footer justify-content-between" style="aling:center">
-                                                
-                                                <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" data-dismiss="modal">NON</button>
-                                        
-                                                <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
-                                                        
-                                                    
-                                                </div>
-                                                <!--end::Footer-->
-                                               
-                                                
-                                            </form>
-                                            <!--end::Form-->
-
-                                        </div> 
-                                        </div>
-                                        <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div>    
-                                <!-- /.modal -->
-                            </div>
-                            @endcan
-                        </div>
+                            @include('livewire/depenses/delete-edit-buttons')
                         </td>
                     </tr>
                 @empty
