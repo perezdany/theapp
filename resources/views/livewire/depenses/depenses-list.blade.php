@@ -12,43 +12,34 @@
             <div class="card-header"><h3 class="card-title">Les dépenses</h3><br>
                 <button class="btn btn-primary" wire:click="addmodal" ><b><i class="fa fa-plus"></i></b></button> <br>
                 <a href="depenses" style="color:blue"><u>Rétablir<i class="fa fa-retweet" aria-hidden="true"></i></u></a> &emsp;&emsp; <label>Filtrer par:</label>
-
-                <form action="filter_depense_date_crea"  class="row"method="post">
-                @csrf
-                 Date du-au:<br>
-                    <div class="col-xs-2">
-                        <input type="date" class="form-control" name="debut">
-                        <!--<select class="form-control" id="compare" name="compare">
-                            <option value="">Choisir</option>
-                            <option value="<"><</option> 
-                            <option value=">">></option>
-                            <option value="=">=</option>                              
-                        </select>-->
-                    </div>
-                    <div class="col-xs-2">
-                        <input type="date" class="form-control" name="fin">
-                        <!--<select class="form-control" id="anne_depuis" name="annee">
-                            <option value="">Choisir</option>
-                            @php
-                                $annee_fin = "2050";
-                                for($annee="2014"; $annee<=$annee_fin; $annee++)
-                                {
-                                    echo'<option value='.$annee.'>'.$annee.'</option>';
-                                }
-                            @endphp
-                        </select>   -->
-                    </div>
-                    <div class="input-group-append pull-right col-sx-2">
-                        <button type="submit" class="btn btn-default">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-                <br>
                 <div class="row">
-                
-                    <!--wire:model.live.debounce.250ms="user"-->
-           
+                    <form action="filter_depense_date_crea"  class="row"method="post">
+                        @csrf
+                        Date du-au:<br>
+                        <div class="col-xs-2">
+                            <input type="date" class="form-control" name="debut">
+                        </div>
+                        <div class="col-xs-2">
+                            <input type="date" class="form-control" name="fin">
+                            <!--<select class="form-control" id="anne_depuis" name="annee">
+                                <option value="">Choisir</option>
+                                @php
+                                    $annee_fin = "2050";
+                                    for($annee="2014"; $annee<=$annee_fin; $annee++)
+                                    {
+                                        echo'<option value='.$annee.'>'.$annee.'</option>';
+                                    }
+                                @endphp
+                            </select>   -->
+                        </div>
+                        <div class=" pull-right col-sx-2">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!--wire:model.live.debounce.250ms="user" wire:model.live.debounce.250ms="search"-->
                     <div class="col-md-3 input-group input-group-sm">
                     <form method="post" action="filter_user_depenses" class="row">
                         @csrf
@@ -62,11 +53,25 @@
                             @endforeach
                             
                         </select>   
-                        <div class="input-group-append pull-right col-sm-2">
+                        <div class=" pull-right col-sm-2">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
+                    </form>
+                    </div>   
+
+                    <div class="col-md-3 input-group input-group-sm">
+                    <form method="post" action="filter_search_user_depenses" class="row">
+                        @csrf
+                        <div class="col-sm-10">
+                        <input type="text" name="search" 
+                        class="form-control" placeholder="Rechercher"></div>
+
+                        <div class=" col-sm-2">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button></div>
                     </form>
                     </div>    
                    
@@ -94,7 +99,6 @@
                         <th>Objet/Commentaire</th>
                         <th>Montant</th>
                         <th>Numéro de transaction</th>
-           
                     </tr>
                 </thead>
                 <tbody style="display:none">
@@ -117,7 +121,9 @@
                 </tbody>
                 </table>
             </div>
-            <div class="card-body table-responsive p-0">
+
+
+              <div class="card-body table-responsive p-0">
                 <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -162,6 +168,45 @@
                     {{$depenses->links()}}
                 </ul>
             </div>
+           
+        </div>
+        <!-- /.card -->
+        <div class="card">
+            <div class="card-header">
+
+                <!--<form action="filter_depense_date_crea"  class="row"method="post">
+                    @csrf
+                    Date du-au:<br>
+                    <div class="col-xs-2">
+                        <input type="date" class="form-control" name="debut">
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="date" class="form-control" name="fin">
+                    </div>
+                    <div class="input-group-append pull-right col-sx-2">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>-->
+                <br>
+               
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 250px;">
+                    <!--<input type="text" wire:model.live.debounce.250ms="search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>-->
+                  </div>
+                </div>
+  
+            </div>
+            <!-- /.card-header -->
+      
+          
         </div>
         <!-- /.card -->
     

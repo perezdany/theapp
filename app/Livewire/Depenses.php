@@ -76,7 +76,7 @@ class Depenses extends Component
         //session()->flash('success', 'Enregistrement effectué');
         $this->dispatch('showAddSuccessMessage');
         $this->dispatch('closeAddModal');
-        return $this->redirect('/depenses');
+        //return $this->redirect('/depenses');
     }
 
     public function updateDepense()
@@ -94,7 +94,7 @@ class Depenses extends Component
         //session()->flash('success', 'Modification effectuée');
         $this->dispatch('showUpdSuccessMessage');
         $this->dispatch('closeUpdateModal');
-        return $this->redirect('/depenses');
+        //return $this->redirect('/depenses');
         
         //$this->reset();
         //return back()->with('success', 'Modification effectuée');

@@ -33,4 +33,13 @@ class DepenseController extends Controller
         return view('livewire.depenses.date_creation_filter', compact('compare', 'annee'));
 
     }
+
+    public function FilterBySearch(Request $request)
+    {
+        //dd($request->all());
+        $search = $request->search;
+        //$compare = $request->fin;
+        return view('livewire.depenses.date_creation_filter', compact('search'));
+
+    }
 }

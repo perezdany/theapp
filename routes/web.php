@@ -166,6 +166,10 @@ Route::middleware(['auth'])->group(function(){
             Route::post('filter_user_depenses', [DepenseController::class, 'FilterByUser']);
             Route::get('filter_user_depenses', [DepenseController::class, 'FilterByUser']);
 
+            //FAIRE UNE RECHERCHE DE DEPENSES
+            Route::post('filter_search_user_depenses', [DepenseController::class, 'FilterBySearch']);
+            Route::get('filter_search_user_depenses', [DepenseController::class, 'FilterBySearch']);
+
             //FILTRE POUR LA DATE DE CREATION DES DEPENSES
             Route::post('filter_depense_date_crea', [DepenseController::class, 'FilterByDateCrea']);
             Route::get('filter_depense_date_crea', [DepenseController::class, 'FilterByDateCrea']);
