@@ -484,7 +484,7 @@
 
                                     function displayTheLine(id, id_bt)
                                     {
-                                        //alert(id);
+                                      
                                         let bt = document.getElementById(id_bt);
                                         let support = document.getElementById(id);
                                         //salert(support);

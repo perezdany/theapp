@@ -197,7 +197,7 @@
                                 <th>Code</th>
                                 <th>Prestation</th>
                                 <th>Durée</th>
-                                <th>Qté</th>
+                                <!--<th>Qté</th>-->
                                 <th>Prix (Unitaire)</th>
                                 <th>Total</th>
                                 </tr>
@@ -215,7 +215,7 @@
                                     <td><b>{{$devis->designation}}</b><br><i><u>Description:</u><br>{{$devis->descrpt}}</i></td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
-                                    <td>1</td>
+                                    <!--<td>1</td>-->
                                     <td>@php echo number_format($devis->prix_ht, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
                                     @php echo number_format(($devis->prix_ht), 2, ".", " ")."F CFA"; @endphp

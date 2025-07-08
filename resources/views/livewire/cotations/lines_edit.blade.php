@@ -1,5 +1,6 @@
 <div>
  <div class="row"><button type="button" id="bt5" 
+ 
                                     class="btn btn-warning float-right" 
                                     onclick="displayTheLine('support6','bt5')"><i class="fa fa-plus"></i></button></div>
                                     <div id="support6" style="display:none;">
@@ -351,21 +352,23 @@
                                                         <option value="jours">Jours</option>
                                                         <option value="mois">Mois</option>
                                                         <option value="annees">Années</option>
-                                                    </select>
+                                                    </select><button type="button" id="bt10" 
+                                            class="btn btn-warning float-right" onclick="displayTheLine('support11','bt10')"><i class="fa fa-plus"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                     <div id="support11" style="display:none;">
+                                    <div id="support11" style="display:none;">
+                                    
                                         <div class="content" id="support">
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label>--Prestation:</label>
-                                                        <select name="prest10" class="form-control" id="prest10" 
+                                                        <select name="prest11" class="form-control" id="prest11" 
                                                             onchange="EnableFields('prest11', 'peutmodif11', 
                                                             'designation11', 'prix11', 'duree11', 'duree_type11')">
                                                     
@@ -422,13 +425,14 @@
                                                         <option value="jours">Jours</option>
                                                         <option value="mois">Mois</option>
                                                         <option value="annees">Années</option>
-                                                    </select>
+                                                    </select><button type="button" id="bt11" 
+                                            class="btn btn-warning float-right" onclick="displayTheLine('support12','bt11')"><i class="fa fa-plus"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                     <div id="support12" style="display:none;">
+                                    <div id="support12" style="display:none;">
                                         <div class="content" id="support">
                                             <div class="row">
                                                 <div class="col-sm-4">
@@ -437,7 +441,7 @@
                                                         <label>--Prestation:</label>
                                                         <select name="prest12" class="form-control" id="prest12" 
                                                             onchange="EnableFields('prest12', 'peutmodif12', 
-                                                            'designation10', 'prix12', 'duree12', 'duree_type12')">
+                                                            'designation12', 'prix12', 'duree12', 'duree_type12')">
                                                     
                                                             @php
                                                                 $s = DB::table('services')->where('code','<>', 'MAT')->get();
@@ -492,7 +496,225 @@
                                                         <option value="jours">Jours</option>
                                                         <option value="mois">Mois</option>
                                                         <option value="annees">Années</option>
-                                                    </select>
+                                                    </select><button type="button" id="bt12" 
+                                                        class="btn btn-warning float-right" onclick="displayTheLine('support13','bt12')"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="support13" style="display:none;">
+                                        <div class="content" id="support">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest13" class="form-control" id="prest13" 
+                                                            onchange="EnableFields('prest13', 'peutmodif13', 
+                                                            'designation13', 'prix13', 'duree13', 'duree_type13')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif13" class="form-control" id="peutmodif13">
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Description:</label>
+                                                        <textarea name="designation13" class="form-control" id="designation13"
+                                                        disabled wrap="hard">
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Prix Hors taxe:</label>
+                                                    <input type="number" name="prix13" class="form-control" 
+                                                    placeholder="un nombre..." id='prix13' disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Durée:</label>
+                                                        <input type="number" name="duree13" min="0" value="0"
+                                                        class="form-control" placeholder="Entrez ..."  id='duree13' disabled>                                            </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Choisir:</label>
+                                                    <select  class="form-control" name="duree_type13" 
+                                                    id="duree_type13" disabled>
+                                                        <option value="jours">Jours</option>
+                                                        <option value="mois">Mois</option>
+                                                        <option value="annees">Années</option>
+                                                    </select><button type="button" id="bt13" 
+                                                        class="btn btn-warning float-right" onclick="displayTheLine('support14','bt13')"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="support14" style="display:none;">
+                                        <div class="content" id="support">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest14" class="form-control" id="prest14" 
+                                                            onchange="EnableFields('prest14', 'peutmodif14', 
+                                                            'designation14', 'prix14', 'duree14', 'duree_type14')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif14" class="form-control" id="peutmodif14">
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Description:</label>
+                                                        <textarea name="designation14" class="form-control" id="designation14"
+                                                        disabled wrap="hard">
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Prix Hors taxe:</label>
+                                                    <input type="number" name="prix14" class="form-control" 
+                                                    placeholder="un nombre..." id='prix14' disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Durée:</label>
+                                                        <input type="number" name="duree14" min="0" value="0"
+                                                        class="form-control" placeholder="Entrez ..."  id='duree14' disabled>                                            </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Choisir:</label>
+                                                    <select  class="form-control" name="duree_type14" 
+                                                    id="duree_type14" disabled>
+                                                        <option value="jours">Jours</option>
+                                                        <option value="mois">Mois</option>
+                                                        <option value="annees">Années</option>
+                                                    </select><button type="button" id="bt14" 
+                                                        class="btn btn-warning float-right" onclick="displayTheLine('support15','bt14')"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="support15" style="display:none;">
+                                        <div class="content" id="support">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>--Prestation:</label>
+                                                        <select name="prest15" class="form-control" id="prest15" 
+                                                            onchange="EnableFields('prest15', 'peutmodif15', 
+                                                            'designation15', 'prix15', 'duree15', 'duree_type15')">
+                                                    
+                                                            @php
+                                                                $s = DB::table('services')->where('code','<>', 'MAT')->get();
+                                                            @endphp
+                                                            <option value="">--Choisir le Code--</option>
+                                                            @foreach($s as $s)
+                                                            <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                            @endforeach
+                                                            
+                                                        </select>   
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <label>&nbsp;&nbsp;&nbsp;</label>
+                                                    <input type="text" name="peutmodif15" class="form-control" id="peutmodif15">
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Description:</label>
+                                                        <textarea name="designation15" class="form-control" id="designation15"
+                                                        disabled wrap="hard">
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Prix Hors taxe:</label>
+                                                    <input type="number" name="prix15" class="form-control" 
+                                                    placeholder="un nombre..." id='prix15' disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Durée:</label>
+                                                        <input type="number" name="duree14" min="0" value="0"
+                                                        class="form-control" placeholder="Entrez ..."  id='duree15' disabled>                                            
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Choisir:</label>
+                                                    <select  class="form-control" name="duree_type15" 
+                                                    id="duree_type15" disabled>
+                                                        <option value="jours">Jours</option>
+                                                        <option value="mois">Mois</option>
+                                                        <option value="annees">Années</option>
+                                                    </select><!--<button type="button" id="bt14" 
+                                                        class="btn btn-warning float-right" onclick="displayTheLine('support15','bt14')"><i class="fa fa-plus"></i></button>-->
                                                     </div>
                                                 </div>
                                             </div>

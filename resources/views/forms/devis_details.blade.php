@@ -478,7 +478,7 @@
 
                                     </div>
                                     <div id="support5">
-
+                                        
                                         <div class="row">
                                             <div class="form-group col-sm-4">
                                                 <label>--Prestation:</label>
@@ -1311,6 +1311,7 @@
                                             class="btn btn-warning float-right" 
                                             onclick="displayTheLine('support12','bt11')"><i class="fa fa-plus"></i></button>
                                     </div>
+
                                     <div id="support12" style="display:none;">
                                      
                                         <div class="row">
@@ -1420,9 +1421,364 @@
                                                         <input type="number" name="pu12"  id="pu12"
                                                         class="form-control" disabled>
                                                     </div>
-                                                    <!--<button type="button" id="bt9" 
+                                                   
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <button type="button" id="bt12" 
+                                        class="btn btn-warning float-right" 
+                                        onclick="displayTheLine('support13','bt12')"><i class="fa fa-plus"></i></button>
+                                    </div>
+
+                                    <div id="support13" style="display:none;">
+                                     
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>--Prestation:</label>
+                                                <select name="prest13" class="form-control" id="prest13" 
+                                                    onchange="ChooseTheLine('contents13', 'contenta13', 'prest13', 'peutmodif13',
+                                                    'designation13', 'prix13', 'duree13', 'duree_type13', 'article13', 'qte13', 'pu13')">
+                                            
+                                                    @php
+                                                        $s = DB::table('services')->get();
+                                                    @endphp
+                                                    <option value="">--Choisir le Code--</option>
+                                                    @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                    @endforeach     
+                                                </select>   
+                                                <select id="cache13" style="display:none;">
+                                                    @php
+                                                        $cache = DB::table('services')->get();
+                                                    @endphp
+                                                
+                                                    @foreach($cache as $c)
+                                                        <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                    @endforeach
+                                                    
+                                                </select>   
+                                            </div>
+                                            <div class="col-sm-8 form-group">  
+                                                <label>&nbsp;&nbsp;</label> 
+                                                <input type="text" name="peutmodif13" class="form-control" id="peutmodif13" disabled>
+                                            </div>
+                                        </div>
+                                          
+                                        <div class="content" id="contents13" style="display:none;">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Description:</label>
+                                                        <textarea name="designation13" class="form-control" id="designation13" 
+                                                     onfocus = "EnableFields('designation13', 'prix13', 'duree13', 'duree_type13')" sentences wrap="hard">
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Prix Hors taxe:</label>
+                                                    <input type="number" name="prix13" class="form-control" 
+                                                    placeholder="un nombre..." id='prix13' disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Durée:</label>
+                                                        <input type="number" name="duree13" min="0" value="0"
+                                                        class="form-control" placeholder="Entrez ..."  id='duree13' disabled>  
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Choisir:</label>
+                                                    <select  class="form-control" name="duree_type13" 
+                                                        id="duree_type13" disabled>
+                                                        <option value="jours">Jours</option>
+                                                        <option value="mois">Mois</option>
+                                                        <option value="annees">Années</option>
+                                                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content" id="contenta13" style="display:none;">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Articles:</label>
+                                                    <select class="form-control" name="article13" id="article13" onchange="EnableFieldsA('article13', 'qte13', 'pu13')">
+                                                        @php
+                                                            $t = DB::table('articles')->get();
+                                                        @endphp
+                                                        <option value="--">--Choisir--</option>
+                                                        @foreach($t as $t)
+                                                            <option value={{$t->id}}>{{$t->designation}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                    <label>Quantité:</label>
+                                                    <input type="number" name="qte13" min="1" value="1" id="qte13"
+                                                    class="form-control" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Prix unitaire:</label>
+                                                        <input type="number" name="pu13"  id="pu13"
+                                                        class="form-control" disabled>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" id="bt13" 
+                                            class="btn btn-warning float-right" 
+                                            onclick="displayTheLine('support14','bt13')"><i class="fa fa-plus"></i></button>
+                                    </div>
+
+                                    <div id="support14" style="display:none;">
+                                     
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>--Prestation:</label>
+                                                <select name="prest14" class="form-control" id="prest14" 
+                                                    onchange="ChooseTheLine('contents14', 'contenta14', 'prest14', 'peutmodif14',
+                                                    'designation14', 'prix14', 'duree14', 'duree_type14', 'article14', 'qte14', 'pu14')">
+                                            
+                                                    @php
+                                                        $s = DB::table('services')->get();
+                                                    @endphp
+                                                    <option value="">--Choisir le Code--</option>
+                                                    @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                    @endforeach     
+                                                </select>   
+                                                <select id="cache14" style="display:none;">
+                                                    @php
+                                                        $cache = DB::table('services')->get();
+                                                    @endphp
+                                                
+                                                    @foreach($cache as $c)
+                                                        <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                    @endforeach
+                                                    
+                                                </select>   
+                                            </div>
+                                            <div class="col-sm-8 form-group">  
+                                                <label>&nbsp;&nbsp;</label> 
+                                                <input type="text" name="peutmodif14" class="form-control" id="peutmodif14" disabled>
+                                            </div>
+                                        </div>
+                                          
+                                        <div class="content" id="contents14" style="display:none;">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Description:</label>
+                                                        <textarea name="designation14" class="form-control" id="designation14" 
+                                                     onfocus = "EnableFields('designation14', 'prix14', 'duree14', 'duree_type14')" sentences wrap="hard">
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Prix Hors taxe:</label>
+                                                    <input type="number" name="prix14" class="form-control" 
+                                                    placeholder="un nombre..." id='prix14' disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Durée:</label>
+                                                        <input type="number" name="duree14" min="0" value="0"
+                                                        class="form-control" placeholder="Entrez ..."  id='duree14' disabled>  
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Choisir:</label>
+                                                    <select  class="form-control" name="duree_type14" 
+                                                        id="duree_type14" disabled>
+                                                        <option value="jours">Jours</option>
+                                                        <option value="mois">Mois</option>
+                                                        <option value="annees">Années</option>
+                                                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content" id="contenta14" style="display:none;">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Articles:</label>
+                                                    <select class="form-control" name="article14" id="article14" onchange="EnableFieldsA('article14', 'qte14', 'pu14')">
+                                                        @php
+                                                            $t = DB::table('articles')->get();
+                                                        @endphp
+                                                        <option value="--">--Choisir--</option>
+                                                        @foreach($t as $t)
+                                                            <option value={{$t->id}}>{{$t->designation}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                    <label>Quantité:</label>
+                                                    <input type="number" name="qte14" min="1" value="1" id="qte14"
+                                                    class="form-control" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Prix unitaire:</label>
+                                                        <input type="number" name="pu14"  id="pu14"
+                                                        class="form-control" disabled>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" id="bt14" 
+                                        class="btn btn-warning float-right" 
+                                        onclick="displayTheLine('support15','bt14')"><i class="fa fa-plus"></i></button>
+                                    </div>
+
+                                    <div id="support15" style="display:none;">
+                                     
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>--Prestation:</label>
+                                                <select name="prest15" class="form-control" id="prest15" 
+                                                    onchange="ChooseTheLine('contents15', 'contenta15', 'prest15', 'peutmodif15',
+                                                    'designation15', 'prix15', 'duree15', 'duree_type15', 'article15', 'qte15', 'pu15')">
+                                            
+                                                    @php
+                                                        $s = DB::table('services')->get();
+                                                    @endphp
+                                                    <option value="">--Choisir le Code--</option>
+                                                    @foreach($s as $s)
+                                                        <option value={{$s->id}}>({{$s->code}})-{{$s->libele_service}}</option>
+                                                    @endforeach     
+                                                </select>   
+                                                <select id="cache15" style="display:none;">
+                                                    @php
+                                                        $cache = DB::table('services')->get();
+                                                    @endphp
+                                                
+                                                    @foreach($cache as $c)
+                                                        <option value={{$c->libele_service}}>{{$c->libele_service}}</option>
+                                                    @endforeach
+                                                    
+                                                </select>   
+                                            </div>
+                                            <div class="col-sm-8 form-group">  
+                                                <label>&nbsp;&nbsp;</label> 
+                                                <input type="text" name="peutmodif15" class="form-control" id="peutmodif15" disabled>
+                                            </div>
+                                        </div>
+                                          
+                                        <div class="content" id="contents15" style="display:none;">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Description:</label>
+                                                        <textarea name="designation15" class="form-control" id="designation15" 
+                                                     onfocus = "EnableFields('designation15', 'prix15', 'duree15', 'duree_type15')" sentences wrap="hard">
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Prix Hors taxe:</label>
+                                                    <input type="number" name="prix15" class="form-control" 
+                                                    placeholder="un nombre..." id='prix15' disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Durée:</label>
+                                                        <input type="number" name="duree15" min="0" value="0"
+                                                        class="form-control" placeholder="Entrez ..."  id='duree15' disabled>  
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                    <label>Choisir:</label>
+                                                    <select  class="form-control" name="duree_type15" 
+                                                        id="duree_type15" disabled>
+                                                        <option value="jours">Jours</option>
+                                                        <option value="mois">Mois</option>
+                                                        <option value="annees">Années</option>
+                                                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content" id="contenta15" style="display:none;">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                    <label>Articles:</label>
+                                                    <select class="form-control" name="article15" id="article15" onchange="EnableFieldsA('article15', 'qte15', 'pu15')">
+                                                        @php
+                                                            $t = DB::table('articles')->get();
+                                                        @endphp
+                                                        <option value="--">--Choisir--</option>
+                                                        @foreach($t as $t)
+                                                            <option value={{$t->id}}>{{$t->designation}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>   
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                    <label>Quantité:</label>
+                                                    <input type="number" name="qte15" min="1" value="1" id="qte15"
+                                                    class="form-control" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Prix unitaire:</label>
+                                                        <input type="number" name="pu15"  id="pu15"
+                                                        class="form-control" disabled>
+                                                    </div>
+                                                    <!--<button type="button" id="bt15" 
                                                     class="btn btn-warning float-right" 
-                                                    onclick="displayTheLine('support10','bt9')"><i class="fa fa-plus"></i></button>-->
+                                                    onclick="displayTheLine('support16','bt15')"><i class="fa fa-plus"></i></button>-->
                                                 </div>
                                             </div>
                                         </div>

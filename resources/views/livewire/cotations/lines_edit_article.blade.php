@@ -276,9 +276,129 @@
                     <label>Prix unitaire:</label>
                     <input type="number" name="pu12"  id="pu12"
                     class="form-control" >
-                </div> <!--<button type="button" id="bta9" 
+                </div> <button type="button" id="bta12" 
                 class="btn btn-warning float-right" 
-                onclick="displayTheLine('supporta9','bta8')"><i class="fa fa-plus"></i></button>-->
+                onclick="displayTheLine('supporta13','bta12')"><i class="fa fa-plus"></i></button>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="supporta13" style="display:none;">
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                <label>Articles:</label>
+                <select class="form-control" name="article13" id="article13">
+                    @php
+                        $t = DB::table('articles')->get();
+                    @endphp
+                    <option value="">--Choisir--</option>
+                    @foreach($t as $t)
+                        <option value="{{$t->id}}">{{$t->designation}}</option>
+                    @endforeach
+                    
+                </select>   
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                <label>Quantité:</label>
+                <input type="number" name="qte13" min="1" value="1" id="qte13"
+                class="form-control" >
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Prix unitaire:</label>
+                    <input type="number" name="pu13"  id="pu13"
+                    class="form-control" >
+                </div> <button type="button" id="bta13" 
+                class="btn btn-warning float-right" 
+                onclick="displayTheLine('supporta14','bta12')"><i class="fa fa-plus"></i></button>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="supporta14" style="display:none;">
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                <label>Articles:</label>
+                <select class="form-control" name="article14" id="article14">
+                    @php
+                        $t = DB::table('articles')->get();
+                    @endphp
+                    <option value="">--Choisir--</option>
+                    @foreach($t as $t)
+                        <option value="{{$t->id}}">{{$t->designation}}</option>
+                    @endforeach
+                    
+                </select>   
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                <label>Quantité:</label>
+                <input type="number" name="qte14" min="1" value="1" id="qte14"
+                class="form-control" >
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Prix unitaire:</label>
+                    <input type="number" name="pu14"  id="pu14"
+                    class="form-control" >
+                </div> <button type="button" id="bta14" 
+                class="btn btn-warning float-right" 
+                onclick="displayTheLine('supporta15','bta14')"><i class="fa fa-plus"></i></button>
+            </div>
+            
+        </div>
+    </div>
+
+     <div id="supporta15" style="display:none;">
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                <label>Articles:</label>
+                <select class="form-control" name="article15" id="article15">
+                    @php
+                        $t = DB::table('articles')->get();
+                    @endphp
+                    <option value="">--Choisir--</option>
+                    @foreach($t as $t)
+                        <option value="{{$t->id}}">{{$t->designation}}</option>
+                    @endforeach
+                    
+                </select>   
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                <label>Quantité:</label>
+                <input type="number" name="qte15" min="1" value="1" id="qte15"
+                class="form-control" >
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Prix unitaire:</label>
+                    <input type="number" name="pu15"  id="pu15"
+                    class="form-control" >
+                </div> <!--<button type="button" id="bta15" 
+                class="btn btn-warning float-right" 
+                onclick="displayTheLine('supporta15','bta14')"><i class="fa fa-plus"></i></button>-->
             </div>
             
         </div>
