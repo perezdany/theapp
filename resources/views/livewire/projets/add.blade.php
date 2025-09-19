@@ -37,6 +37,7 @@
                             @php
                                 $clients = DB::table('clients')->get();
                             @endphp
+                            <option value="">--Choisir--</option>
                             @foreach($clients as $client)
                                 <option value={{$client->id}}>{{$client->nom}}</option>
                             @endforeach

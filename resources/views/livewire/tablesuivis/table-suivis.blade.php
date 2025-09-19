@@ -113,6 +113,9 @@
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
                 <table class="table table-bordered table-hover">
+                @php
+                    //dd($suivis);
+                @endphp
                 <thead>
                     <tr>
                         <th>Titre de l'évènement</th>
@@ -134,26 +137,28 @@
                         echo "à".date('H:i:s',strtotime($suivi->start));@endphp</td>
                         <td>
                             @if($suivi->id_projet == NULL)
+                                N/A
+                            @else
+                         
                                 @php
                                     $p = DB::table('projets')->where('id', $suivi->id_projet)->get();
                                 @endphp
                                 @foreach($p as $p)
                                     {{$p->nom_projet}}
                                 @endforeach
-                            @else
-                            N/A
                             @endif
                         </td>
                         <td>
                             @if($suivi->id_fournisseur == NULL)
+                                N/A
+                            @else
                                 @php
                                     $f = DB::table('fournisseurs')->where('id', $suivi->id_fournisseur)->get();
+                                    
                                 @endphp
                                 @foreach($f as $f)
-                                    {{$p->nom}}
+                                    {{$f->nom}}
                                 @endforeach
-                            @else
-                            N/A
                             @endif
                         </td>
                         <td>

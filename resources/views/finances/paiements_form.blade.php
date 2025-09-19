@@ -40,6 +40,7 @@
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead style="display:none;">
+
                             <tr>
                                 <th>Montant</th>
                                 <th>Date de paiement</th>
@@ -69,6 +70,9 @@
                             </tbody>
                             
                         </table>
+                        @php
+                            $my_own = $paiementcontroller->GetPaimentByIdFacture($id);
+                        @endphp
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>

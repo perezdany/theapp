@@ -25,7 +25,7 @@ class Projets extends Component
 
     public $nom_projet;
     public $description, $id_client, $date_debut, $date_fin, $cloture;
-    public $client;
+    public $client = '';
     public $user = '';
     public $statut = '';
 

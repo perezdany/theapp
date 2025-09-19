@@ -269,7 +269,7 @@
                             
                             @foreach($tva as $tva)
                                 @if($tva->active == 0)
-                                <tr><th style="background-color:#969696">Tax (18%)</th>
+                                <tr><th style="background-color:#969696">TVA (18%)</th>
                                         <td> 0 F CFA</td>
                                     </tr>
                                     <tr >
@@ -288,7 +288,7 @@
                                         {
                                             if($verif->date_creation >= $tva->date_activation)
                                             {
-                                                echo' <tr><th style="background-color:#969696">Tax (18%)</th>
+                                                echo' <tr><th style="background-color:#969696">TVA (18%)</th>
                                                 <td>';
                                                 $m = $tout * (18/100);
                                                 echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";
@@ -321,7 +321,7 @@
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
-                <p>Arrêter de la présente  facture a somme de :<br>
+                <p>Arrêter de la présente  facture à somme de :<br>
                 <b>
                     @php
                         $result = $convertisseur->Conversion($pour_facture);

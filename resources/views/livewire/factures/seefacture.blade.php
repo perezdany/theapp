@@ -111,7 +111,7 @@
                            
                             <!--<b>Order ID:</b> 4F3S8J<br>-->
                             <!--<b>Payment Due:</b> 2/22/2014<br>-->
-                            <b>Dossier suivi par:</b> {{$devis->nom_prenoms}}<br><br>
+                            <!--<b>Dossier suivi par:</b> <br><br>$devis->nom_prenoms-->
                             <!--<b>A régler avant le : </b>-->
                             @php //echo date('d/m/Y',strtotime($facture->date_reglement));
                             @endphp
@@ -127,7 +127,7 @@
                         <!-- /.col -->
                     </div><br>
                 @endforeach
-                 @php
+                @php
                    
                     $sommea = 0;
                     $somme = 0;
@@ -154,7 +154,7 @@
                                 <tr style="background-color:#76d7c4">
                                 <th>Code</th>
                                 <th>Désignation</th>
-                                <th>Garantie</th>
+                                <!--<th>Garantie</th>-->
                                 <th>Qté</th>
                                 <th>Prix (Unitaire)</th>
                                 <th>Total</th>
@@ -174,7 +174,7 @@
                                         @endif   
                                         <td><b>{{$devis->designation}}</b><br>
                                         </i><u>Description:</u><br>{{$devis->description_article}}</i></td>
-                                        <td>1 ans</td>
+                                        <!--<td>1 ans</td>-->
                                         <td>{{$devis->quantite}}</td>
                                         <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
                                         <td>
@@ -204,7 +204,7 @@
                                 <th>Code</th>
                                 <th>Prestation</th>
                                 <th>Durée</th>
-                                <th>Qté</th>
+                                <!--<th>Qté</th>-->
                                 <th>Prix (Unitaire)</th>
                                 <th>Total</th>
                                 </tr>
@@ -222,7 +222,7 @@
                                     <td><b>{{$devis->designation}}</b><br><i><u>Description:</u><br>{{$devis->descrpt}}</i></td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
-                                    <td>1</td>
+                                    <!--<td>1</td>-->
                                     <td>@php echo number_format($devis->prix_ht, 2, ".", " ")."F CFA"; @endphp</td>
                                     <td>
                                     @php echo number_format(($devis->prix_ht), 2, ".", " ")."F CFA"; @endphp
@@ -296,7 +296,7 @@
                                     {
                                         if($verif->date_creation >= $tva->date_activation)
                                         {
-                                            echo' <tr><th style="background-color:#969696">Tax (18%)</th>
+                                            echo' <tr><th style="background-color:#969696">TVA (18%)</th>
                                             <td>';
                                             $m = $tout * (18/100);
                                             echo number_format($m, 2, ".", " ")."F CFA</td> </tr>";

@@ -318,7 +318,7 @@
                     class="form-control" >
                 </div> <button type="button" id="bta13" 
                 class="btn btn-warning float-right" 
-                onclick="displayTheLine('supporta14','bta12')"><i class="fa fa-plus"></i></button>
+                onclick="displayTheLine('supporta14','bta13')"><i class="fa fa-plus"></i></button>
             </div>
             
         </div>

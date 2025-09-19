@@ -107,7 +107,6 @@
                         <th>Date de fin</th>
                         <th>Statut</th>
                         <th>Créé par</th>
-                        
                         <th>Mod/Supp</th>
                     </tr>
                 </thead>

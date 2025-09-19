@@ -2594,6 +2594,62 @@ class CotationController extends Controller
 
     public function ValideCotation(Request $request)
     {
+        //dd($request->all());
+        $date = Date('Y-m-d');
+        $somme = 0;
+        $premiers_details = DB::table('details_cotations')->where('cotation_id', $request->id)
+        ->join('cotations', 'details_cotations.cotation_id', '=', 'cotations.id')
+        ->join('services', 'details_cotations.id_service', '=', 'services.id')
+        ->get(['details_cotations.*']);
+        foreach($premiers_details as $premiers_detail)
+        {
+            $somme = $somme + $premiers_detail->prix_ht;
+        }
+        //dd($somme);
+        
+        $a = DB::table('cotation_article')
+            ->join('cotations', 'cotation_article.cotation_id', '=', 'cotations.id')
+            ->join('articles', 'cotation_article.article_id', '=', 'articles.id')
+            ->where('cotation_article.cotation_id', $request->id)
+            ->get(['cotation_article.*',
+                    'articles.designation', 'articles.code',
+            ]);
+        //dd($a);
+        foreach($a as $a)
+        {
+            $total = $a->quantite * $a->pu;
+            $somme = $somme + $total;
+        }
+        //dd($somme);
+
+        //CREER LE NUMERO DE FACTURE
+        //POUR LE NUMERO DEVIS RECUPER L'ID DU SERVICE DANS LE DEVIs
+        $id_service = Cotation::where('id', $request->id)->get();
+        foreach($id_service as $id_service)
+        {
+            $numero_devis = (new Calculator())->GenerateNumFacture($date, $id_service->id_service);
+        }
+        //dd($numero_devis);
+        $today = date('Y-m-d');
+        $timestamp = strtotime($today);
+        $departtime1 = strtotime('+15 days', $timestamp);
+        $result_date = date("Y-m-d", $departtime1 );
+        $num = "FACTURE-".$numero_devis;
+
+        $insert = Facture::create([
+            'numero_facture' => $num, 
+            'date_reglement' => $result_date, 'date_emission' => $today, 
+            'montant_facture' => $somme, 'id_cotation' => $request->id, 
+            'reglee' => 0, 'annulee' => 0, 'id_user' => auth()->user()->id,
+        ]);
+        //Ne pas oublier de valider le devis
+        $valider_devis = DB::table('cotations')->where('id', $request->id)
+        ->update(['valide' => 1]);
+
+        return back()->with('success', 'Devis validé');
+    }
+    public function ValideCotationO(Request $request)
+    {
     
         $date = Date('Y-m-d');
         $somme = 0;
@@ -2716,7 +2772,7 @@ class CotationController extends Controller
         $id_service = Cotation::where('id', $request->id)->get();
         foreach($id_service as $id_service)
         {
-            $numero_devis = (new Calculator())-> GenerateNumDevis($date, $id_service->id_service);
+            $numero_devis = (new Calculator())->GenerateNumDevis($date, $id_service->id_service);
         }
 
         $today = date('Y-m-d');
@@ -2740,10 +2796,15 @@ class CotationController extends Controller
 
     public function CancelValideCotation(Request $request)
     {
- 
-        //Ne pas oublier de valider le devis
+        
+        //Ne pas oublier de dévalider le devis
         $valider_devis = DB::table('cotations')->where('id', $request->id)
         ->update(['valide' => 0]);
+
+        $get = Facture::where('id_cotation', $request->id)->get();
+        //SUPPRIMER LA FACTURE QUI A ETE GENEREE APRES VALIDATION
+        $delete = Facture::where('id_cotation', $request->id)->delete();
+        //dd($delete);
 
         return back()->with('success', 'Modification effectuée');
     }

@@ -356,7 +356,7 @@
                                                 <div class="form-group">
                                                     <label>Description de la prestation:</label>
                                                     <textarea name="@php echo 'designation'.$i @endphp" class="form-control" 
-                                                    id="@php echo 'designation'.$i @endphp" wrap="hard">
+                                                    id="@php echo 'designation'.$i @endphp" wrap="soft">
                                                     {{$a->descrpt}}
                                                     </textarea>
                                                 </div>
@@ -922,7 +922,7 @@
                                             {
                                                 if($verif->date_creation >= $tva->date_activation)
                                                 {
-                                                    echo' <tr><th>Tax (18%)</th>
+                                                    echo' <tr><th>TVA (18%)</th>
                                                     <td>';
                                                         
                                                     $m = $tout * (18/100);

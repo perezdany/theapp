@@ -6,4 +6,4 @@ suivicommercials.start, suivicommercials.end, suivicommercials.id_projet, suivic
 users.nom_prenoms
 
 FROM users users, suivicommercials suivicommercials, projets, clients
-WHERE suivicommercials.id_user=users.id AND projets.id_client = clients.id
+WHERE suivicommercials.id_user=users.id AND suivicommercials.id_projet=projets.id AND projets.id_client = clients.id

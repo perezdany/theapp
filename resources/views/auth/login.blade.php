@@ -4,7 +4,7 @@
 @section('content')
   <div class="login-box">
     <div class="login-logo">
-      <h1 class="mb-0"><b>The</b>App</h1>
+      <h1 class="mb-0"><b>Ges</b>Com</h1>
     </div>
     <div class="card">
       <div class="card-body login-card-body">
