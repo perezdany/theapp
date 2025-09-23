@@ -267,7 +267,7 @@ class CotationController extends Controller
                     'date_creation' => $devis->date_creation, 
                     'date_validite' =>  $devis->date_validite, 
                     'id_client' => $devis->id_client,
-                    'id_condition' => $devis->Iid_condition,
+                    'id_condition' => $devis->id_condition,
                     'delais_livraison' => $devis->delais_livraison,
                     'dispo' => $devis->dispo,
                     'valide' => 0,

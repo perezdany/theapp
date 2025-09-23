@@ -246,7 +246,17 @@
                             </td>
                            
                             <td>
-                                {{$suivi->nom}}
+                                @if($suivi->id_client == NULL)
+                                    N/A
+                                @else
+                                    @php
+                                        $f = DB::table('clients')->where('id', $suivi->id_client)->get();
+                                        
+                                    @endphp
+                                    @foreach($f as $f)
+                                        {{$f->nom}}
+                                    @endforeach
+                                @endif
                             </td>
                             <td>
                                 {{$suivi->more}}

@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TheApp | Facture</title>
+  <title>Facture</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap 4 -->
@@ -169,7 +169,12 @@
                                         @else
                                             <td></td>
                                         @endif   
-                                        <td><b>{{$devis->designation}}</b><br><i><u>Description:</u><br>{{$devis->description_article}}</i></td>
+                                        <td><b>{{$devis->designation}}</b><br>
+                                            @if($devis->description_article !=null)
+                                                <i><u>Description:</u>{{$devis->description_article}}</i>
+                                            @else
+                                            @endif
+                                        </td>
                                         <td>{{$devis->quantite}}</td>
                                         <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
                                         <td>
@@ -214,7 +219,12 @@
                                    
                                     <td syle="border:0px;">{{$devis->code}}</td>
                                    
-                                    <td><b>{{$devis->designation}}</b><br><i><u>Description:</u><br>{{$devis->descrpt}}</i></td>
+                                    <td><b>{{$devis->designation}}</b><br>
+                                    @if($devis->descrpt != null)
+                                        <i><u>Description:</u><br>{{$devis->descrpt}}</i>
+                                    @else
+                                    @endif
+                                    </td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
                                     <!--<td>1</td>-->

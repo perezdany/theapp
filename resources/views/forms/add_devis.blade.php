@@ -394,7 +394,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                         <label>Disponibilité</label>
-                                        <textarea type="text" class="form-control" name="dispo" wrap="hard" sentences maxlength="150">
+                                        <textarea type="text" class="form-control" name="dispo" wrap="hard" sentences >
                                         </textarea>
                                         
                                         </div>
@@ -403,7 +403,7 @@
                                         <div class="form-group">
                                         <label>Conditions de paiement</label>
                                         <textarea type="text" class="form-control" name="condition" wrap="hard"
-                                        sentences maxlength="150"></textarea>
+                                        sentences ></textarea>
                                        
                                         </div>
                                     </div>
@@ -412,7 +412,7 @@
                                             <label>Délais de livraison</label>
                                             <textarea type="text" name="delais_livraison" class="form-control"
                                                 placeholder="5 jours, 10 jours, 1 mois etc..." wrap="hard" 
-                                                sentences maxlength="150">
+                                                sentences>
                                             </textarea>
                                             
                                         </div>

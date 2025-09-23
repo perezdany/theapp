@@ -173,7 +173,11 @@
                                             <td></td>
                                         @endif   
                                         <td><b>{{$devis->designation}}</b><br>
-                                        </i><u>Description:</u><br>{{$devis->description_article}}</i></td>
+                                            @if($devis->description_article !=null)
+                                                <i><u>Description:</u>{{$devis->description_article}}</i>
+                                            @else
+                                            @endif
+                                        </td>
                                         <!--<td>1 ans</td>-->
                                         <td>{{$devis->quantite}}</td>
                                         <td>@php echo number_format($devis->pu, 2, ".", " ")."F CFA"; @endphp</td>
@@ -219,7 +223,12 @@
                                    
                                     <td syle="border:0px;">{{$devis->code}}</td>
                                    
-                                    <td><b>{{$devis->designation}}</b><br><i><u>Description:</u><br>{{$devis->descrpt}}</i></td>
+                                    <td><b>{{$devis->designation}}</b><br>     
+                                        @if($devis->descrpt != null)
+                                            <i><u>Description:</u><br>{{$devis->descrpt}}</i>
+                                        @else
+                                        @endif
+                                    </td>
                                     <td>{{$devis->duree}} {{$devis->duree_type}}</td>
                             
                                     <!--<td>1</td>-->
