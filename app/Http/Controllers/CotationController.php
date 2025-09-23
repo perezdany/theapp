@@ -2646,11 +2646,23 @@ class CotationController extends Controller
         $valider_devis = DB::table('cotations')->where('id', $request->id)
         ->update(['valide' => 1]);
 
+         //dd('ici');
+        //RECUPERER LE CLIENT VOIR SI LE CLIENT EST PROSPETC LE METTRE A JOUR 
+        $get_clt = DB::table('cotations')->where('id', $request->id)->get();
+        //dd($get_clt);
+        foreach($get_clt as $c)
+        {
+            $u = DB::table('clients')->where('id', $c->id_client)
+            ->update(['id_statutclient' => 2]);
+            //dd($u);
+        }
+
         return back()->with('success', 'Devis validé');
     }
     public function ValideCotationO(Request $request)
     {
     
+        
         $date = Date('Y-m-d');
         $somme = 0;
         $count_services = DB::table('details_cotations')->where('cotation_id', $request->id)
@@ -2790,6 +2802,14 @@ class CotationController extends Controller
         //Ne pas oublier de valider le devis
         $valider_devis = DB::table('cotations')->where('id', $request->id)
         ->update(['valide' => 1]);
+        dd('ici');
+        //RECUPERER LE CLIENT VOIR SI LE CLIENT EST PROSPETC LE METTRE A JOUR 
+        $get_clt = DB::table('cotations')->where('id', $request->id)->get();
+        foreach($get_clt as $c)
+        {
+            $u = DB::table('clients')->where('id', $c->id_client)
+            ->update(['id_statutclient' => 2]);
+        }
 
         return back()->with('success', 'Devis validé');
     }

@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-         <h4 class="modal-title">Ajouter une dépense</h4>
+         <h4 class="modal-title">Ajouter une transaction</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
            
@@ -54,6 +54,18 @@
                             <div class="col-sm-12">
                             <input type="text" class="form-control" maxlength="100" wire:model="numero_cheque" 
                                 />
+                            </div>
+                        
+                        </div>
+
+                        <div class="row mb-3">
+                            <label  class="col-sm-12 col-form-label">Type (*):</label>
+                            <div class="col-sm-12">
+                            <select class="form-control"  wire:model="type_caisse" id="type_caisse" required>
+                                <option value="">--Choisir--</option>
+                                <option value="0">SORTIE</option>
+                                <option value="1">ENTREE</option>
+                            </select>
                             </div>
                         
                         </div>

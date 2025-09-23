@@ -382,9 +382,9 @@
                                         <label>Choisir le client</label>
                                             <select class="form-control" required name="id_client">
                                                 @php
-                                                    $clients = DB::table('clients')->get();
+                                                    $clients = DB::table('clients')->orderBy('nom', 'ASC')->get();
                                                 @endphp
-                                                
+                                                <option value="">--selectionner un client--</option>
                                                 @foreach($clients as $client)
                                                     <option value="{{$client->id}}">{{$client->nom}}</option>
                                                 @endforeach

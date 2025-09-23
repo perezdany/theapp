@@ -58,7 +58,19 @@
                         <div class="row mb-3">
                             <label  class="col-sm-12 col-form-label">Numéro de transaction </label>
                             <div class="col-sm-12">
-                            <input type="text" class="form-control" maxlength="100" wire:model="editDepense.numero" />
+                            <input type="text" class="form-control" maxlength="100" wire:model="editDepense.numero"/>
+                            </div>
+                        
+                        </div>
+
+                        <div class="row mb-3">
+                            <label  class="col-sm-12 col-form-label">Type (*):</label>
+                            <div class="col-sm-12">
+                            <select class="form-control"  wire:model="editDepense.type_caisse" id="type_caisse" >
+                                <option value="">--Choisir--</option>
+                                <option value="0">SORTIE</option>
+                                <option value="1">ENTREE</option>
+                            </select>
                             </div>
                         
                         </div>

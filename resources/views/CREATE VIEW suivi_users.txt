@@ -1,9 +1,9 @@
 CREATE VIEW suivi_users
-(id, title, color, start, end, id_projet, id_fournisseur, created_at, id_client, id_user, nom_prenoms)
+(id, title, color, start, end, id_projet, id_fournisseur, created_at, id_client, date_relance, more, id_user, nom_prenoms,)
 AS SELECT suivicommercials.id, suivicommercials.title, suivicommercials.color, 
 suivicommercials.start, suivicommercials.end, suivicommercials.id_projet, suivicommercials.id_fournisseur, 
- suivicommercials.created_at, projets.id_client, suivicommercials.id_user,
-users.nom_prenoms
+ suivicommercials.created_at, suivicommercials.id_client, suivicommercials.date_relance, suivicommercials.more, suivicommercials.id_user,
+users.nom_prenoms, clients.nom
 
-FROM users users, suivicommercials suivicommercials, projets, clients
-WHERE suivicommercials.id_user=users.id AND suivicommercials.id_projet=projets.id AND projets.id_client = clients.id
+FROM users users, suivicommercials suivicommercials, clients
+WHERE suivicommercials.id_user=users.id

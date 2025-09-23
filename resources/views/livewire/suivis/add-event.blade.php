@@ -88,6 +88,27 @@
                    
                 </div>
 
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Choisir le client</label>
+                        <select class="form-control" wire:model="id_client" name="id_client" id="id_client">
+                            @php
+                                $clients = DB::table('clients')->orderBy('nom', 'ASC')->get();
+                            @endphp
+                            <option value="">--selectionner un client--</option>
+                            @foreach($clients as $client)
+                                <option value="{{$client->id}}">{{$client->nom}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label>Observation/Commentaire/Plus de détails</label>
+                    <textarea wire:model="more" class="form-control" id="more">
+                    </textarea>
+                </div>
+
                 <div class="row modal-footer justify-content-between">
                     <button wire:click="close" type="button" class="btn btn-danger" data-dismiss="modal">Retour</button>
                     <button type="button" id="savebtn" class="btn btn-info float-right">Valider</button>

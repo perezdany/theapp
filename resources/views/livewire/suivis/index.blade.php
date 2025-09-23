@@ -5,13 +5,14 @@
 @endphp
 
 <div>
+     @include("livewire.suivis.edit")  
     @include("livewire.suivis.add-event")
     @include("livewire.suivis.calendar")
     
     @php
         //dd($events)
     @endphp
-
+   
     <script type="text/javascript">
        
         /*POUR CHARGHER LE COMPOSANT CALENDAR*/
@@ -59,12 +60,13 @@
                     $("#savebtn").click(function(){
                         var title = $("#title").val();
                         var end = $("#end").val().replace("T", " ");
-                       // var id_client = $("#id_client").val();
-                        var id_projet = $("#id_projet").val();
+                        var id_client = $("#id_client").val();
                         var id_fournisseur = $("#id_fournisseur").val();
+                        var more = $("#more").val();
+                        var id_projet = $("#id_projet").val();
                         var startime = $("#startime").val();
                         var start = info.dateStr
-                        //alert(title);
+                        //alert(more);
                         //var start = moment(start).format('YYYY-MM-DD');
                         //var end = moment(end).format('YYYY-MM-DD');
                         //console.log(start);
@@ -75,7 +77,7 @@
                             dataType: "json",
                             data:{ 
                                     title, start, end, 
-                                    id_projet, id_fournisseur, startime},
+                                    id_projet, id_fournisseur, id_client, more, startime,},
                             success:function(response)
                             {
                                 
@@ -165,9 +167,15 @@
                 },
 
                 eventClick: function(info){
+                    /*$("#editModal").modal(
+                    {
+                        "show" : true, 
+                        "backup": "static"
+                    }
+                    )*/
                     var id = info.event.id;
                     
-                    if(confirm('Voulez-vous vraiment supprimer cet evènement?'))
+                    /*if(confirm('Voulez-vous vraiment supprimer cet evènement?'))
                     {
                         $.ajax({
                             url:"delete"+"/"+id,
@@ -201,8 +209,7 @@
                             }
                             
                         })
-                    }
-
+                    }*/
                    
                 }
 

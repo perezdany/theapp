@@ -18,10 +18,21 @@ class Suivis extends Component
     public $id_projet; 
     public $id_fournisseur; 
     public $id_user;
+    public $more;
+    public $client;
+    public $editSuivi = [];
 
     public $t_colour = ["AliceBlue", "AntiqueWhite", "Aqua", "Black",
     "CornflowerBlue", "DarkGoldenRod", "DarkGreen", "DeepPink", "Gold",
     "Indigo", "LightCoral", "LightSeaGreen",];
+
+    public function editmodal(Suivicommercial $suivi)
+    {
+        //dd('ici'); 
+        $this->editSuivi = $suivi->toArray();
+
+        $this->dispatch('editmodal');
+    }
 
     public function addEvent()
     {
@@ -29,13 +40,13 @@ class Suivis extends Component
         $end = str_replace('T', ' ', $this->end );
 
         $i = rand(0, 11);
-
+        //dd('ici');
         $create = Suivicommercial::create(
             [ 
                 'title' => $this->title, 'color' => $this->t_colour[$i], 
                 'start' => $this->start, 'end' => $this->end, 
                 'id_projet' => $this->id_projet, 'id_fournisseur' => $this->id_fournisseur, 
-                'id_client' => $this->id_client,  'id_user' => auth()->user()->id
+                'id_client' => $this->id_client,  'more'=> $this->more, 'id_user' => auth()->user()->id
             ]
         );
         session()->flash('success', 'Enregistrement effectué');
@@ -60,6 +71,7 @@ class Suivis extends Component
 
         if($get !== 0)//C'est un admin
         {
+           
             $this->events = Suivicommercial::all();
             foreach($this->events as $event)
             {
@@ -78,6 +90,7 @@ class Suivis extends Component
         }
         else
         {
+          
             $this->events = Suivicommercial::where('id_user', auth()->user()->id)->get();
             //dd($this->events);
             foreach($this->events as $event)

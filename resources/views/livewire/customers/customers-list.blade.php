@@ -65,11 +65,11 @@
 
                     <div class="col-md-2 input-group input-group-sm">
                       
-                        <select class="form-control" id="si_actif" wire:model.live.debounce.250ms="si_actif">
+                        <!--<select class="form-control" id="si_actif" wire:model.live.debounce.250ms="si_actif">
                             <option value="">Actif</option>
                             <option value="1">OUI</option>
                             <option value="0">NON</option>
-                        </select>   
+                        </select>   -->
                     </div>    
                    
                 </div>

@@ -16,7 +16,7 @@
                         <div class="form-group">
                         <label>Titre de l'évenement</label>
                         <input type="text"  wire:model="editSuivi.title" id="title" class="form-control" 
-                        maxlenght="150" placeholder="Entrer ..."  required>
+                        maxlenght="150" placeholder="Entrer ..."  disabled>
                         <span id="titleError" class="text-danger"></span>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                         <div class="form-group">
                         <label>Date de l'évenement</label>
                         <input type="datetime-local"  wire:model="editSuivi.start" 
-                        class="form-control" maxlenght="150" placeholder="Entrer ..." >
+                        class="form-control" maxlenght="150" placeholder="Entrer ..." disabled >
                         </div>
                     </div>
                    
@@ -48,7 +48,7 @@
                         <div class="form-group">
                         <label>Date-Heure de fin</label>
                         <input type="datetime-local"  wire:model="editSuivi.end"  id="end" class="form-control"
-                         maxlenght="150" placeholder="Entrer ..." required >
+                         maxlenght="150" placeholder="Entrer ..." disabled >
                         </div>
                         <span id="endError" class="text-danger"></span>
                     </div>
@@ -60,7 +60,7 @@
                          
                         <div class="form-group">
                         <label>Projet</label>
-                        <select wire:model="editSuivi.id_projet" class="form-control" id="id_projet">
+                        <select wire:model="editSuivi.id_projet" class="form-control" id="id_projet" disabled>
                             @php
                                 $get_projet = DB::table('projets')->get();
                             @endphp
@@ -76,7 +76,7 @@
                          
                         <div class="form-group">
                         <label>Fournisseur</label>
-                        <select wire:model="editSuivi.id_fournisseur" class="form-control" id="id_fournisseur">
+                        <select wire:model="editSuivi.id_fournisseur" class="form-control" id="id_fournisseur" disabled>
                             @php
                                 $f = DB::table('fournisseurs')->get();
                             @endphp
@@ -93,7 +93,7 @@
                  <div class="row">
                     <div class="form-group col-md-6">
                         <label>Choisir le client</label>
-                        <select class="form-control" wire:model="editSuivi.id_client" name="id_client">
+                        <select class="form-control" wire:model="editSuivi.id_client" name="id_client" disabled>
                             @php
                                 $clients = DB::table('clients')->orderBy('nom', 'ASC')->get();
                             @endphp
@@ -107,7 +107,7 @@
 
                 <div class="row">
                     <label>Observation/Commentaire/Plus de détails</label>
-                    <textarea wire:model="editSuivi.more" class="form-control" id="more">
+                    <textarea wire:model="editSuivi.more" class="form-control" id="more" disabled>
                     </textarea>
                 </div>
 

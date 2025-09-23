@@ -336,15 +336,24 @@
                 @endphp
                 
                 @foreach($condition as $condition)
-                    <p><u>Conditions de paiement</u> :<br>
-                    <i style="color:red">{{$condition->id_condition}}</i><br>
-                    <p><u>Délais de livraison</u> :<br>
-                    <i style="color:red">{{$condition->delais_livraison}}</i><br>
-                    <p><u>Disponibilité</u> :<br>
-                    <i style="color:red">{{$condition->dispo}}</i><br><br><br>
-                @endforeach</p>
-            
-                
+                    @if($condition->id_condition != null)
+                        <p><u>Conditions de paiement</u> :<br>
+                        <i style="color:red">{{$condition->id_condition}}</i><br></p>
+                    @else
+                    @endif
+                    @if($condition->delais_livraison != null)
+                        <p><u>Délais de livraison</u> :<br>
+                        <i style="color:red">{{$condition->delais_livraison}}</i><br></p>
+                    @else
+                    @endif
+                    @if($condition->dispo)
+                        <p><u>Disponibilité</u> :<br>
+                        <i style="color:red">{{$condition->dispo}}</i><br><br><br></p>
+                    @else
+                    @endif
+
+                @endforeach
+
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
                     <div class="col-12">
@@ -362,14 +371,27 @@
                         @endphp
                         @foreach($voir_valider as $voir_valider)
                             @if($voir_valider->valide == 0)
-                                 <form action="gocreateinvoice" method="post">
-                                    @csrf
-                                    <input type="text" style="display:none;" value="{{$id_cotation}}" name="id_cotation">
-                                    <input type="text" style="display:none;" value="{{$pour_facture}}" name="montant_facture">
-                                    <button type="submit" class="btn btn-primary float-right">
-                                    <i class="fa fa-file"></i> Créer une facture
-                                    </button>
-                                </form>
+                                @can("facturier")
+                                    <form action="gocreateinvoice" method="post">
+                                        @csrf
+                                        <input type="text" style="display:none;" value="{{$id_cotation}}" name="id_cotation">
+                                        <input type="text" style="display:none;" value="{{$pour_facture}}" name="montant_facture">
+                                        <button type="submit" class="btn btn-primary float-right">
+                                        <i class="fa fa-file"></i> Créer une facture
+                                        </button>
+                                    </form>
+                                @endcan
+
+                                @can("super_admin")
+                                    <form action="gocreateinvoice" method="post">
+                                        @csrf
+                                        <input type="text" style="display:none;" value="{{$id_cotation}}" name="id_cotation">
+                                        <input type="text" style="display:none;" value="{{$pour_facture}}" name="montant_facture">
+                                        <button type="submit" class="btn btn-primary float-right">
+                                        <i class="fa fa-file"></i> Créer une facture
+                                        </button>
+                                    </form>
+                                @endcan
                             @else
                                 <form action="print_invoice" method="post" target="blank">
                                     @csrf

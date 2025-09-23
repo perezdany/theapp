@@ -367,6 +367,22 @@ Route::middleware(['auth'])->group(function(){
             //MODIFICATION EN GLISSANT DANS LE CALENDRIER
             Route::patch('updatesuivi/{id}', [SuiviController::class, 'UpdateSuivi']);
 
+            //PAGE DE SUIVI PROSPECT
+             Route::get('suivi_prospect', [SuiviController::class, 'PageSuiviProspect']);
+
+            //AJOUTER UN SUIVI DE PROSPECT
+            Route::post('addsuiviprospect', [SuiviController::class, 'AddSuiviProspect']);
+
+            //MODIFIER LE SUIVI PROSPECT
+            Route::post('updatesuiviprospect', [SuiviController::class, 'UpdateSuiviProspect']);
+
+            //LES FILTRES DANS LA TABLE SUIVI DE PROSPECT
+            Route::post('filter_date_suivi_prospect', [SuiviController::class, 'FilterDate']);
+
+            Route::post('filter_user_suivi_prospect', [SuiviController::class, 'FilterUser']);
+
+            Route::post('filter_search_suivi_prospect', [SuiviController::class, 'FilterSearchSuiviProspect']);
+
             //EN CLIQUANT TU SUPPRIME DANS LE CALENDRIER 
             Route::delete('delete/{id}', [SuiviController::class, 'deleteSuivi']);
 

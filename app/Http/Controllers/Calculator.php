@@ -1322,4 +1322,69 @@ class Calculator extends Controller
         //dd($numero_devis);
         return $numero_devis;
     }
+
+       public function GenerateNumDevis($date)
+    {
+        //$service
+        //dd($date);
+        $date_aujourdhui = Date('Y-m-d');
+        //dd($date_aujourdhui);
+        $recup_les_devis = Cotation::where('date_creation', $date)->count();
+        //dd($recup_les_devis);
+        if($recup_les_devis != 0 )
+        {
+            //dd('ici');
+            //IL EXISTE DES FACTURES
+            //ON INCREMENTE LE DERNIER ID
+            $nouveau_id = $recup_les_devis + 1;
+            //CONVERTIR EN STRING
+            $to_chaine = strval($nouveau_id);
+            //FAIRE LA DIFFRENCE POUR LA TAILLE EN VU DE VOIR LE NOMRE DE ZERO A AJOUTER 
+            $taille_to_chaine = strlen($to_chaine);
+            $diff_taille = 3 - $taille_to_chaine;
+            //dd($diff_taille);
+            $i= 0;
+            $id = "";
+            //FAIRE UNE BOUCLE POUR ECRIRE L'ID A LA SUITE DU CODE DU SERVIE
+            while ($i < $diff_taille) {
+                $id = $id."0";
+                $i++;
+            }
+            $id = $id."".$nouveau_id;
+            //dd($id);
+            $recup_les_devis = Cotation::where('date_creation', $date)->orderBy('id', 'DESC')->get('id', 'numero_facture');
+             
+            /*foreach($recup_les_devis as $recup)
+            {
+                //$serv = DB::table('services')->where('id', $service)->get(['code']);
+                foreach($serv as $serv)
+                {
+                    
+                }
+            }*/
+
+            $timestamp = strtotime($date);
+            $date_f = date("Ymd",  $timestamp);
+            $numero_devis = "DEVIS-".$date_f."-".$id;
+
+            //dd($numero_devis);
+           
+        }
+        else
+        {
+            //dd('la');
+            //$serv = DB::table('services')->where('id', $service)->get(['code']);
+            /*foreach($serv as $serv)
+            {
+                $numero_devis = "DEVIS-".Date('dmY')."-001";
+            }*/
+            //dd($numero_devis);
+            $timestamp = strtotime($date);
+            $date_f = date("Ymd",  $timestamp);
+            $numero_devis = "DEVIS-".$date_f."-001";
+           
+        }
+        //dd($numero_devis);
+        return $numero_devis;
+    }
 }

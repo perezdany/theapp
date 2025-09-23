@@ -17,30 +17,17 @@
                 <div class="row">
                     Date de création:
                     <div class="col-xs-2">
-                        <select class="" id="compare" wire:model.live.debounce.250ms="compare">
-                            <option value="">Choisir</option>
-                            <option value="<"><</option> 
-                            <option value=">">></option>
-                            <option value="=">=</option>                              
-                        </select>   
+                        <input type="date" class="form-controller" wire:model.live.debounce.250ms="compare">
                     </div>
                     <div class="col-xs-2">
-                        <select class="" id="anne_depuis" wire:model.live.debounce.250ms="annee">
-                            <option value="">Choisir</option>
-                            @php
-                                $annee_fin = "2050";
-                                for($annee="2014"; $annee<=$annee_fin; $annee++)
-                                {
-                                    echo'<option value='.$annee.'>'.$annee.'</option>';
-                                }
-                            @endphp
+                        <input type="date" class="form-controller" wire:model.live.debounce.250ms="annee">
                             
-                        </select>   
                     </div>
                 </div><br>
                 <div class="row">
                 
                     <div class="col-md-2 input-group input-group-sm">
+                        @can("super_admin")
                         <select class="form-control" id="departement" wire:model.live.debounce.250ms="user">
                             <option value="">Utilisateurs</option>
                             @php
@@ -51,6 +38,7 @@
                             @endforeach
                             
                         </select>   
+                        @endcan
                     </div>    
 
                     <div class="col-md-2 input-group input-group-sm">
@@ -124,12 +112,14 @@
                         <th>Projet</th>
                         <th>Fournisseur</th>
                         <th>Client</th>
+                        <th>Details</th>
+                        <!--<th>Date de relance</th>-->
                         <th>Mod/Supp</th>
                     </tr>
                 </thead>
                 <tbody>
                 @forelse($suivis as $suivi)
-                        <tr class="align-middle">
+                    <tr class="align-middle">
                         <td>{{$suivi->title}}</td>
                         <td>@php echo date('d/m/Y',strtotime($suivi->start)) ;
                         echo "à".date('H:i:s',strtotime($suivi->start));@endphp</td>
@@ -164,71 +154,77 @@
                         <td>
                             {{$suivi->nom}}
                         </td>
-                       
                         <td>
-                        <div class="row">
-                            @can("edit")
-                            <div class="col-sm-6">
-                                <button wire:click="editmodal('{{$suivi->id}}')"
-                               class="btn btn-info"><i class="fa fa-edit"></i></button>
-                               
-                            </div>
-                            @endcan
-                            @can("delete")
-                            <div class="col-sm-6">
-                                <button class="btn btn-danger" 
-                                data-toggle="modal" data-target="#delete{{$suivi->id}}" >
-                                 <b><i class="fa fa-trash"></i></b></button>
-                                <div class="modal fade" id="delete{{$suivi->id}}"  wire:ignore.self  role="dialog" aria-hidden="true" >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!--begin::Form-->
-                                            <form method="post" action="deletesuivi">
-                                                <!--begin::Body-->
-                                                @csrf
-                                                <label style="text-align:center; color:red">Voulez vous vraiment supprimer ?</label>
-                                                <input type="text" class="form-control" value="{{$suivi->id}}" wire-model="id" 
-                                                name="id" id="{{$suivi->id}}" style="display:none;">
+                            {{$suivi->more}}
+                        </td>
+                        <!--<td>
+                            @php 
+                                //echo date('d/m/Y',strtotime($suivi->date_relance));
+                            @endphp
+                        </td>-->
+                        <td>
+                            <div class="row">
+                                @can("edit")
+                                <div class="col-sm-6">
+                                    <button wire:click="editmodal('{{$suivi->id}}')"
+                                class="btn btn-info"><i class="fa fa-edit"></i></button>
+                                
+                                </div>
+                                @endcan
+                                @can("delete")
+                                <div class="col-sm-6">
+                                    <button class="btn btn-danger" 
+                                    data-toggle="modal" data-target="#delete{{$suivi->id}}" >
+                                    <b><i class="fa fa-trash"></i></b></button>
+                                    <div class="modal fade" id="delete{{$suivi->id}}"  wire:ignore.self  role="dialog" aria-hidden="true" >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h4 class="modal-title">ATTENTION <!--<ion-icon name="warning-outline" ></ion-icon>--></h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!--begin::Form-->
+                                                <form method="post" action="deletesuivi">
+                                                    <!--begin::Body-->
+                                                    @csrf
+                                                    <label style="text-align:center; color:red">Voulez vous vraiment supprimer ?</label>
+                                                    <input type="text" class="form-control" value="{{$suivi->id}}" wire-model="id" 
+                                                    name="id" id="{{$suivi->id}}" style="display:none;">
 
-                                                <!--end::Body-->
-                                                 <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', 
-                                                 '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
-                                                <div class=" row modal-footer justify-content-between" style="aling:center">
-                                                
-                                                <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" data-dismiss="modal">NON</button>
-                                        
-                                                <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
-                                                        
+                                                    <!--end::Body-->
+                                                    <!--begin::Footer delete($type->id)  wire:click="confirmDelete(' $type->nom_prenoms ', 
+                                                    '$type->id' )"data-toggle="modal" data-target="#delete(user->id)"-->
+                                                    <div class=" row modal-footer justify-content-between" style="aling:center">
                                                     
-                                                </div>
-                                                <!--end::Footer-->
-                                               
+                                                    <button type="button" wire:click="close" class="btn btn-danger btn-lg col-md-3" data-dismiss="modal">NON</button>
+                                            
+                                                    <button type="submit"  class="btn btn-success btn-lg col-md-3">OUi</button>
+                                                            
+                                                        
+                                                    </div>
+                                                    <!--end::Footer-->
                                                 
-                                            </form>
-                                            <!--end::Form-->
-                                        </div> 
+                                                    
+                                                </form>
+                                                <!--end::Form-->
+                                            </div> 
+                                            </div>
+                                            <!-- /.modal-content -->
                                         </div>
-                                        <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div>    
-                                <!-- /.modal -->
-                               
+                                        <!-- /.modal-dialog -->
+                                    </div>    
+                                    <!-- /.modal -->
+                                
+                                </div>
+                                @endcan
                             </div>
-                            @endcan
-                        </div>
                         </td>
                     </tr>
                 @empty
                     <tr colspan="9">
                         <div class="alert alert-info alert-dismissible">
-                            
                             <h4><i class="icon fa fa-ban"></i> Oups!</h4>
                             Aucune donnée trouvée
                         </div>

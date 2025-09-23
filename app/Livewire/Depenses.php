@@ -13,7 +13,7 @@ use App\Models\Depense_user;
 class Depenses extends Component
 {
     use WithPagination; //POUR LA PAGINATION
-    protected $paginationTheme = "bootstrap";
+    //protected $paginationTheme = "bootstrap";
 
     public $orderField = 'updated_at';
     public $orderDirection = 'DESC';
@@ -26,6 +26,7 @@ class Depenses extends Component
     public $id_user;
     public $user = ''; 
     public $compare, $annee;
+    public $type_caisse;
 
     public $editDepense = [];
     public $Details = [];
@@ -70,6 +71,7 @@ class Depenses extends Component
                 'montant' => $this->montant,
                 'numero' => $this->numero_cheque,
                 'objet' => $this->objet,
+                'type_caisse' => $this->type_caisse,
                 'id_user' => auth()->user()->id,
             ]
         );
@@ -89,12 +91,13 @@ class Depenses extends Component
                 'montant' => $this->editDepense['montant'],
                 'numero' => $this->editDepense['numero'],
                 'objet' => $this->editDepense['objet'],
+                'type_caisse' => $this->editDepense['type_caisse'],
             
         ]);
-        //session()->flash('success', 'Modification effectuée');
-        $this->dispatch('showUpdSuccessMessage');
-        $this->dispatch('closeUpdateModal');
-        //return $this->redirect('/depenses');
+        session()->flash('success', 'Modification effectuée');
+        //$this->dispatch('showUpdSuccessMessage');
+        //$this->dispatch('closeUpdateModal');
+        return $this->redirect('/depenses');
         
         //$this->reset();
         //return back()->with('success', 'Modification effectuée');
@@ -142,6 +145,7 @@ class Depenses extends Component
         }
 
 
-        return view('livewire.depenses.index',  ['depenses' => $depenseQuery->orderBy($this->orderField, $this->orderDirection)->paginate(10)]);
+        return view('livewire.depenses.index',  ['depenses' => $depenseQuery->orderBy($this->orderField, $this->orderDirection)->get(),
+         'date_finale' => $this->compare]);
     }
 }

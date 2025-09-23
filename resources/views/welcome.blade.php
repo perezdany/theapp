@@ -26,25 +26,48 @@
     <!-- /.content-header -->
     <!-- Info boxes -->
     <div class="row">
-        <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box">
-            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-file-invoice"></i></span>
+        @can('facturier')
+            <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fa fa-file-invoice"></i></span>
 
-            <div class="info-box-content">
-            <span class="info-box-text">Factures</span>
-            <span class="info-box-number">
-                @php
-                    $f = $calculator->CountFacture();
-                @endphp
-                {{$f}}
-                <!--<small>%</small>-->
-            </span>
+                <div class="info-box-content">
+                <span class="info-box-text">Factures</span>
+                <span class="info-box-number">
+                    @php
+                        $f = $calculator->CountFacture();
+                    @endphp
+                    {{$f}}
+                    <!--<small>%</small>-->
+                </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        @endcan
+        @can('super_admin')
+            <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fa fa-file-invoice"></i></span>
+
+                <div class="info-box-content">
+                <span class="info-box-text">Factures</span>
+                <span class="info-box-number">
+                    @php
+                        $f = $calculator->CountFacture();
+                    @endphp
+                    {{$f}}
+                    <!--<small>%</small>-->
+                </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        @endcan
         <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
@@ -64,41 +87,84 @@
         <!-- /.col -->
         <!-- fix for small devices only -->
         <!-- <div class="clearfix hidden-md-up"></div> -->
-        <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+        @can('commercial')
+            <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
-            <div class="info-box-content">
-            <span class="info-box-text">Clients</span>
-            <span class="info-box-number">
-                @php
-                    $c = $calculator->CountCustomer();
-                @endphp
-                {{$c}}
-            </span>
+                <div class="info-box-content">
+                <span class="info-box-text">Clients</span>
+                <span class="info-box-number">
+                    @php
+                        $c = $calculator->CountCustomer();
+                    @endphp
+                    {{$c}}
+                </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-bullseye "></i></span>
-            <div class="info-box-content">
-            <span class="info-box-text">Prospects</span>
-            <span class="info-box-number">
-                @php
-                    $p = $calculator->CountProspect();
-                @endphp
-                {{$p}}
-            </span>
+            <!-- /.info-box -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
+            <!-- /.col -->
+        @endcan
+        @can('super_admin')
+            <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+                <div class="info-box-content">
+                <span class="info-box-text">Clients</span>
+                <span class="info-box-number">
+                    @php
+                        $c = $calculator->CountCustomer();
+                    @endphp
+                    {{$c}}
+                </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        @endcan
+        @can("commercial")
+            <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-bullseye "></i></span>
+                <div class="info-box-content">
+                <span class="info-box-text">Prospects</span>
+                <span class="info-box-number">
+                    @php
+                        $p = $calculator->CountProspect();
+                    @endphp
+                    {{$p}}
+                </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        @endcan
+        @can("super_admin")
+            <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-bullseye "></i></span>
+                <div class="info-box-content">
+                <span class="info-box-text">Prospects</span>
+                <span class="info-box-number">
+                    @php
+                        $p = $calculator->CountProspect();
+                    @endphp
+                    {{$p}}
+                </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        @endcan
     </div>
     <!-- /.row -->
     
@@ -106,14 +172,18 @@
     <div class="row">
         <!-- Start col -->
         <div class="col-md-6">
-        
-            <!--begin::Latest Order Widget-->
-           @include('recentes-factures')
+            @can("facturier")
+                <!--begin::Latest Order Widget-->
+                @include('recentes-factures')
+            @endcan
+
+            @can("super_admin")
+                <!--begin::Latest Order Widget-->
+                @include('recentes-factures')
+            @endcan
         </div>
         <!-- /.col -->
         <div class="col-md-6">
-        
-        
             <!-- PRODUCT LIST -->
             <div class="card">
                 <div class="card-header">
@@ -138,7 +208,6 @@
                             <th>Code</th>
                             <th>Désignation</th>
                             <th>Type</th>
-                            
                         </tr>
                         </thead>
                         <tbody>
@@ -152,9 +221,7 @@
                                     <td><b>{{$article->code}}</b> </td>
                                     <td>{{$article->designation}}</td>
                                     <td>{{$article->libele}}</td>
-                                
                                 </tr>
-                            
                             @endforeach
 
                         </tbody>
@@ -174,6 +241,5 @@
         <!-- /.col -->
     </div>
     <!--end::Row-->
-       
-  
+    
 @endsection

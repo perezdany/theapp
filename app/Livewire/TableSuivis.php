@@ -9,6 +9,8 @@ use App\Models\Suivicommercial;
 
 use Livewire\WithPagination;
 
+use DB;
+
 class Tablesuivis extends Component
 {
     use WithPagination; //POUR LA PAGINATION
@@ -47,6 +49,7 @@ class Tablesuivis extends Component
                 'title' => $this->editSuivi['title'], 
                 'start' => $this->editSuivi['start'], 'end' => $this->editSuivi['end'], 
                 'id_projet' => $this->editSuivi['id_projet'], 'id_fournisseur' => $this->editSuivi['id_fournisseur'], 
+                'more' => $this->editSuivi['more'],
                   
             ]
         );
@@ -57,12 +60,30 @@ class Tablesuivis extends Component
 
     public function render()
     {   
-        $suiviQuery = Suivi_user::query();
+        $get =  DB::table('role_user')->join('roles', 'role_user.role_id', '=', 'roles.id')
+        ->join('users', 'role_user.user_id', '=', 'users.id')
+        ->where('user_id', auth()->user()->id)
+        ->where('roles.intitule', "super_admin")->count();
+  
+        if($get != 0)
+        {
+            $suiviQuery = Suivi_user::query();
+        }
+        else
+        {
+            $suiviQuery = Suivi_user::query()->where('id_user', auth()->user()->id);
+        }
+        
 
         if($this->compare != "" AND $this->annee != "")
         {
             
-            if($this->compare == "=")
+            /*$convert1 = date('Y-m-d H:i:s',strtotime($this->annee));
+            $convert2 = date('Y-m-d H:i:s',strtotime($this->compare));*/
+            //d($this->annee);
+            $suiviQuery->where("start", '>=', $this->compare)->where("end", '<=', $this->annee);
+            
+            /*if($this->compare == "=")
             {
                 $annee = $this->annee."-01-01";
                 $annee_f = $this->annee."-12-31";
@@ -78,7 +99,7 @@ class Tablesuivis extends Component
             {
                 $annee = $this->annee."-12-31";
                 $suiviQuery->where("created_at", $this->compare,  $annee);
-            }
+            }*/
             
         }
 

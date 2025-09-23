@@ -107,11 +107,25 @@ class FactureController extends Controller
         //Ne pas oublier de valider le devis
         $valider_devis = DB::table('cotations')->where('id', $request->id_cotation)
         ->update(['valide' => 1]);
+
+        //METTRE LE CLIENT EN DEFINITIF
+        //dd('ici');
+        //RECUPERER LE CLIENT VOIR SI LE CLIENT EST PROSPETC LE METTRE A JOUR 
+        $get_clt = DB::table('cotations')->where('id', $request->id_cotation)->get();
+        //dd($get_clt);
+        foreach($get_clt as $c)
+        {
+            $u = DB::table('clients')->where('id', $c->id_client)
+            ->update(['id_statutclient' => 2]);
+            //dd($u);
+        }
        
         return view('livewire/factures/seefacture',[
             'id_cotation' => $request->id_cotation,
             'id_facture' => $insert->id
         ]);
+
+       
     }
 
     public function DisplayFacture(Request $request)
